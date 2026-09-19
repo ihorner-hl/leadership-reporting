@@ -240,7 +240,30 @@
         0,
         "$15M"
       ]
-    ]
+    ],
+    "flow": {
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug"
+      ],
+      "referred": [
+        3,
+        2,
+        4,
+        3,
+        2,
+        6,
+        2,
+        5
+      ],
+      "note": "bars = referrals given / month · 27 YTD · as at 6 Sep export"
+    }
   },
   "salesPipeline": {
     "source": "HubSpot (live) — cut over from Creatio",
@@ -427,7 +450,37 @@
         1
       ]
     ],
-    "goLiveContext": "Oscars Group — Signed — ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge."
+    "goLiveContext": "Oscars Group — Signed — ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge.",
+    "monthly": {
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul"
+      ],
+      "won": [
+        89148,
+        53717,
+        200064,
+        34236,
+        39372,
+        77748,
+        15377
+      ],
+      "invoiced": [
+        30732,
+        66948,
+        44352,
+        58572,
+        70788,
+        45408,
+        90012
+      ],
+      "note": "register series as last published (10 Aug deck, Creatio ARR basis) — post-cutover refresh pending"
+    }
   },
   "backlog": {
     "source": "HubSpot (live) — cut over from Creatio",
@@ -477,7 +530,28 @@
         "out": 591
       }
     ],
-    "spikeNote": "09-07 resolved spike (1,250) is migration cleanup, not real throughput"
+    "spikeNote": "09-07 resolved spike (1,250) is migration cleanup, not real throughput",
+    "bandSnapshots": [
+      {
+        "label": "W/E 13 Sep",
+        "bands": [
+          236,
+          259,
+          151,
+          35
+        ]
+      },
+      {
+        "label": "Fri 19 Sep",
+        "bands": [
+          200,
+          242,
+          118,
+          10
+        ]
+      }
+    ],
+    "bandNote": "age-band history restarts at cutover — pre-8-Sep weeks can't be restated (migration re-dated old closes)"
   },
   "aiAgent": {
     "source": "HubSpot draft state machine (live)",
@@ -1010,7 +1084,42 @@
         "Web pages & styles",
         9
       ]
-    ]
+    ],
+    "weeklyLoc": {
+      "labels": [
+        "07 Jun",
+        "14",
+        "21",
+        "28",
+        "05 Jul",
+        "12",
+        "19",
+        "26",
+        "02 Aug",
+        "09",
+        "16",
+        "23",
+        "30",
+        "06 Sep"
+      ],
+      "valuesK": [
+        28,
+        28,
+        28,
+        41,
+        52,
+        52,
+        52,
+        48,
+        28,
+        78,
+        87,
+        68,
+        60,
+        66
+      ],
+      "note": "cell = one week (thousands of lines) · early weeks estimated from rolling windows · wk to 11 Sep = latest capture"
+    }
   },
   "projects": {
     "asAt": "19 Sep 2026",
