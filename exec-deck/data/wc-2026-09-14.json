@@ -1,0 +1,1052 @@
+{
+  "week": {
+    "label": "Week commencing 14 September 2026",
+    "wc": "2026-09-14",
+    "range": "Mon 14 Sep – Sun 20 Sep 2026",
+    "generated": "19 Sep 2026",
+    "quarterPacePct": 89,
+    "quarterPaceNote": "day 82 of 92 in Q3 (Jul–Sep) at week end 20 Sep",
+    "monthPacePct": 67,
+    "notes": "First deck fully on post-cutover sources. HubSpot went live 8 Sep 2026; Creatio extracts ended 4 Sep. The WC 7 Sep deck was not produced during cutover — weekly deltas that lean on file drops bridge two weeks where flagged."
+  },
+  "cutover": {
+    "creatioLastExtract": "2026-09-04",
+    "hubspotLive": "2026-09-08",
+    "register": [
+      {
+        "area": "Support volumes & backlog",
+        "old": "Creatio case export",
+        "new": "HubSpot (live)",
+        "status": "LIVE",
+        "note": "Inflow/outflow, backlog and age bands read live. 7 Sep week shows a resolved spike (1,250) from migration cleanup — not real throughput."
+      },
+      {
+        "area": "Unanswered / first response",
+        "old": "Creatio",
+        "new": "HubSpot (live)",
+        "status": "BASIS CHANGE",
+        "note": "Now measured from HubSpot conversations. Migrated tickets with no HubSpot reply count as unanswered — overstates during transition."
+      },
+      {
+        "area": "Sales pipeline & closed-won",
+        "old": "Creatio ARR measure",
+        "new": "HubSpot (live)",
+        "status": "BASIS CHANGE",
+        "note": "HubSpot deal amount (AUD, home currency) replaces the Creatio ARR measure — levels shift, trends restart. Weighted = HubSpot stage probabilities."
+      },
+      {
+        "area": "AI Support Agent",
+        "old": "Creatio export (rejects not separable)",
+        "new": "HubSpot draft state machine (live)",
+        "status": "UPGRADE",
+        "note": "ai_draft_status now tracks sent as-is / edited / rejected / pending — the decision rate is measurable for the first time."
+      },
+      {
+        "area": "PS utilisation & hours",
+        "old": "Creatio work orders",
+        "new": "HubSpot actual_hours (ramping)",
+        "status": "NOT SET UP",
+        "note": "Work-order feed ended 4 Sep. HubSpot time logging covers too few cases to compute utilisation honestly — shown as not set up, not faked."
+      },
+      {
+        "area": "Finance invoiced (Sysnet)",
+        "old": "Weekly file drop",
+        "new": "Weekly file drop (unchanged)",
+        "status": "LAGGED",
+        "note": "Latest extract covers 7–13 Sep. Movement register (new-MRR line of record) refresh pending post-cutover."
+      },
+      {
+        "area": "Product / GTM / AI usage / ValPay",
+        "old": "File drops",
+        "new": "File drops (unchanged)",
+        "status": "AS BEFORE",
+        "note": "GTM tracker current; Claude admin capture 11 Sep; ValPay export as at 6 Sep — weekly drop pending."
+      }
+    ]
+  },
+  "execSummary": {
+    "finance": "hardware $373k = 52% of $715k vs 89% pace; extract week +$38k; new-MRR register refresh pending",
+    "sales": "closed-won this week 46 deals · $161k (HubSpot); Q3 pipe $335k unweighted / $123k weighted",
+    "ps": "utilisation not measurable during cutover — HubSpot time logging ramping (99h on 48 cases)",
+    "support": "weekly inflow 490 vs resolved 591 — backlog 570 and falling",
+    "product": "Q3 roadmap: 10 done · 12 on track · 3 not started · 2 at risk",
+    "aiUsage": "AI-draft adoption 6.2% this week (4/65) — first HubSpot-measured week"
+  },
+  "targetVsInvoiced": {
+    "source": "Sysnet extract 7–13 Sep + sales targets · register refresh pending",
+    "extractWeek": "7–13 Sep 2026",
+    "mrr": {
+      "okr2": 28000,
+      "team": 30000,
+      "qtd": 11000,
+      "asAt": "6 Sep",
+      "deltaWk": null,
+      "deltaNote": "register pending",
+      "extractNewSubsBilling": 871
+    },
+    "hardware": {
+      "okr2": 715000,
+      "team": 761000,
+      "qtd": 373037,
+      "deltaWk": 38479
+    },
+    "members": [
+      {
+        "name": "Bjorn Magabo",
+        "mrrTgt": 5000,
+        "mrrQtd": 3850,
+        "hwTgt": 140000,
+        "hwQtd": 47400,
+        "hwDelta": 2400
+      },
+      {
+        "name": "Brett Gorman",
+        "mrrTgt": 5000,
+        "mrrQtd": 2950,
+        "hwTgt": 143000,
+        "hwQtd": 76294,
+        "hwDelta": 21294
+      },
+      {
+        "name": "Bradford Young",
+        "mrrTgt": 5000,
+        "mrrQtd": 2350,
+        "hwTgt": 163000,
+        "hwQtd": 46290,
+        "hwDelta": 2290
+      },
+      {
+        "name": "Jasmine Hikuroa",
+        "mrrTgt": 6000,
+        "mrrQtd": 1680,
+        "hwTgt": 214000,
+        "hwQtd": 115955,
+        "hwDelta": 11955
+      },
+      {
+        "name": "Phuong Ho",
+        "mrrTgt": 2000,
+        "mrrQtd": 154,
+        "hwTgt": 55000,
+        "hwQtd": 12540,
+        "hwDelta": 540
+      },
+      {
+        "name": "Mick Teasdale",
+        "mrrTgt": 3000,
+        "mrrQtd": 0,
+        "hwTgt": 46000,
+        "hwQtd": null,
+        "hwDelta": null
+      },
+      {
+        "name": "Unassigned",
+        "mrrTgt": 4000,
+        "mrrQtd": 40,
+        "hwTgt": 0,
+        "hwQtd": null,
+        "hwDelta": null
+      }
+    ]
+  },
+  "newProducts": {
+    "source": "HubSpot (keyword-matched deal names) + product plan",
+    "monthCommitted": 30000,
+    "monthRecorded": 0,
+    "monthNote": "2 Roam wins closed in Sep carry no MRR value — tagging gap, not zero traction",
+    "products": [
+      {
+        "name": "QR Ordering (OrderNow)",
+        "moTgt": 25000,
+        "qtdMrr": 0,
+        "note": "0%",
+        "wkPipe": "—",
+        "decTgt": 83000,
+        "openPipe": "4 · $598/mo"
+      },
+      {
+        "name": "Data Product BI",
+        "moTgt": null,
+        "qtdMrr": 0,
+        "note": "starts Oct",
+        "wkPipe": "—",
+        "decTgt": 13000,
+        "openPipe": "0 · $0"
+      },
+      {
+        "name": "Sentinel",
+        "moTgt": 900,
+        "qtdMrr": 0,
+        "note": "0%",
+        "wkPipe": "—",
+        "decTgt": 9000,
+        "openPipe": "2 · $598/mo"
+      },
+      {
+        "name": "Roam (MobilePOS)",
+        "moTgt": 4000,
+        "qtdMrr": 0,
+        "note": "2 wins · MRR untagged",
+        "wkPipe": "+10 deals",
+        "decTgt": 32000,
+        "openPipe": "18 · $372/mo"
+      }
+    ],
+    "trajectory": "Aug $10k → Sep $30k → Oct $60k → Nov $97k → Dec $137k"
+  },
+  "hlPay": {
+    "source": "ValPay export + identification register · as at 6 Sep",
+    "referred": 34,
+    "signedGmv": "$38M",
+    "won": 14,
+    "shareOfWins": "39%",
+    "openPipe": "$245M",
+    "openDeals": 19,
+    "identified": 24,
+    "referrers": [
+      [
+        "Bjorn Magabo",
+        11,
+        6,
+        "$65M"
+      ],
+      [
+        "Bradford Young",
+        9,
+        5,
+        "$31M"
+      ],
+      [
+        "Brett Gorman",
+        6,
+        0,
+        "$146M"
+      ],
+      [
+        "Mick Teasdale",
+        4,
+        2,
+        "$5M"
+      ],
+      [
+        "Phuong Ho",
+        3,
+        1,
+        "$23M"
+      ],
+      [
+        "Unattributed",
+        1,
+        0,
+        "$15M"
+      ]
+    ]
+  },
+  "salesPipeline": {
+    "source": "HubSpot (live) — cut over from Creatio",
+    "q3UnweightedK": 335,
+    "q3Deals": 116,
+    "q3WeightedK": 123,
+    "q3WonK": 809,
+    "q3WonDeals": 246,
+    "q3LostDeals": 27,
+    "winRatePct": 90.1,
+    "wonThisWk": 46,
+    "wonThisWkK": 161,
+    "wonPriorWk": 20,
+    "wonPriorWkK": 44,
+    "newThisWk": 67,
+    "newThisWkK": 200,
+    "byMember": [
+      {
+        "name": "Bjorn",
+        "unw": 116910,
+        "wtd": 52252
+      },
+      {
+        "name": "Brett",
+        "unw": 80951,
+        "wtd": 24285
+      },
+      {
+        "name": "Jasmine",
+        "unw": 58794,
+        "wtd": 22718
+      },
+      {
+        "name": "Bradford",
+        "unw": 26801,
+        "wtd": 7974
+      },
+      {
+        "name": "Kent",
+        "unw": 26259,
+        "wtd": 7878
+      },
+      {
+        "name": "Mick",
+        "unw": 11668,
+        "wtd": 3500
+      },
+      {
+        "name": "Katherine",
+        "unw": 10773,
+        "wtd": 3232
+      },
+      {
+        "name": "Phuong",
+        "unw": 1687,
+        "wtd": 601
+      }
+    ],
+    "hygiene": {
+      "undated": 172,
+      "undatedK": 360,
+      "undatedCreatio": 1678,
+      "pastDated": 1545,
+      "pastDatedM": 2.9
+    }
+  },
+  "utilisation": {
+    "source": "HubSpot (hours ramping) — Creatio feed ended 4 Sep",
+    "hoursLoggedAllTime": 98.6,
+    "casesWithHours": 48,
+    "psOpenedThisWk": {
+      "Tech": 40,
+      "Integrations": 14,
+      "Training": 7,
+      "Onboarding": 3,
+      "Warranty": 0
+    },
+    "hoursByPipeline": [
+      [
+        "Tech",
+        45.0,
+        27
+      ],
+      [
+        "Training",
+        18.5,
+        4
+      ],
+      [
+        "Onboarding",
+        18.9,
+        1
+      ],
+      [
+        "Integrations",
+        13.2,
+        15
+      ],
+      [
+        "Warranty",
+        3.0,
+        1
+      ]
+    ]
+  },
+  "wonVsInvoiced": {
+    "source": "Finance Weekly Invoicing & CRM · as at 6 Sep",
+    "awaitingGoLiveK": 250,
+    "wonSinceMar": 497,
+    "invoiced": 277,
+    "outstanding": 220,
+    "churnedArrM": 1.15,
+    "logosLost": 259,
+    "netMrrK": -22,
+    "topNotInvoiced": [
+      [
+        "Oscars Group ◆",
+        "$155k",
+        "$12,880",
+        "Mar",
+        1
+      ],
+      [
+        "Wayi Restaurant",
+        "$21k",
+        "$1,790",
+        "May",
+        1
+      ],
+      [
+        "Hallmark Hospitality · 2 venues",
+        "$19k",
+        "$1,557",
+        "Jun",
+        3
+      ],
+      [
+        "BRG · 2 venues",
+        "$6k",
+        "$492",
+        "Jul",
+        2
+      ],
+      [
+        "Grand Cru - Claremont",
+        "$6k",
+        "$480",
+        "Aug",
+        1
+      ],
+      [
+        "Downs Club Toowoomba",
+        "$5k",
+        "$455",
+        "May",
+        1
+      ],
+      [
+        "Crazy Horse Revue",
+        "$5k",
+        "$437",
+        "Apr",
+        1
+      ],
+      [
+        "Citi Group - Harp",
+        "$5k",
+        "$410",
+        "Mar",
+        1
+      ],
+      [
+        "Woodside Beach Hotel",
+        "$5k",
+        "$394",
+        "Sep",
+        1
+      ],
+      [
+        "Bistro Margaux",
+        "$4k",
+        "$333",
+        "Aug",
+        1
+      ]
+    ],
+    "goLiveContext": "Oscars Group — Signed — ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge."
+  },
+  "backlog": {
+    "source": "HubSpot (live) — cut over from Creatio",
+    "open": 570,
+    "aged31": 128,
+    "unanswered": 535,
+    "unansweredOld": 441,
+    "past30": 128,
+    "past90": 10,
+    "totalCases": 13115,
+    "totalCasesNote": "1 Feb 26 → 20 Sep 26 · HubSpot basis (all Support-pipeline tickets)",
+    "ageBands": {
+      "b0_7": 200,
+      "b8_30": 242,
+      "b31_90": 118,
+      "b90": 10
+    },
+    "weekly": [
+      {
+        "wk": "08-10",
+        "in": 649,
+        "out": 465
+      },
+      {
+        "wk": "08-17",
+        "in": 469,
+        "out": 456
+      },
+      {
+        "wk": "08-24",
+        "in": 418,
+        "out": 343
+      },
+      {
+        "wk": "08-31",
+        "in": 451,
+        "out": 347
+      },
+      {
+        "wk": "09-07",
+        "in": 615,
+        "out": 1250
+      },
+      {
+        "wk": "09-14",
+        "in": 490,
+        "out": 591
+      }
+    ],
+    "spikeNote": "09-07 resolved spike (1,250) is migration cleanup, not real throughput"
+  },
+  "aiAgent": {
+    "source": "HubSpot draft state machine (live)",
+    "week": {
+      "drafted": 65,
+      "sent": 4,
+      "asIs": 1,
+      "edited": 3,
+      "rejected": 2,
+      "pendingOnClosed": 25,
+      "needsHuman": 34,
+      "adoptionPct": 6.2,
+      "decisionRatePct": 67,
+      "confidencePct": 25
+    },
+    "sinceCutover": {
+      "from": "8 Sep",
+      "drafted": 92,
+      "sent": 4,
+      "adoptionPct": 4.3
+    },
+    "openQueue": {
+      "pendingReview": 62,
+      "needsHuman": 85
+    },
+    "creatioAllTime": {
+      "adoptionPct": 7.3,
+      "sent": 64,
+      "drafted": 874,
+      "note": "frozen at cutover"
+    }
+  },
+  "roadmap": {
+    "source": "GTM Tracker (product team)",
+    "counts": {
+      "done": 10,
+      "onTrack": 12,
+      "notStarted": 3,
+      "atRisk": 2
+    },
+    "sprints": [
+      "Jul wk1-2",
+      "Jul wk3-4",
+      "Aug wk1-2",
+      "Aug wk3-4",
+      "Sep wk1-2",
+      "Sep wk3-4"
+    ],
+    "items": [
+      [
+        "Metcash Phase 1B",
+        "Ciaran",
+        "done",
+        0,
+        0
+      ],
+      [
+        "EonX Order at Bar",
+        "Ciaran",
+        "done",
+        0,
+        0
+      ],
+      [
+        "WebOrders Reference/BatchID Capture",
+        "Ciaran",
+        "done",
+        1,
+        1
+      ],
+      [
+        "Eonx API Uplift",
+        "Ciaran",
+        "ontrack",
+        2,
+        3
+      ],
+      [
+        "Onxy Gaming",
+        "Hawraa",
+        "done",
+        0,
+        0
+      ],
+      [
+        "SCIS Stock Movement",
+        "Brad",
+        "done",
+        0,
+        1
+      ],
+      [
+        "EDR Auth",
+        "Ciaran",
+        "done",
+        1,
+        1
+      ],
+      [
+        "Accounts Flow Auto Promo File Delivery",
+        "Ciaran",
+        "done",
+        1,
+        1
+      ],
+      [
+        "Create Stripe Terminal Simulator",
+        "Dave",
+        "done",
+        1,
+        1
+      ],
+      [
+        "ALH Bug Fixes",
+        "Ciaran",
+        "done",
+        0,
+        0
+      ],
+      [
+        "ALH Food Pricing - PLU Visibility Filter",
+        "Ciaran",
+        "ontrack",
+        1,
+        1
+      ],
+      [
+        "ALH RMS",
+        "Brad",
+        "ontrack",
+        2,
+        2
+      ],
+      [
+        "LMG - various enhancemens",
+        "Brad",
+        "notstarted",
+        3,
+        4
+      ],
+      [
+        "Bug Run 9.3",
+        "Brad",
+        "notstarted",
+        5,
+        5
+      ],
+      [
+        "OpenTable",
+        "Hawraa",
+        "done",
+        0,
+        1
+      ],
+      [
+        "Metcash Scan Work (SM-6423,SM-6478)",
+        "Ciaran",
+        "notstarted",
+        4,
+        4
+      ],
+      [
+        "Unattended Upgrades (released deployment)",
+        "Dave",
+        "ontrack",
+        0,
+        2
+      ],
+      [
+        "H&L Pay - Tyro Parity",
+        "Valpay",
+        "atrisk",
+        1,
+        5
+      ],
+      [
+        "QR Code Ordering",
+        "Tony",
+        "ontrack",
+        0,
+        5
+      ],
+      [
+        "Mobile POS - Native Apps",
+        "Nidhi, Eric",
+        "ontrack",
+        0,
+        2
+      ],
+      [
+        "Mobile POS - Adyen Native SDK",
+        "Nidhi, Eric",
+        "ontrack",
+        0,
+        2
+      ],
+      [
+        "Mobile POS - Tyro Tap to Pay",
+        "Nidhi, Eric",
+        "ontrack",
+        0,
+        2
+      ],
+      [
+        "Mobile POS - Floorplan",
+        "Nidhi",
+        "ontrack",
+        0,
+        0
+      ],
+      [
+        "Mobile POS - The Pass Integration",
+        "Nidhi",
+        "atrisk",
+        2,
+        5
+      ],
+      [
+        "Mobile POS - Quick Sale for Events",
+        "Eric",
+        "ontrack",
+        2,
+        3
+      ],
+      [
+        "Mobile POS - Happy Hour",
+        "Eric",
+        "ontrack",
+        4,
+        5
+      ],
+      [
+        "Data Product #1 - Margin Capture (Lucas)",
+        "Ammar",
+        "ontrack",
+        0,
+        5
+      ]
+    ],
+    "notes": [
+      [
+        "ALH Food Pricing - PLU Visibility Filter (On Track):",
+        "Requirements gathered - behind schedule"
+      ],
+      [
+        "H&L Pay - Tyro Parity (At risk):",
+        "Tarek interviewing next week"
+      ],
+      [
+        "Mobile POS - The Pass Integration (At risk):",
+        "Needs validation"
+      ],
+      [
+        "Mobile POS - Tyro Tap to Pay (On Track):",
+        "Awaiting certification"
+      ]
+    ]
+  },
+  "gtm": {
+    "source": "GTM Tracker (product team)",
+    "dims": [
+      "MESSAGING & COLLATERAL",
+      "VALUE CASE $ PROVEN",
+      "PRICING & PACKAGING",
+      "CONTRACT & DATA TERMS",
+      "BILLING & METERING",
+      "REFERENCE PILOT",
+      "SALES ENABLED",
+      "SUPPORT & REMI",
+      "AI ACCURACY & FALLBACK"
+    ],
+    "rows": [
+      {
+        "product": "QR Ordering (OrderNow)",
+        "pills": [
+          [
+            "Jasmine",
+            "red"
+          ],
+          [
+            "—",
+            "amber"
+          ],
+          [
+            "Luke",
+            "amber"
+          ],
+          [
+            "Luke",
+            "amber"
+          ],
+          [
+            "Janice",
+            "amber"
+          ],
+          [
+            "Matt",
+            "amber"
+          ],
+          [
+            "Matt",
+            "red"
+          ],
+          [
+            "Matt",
+            "red"
+          ],
+          [
+            "Eric",
+            "amber"
+          ]
+        ]
+      },
+      {
+        "product": "Roam",
+        "pills": [
+          [
+            "Bjorn",
+            "amber"
+          ],
+          [
+            "—",
+            "green"
+          ],
+          [
+            "Luke",
+            "green"
+          ],
+          [
+            "Luke",
+            "green"
+          ],
+          [
+            "Janice",
+            "green"
+          ],
+          [
+            "Matt",
+            "green"
+          ],
+          [
+            "Matt",
+            "amber"
+          ],
+          [
+            "Matt",
+            "green"
+          ],
+          [
+            "N/A",
+            "na"
+          ]
+        ]
+      },
+      {
+        "product": "Sentinel AI",
+        "pills": [
+          [
+            "Bradford *1",
+            "red"
+          ],
+          [
+            "—",
+            "amber"
+          ],
+          [
+            "Luke",
+            "red"
+          ],
+          [
+            "Luke",
+            "red"
+          ],
+          [
+            "Janice",
+            "red"
+          ],
+          [
+            "Matt",
+            "amber"
+          ],
+          [
+            "Matt",
+            "red"
+          ],
+          [
+            "Matt",
+            "red"
+          ],
+          [
+            "Ammar",
+            "red"
+          ]
+        ]
+      }
+    ],
+    "summary": {
+      "scoreboard": "Roam 78% · QR Ordering (OrderNow) 33% · Sentinel AI 11% (green = done, amber = half-credit)",
+      "redGates": "QR Ordering (OrderNow) is blocked on Messaging & collateral, Sales enabled, Support & Remi; Sentinel AI is blocked on Messaging & collateral, Pricing & packaging, Contract & data terms, Billing & metering, Sales enabled, Support & Remi, AI accuracy & fallback. Nothing else stops a launch.",
+      "owners": "24 of 27 dimensions have a named owner on the pill; 1 carries a note. An unowned red is a stalled red.",
+      "footnote": "*1 Sentinel AI · Messaging & collateral: MF to give BY prototype to produce a 1pgr pitch"
+    }
+  },
+  "aiUsage": {
+    "source": "Claude Admin (capture 11 Sep)",
+    "activeWeekly": 43,
+    "allMembers": 48,
+    "daily": 34,
+    "monthly": 45,
+    "locLastWeek": 66273,
+    "locWoWPct": 10,
+    "locWeekEnding": "11 Sep",
+    "stickiness": [
+      [
+        "Claude Code",
+        63
+      ],
+      [
+        "Cowork",
+        64
+      ],
+      [
+        "Claude.ai",
+        53
+      ],
+      [
+        "Office Agents",
+        33
+      ]
+    ],
+    "sepToDate": [
+      [
+        "Nicolas Ibrahim",
+        27783
+      ],
+      [
+        "Hawraa Khalil",
+        16658
+      ],
+      [
+        "Ciaran Dempsey",
+        13006
+      ],
+      [
+        "Brad Smith",
+        10108
+      ],
+      [
+        "Rahul Kumar",
+        7083
+      ],
+      [
+        "David Corbett",
+        6070
+      ],
+      [
+        "Eric Cruz",
+        5884
+      ],
+      [
+        "Chris Huang",
+        4541
+      ],
+      [
+        "Mohamed Ammar",
+        4017
+      ],
+      [
+        "Kumari Nidhi",
+        2757
+      ]
+    ],
+    "sepTotal": 101159,
+    "coworkPerWk": [
+      [
+        "Matt Freeman",
+        17
+      ],
+      [
+        "Bradford Young",
+        16
+      ],
+      [
+        "Dave Corbett",
+        15
+      ],
+      [
+        "Katherine Fenwick",
+        14
+      ],
+      [
+        "Harjeet Sammi",
+        13
+      ],
+      [
+        "Ron Makins",
+        8
+      ],
+      [
+        "Youssef Medhat",
+        7
+      ],
+      [
+        "Lee Atkins",
+        7
+      ],
+      [
+        "Glynn Johnson",
+        6
+      ],
+      [
+        "Izaak Horner",
+        5
+      ]
+    ],
+    "filesByCategory": [
+      [
+        "Code & scripts",
+        50
+      ],
+      [
+        "Documents & reports",
+        18
+      ],
+      [
+        "Config & structured data",
+        11
+      ],
+      [
+        "Web pages & styles",
+        9
+      ]
+    ]
+  },
+  "projects": {
+    "asAt": "19 Sep 2026",
+    "rows": [
+      {
+        "name": "HubSpot Migration",
+        "phase": "Shipped · live 2026-09-08",
+        "owner": "Izaak Horner",
+        "status": "DONE",
+        "state": "Cutover complete — this deck is the first produced fully on HubSpot sources",
+        "roadblock": "Post-migration data quality: owner attribution on tickets/deals, SLA fields ramping, PS time logging habit"
+      },
+      {
+        "name": "AI Support Agents — Email + Voice",
+        "phase": "Rollout",
+        "owner": "Izaak Horner / Nicolas Ibrahim",
+        "status": "WATCH",
+        "state": "Live in HubSpot with draft state machine — rejects now separable, decision rate measurable for the first time",
+        "roadblock": "Review-queue habit: 62 drafts pending review on open tickets · 85 flagged needs-human"
+      },
+      {
+        "name": "Leadership Reporting & Hosting",
+        "phase": "Ship",
+        "owner": "Izaak Horner",
+        "status": "ON TRACK",
+        "state": "Reporting safety net live — weekly deck generated from HubSpot (live) + file drops while the tiered dashboard is built out",
+        "roadblock": "Finance movement register & ValPay export drops pending post-cutover · AWS hosting still gated on budget approval"
+      },
+      {
+        "name": "ALH RFP",
+        "phase": "Response",
+        "owner": "Luke Plunkett",
+        "status": "ON TRACK",
+        "state": "In-person demo done 24 Aug; three win themes locked",
+        "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,915 @@
+<title>GTM Leadership Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+  :root{
+    --ink:#12293A; --ink2:#254656; --slate:#8FA6B4; --slate-d:#5E7482;
+    --teal:#2C8394; --teal-l:#5FB2C4; --teal-pale:#A9D6E0; --teal-xpale:#DCEEF2;
+    --good:#3D8F5F; --amber:#C88A2E; --bad:#B4552D;
+    --bg:#F2F6F8; --card:#FFFFFF; --track:#E3E8EA; --ph:#C9D6DD;
+    --line:#E1E9ED; --ink-soft:#3D505E;
+    --shadow:0 1px 2px rgba(18,41,58,.05),0 4px 16px rgba(18,41,58,.05);
+    --r:7px;
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme: dark){
+    --ink:#EAF1F4; --ink2:#0F212B; --slate:#7E93A1; --slate-d:#93A8B5;
+    --teal:#4FB3C6; --teal-l:#3E8D9E; --teal-pale:#2A5563; --teal-xpale:#173039;
+    --good:#5FBE86; --amber:#E0A54A; --bad:#DB7B57;
+    --bg:#0B1720; --card:#12242F; --track:#203945; --ph:#26414E;
+    --line:#22404F; --ink-soft:#AFC2CE;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 26px rgba(0,0,0,.4);
+  }}
+  :root[data-theme="dark"]{
+    --ink:#EAF1F4; --ink2:#0F212B; --slate:#7E93A1; --slate-d:#93A8B5;
+    --teal:#4FB3C6; --teal-l:#3E8D9E; --teal-pale:#2A5563; --teal-xpale:#173039;
+    --good:#5FBE86; --amber:#E0A54A; --bad:#DB7B57;
+    --bg:#0B1720; --card:#12242F; --track:#203945; --ph:#26414E;
+    --line:#22404F; --ink-soft:#AFC2CE;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 26px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-size:13px;line-height:1.45;
+    -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+  h1,h2,h3,h4{margin:0;font-weight:600;text-wrap:balance}
+  /* ---------- header ---------- */
+  header{background:var(--ink);color:#EAF1F4}
+  .hbar{display:flex;align-items:center;gap:22px;padding:17px 30px;max-width:1280px;margin:0 auto}
+  .mark{font-weight:800;letter-spacing:.16em;font-size:22px;background:#fff;color:#000;
+    mix-blend-mode:screen;padding:10px 16px;border-radius:11px}
+  .htitle{font-size:22px;font-weight:600;letter-spacing:-.01em}
+  .hspace{flex:1}
+  .hchip{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#B7CCD6;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);padding:6px 13px;border-radius:999px}
+  .hbtn{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#EAF1F4;
+    font:inherit;font-size:10px;font-weight:500;padding:6px 12px;border-radius:999px;cursor:pointer}
+  .hbtn:hover{background:rgba(255,255,255,.13)}
+  /* clock strip */
+  .clock{background:var(--ink2);padding:16px 22px 9px}
+  .clockin{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:18px}
+  .clocklabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#A7BEC9;white-space:nowrap;font-weight:700}
+  .qtimeline{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}
+  .qtrack{position:relative;height:10px;border-radius:6px;background:rgba(255,255,255,.09);
+    background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/var(--wk) - 1.5px),rgba(255,255,255,.16) calc(100%/var(--wk) - 1.5px),rgba(255,255,255,.16) calc(100%/var(--wk)))}
+  .qfill{position:absolute;left:0;top:0;height:100%;border-radius:6px 0 0 6px;background:linear-gradient(90deg,var(--teal),var(--teal-l))}
+  .qmark{position:absolute;top:-4px;bottom:-4px;width:2px;background:#EAF1F4;box-shadow:0 0 0 2px rgba(18,41,58,.6);border-radius:2px}
+  .qflag{position:absolute;bottom:calc(100% + 6px);left:0;transform:translateX(-50%);white-space:nowrap;
+    font-size:9px;font-weight:700;letter-spacing:.06em;color:#08303a;background:var(--teal-l);padding:2px 7px;border-radius:4px}
+  .qflag::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--teal-l)}
+  .qmonths{display:flex;font-size:8.5px;letter-spacing:.12em;color:#7a94a1;font-weight:700}
+  .qmonths span{flex:1;text-align:center}
+  .ctoday{font-size:12px;color:#EAF1F4;font-weight:700;white-space:nowrap;text-align:right;line-height:1.2}
+  .ctoday b{color:#A7BEC9;font-weight:600}
+  .ctoday small{display:block;font-size:9.5px;color:#93A8B5;font-weight:500;letter-spacing:.02em}
+  /* tabs */
+  nav.tabs{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+  .tabsin{max-width:1280px;margin:0 auto;display:flex;gap:2px;padding:0 14px;overflow-x:auto}
+  .tab{appearance:none;border:0;background:none;font:inherit;font-weight:500;font-size:12.5px;color:var(--slate-d);
+    padding:12px 13px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+  .tab:hover{color:var(--ink)}
+  .tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--teal);font-weight:600}
+  .tab:focus-visible{outline:2px solid var(--teal);outline-offset:-2px}
+  /* layout */
+  .wrap{max-width:1280px;margin:0 auto;padding:16px 22px 70px}
+  .view{display:none}.view.on{display:block;animation:f .22s ease}
+  @keyframes f{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.view.on{animation:none}}
+  .head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:4px 0 12px}
+  .head h2{font-size:20px;letter-spacing:-.01em}
+  .srcpill{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--slate-d);
+    background:var(--teal-xpale);border:1px solid var(--line);padding:3px 10px;border-radius:999px;margin-left:auto}
+  .srcpill.warn{background:color-mix(in srgb,var(--amber) 14%,var(--card));border-color:var(--amber);color:var(--amber);font-weight:600}
+  .srcpill.ok{background:color-mix(in srgb,var(--good) 12%,var(--card));border-color:var(--good);color:var(--good);font-weight:600}
+  .cols{display:grid;grid-template-columns:1fr 234px;gap:14px}
+  @media (max-width:900px){.cols{grid-template-columns:1fr}}
+  /* caveat */
+  .caveat{border:1px dashed var(--amber);background:color-mix(in srgb,var(--amber) 9%,var(--card));
+    color:var(--ink-soft);border-radius:var(--r);padding:11px 14px;margin-bottom:14px;font-size:12.5px;display:flex;gap:9px}
+  .caveat.good{border-color:var(--good);background:color-mix(in srgb,var(--good) 9%,var(--card))}
+  .caveat.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 9%,var(--card))}
+  .caveat b{color:var(--ink)}
+  /* business-pulse alert (solid, severity-coloured) */
+  .alert{display:flex;gap:11px;align-items:flex-start;border:1.5px solid var(--bad);border-radius:10px;
+    background:color-mix(in srgb,var(--bad) 11%,var(--card));color:var(--ink);padding:12px 15px;margin-bottom:14px;font-size:13px}
+  .alert.warn{border-color:var(--amber);background:color-mix(in srgb,var(--amber) 12%,var(--card))}
+  .alert.crit{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--card))}
+  .alert.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 10%,var(--card))}
+  .alert .ico{font-size:23px;line-height:1.05;color:var(--bad);flex:none}
+  .alert.warn .ico{color:var(--amber)} .alert.ok .ico{color:var(--good)}
+  .alert b{color:var(--ink)}
+  .alert .crit{color:var(--bad);font-weight:700}
+  .alert .basis{display:block;margin-top:5px;font-size:10.5px;color:var(--bad);font-weight:500}
+  /* cards + stats */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+  .pad{padding:14px 15px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px;box-shadow:var(--shadow)}
+  .stat .k{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-d);font-weight:600}
+  .stat .v{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:5px 0 2px}
+  .stat .v small{font-size:14px;color:var(--slate-d);font-weight:600}
+  .stat .d{font-size:11px;color:var(--slate-d)}
+  .est .v{color:var(--slate-d);border-bottom:2px dashed var(--slate);display:inline-block;padding-bottom:1px}
+  .est .tag{font-size:10px;color:var(--slate-d);font-style:italic}
+  .pos{color:var(--good)} .neg{color:var(--bad)} .amb{color:var(--amber)} .mut{color:var(--slate-d)}
+  .grid{display:grid;gap:12px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+  @media (max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+  h3.blk{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--slate-d);margin-bottom:10px;font-weight:600}
+  /* dots */
+  .dots{letter-spacing:1px;font-size:9px;color:var(--teal)}
+  .dots .o{color:var(--track)}
+  /* pace bar */
+  .pace{position:relative;height:20px;background:var(--track);border-radius:4px;overflow:visible;min-width:90px}
+  .pfill{position:absolute;left:0;top:0;height:100%;border-radius:4px}
+  .pfill.hollow{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--slate) 30%,transparent) 0 5px,transparent 5px 10px);
+    border:1px dashed var(--slate)}
+  .ptick{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);border-radius:2px}
+  .ptick.soft{background:var(--slate);opacity:.8;width:2px}
+  .ptick .cap{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--slate-d);white-space:nowrap}
+  /* pace grid (overview) */
+  .pgrid{width:100%;border-collapse:collapse}
+  .pgrid th{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-d);text-align:left;padding:6px 10px;font-weight:600}
+  .pgrid td{padding:10px;border-top:1px solid var(--line);vertical-align:middle}
+  .pgrid tr.click{cursor:pointer}
+  .pgrid tr.click:hover td{background:var(--teal-xpale)}
+  .measure{font-weight:600;font-size:13px}
+  .position{font-weight:600;font-size:12.5px;white-space:nowrap}
+  .ev{font-size:11px;color:var(--slate-d);white-space:nowrap}
+  /* chapter cards */
+  .chapters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+  @media (max-width:760px){.chapters{grid-template-columns:1fr 1fr}}
+  .chap{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--teal);border-radius:var(--r);padding:12px 13px;box-shadow:var(--shadow)}
+  .chap.c2{border-top-color:var(--good)}.chap.c3{border-top-color:var(--amber)}.chap.c4{border-top-color:var(--slate-d)}
+  .chap .n{font-size:10px;letter-spacing:.08em;color:var(--slate-d);font-weight:700;text-transform:uppercase}
+  .chap .t{font-size:13px;font-weight:600;margin:3px 0 8px}
+  .chap .verdict{font-size:14px;font-weight:700}
+  .chap .meta{font-size:10.5px;color:var(--slate-d);margin-top:5px}
+  /* rail */
+  .rail{display:flex;flex-direction:column;gap:12px}
+  .rail .card{padding:13px 14px}
+  .rail h4{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--slate-d);margin-bottom:9px}
+  .srow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 0;font-size:11.5px;border-top:1px solid var(--line)}
+  .srow:first-of-type{border-top:0}
+  .srow .nm{color:var(--ink)} .srow .fr{color:var(--slate-d);font-size:10.5px}
+  .srow .sright{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;text-align:right;justify-content:flex-end}
+  .srow .stat.down{color:var(--bad);font-weight:700}
+  .dots.bad{color:var(--bad)} .dots.bad .o{color:color-mix(in srgb,var(--bad) 25%,transparent)}
+  .dotlegend{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);font-size:9.5px;color:var(--slate-d);line-height:1.7}
+  .srow .rfeeds{display:block;font-size:9.5px;color:var(--slate-d);font-weight:400;margin-top:2px}
+  #regList .srow{padding:9px 0;align-items:flex-start}
+  #regList .sright{padding-top:1px}
+  .ai{background:var(--teal-xpale);border:1px solid var(--line);border-radius:var(--r);padding:13px 15px;margin-top:14px}
+  .ai h4{font-size:16px;font-weight:700;letter-spacing:-.01em;color:var(--teal);margin-bottom:10px}
+  .ai ul{margin:0;padding-left:16px;color:var(--ink-soft);font-size:12px}.ai li{margin:4px 0}.ai li b{color:var(--ink)}
+  .ai li.starli{list-style:none;position:relative}
+  .ai li.starli .starmark{position:absolute;left:-16px;top:0;color:var(--good);font-weight:700}
+  /* generic bars list */
+  .blist{display:flex;flex-direction:column;gap:9px}
+  .brow{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;font-size:12px}
+  .brow .bl{color:var(--ink-soft);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brow .bv{font-weight:600;font-size:11.5px;white-space:nowrap;color:var(--slate-d);min-width:60px;text-align:right}
+  .simplebar{height:16px;background:var(--track);border-radius:4px;overflow:hidden}
+  .simplebar i{display:block;height:100%;border-radius:4px}
+  /* waterfall */
+  .wf{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+  .wf .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10px}
+  .wf .bar{width:100%;border-radius:4px 4px 0 0}
+  .wf .cl{margin-top:6px;color:var(--slate-d);text-align:center;font-size:9.5px}
+  .wf .cv{font-weight:600;font-size:10.5px;margin-bottom:3px}
+  /* heatmap */
+  .heat{border-collapse:separate;border-spacing:3px;width:100%;font-size:11px}
+  .heat th{font-size:10px;color:var(--slate-d);font-weight:600;padding:3px 6px;text-align:center}
+  .heat td:first-child,.heat th:first-child{text-align:left}
+  .heat td{padding:6px 8px;text-align:center;border-radius:4px;color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+  .heat .tot{font-weight:700;background:var(--track)!important;color:var(--ink)!important}
+  /* funnel */
+  .funnel{display:flex;flex-direction:column;gap:5px}
+  .fstage{position:relative;height:34px;border-radius:5px;display:flex;align-items:center;padding:0 12px;color:#fff;
+    font-size:12px;font-weight:600;background:var(--teal)}
+  .fstage .fn{opacity:.9;font-weight:500}.fstage .fv{margin-left:auto;font-weight:700}
+  /* stacked mini */
+  .smini{display:flex;height:22px;border-radius:4px;overflow:hidden;background:var(--track)}
+  .smini i{height:100%;border-right:2px solid var(--card)}.smini i:last-child{border-right:0}
+  /* tables */
+  table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+  .tbl th{background:var(--ink);color:#D5E3E9;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;
+    padding:8px 10px;text-align:right}
+  .tbl th:first-child{text-align:left;border-radius:6px 0 0 0}.tbl th:last-child{border-radius:0 6px 0 0}
+  .tbl td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  .tbl td:first-child{text-align:left;font-weight:500}
+  .tbl tr.click{cursor:pointer}.tbl tr.click:hover td{background:var(--teal-xpale)}
+  .tblwrap{overflow-x:auto}
+  .pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px}
+  .pill.ok{color:var(--good);background:color-mix(in srgb,var(--good) 15%,transparent)}
+  .pill.risk{color:var(--amber);background:color-mix(in srgb,var(--amber) 16%,transparent)}
+  .pill.blk{color:var(--bad);background:color-mix(in srgb,var(--bad) 15%,transparent)}
+  .pill.ns{color:var(--slate-d);background:var(--track)}
+  .ownerbar{position:relative;height:20px;background:var(--track);border-radius:4px;overflow:hidden;min-width:120px}
+  .ownerbar i{position:absolute;top:0;left:0;height:100%;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10px;font-weight:600;border-radius:4px}
+  .decomp.yes{color:var(--good);font-weight:600}.decomp.no{color:var(--bad);font-weight:700}
+  .star{color:var(--amber);font-weight:700}
+  .matrix td .mp{display:block;border-radius:4px;padding:5px 7px;font-size:10.5px;color:#fff;font-weight:600;text-align:center}
+  /* gaps */
+  .gaps{display:flex;flex-direction:column;gap:7px}
+  .gap{display:flex;gap:9px;align-items:flex-start;font-size:12px;padding:9px 11px;border:1px solid var(--line);border-left:3px solid var(--bad);border-radius:5px;background:var(--card)}
+  .gap .hit{color:var(--slate-d);font-size:10.5px}
+  /* modal + slideover */
+  .scrim{position:fixed;inset:0;background:rgba(9,20,28,.55);backdrop-filter:blur(2px);z-index:50;display:none}
+  .scrim.on{display:block}
+  .modal{position:fixed;z-index:51;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,94vw);max-height:88vh;overflow:auto;
+    background:var(--card);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.4);display:none}
+  .modal.on{display:block}
+  .mtop{background:var(--ink);color:#EAF1F4;padding:15px 18px;display:flex;align-items:center;gap:12px;position:sticky;top:0}
+  .mtop .mv{font-size:22px;font-weight:700;margin-left:auto}
+  .mx{appearance:none;border:0;background:rgba(255,255,255,.12);color:#fff;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:15px}
+  .msec{padding:15px 18px;border-bottom:1px solid var(--line)}
+  .msec h4{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-d);margin-bottom:8px}
+  .built{font-size:12px;color:var(--ink-soft)}.built b{color:var(--ink)}
+  .moved{display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-top:1px dashed var(--line)}
+  .macts{display:flex;gap:8px;flex-wrap:wrap;padding:14px 18px}
+  .mact{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:11.5px;
+    padding:7px 12px;border-radius:7px;cursor:pointer;font-weight:500}
+  .mact.key{border-color:var(--teal);color:var(--teal)}
+  .mact:hover{background:var(--teal-xpale)}
+  .sheet{position:fixed;z-index:51;top:0;right:0;height:100%;height:100dvh;width:min(440px,94vw);background:var(--card);
+    box-shadow:-20px 0 60px rgba(0,0,0,.35);transform:translateX(100%);transition:transform .28s;overflow:hidden;
+    display:flex;flex-direction:column}
+  .sheet.on{transform:none}
+  #reg .mtop{flex:none;position:static;padding:12px 18px}
+  .regbody{flex:1;min-height:0;display:flex;flex-direction:column;padding:4px 18px}
+  #regList{flex:1;min-height:0;display:flex;flex-direction:column}
+  #regList .srow{flex:1 1 0;min-height:0;align-items:center;padding:0}
+  .regnote{flex:none;padding:11px 18px 15px;border-top:1px solid var(--line)}
+  .regnote h4{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-d);margin-bottom:6px}
+  .regnote .built{font-size:11px;line-height:1.45}
+  @media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+  .foot{color:var(--slate-d);font-size:11px;margin-top:26px;padding-top:14px;border-top:1px solid var(--line)}
+  .note{font-size:11px;color:var(--slate-d);margin-top:8px}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;background:var(--track);padding:1px 5px;border-radius:4px}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;font-size:11px}
+  .toggle button{appearance:none;border:0;background:var(--card);color:var(--slate-d);font:inherit;padding:5px 11px;cursor:pointer;font-weight:500}
+  .toggle button[aria-pressed="true"]{background:var(--teal);color:#fff}
+  .pacelegend{display:flex;justify-content:flex-end;gap:13px;margin-top:11px;font-size:10px;color:var(--slate-d);flex-wrap:wrap;align-items:center}
+  .pacelegend .lbl{margin-right:2px;letter-spacing:.05em;text-transform:uppercase;font-weight:600;color:var(--slate)}
+  .pacelegend span{display:inline-flex;align-items:center;gap:5px}
+  .pacelegend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .pgrid tfoot td{border-top:1px solid var(--line);padding-top:12px;vertical-align:top}
+  .collegend{display:flex;flex-wrap:wrap;gap:5px 13px;font-size:10px;color:var(--slate-d)}
+  .collegend.col{flex-direction:column;gap:5px}
+  .collegend span{display:inline-flex;align-items:center;gap:6px}
+  .collegend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  #tt{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:#fff;font-size:11px;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .12s;max-width:230px}
+</style>
+
+<header>
+  <div class="hbar">
+    <span class="mark">H&amp;L</span>
+    <span class="htitle">GTM Leadership Dashboard</span>
+    <span class="hspace"></span>
+    <button class="hbtn" id="openReg">Source register</button>
+  </div>
+  <div class="clock">
+    <div class="clockin" id="clockin"></div>
+  </div>
+</header>
+
+<nav class="tabs"><div class="tabsin" id="tabs" role="tablist"></div></nav>
+
+<div class="wrap" id="app"></div>
+
+<!-- drill-down -->
+<div class="scrim" id="scrim"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mName">
+  <div class="mtop"><span id="mName">Measure</span><span class="mv" id="mVal">—</span><button class="mx" id="mClose" aria-label="Close">✕</button></div>
+  <div class="msec"><h4>How this number is built</h4><div class="built" id="mBuilt"></div></div>
+  <div class="msec"><h4 id="mMovedH">What moved it</h4><div id="mMoved"></div></div>
+  <div class="msec"><h4>Pace history — this measure vs the tick, 13 weeks</h4>
+    <div id="mSpark"></div></div>
+  <div class="macts">
+    <button class="mact">⤓ CSV</button><button class="mact key">View the query</button>
+    <button class="mact key">Flag the source</button><button class="mact">Add to deck</button>
+  </div>
+</div>
+
+<!-- source register -->
+<div class="sheet" id="reg" role="dialog" aria-modal="true" aria-label="Source register">
+  <div class="mtop"><span>Source register</span><button class="mx" id="regClose" aria-label="Close">✕</button></div>
+  <div class="regbody">
+    <div id="regList"></div>
+    <div class="dotlegend"><span id="regLegend"></span></div>
+  </div>
+</div>
+
+<div id="tt"></div>
+
+<script>
+const $=s=>document.querySelector(s), ce=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+// ---- dynamic quarter clock ----
+// Demo pins NOW to a fixed date so the illustrative pace data lines up.
+// Swap to `new Date()` for live — the timeline then rolls over automatically each quarter.
+const NOW = new Date();  // live: quarter clock tracks today and rolls over automatically
+function quarterInfo(now){
+  const y=now.getFullYear(), qi=Math.floor(now.getMonth()/3);          // 0..3 calendar quarter
+  const qStart=new Date(y,qi*3,1), qEnd=new Date(y,qi*3+3,1);
+  const D=86400000, totalDays=Math.round((qEnd-qStart)/D);
+  const elapsedDays=Math.max(0,Math.min(totalDays,Math.round((now-qStart)/D)));
+  const totalWeeks=Math.round(totalDays/7);
+  const week=Math.min(totalWeeks,Math.floor(elapsedDays/7)+1);
+  const pct=elapsedDays/totalDays*100;
+  const months=[0,1,2].map(k=>new Date(y,qi*3+k,1).toLocaleString('en-US',{month:'short'}).toUpperCase());
+  return {qLabel:`Q${qi+1} FY${String(y).slice(2)}`,week,totalWeeks,pct,months,weeksLeft:Math.max(0,totalWeeks-week),totalDays};
+}
+const Q=quarterInfo(NOW);
+const QDAYS=Q.totalDays, ELAPSED=Q.pct;
+function renderClock(){
+  document.getElementById('clockin').innerHTML=`
+    <span class="clocklabel">${Q.qLabel}</span>
+    <div class="qtimeline">
+      <div class="qtrack" style="--wk:${Q.totalWeeks}">
+        <div class="qfill" style="width:${Q.pct}%"></div>
+        <div class="qmark" style="left:${Q.pct}%"><span class="qflag">TODAY · WK ${Q.week}</span></div>
+      </div>
+      <div class="qmonths">${Q.months.map(m=>`<span>${m}</span>`).join('')}</div>
+    </div>
+    <span class="ctoday">Wk ${Q.week} <b>of ${Q.totalWeeks}</b><small>${Math.round(Q.pct)}% elapsed</small></span>`;
+}
+renderClock();
+// ---------- shared helpers ----------
+function dots(n){return `<span class="dots">${'●'.repeat(n)}<span class="o">${'○'.repeat(3-n)}</span></span>`;}
+function statusOf(d){return d<=-2?'bad':d>=2?'good':'amb';}
+function posText(d){return d===0?'on track':`${Math.abs(d)} dys ${d<0?'behind':'ahead'}`;}
+function paceBar(fill,tick,status,opt={}){
+  const cls=opt.hollow?'pfill hollow':'pfill';
+  const col=opt.hollow?'':`background:var(--${status==='bad'?'bad':status==='good'?'good':'amber'})`;
+  const t2=opt.tick2!=null?`<div class="ptick soft" style="left:${opt.tick2}%"><span class="cap">${opt.tick2cap||''}</span></div>`:'';
+  return `<div class="pace" title="${opt.title||''}"><div class="${cls}" style="width:${Math.max(2,Math.min(100,fill))}%;${col}"></div>
+    <div class="ptick" style="left:${tick}%"><span class="cap">${opt.tickcap||''}</span></div>${t2}</div>`;
+}
+function fillFromDays(d){return Math.max(3,Math.min(99,ELAPSED + d/QDAYS*100));}
+// ---- live-data helpers ----
+let LIVE=null;
+const num=n=>(n===null||n===undefined||isNaN(n))?'—':Number(n).toLocaleString();
+function money(n){
+  if(n===null||n===undefined||isNaN(n))return '—';
+  const a=Math.abs(n);
+  if(a>=1e6)return '$'+(n/1e6).toFixed(2).replace(/\.?0+$/,'')+'m';
+  if(a>=1e3)return '$'+Math.round(n/1e3)+'k';
+  return '$'+Math.round(n);
+}
+function labelFor(map,id){return (LIVE&&LIVE.labels&&LIVE.labels[map]&&LIVE.labels[map][id])||id;}
+function feedErr(fn,msg){return `<div class="alert crit"><span class="ico">⚠</span><div><b>${fn} feed error.</b> ${msg}</div></div>`;}
+// no-target pace cell: quarter-elapsed fill + today tick (there's no target to colour against yet)
+function tickOnly(){return `<div class="pace" title="quarter ${Math.round(ELAPSED)}% elapsed — no target set yet">
+  <div class="pfill" style="width:${ELAPSED}%;background:var(--teal-pale)"></div>
+  <div class="ptick" style="left:${ELAPSED}%"><span class="cap">wk ${Q.week}</span></div></div>`;}
+const tt=$('#tt');
+function tip(el,h){el.addEventListener('mousemove',e=>{tt.innerHTML=h;tt.style.opacity=1;tt.style.left=Math.min(e.clientX+13,innerWidth-240)+'px';tt.style.top=(e.clientY+14)+'px';});el.addEventListener('mouseleave',()=>tt.style.opacity=0);}
+
+// ---------- source registry ----------
+// Post-migration source model: the four v1 functions are now HubSpot systems of record;
+// only genuinely external feeds remain file-drops. (Keys kept stable across the screens.)
+const SOURCES={
+  helpdesk:{n:'HubSpot · Tickets',fr:'live',c:3,feeds:'Support, Prof Services'}, // Support pipeline + the 5 PS pipelines
+  sales:{n:'HubSpot · Deals, Leads, Quotes',fr:'live',c:3,feeds:'Sales'},
+  billing:{n:'HubSpot · Companies',fr:'live',c:3,feeds:'Acct Mgmt'},
+  task:{n:'HubSpot · PS object',fr:'live',c:2,feeds:'Prof Services'},
+  target:{n:'HubSpot · Goals',fr:'not set up',c:1,feeds:'targets'},
+  xero:{n:'Sysnet export',fr:'file-drop · wkly',c:3,feeds:'Finance'},
+  product:{n:'Product sheet',fr:'file-drop · 14 dys',c:1,feeds:'Product'},
+  tooling:{n:'Tooling logs',fr:'file-drop · 1 dy',c:2,feeds:'AI Usage'},
+  delivery:{n:'Delivery tracker',fr:'file-drop · 1 dy',c:2,feeds:'Projects'},
+};
+// live/health state — flip `up:false` when a feed stops reporting; the rail & badges flag it red.
+Object.values(SOURCES).forEach(s=>{ if(s.up===undefined) s.up=true; });
+// live health is set from the API pull in boot() — a section that errors flags its source red
+function buildRegister(){
+  $('#regList').innerHTML=Object.values(SOURCES).map(s=>`<div class="srow"><span class="nm">${s.n}<span class="rfeeds">feeds ${s.feeds}</span></span>${
+    s.up===false
+      ? `<span class="sright"><span class="stat down">⚠ not working</span></span>`
+      : `<span class="sright"><span class="fr">${s.fr.replace(/\s*·\s*/g,' ')}</span> ${dots(s.c)}</span>`
+  }</div>`).join('');
+  $('#regLegend').innerHTML=`${dots(3)} system of record<br>${dots(2)} a system, kept by hand<br>${dots(1)} derived / estimate`;
+}
+buildRegister();
+
+// ---------- setup readiness (dynamic) ----------
+// Anything that SHOULD be configured for full reporting. Flip `ready` true as each lands and
+// the Business Pulse status pill updates itself. Goals is derived from the source registry.
+const SETUP=[
+  {name:'Sales Goals', ready:!/not set up/i.test(SOURCES.target.fr), blocks:'quota attainment'},
+  {name:'AI-draft properties', ready:false, blocks:'Support AI adoption'},
+];
+function setupStatus(){
+  const gaps=SETUP.filter(s=>!s.ready);
+  if(!gaps.length) return `<span class="srcpill ok">✓ All required setup complete</span>`;
+  const title=gaps.map(g=>`${g.name} — blocks ${g.blocks}`).join(' · ');
+  return `<span class="srcpill warn" title="${title}">⚠ ${gaps.length} not set up · ${gaps.map(g=>g.name).join(' · ')}</span>`;
+}
+
+// ---------- drill-down ----------
+function openDrill(m){
+  $('#mName').textContent=m.label; $('#mVal').textContent=m.value||'';
+  const s=SOURCES[m.src]||SOURCES.xero;
+  $('#mBuilt').innerHTML=`<b>${s.n}</b> · ${m.rows||'—'} · refreshed ${s.fr} · confidence ${dots(s.c)}<br>
+    <span class="mut">${m.rule||'Q3 dated'}</span>`;
+  $('#mMovedH').textContent=`What moved it · ${m.pos||''}`;
+  $('#mMoved').innerHTML=(m.moved||[['INV-2841 · Acct A','$18k','04 Aug'],['INV-2840 · Acct B','$9k','04 Aug'],
+    ['Slipped to wk 7 · Acct C','$22k','moved'],['INV-2836 · Acct D','$14k','01 Aug']])
+    .map(r=>`<div class="moved"><span>${r[0]}</span><span><b>${r[1]}</b> · <span class="mut">${r[2]}</span></span></div>`).join('');
+  // sparkline vs tick
+  const w=13,pts=Array.from({length:w},(_,i)=>20+i*4+(Math.sin(i)*6));
+  const svg=`<svg viewBox="0 0 260 70" width="100%" height="70" preserveAspectRatio="none">
+    <line x1="${260*ELAPSED/100}" y1="4" x2="${260*ELAPSED/100}" y2="66" stroke="var(--ink)" stroke-width="2"/>
+    <polyline fill="none" stroke="var(--teal)" stroke-width="2" points="${pts.map((p,i)=>`${i/(w-1)*260},${70-p*0.7}`).join(' ')}"/>
+  </svg><div class="note">Vertical rule = where pace says it should be (wk 5). Line = actual.</div>`;
+  $('#mSpark').innerHTML=svg;
+  $('#scrim').classList.add('on'); $('#modal').classList.add('on');
+}
+function closeAll(){$('#scrim').classList.remove('on');$('#modal').classList.remove('on');$('#reg').classList.remove('on');}
+$('#scrim').onclick=closeAll; $('#mClose').onclick=closeAll; $('#regClose').onclick=closeAll;
+$('#openReg').onclick=()=>{$('#scrim').classList.add('on');$('#reg').classList.add('on');};
+addEventListener('keydown',e=>{if(e.key==='Escape')closeAll();});
+
+// ---------- stat helper ----------
+function stat(k,v,d,opt={}){
+  return `<div class="stat ${opt.est?'est':''}">
+    <div class="k">${k}</div>
+    <div class="v ${opt.cls||''}">${v}${opt.est?' <span class="tag">est.</span>':''}</div>
+    <div class="d">${d||''}</div></div>`;
+}
+function srcpill(src){const s=SOURCES[src];
+  if(s.up===false) return `<span class="srcpill warn">${s.n} · ⚠ not working</span>`;
+  return `<span class="srcpill">${s.n} · ${s.fr} · ${dots(s.c)}</span>`;}
+
+// ================= SCREENS =================
+const SCREENS={};
+
+// ---- OVERVIEW ----
+SCREENS.overview=()=>{
+  const S=LIVE.support||{}, Sa=LIVE.sales||{}, P=LIVE.ps||{};
+  const dh=P.delivery_hours||{};
+  const goal=(Sa&&Sa.goal&&!Sa.goal._error&&Sa.goal.target_total>0)?Sa.goal:null;
+  const e=ELAPSED/100;
+  const measures=[];
+  if(!Sa._error){
+    if(goal){
+      const tgt=goal.target_total, act=Sa.closed_won_amount||0, fc=Sa.forecast_amount||0;
+      const d=Math.round(((tgt?act/tgt:0)-e)*QDAYS);       // days ahead/behind the quarter tick
+      const projPct=tgt?Math.round(fc/tgt*100):null;         // forecast landing as % of target
+      measures.push({label:'Sales attainment',src:'sales',target:tgt,actual:act,forecast:fc,d,projPct,
+        value:money(act)+' <span class="mut" style="font-size:12px">/ '+money(tgt)+'</span>',
+        sub:'closed-won vs goal · forecast '+money(fc)+' ('+(projPct==null?'—':projPct+'% of target')+')'});
+    }
+    measures.push({label:'Open pipeline',src:'sales',value:money(Sa.open_pipeline_value),sub:num(Sa.open_deals)+' open deals'});
+    measures.push({label:'Weighted pipeline',src:'sales',value:money(Sa.open_pipeline_weighted),sub:'by stage probability'});
+    measures.push({label:'Leads',src:'sales',value:num(Sa.leads),sub:'this window'});
+    measures.push({label:'Quotes accepted',src:'sales',value:num(Sa.quotes_accepted)+' / '+num(Sa.quotes_published),sub:'accepted / published'});
+  }
+  if(!S._error){
+    measures.push({label:'Open backlog',src:'helpdesk',value:num(S.open_backlog),sub:'unresolved Support tickets'});
+    measures.push({label:'Tickets closed',src:'helpdesk',value:num(S.closed),sub:num(S.created)+' created this window'});
+  }
+  if(!P._error){
+    measures.push({label:'Active engagements',src:'task',value:num(P.engagements),sub:'PS master records'});
+    measures.push({label:'Delivery hours',src:'task',est:true,value:num(dh.logged_on_cases)+'h',sub:'logged on '+num(dh.cases_with_hours)+' cases'});
+  }
+  const paceCell=m=>m.target
+    ? paceBar(fillFromDays(m.d),ELAPSED,statusOf(m.d),{tickcap:'wk '+Q.week})
+    : tickOnly();
+  const posCell=m=>m.target
+    ? `<span class="position ${m.d<=-2?'neg':m.d>=2?'pos':'amb'}">${posText(m.d)}</span>`
+    : `<span class="mut" style="font-size:11px">no target</span>`;
+  const rows=measures.map(m=>`<tr>
+    <td><span class="measure">${m.label}${m.est?' <span class="mut" style="font-style:italic">est.</span>':''}</span>${m.sub?`<div class="mut" style="font-size:10.5px">${m.sub}</div>`:''}</td>
+    <td style="width:180px">${paceCell(m)}</td>
+    <td>${posCell(m)}<div class="measure" style="font-size:15px">${m.value}</div></td>
+    <td><span class="ev">${SOURCES[m.src].n.replace(/^HubSpot · /,'')} ${SOURCES[m.src].up===false?'<span style="color:var(--bad);font-weight:700">⚠ not working</span>':dots(SOURCES[m.src].c)}</span></td>
+  </tr>`).join('');
+  // ---- dynamic alert: real projection warning where a target exists ----
+  const RISK=75;
+  const targeted=measures.filter(m=>m.target);
+  const behind=targeted.filter(m=>m.d<=-2);
+  const critical=targeted.filter(m=>m.projPct!=null&&m.projPct<RISK);
+  let alertCls,alertIco,alertMain,alertBasis='';
+  if(!targeted.length){
+    alertCls='warn';alertIco='⚠';
+    alertMain=`<b>Targets only set for Sales so far.</b> Sales paces against its goal below; Support and Professional Services show live actuals with no target yet, so their pace bars stay neutral until goals are set for them too.`;
+  } else if(critical.length){
+    alertCls='crit';alertIco='⚠';
+    alertMain=`<b>${critical.length===1?'1 measure is':critical.length+' measures are'} projected to miss target</b> if the forecast holds — ${critical.map(m=>`${m.label} (~${m.projPct}%)`).join('; ')}.`;
+    alertBasis=`Forecast lands below ${RISK}% of target by quarter end.`;
+  } else if(behind.length){
+    alertCls='warn';alertIco='⚠';
+    alertMain=`<b>${behind.length} behind pace</b> — still on track to hit target if the forecast holds.`;
+  } else {
+    alertCls='ok';alertIco='✓';
+    alertMain=`<b>Sales is on or ahead of target</b>, and forecast lands the quarter.`;
+  }
+  const chapters=[
+    ['1','SOLD ENOUGH?', Sa._error?'—':(goal?money(Sa.closed_won_amount)+' / '+money(goal.target_total):money(Sa.open_pipeline_value)+' open'), goal?(Sa.closed_won_amount>=goal.target_total*e?'pos':'neg'):'amb'],
+    ['2','DELIVERED IT?', P._error?'—':num(P.engagements)+' engagements','amb'],
+    ['3','KEPT THEM?','AM revenue pending','amb'],
+    ['4','BUILT NEXT?','Product feed pending','amb'],
+  ].map((c,i)=>`<div class="chap ${['','c2','c3','c4'][i]}"><div class="n">Chapter ${c[0]}</div><div class="t">${c[1]}</div>
+     <div class="verdict ${c[3]==='pos'?'pos':c[3]==='neg'?'neg':'amb'}" style="font-size:14px">${c[2]}</div></div>`).join('');
+  const aiItems=[];
+  if(!Sa._error){
+    if(goal){
+      const projPct=measures.find(m=>m.target).projPct;
+      aiItems.push(`<li><b>Sales attainment ${money(Sa.closed_won_amount)} of ${money(goal.target_total)} goal</b> (${Math.round(Sa.closed_won_amount/goal.target_total*100)}%) at ${Math.round(ELAPSED)}% through the quarter — forecast lands ${money(Sa.forecast_amount)} (~${projPct}% of target).</li>`);
+    }
+    aiItems.push(`<li><b>Sales · ${money(Sa.open_pipeline_value)} open pipeline</b> across ${num(Sa.open_deals)} deals — weighted to ${money(Sa.open_pipeline_weighted)}.</li>`);
+  } else aiItems.push(`<li><b>Sales feed error</b> — ${Sa._error}</li>`);
+  if(!S._error){
+    aiItems.push(`<li><b>Support · ${num(S.open_backlog)} open backlog</b> — ${num(S.created)} created / ${num(S.closed)} closed this window.</li>`);
+    if(S.sla_close&&S.sla_close.attainment===null)aiItems.push(`<li><b>SLA attainment not set up</b> — no MET/BREACHED values on Support tickets.</li>`);
+    if(!S.csat_responses)aiItems.push(`<li><b>CSAT / NPS not flowing yet</b> — no feedback responses on Support-pipeline tickets this window.</li>`);
+  } else aiItems.push(`<li><b>Support feed error</b> — ${S._error}</li>`);
+  if(!P._error)aiItems.push(`<li><b>PS · ${num(P.engagements)} active engagements</b>; ${num(dh.logged_on_cases)}h logged on ${num(dh.cases_with_hours)} cases — time logging still ramping.</li>`);
+  const html=`
+  <div class="head"><h2>Business Pulse</h2>${setupStatus()}</div>
+  <div class="alert ${alertCls}"><span class="ico">${alertIco}</span><div>${alertMain}${alertBasis?`<span class="basis">${alertBasis}</span>`:''}<span class="basis">Window ${LIVE.range.from} → ${LIVE.range.to} · pulled ${new Date(LIVE.generated_at).toLocaleString()}</span></div></div>
+  <div class="card pad">
+    <table class="pgrid"><thead><tr><th>Measure</th><th>Pace</th><th>Position · value</th><th>Source</th></tr></thead>
+      <tbody id="pg">${rows}</tbody>
+      <tfoot><tr>
+        <td></td>
+        <td><div class="collegend"><span><i style="background:var(--bad)"></i>Behind</span><span><i style="background:var(--amber)"></i>On track</span><span><i style="background:var(--good)"></i>Ahead</span></div></td>
+        <td></td>
+        <td><div class="collegend col"><span>${dots(3)} system of record</span><span>${dots(2)} a system, kept by hand</span><span>${dots(1)} derived / estimate</span></div></td>
+      </tr></tfoot></table>
+  </div>
+  <div class="chapters">${chapters}</div>
+  <div class="ai"><h4>AI Summary — what the live data says</h4><ul>${aiItems.join('')}</ul></div>`;
+  return {title:'Overview',html};
+};
+
+// ---- SUPPORT ----
+SCREENS.support=()=>{
+  const S=LIVE.support||{};
+  if(S._error)return {title:'Support',html:`<div class="head"><h2>Support</h2>${srcpill('helpdesk')}</div>${feedErr('Support',S._error)}`};
+  const slaF=S.sla_first_response||{}, slaC=S.sla_close||{};
+  const slaVal=o=>o.attainment!=null?Math.round(o.attainment*100)+'%':'not set up';
+  const slaSub=o=>o.attainment!=null?num(o.met)+' / '+num(o.met+o.breached)+' met':'no MET/BREACHED yet';
+  const vmax=Math.max(S.created||0,S.closed||0,S.open_backlog||0,1);
+  const html=`
+  <div class="head"><h2>Support</h2>${srcpill('helpdesk')}</div>
+  <div class="caveat">ℹ <div>Volumes are <b>live from the Support ticket pipeline</b>. SLA attainment and CSAT/NPS read from ticket roll-up fields — where they show <b>"not set up"</b> the fields aren't populated on Support tickets yet (or use different names), so they're flagged rather than guessed. Owner/agent attribution is deferred (owner missing on ~68% of tickets).</div></div>
+  <div class="stats">
+    ${stat('Tickets in',num(S.created),'this window')}
+    ${stat('Resolved',num(S.closed),S.created?Math.round(S.closed/S.created*100)+'% of inflow':'')}
+    ${stat('SLA met',slaVal(slaC),slaSub(slaC),{ns:slaC.attainment==null})}
+    ${stat('Open backlog',num(S.open_backlog),'unresolved now')}
+    ${stat('CSAT',S.csat_avg!=null?S.csat_avg+'<small>/5</small>':'not set up',S.csat_responses?num(S.csat_responses)+' replies':'no responses yet',{ns:S.csat_avg==null})}
+  </div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">Volume &amp; resolution — this window</h3>
+      <div class="blist" style="margin-top:12px">
+        <div class="brow"><div class="bl">Created</div><div class="simplebar"><i style="width:${(S.created||0)/vmax*100}%;background:var(--teal)"></i></div><div class="bv">${num(S.created)}</div></div>
+        <div class="brow"><div class="bl">Resolved</div><div class="simplebar"><i style="width:${(S.closed||0)/vmax*100}%;background:var(--good)"></i></div><div class="bv">${num(S.closed)}</div></div>
+        <div class="brow"><div class="bl">Open backlog</div><div class="simplebar"><i style="width:${(S.open_backlog||0)/vmax*100}%;background:var(--amber)"></i></div><div class="bv">${num(S.open_backlog)}</div></div>
+      </div>
+      <div class="note">Live counts for ${LIVE.range.from} → ${LIVE.range.to}. Weekly trend returns once a per-week series is wired.</div></div>
+    <div class="card pad"><h3 class="blk">SLA &amp; satisfaction</h3>
+      <div class="blist">
+        <div class="brow" style="grid-template-columns:1fr auto"><div class="bl" style="text-align:left">First-response SLA</div><div class="bv">${slaF.attainment!=null?slaVal(slaF):'<span class="mut">not set up</span>'}</div></div>
+        <div class="brow" style="grid-template-columns:1fr auto"><div class="bl" style="text-align:left">Time-to-close SLA</div><div class="bv">${slaC.attainment!=null?slaVal(slaC):'<span class="mut">not set up</span>'}</div></div>
+        <div class="brow" style="grid-template-columns:1fr auto"><div class="bl" style="text-align:left">CSAT responses</div><div class="bv">${num(S.csat_responses)}</div></div>
+        <div class="brow" style="grid-template-columns:1fr auto"><div class="bl" style="text-align:left">NPS responses</div><div class="bv">${num(S.nps_responses)}</div></div>
+      </div>
+      <h3 class="blk" style="margin-top:16px">Backlog by age &amp; channel mix</h3>
+      <div class="note">Age buckets and channel mix return once ticket age/channel fields are confirmed in your portal — not shown as guesses.</div></div>
+  </div>
+
+  <div class="card pad" style="margin-top:14px;border-top:3px dashed var(--line);opacity:.8">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3 class="blk" style="margin:0">AI Support Agent — draft adoption &amp; confidence</h3><span class="srcpill warn">not set up</span></div>
+    <div class="note" style="margin-top:10px">Needs two custom HubSpot ticket properties (<code>ai_draft_present</code>, <code>ai_draft_used</code>) — to be created. This panel fills in with live adoption and confidence bands once they exist.</div>
+  </div>
+  <div class="ai"><h4>Key Insights</h4><ul>
+    <li><b>${num(S.open_backlog)} open backlog</b> against ${num(S.created)} created / ${num(S.closed)} closed this window.</li>
+    ${slaC.attainment==null?'<li><b>SLA attainment isn\'t configured</b> — no MET/BREACHED values on Support tickets yet.</li>':''}
+    ${!S.csat_responses?'<li><b>CSAT / NPS not flowing</b> — no feedback responses captured on Support-pipeline tickets this window.</li>':''}
+  </ul></div>`;
+  return {title:'Support',html};
+};
+
+// ---- PROFESSIONAL SERVICES ----
+SCREENS.ps=()=>{
+  const P=LIVE.ps||{};
+  if(P._error)return {title:'Professional Services',html:`<div class="head"><h2>Professional Services</h2>${srcpill('task')}</div>${feedErr('Professional Services',P._error)}`};
+  const tbp=P.tickets_by_pipeline||{}, dh=P.delivery_hours||{};
+  const totTickets=Object.values(tbp).reduce((a,b)=>a+b,0);
+  const tmax=Math.max(1,...Object.values(tbp));
+  const pipeRows=Object.entries(tbp).map(([n,c])=>`<div class="brow" style="grid-template-columns:130px 1fr 96px">
+      <div class="bl" style="text-align:left">${n}</div>
+      <div class="simplebar"><i style="width:${c/tmax*100}%;background:var(--teal)"></i></div>
+      <div class="bv">${num(c)} cases</div></div>`).join('');
+  const bs=P.engagements_by_stage||{};
+  const smax=Math.max(1,...Object.values(bs));
+  const stageRows=Object.entries(bs).sort((a,b)=>b[1]-a[1]).map(([id,c])=>`<div class="brow"><div class="bl">${labelFor('ps_stages',id)}</div>
+      <div class="simplebar"><i style="width:${c/smax*100}%;background:var(--teal-l)"></i></div><div class="bv">${num(c)}</div></div>`).join('');
+  const html=`
+  <div class="head"><h2>Professional Services</h2>${srcpill('task')}</div>
+  <div class="caveat">ℹ <div>PS is a <b>master engagement</b> (the PS object) with ticket <b>cases</b> attached across five pipelines — Integrations, Training, Tech, Onboarding, Warranty. <b>Hours are logged on the ticket cases</b> (<code>actual_hours</code>) and roll up to the master (<code>total_hours</code>). Time logging is <b>still ramping</b>, so delivery hours read low today and climb automatically as teams log time. <b>Utilisation vs capacity</b> awaits a capacity baseline (roster / Asana).</div></div>
+  <div class="stats">
+    ${stat('Active engagements',num(P.engagements),'PS master records')}
+    ${stat('Tickets in flight',num(totTickets),'across the 5 pipelines')}
+    ${stat('Hours on cases',num(dh.logged_on_cases)+'<small>h</small>','on '+num(dh.cases_with_hours)+' cases',{est:true})}
+    ${stat('PS-master rollup',num(dh.ps_master_rollup)+'<small>h</small>',num(dh.ps_records_with_hours)+' records carry it',{est:true})}
+  </div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">Ticket cases in flight — by pipeline</h3>
+      <div class="blist">${pipeRows}</div>
+      <div class="note">Live case counts per PS pipeline. Hours are logged against these cases and roll up to the master.</div></div>
+    <div class="card pad"><h3 class="blk">Engagements by stage</h3>
+      <div class="blist">${stageRows||'<div class="note">No stage data.</div>'}</div>
+      <div class="note">PS master records bucketed by stage — stage names live from HubSpot.</div></div>
+  </div>
+  <div class="card pad" style="margin-top:14px"><h3 class="blk">Delivery hours — logged on cases vs PS-master rollup</h3>
+    <div class="blist">
+      <div class="brow"><div class="bl">Logged on cases</div><div class="simplebar"><i style="width:${dh.logged_on_cases||dh.ps_master_rollup?(dh.logged_on_cases/Math.max(dh.logged_on_cases,dh.ps_master_rollup,1)*100):2}%;background:var(--teal)"></i></div><div class="bv">${num(dh.logged_on_cases)}h · ${num(dh.cases_with_hours)} cases</div></div>
+      <div class="brow"><div class="bl">PS-master rollup</div><div class="simplebar"><i style="width:${dh.logged_on_cases||dh.ps_master_rollup?(dh.ps_master_rollup/Math.max(dh.logged_on_cases,dh.ps_master_rollup,1)*100):2}%;background:var(--teal-l)"></i></div><div class="bv">${num(dh.ps_master_rollup)}h · ${num(dh.ps_records_with_hours)} records</div></div>
+    </div>
+    <div class="note">Both read low because <b>time logging is only just starting</b> — the figures climb automatically as teams log <code>actual_hours</code> on cases.</div></div>
+  <div class="card pad" style="margin-top:14px;opacity:.72"><h3 class="blk">Utilisation vs capacity — <span style="text-transform:none;color:var(--slate-d)">deferred</span></h3>
+    <div class="note">Hours delivered come straight from the cases. <b>Utilisation %</b> needs a capacity baseline (consultant roster / Asana) — added when that lands, not modelled from HubSpot alone.</div></div>`;
+  return {title:'Professional Services',html};
+};
+
+// ---- SALES ----
+SCREENS.sales=()=>{
+  const Sa=LIVE.sales||{};
+  if(Sa._error)return {title:'Sales & Revenue',html:`<div class="head"><h2>Sales &amp; Revenue</h2>${srcpill('sales')}</div>${feedErr('Sales',Sa._error)}`};
+  const bs=Sa.by_stage||{};
+  const stages=Object.entries(bs).sort((a,b)=>b[1].value-a[1].value);
+  const vmax=Math.max(1,...stages.map(s=>s[1].value));
+  const stageRows=stages.map(([id,s])=>`<div class="brow" style="grid-template-columns:150px 1fr 130px"><div class="bl">${labelFor('deal_stages',id)}</div>
+     <div class="simplebar"><i style="width:${s.value/vmax*100}%;background:var(--teal)"></i></div>
+     <div class="bv">${money(s.value)} · ${num(s.count)}</div></div>`).join('');
+  const goal=(Sa.goal&&!Sa.goal._error&&Sa.goal.target_total>0)?Sa.goal:null;
+  const goalErr=(Sa.goal&&Sa.goal._error)?Sa.goal._error:null;
+  const e=ELAPSED/100;
+  const tgt=goal?goal.target_total:0, act=Sa.closed_won_amount||0, fc=Sa.forecast_amount||0;
+  const d=goal?Math.round(((tgt?act/tgt:0)-e)*QDAYS):0;
+  const projPct=goal&&tgt?Math.round(fc/tgt*100):null;
+  const answers=[
+    ['On target?', goal?money(act)+' / '+money(tgt):(goalErr?'goal read error':'targets not set'),
+      goal?posText(d)+' · '+Math.round(act/tgt*100)+'% attained at wk '+Q.week:(goalErr?'add crm.objects.goals.read scope':'HubSpot Goals not configured'),
+      goal?(d>=0?'ok':'bad'):'amb'],
+    ['Forecast to land?', goal?money(fc):'—',
+      goal?(projPct+'% of target if the forecast holds'):'needs a goal to compare',
+      goal?(projPct>=100?'ok':projPct>=75?'amb':'bad'):'amb'],
+    ['Enough pipeline?', money(Sa.open_pipeline_value), num(Sa.open_deals)+' open · weighted '+money(Sa.open_pipeline_weighted), 'ok'],
+  ].map(a=>`<div class="chap ${a[3]==='ok'?'c2':a[3]==='bad'?'':'c3'}" style="border-top-color:var(--${a[3]==='ok'?'good':a[3]==='bad'?'bad':'amber'})">
+    <div class="t" style="font-size:11px;color:var(--slate-d);text-transform:uppercase;letter-spacing:.05em">${a[0]}</div>
+    <div class="verdict ${a[3]==='ok'?'pos':a[3]==='bad'?'neg':'amb'}" style="font-size:17px">${a[1]}</div>
+    <div class="meta">${a[2]}</div></div>`).join('');
+  const goalPanel=goal?`
+  <div class="card pad" style="margin-top:14px"><h3 class="blk">Attainment vs goal · Q — closed-won, forecast &amp; the quarter tick</h3>
+    <div style="font-size:30px;font-weight:700;letter-spacing:-.02em">${money(act)} <span class="mut" style="font-size:16px;font-weight:600">of ${money(tgt)} goal</span> <span class="${d>=0?'pos':'neg'}" style="font-size:15px">· ${posText(d)}</span></div>
+    <div style="margin:14px 0 6px">${paceBar(fillFromDays(d),ELAPSED,statusOf(d),{tick2:Math.min(100,fc/tgt*100),tickcap:'wk '+Q.week,tick2cap:'forecast'})}</div>
+    <div class="note"><b>Closed-won ${money(act)}</b> (${Math.round(act/tgt*100)}%) · <b>forecast ${money(fc)}</b> (${projPct}% of target) · goal ${money(tgt)} from ${goal.count} HubSpot Goal${goal.count===1?'':'s'} this quarter. ${projPct<100?`<span class="neg">Forecast is ${100-projPct}% short of target.</span>`:'<span class="pos">Forecast lands the quarter.</span>'}</div></div>`:
+  (goalErr?`<div class="caveat bad">⚠ <div><b>Goals couldn't be read.</b> <code>${goalErr}</code> — most likely the <code>crm.objects.goals.read</code> scope isn't on the Service Key yet. Add it and reload to light up attainment vs target.</div></div>`:
+  `<div class="caveat">⚠ <div><b>No sales goal found for this quarter.</b> Attainment vs target activates once a Goal covering the current quarter exists in HubSpot.</div></div>`);
+  const html=`
+  <div class="head"><h2>Sales &amp; Revenue</h2>${srcpill('sales')}</div>
+  <div class="chapters" style="grid-template-columns:1fr 1fr 1fr">${answers}</div>
+  ${goalPanel}
+  <div class="caveat" style="margin-top:14px">ℹ <div>Attainment is <b>closed-won this quarter vs the HubSpot Goal</b>; forecast = closed-won + weighted open deals due to close this quarter. Open pipeline, leads &amp; quotes are live from <b>HubSpot Deals</b>. <b>Invoiced revenue and IC/owner allocation stay deferred</b> (Finance file-drop; owner sparse).</div></div>
+  <div class="stats">
+    ${stat('Closed-won · Q',money(act),num(Sa.closed_won_count)+' deals')}
+    ${stat('Forecast · Q',money(fc),projPct==null?'':projPct+'% of target')}
+    ${stat('Open pipeline',money(Sa.open_pipeline_value),num(Sa.open_deals)+' deals')}
+    ${stat('Leads',num(Sa.leads),'this window')}
+    ${stat('Quotes',num(Sa.quotes_accepted)+' / '+num(Sa.quotes_published),'accepted / published')}
+  </div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">Open pipeline by stage — value &amp; deal count</h3>
+      <div class="blist">${stageRows||'<div class="note">No open deals in this pipeline.</div>'}</div>
+      <div class="note">Bars = open value per stage; label carries value · deal count. Stage names live from HubSpot.</div></div>
+    <div class="card pad"><h3 class="blk">Still deferred — awaiting data / setup</h3>
+      <div class="gaps">
+        <div class="gap"><span class="star">✗</span><div><b>Invoiced revenue</b> <span class="hit">Finance (Sysnet) file-drop, not HubSpot</span></div></div>
+        <div class="gap"><span class="star">✗</span><div><b>IC / owner attainment</b> <span class="hit">owner populated on too few deals</span></div></div>
+        <div class="gap"><span class="star">✗</span><div><b>Churn / customer spine</b> <span class="hit">no owner-over-time link yet</span></div></div>
+      </div>
+      <div class="note">Each lights up automatically when its source is ready — none are faked in the meantime.</div></div>
+  </div>`;
+  return {title:'Sales & Revenue',html};
+};
+
+// ---- ACCOUNT MANAGEMENT ----
+SCREENS.am=()=>{
+  const wf=[['Opening','$404k','var(--slate)',404],['New','+$56k','var(--good)',56],['Expansion','+$96k','var(--good)',96],
+    ['Downgrade','−$41k','var(--bad)',41],['Churn','−$31k','var(--bad)',31],['Closing','$412k','var(--teal)',412]];
+  const mx=Math.max(...wf.map(w=>w[3]));
+  const html=`
+  <div class="head"><h2>Account Management</h2>${srcpill('billing')}</div>
+  <div class="stats">
+    ${stat('NRR','104%','<span class="pos">2 dys ahead</span>')}
+    ${stat('GRR','96%','gross retention')}
+    ${stat('MRR','$412k','<span class="pos">▲ +$8k</span>')}
+    ${stat('Accounts at risk','7','flagged this week')}
+  </div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">MRR movements — every segment labelled</h3>
+      <div class="wf">${wf.map(w=>`<div class="col"><div class="cv">${w[1]}</div>
+        <div class="bar" style="height:${w[3]/mx*100}%;background:${w[2]}"></div><div class="cl">${w[0]}</div></div>`).join('')}</div></div>
+    <div class="card pad"><h3 class="blk">NRR / GRR by month · 100% reference band</h3>
+      <svg viewBox="0 0 300 140" width="100%" height="150">
+        <rect x="0" y="30" width="300" height="14" fill="var(--teal-xpale)"/>
+        <line x1="0" y1="37" x2="300" y2="37" stroke="var(--slate)" stroke-dasharray="3 3" stroke-width="1"/>
+        <text x="4" y="34" font-size="8" fill="var(--slate-d)">100%</text>
+        <polyline fill="none" stroke="var(--good)" stroke-width="2" points="10,50 70,44 130,40 190,34 250,30 290,28"/>
+        <polyline fill="none" stroke="var(--amber)" stroke-width="2" points="10,64 70,60 130,58 190,55 250,52 290,50"/>
+      </svg>
+      <div class="note"><span style="color:var(--good)">■</span> NRR &nbsp; <span style="color:var(--amber)">■</span> GRR</div></div>
+  </div>
+  <div class="card pad" style="margin-top:14px"><h3 class="blk">Accounts at risk</h3>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>Account</th><th>MRR</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr class="click"><td>Acct D</td><td>$14k</td><td><span class="pill risk">usage ↓</span></td></tr>
+        <tr class="click"><td>Acct E</td><td>$9k</td><td><span class="pill risk">support</span></td></tr>
+        <tr class="click"><td>Acct F</td><td>$7k</td><td><span class="pill risk">renewal</span></td></tr>
+      </tbody></table></div>
+    <div class="note">Rows click to account history. ⤓ CSV</div></div>`;
+  return {title:'Account Management',html,after:()=>{
+    document.querySelectorAll('.tbl tr.click').forEach(tr=>tr.onclick=()=>openDrill({label:'Account at risk',src:'billing',rows:'HubSpot Companies',rule:'churn_risk_level + hs_csm_sentiment + mmr'}));
+  }};
+};
+
+// ---- FINANCE ----
+SCREENS.finance=()=>{
+  const salesTick=ELAPSED*2.2/1.94; // team target pace, higher
+  const html=`
+  <div class="head"><h2>Finance</h2>${srcpill('xero')}</div>
+  <div class="caveat">⚠ <div><b>Targets are qualified.</b> OKR2 is the company number and drives the tick; the sales team target sits deliberately above it as a <b>second, lighter tick</b> on the same bar.</div></div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">Invoiced</h3>
+      <div style="font-size:32px;font-weight:700;letter-spacing:-.02em">$612k <span class="mut" style="font-size:16px;font-weight:600">of $1.94m</span></div>
+      <div style="margin:14px 0 6px">${paceBar(612/1940*100,ELAPSED,'bad',{tick2:salesTick,tickcap:'OKR2',tick2cap:'team'})}</div>
+      <div class="note"><b class="pos">▲ +$26k this wk</b> · <b class="neg">7 dys behind</b> · Sysnet export · 2 hrs ${dots(3)}</div></div>
+    <div class="card pad"><h3 class="blk">Landing forecast</h3>
+      <div style="font-size:32px;font-weight:700">84%<span class="mut" style="font-size:16px"> of OKR2</span></div>
+      <div class="note" style="font-size:12.5px;margin-top:10px">Needs <b>$41k/wk</b> from here · currently running at <b class="neg">$26k</b>.</div>
+      <div style="margin-top:14px">${paceBar(84,100,'amb',{tickcap:'land'})}</div></div>
+  </div>
+  <div class="card pad" style="margin-top:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3 class="blk" style="margin:0">Cumulative invoiced vs pace</h3>
+      <span class="toggle"><button aria-pressed="true">Week</button><button aria-pressed="false">Month</button><button aria-pressed="false">Quarter</button></span></div>
+    <svg viewBox="0 0 600 150" width="100%" height="150" style="margin-top:10px">
+      <line x1="${600*ELAPSED/100}" y1="6" x2="${600*ELAPSED/100}" y2="130" stroke="var(--ink)" stroke-width="2"/>
+      <text x="${600*ELAPSED/100+4}" y="14" font-size="9" fill="var(--slate-d)">wk 5</text>
+      <polyline fill="none" stroke="var(--slate)" stroke-dasharray="4 4" stroke-width="2" points="0,130 600,10"/>
+      <polyline fill="none" stroke="var(--teal)" stroke-width="2.5" points="0,130 90,116 150,104 228,86"/>
+    </svg>
+    <div class="note">Sysnet export · 1,204 invoices · Q3, credit notes excluded (3 rows), ex-VAT · <code>view the query</code> · ⤓ CSV · <span class="mut">dashed = pace, teal = actual (stops at today)</span></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card pad"><h3 class="blk">Won but not billed · $488k</h3>
+      <div class="blist">
+        <div class="brow"><div class="bl">60+ dys</div><div class="simplebar"><i style="width:100%;background:var(--bad)"></i></div><div class="bv">$186k</div></div>
+        <div class="brow"><div class="bl">31–60 dys</div><div class="simplebar"><i style="width:79%;background:var(--amber)"></i></div><div class="bv">$147k</div></div>
+        <div class="brow"><div class="bl">0–30 dys</div><div class="simplebar"><i style="width:83%;background:var(--teal)"></i></div><div class="bv">$155k</div></div>
+      </div></div>
+    <div class="card pad">${stat('Delivered, unbilled','$74k','HubSpot PS object · not yet invoiced',{est:true})}
+      <div class="note">Hollow because it is delivered value from the PS object awaiting a Finance invoice — an estimate, never rounded up.</div></div>
+  </div>`;
+  return {title:'Finance',html};
+};
+
+// ---- PRODUCT ----
+SCREENS.product=()=>{
+  const prods=[['Product X','$41k','est',1,'-14'],['Product Y','$28k','est',1,'-10'],['Product Z','$19k','',2,'+3'],['H&L Pay','312 partners','',2,'+6']];
+  const funnel=[['Contacted',1180,100],['Interested',640,54],['Onboarding',412,35],['Live',312,26],['Pending',98,8]];
+  const road=[['Product X','Ali','on','35','40'],['Product Y','Dee','risk','20','45'],['Product Z','Sam','done','0','30'],['H&L Pay','Jo','ns','55','40']];
+  const roadCol={on:'var(--teal)',risk:'var(--amber)',done:'var(--good)',ns:'var(--slate)'};
+  const gtm=[['Prod X',['Sam','ok'],['Dee','ok'],['Ali','ok'],['Jo','risk']],['Prod Y',['Ali','ok'],['Sam','ok'],['—','ns'],['Dee','ok']],['Prod Z',['Dee','ok'],['Jo','ok'],['Sam','ok'],['Ali','ok']]];
+  const gc={ok:'var(--good)',risk:'var(--amber)',ns:'var(--slate)'};
+  const html=`
+  <div class="head"><h2>Product</h2>${srcpill('product')}</div>
+  <div class="caveat bad">⚠ <div>Everything here comes from a <b>product sheet last edited 14 days ago</b>. Figures stay <b>hollow</b> until it is refreshed.</div></div>
+  <div class="stats">
+    ${prods.map(p=>`<div class="stat ${p[2]?'est':''}"><div class="k">${p[0]} ${dots(p[3])}</div>
+      <div class="v ${p[2]?'':''}">${p[1]}${p[2]?' <span class="tag">est.</span>':''}</div>
+      <div class="d">${paceBar(fillFromDays(+p[4]),ELAPSED,statusOf(+p[4]),{hollow:!!p[2]})}</div></div>`).join('')}
+  </div>
+  <div class="grid g2">
+    <div class="card pad"><h3 class="blk">H&amp;L Pay — partner motion</h3>
+      <div class="funnel">${funnel.map(f=>`<div class="fstage" style="width:${Math.max(40,f[2])}%;background:linear-gradient(90deg,var(--teal),var(--teal-l))">
+        <span class="fn">${f[0]}</span><span class="fv">${f[1].toLocaleString()}</span></div>`).join('')}</div>
+      <div class="note">8-week momentum trending up · values inside every stage.</div></div>
+    <div class="card pad"><h3 class="blk">Q3 roadmap — owner inside the bar</h3>
+      <div class="blist">${road.map(r=>`<div class="brow" style="grid-template-columns:80px 1fr"><div class="bl">${r[0]}</div>
+        <div class="pace" style="height:20px;background:var(--track)"><div class="pfill" style="left:${r[3]}%;width:${r[4]}%;background:${roadCol[r[2]]};position:absolute;display:flex;align-items:center;padding-left:8px;color:#fff;font-size:10px;font-weight:600">${r[1]}</div>
+          <div class="ptick" style="left:${ELAPSED}%"></div></div></div>`).join('')}</div>
+      <div class="note"><span style="color:var(--good)">■</span>done <span style="color:var(--teal)">■</span>on track <span style="color:var(--slate)">■</span>not started <span style="color:var(--amber)">■</span>at risk</div></div>
+  </div>
+  <div class="card pad" style="margin-top:14px"><h3 class="blk">GTM readiness — owner inside each pill</h3>
+    <div class="tblwrap"><table class="tbl matrix"><thead><tr><th>Product</th><th>Pricing</th><th>Collateral</th><th>Training</th><th>Support</th></tr></thead>
+      <tbody>${gtm.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(c=>`<td><span class="mp" style="background:${gc[c[1]]}">${c[0]}</span></td>`).join('')}</tr>`).join('')}</tbody></table></div>
+    <div class="note"><span class="star">*1</span> Prod X · Support — blocked on support runbook.</div></div>`;
+  return {title:'Product',html};
+};
+
+// ---- AI USAGE ----
+SCREENS.aiusage=()=>{
+  const heat=[['Dev A',120,168,204,151,[31,44,51,25]],['Dev B',64,98,141,96,[18,29,34,15]],['Dev C',152,211,109,147,[28,41,46,32]]];
+  const shade=v=>`background:color-mix(in srgb,var(--teal) ${Math.round(12+v/211*70)}%,var(--card))`;
+  const wshade=v=>`background:color-mix(in srgb,var(--teal-l) ${Math.round(20+v/51*70)}%,var(--card))`;
+  const html=`
+  <div class="head"><h2>AI Usage</h2>${srcpill('tooling')}</div>
+  <div class="stats">
+    ${stat('Active users','38<small> of 46</small>','83% of licences')}
+    ${stat('Sessions this wk','1,402','<span class="pos">▲ +11%</span>')}
+    ${stat('Heavy users','12','daily, every day')}
+    ${stat('Dormant','8','no use in 14 dys')}
+  </div>
+  <div class="card pad">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3 class="blk" style="margin:0">Usage by person × month — Aug subdivides by week</h3>
+      <span class="toggle"><button aria-pressed="true">Week</button><button aria-pressed="false">Month</button><button aria-pressed="false">Quarter</button></span></div>
+    <div class="tblwrap" style="margin-top:10px"><table class="heat">
+      <thead><tr><th>Person</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th colspan="4" style="border-left:2px solid var(--line)">Aug by week</th></tr></thead>
+      <tbody>${heat.map(r=>`<tr><td style="text-align:left">${r[0]}</td>
+        <td style="${shade(r[1])}">${r[1]}</td><td style="${shade(r[2])}">${r[2]}</td><td style="${shade(r[3])}">${r[3]}</td><td style="${shade(r[4])}">${r[4]}</td>
+        ${r[5].map(w=>`<td style="${wshade(w)};border-left:${w===r[5][0]?'2px solid var(--line)':'0'}">${w}</td>`).join('')}</tr>`).join('')}
+        <tr><td class="tot" style="text-align:left">TOTAL</td><td class="tot">336</td><td class="tot">477</td><td class="tot">454</td><td class="tot">394</td><td class="tot" colspan="4">by week →</td></tr>
+      </tbody></table></div>
+    <div class="note">Values in every cell.</div>
+  </div>
+  <div class="ai"><h4>Key Insights</h4><ul>
+    <li><b>Adoption is concentrated</b> — 12 of 46 people generate 61% of sessions.</li>
+    <li><b>Eight dormant licences</b> — the clearest cost line to act on.</li>
+  </ul></div>`;
+  return {title:'AI Usage',html};
+};
+
+// ---- PROJECTS ----
+SCREENS.projects=()=>{
+  const rows=[['Migration — Acct A','ok','On track',35,40,'UAT · 22 Aug','Ali'],
+    ['Rollout — Acct B','risk','At risk',30,55,'Site 3 · 29 Aug','Dee'],
+    ['Integration — Acct C','blk','Blocked',20,60,'API access','Jo'],
+    ['Upgrade — Acct D','ok','On track',70,60,'Go live · 15 Aug','Sam']];
+  const html=`
+  <div class="head"><h2>Projects</h2>${srcpill('delivery')}</div>
+  <div class="stats">
+    ${stat('Live','14','projects')}
+    ${stat('On track','9','')}
+    ${stat('At risk','4','')}
+    ${stat('Blocked','1','')}
+  </div>
+  <div class="card pad"><h3 class="blk">Project portfolio — progress vs plan</h3>
+    <div class="tblwrap"><table class="tbl"><thead><tr><th>Project</th><th>Status</th><th>Progress vs plan</th><th>Next milestone</th><th>Owner</th></tr></thead>
+      <tbody>${rows.map(r=>`<tr class="click"><td>${r[0]}</td>
+        <td><span class="pill ${r[1]==='ok'?'ok':r[1]==='risk'?'risk':'blk'}">${r[2]}</span></td>
+        <td style="width:180px"><div class="pace" style="height:16px"><div class="pfill" style="width:${r[3]}%;background:var(--${r[1]==='ok'?'teal':r[1]==='risk'?'amber':'bad'})"></div><div class="ptick" style="left:${r[4]}%"><span class="cap">plan</span></div></div></td>
+        <td class="mut">${r[5]}</td><td>${r[6]}</td></tr>`).join('')}</tbody></table></div>
+    <div class="note">Tick = where the plan says it should be today. Rows click to the plan and the log.</div></div>`;
+  return {title:'Projects',html,after:()=>{
+    document.querySelectorAll('.tbl tr.click').forEach(tr=>tr.onclick=()=>openDrill({label:'Project',src:'delivery',rows:'delivery tracker',rule:'progress vs plan'}));
+  }};
+};
+
+// ---------- router ----------
+const TABS=[['overview','Overview'],['sales','Sales'],['am','Account Management'],['ps','Professional Services'],
+  ['support','Support'],['finance','Finance'],['product','Product'],['aiusage','AI Usage'],['projects','Projects']];
+$('#tabs').innerHTML=TABS.map(([id,l],i)=>`<button class="tab" role="tab" data-s="${id}" aria-selected="${i===0}">${l}</button>`).join('');
+const DEFERRED={am:'HubSpot Companies (revenue/renewal fields sparse)',finance:'Sysnet export file-drop',product:'product sheet file-drop',aiusage:'tooling log file-drop',projects:'delivery tracker file-drop'};
+function render(id){
+  const s=SCREENS[id]();
+  const banner=DEFERRED[id]?`<div class="alert warn"><span class="ico">⚠</span><div><b>Illustrative layout — not live yet.</b> The figures on this tab are placeholders from the design; this function's live data comes from <b>${DEFERRED[id]}</b>, which isn't wired into this app yet.</div></div>`:'';
+  $('#app').innerHTML=`<div class="view on">${banner}${s.html}</div>`;
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.s===id));
+  if(s.after)s.after();
+  // pace legend, bottom-right of every graph that colours by pace-vs-tick
+  document.querySelectorAll('#app .card, #app .panel').forEach(c=>{
+    if(c.querySelector('.ptick') && !c.querySelector(':scope > .pacelegend') && !c.querySelector('.pgrid')
+       && !c.querySelector('.pill') && !/not started/i.test(c.textContent)){
+      const l=document.createElement('div'); l.className='pacelegend';
+      l.innerHTML='<span class="lbl">Pace</span><span><i style="background:var(--bad)"></i>Behind</span><span><i style="background:var(--amber)"></i>On track</span><span><i style="background:var(--good)"></i>Ahead</span>';
+      c.appendChild(l);
+    }
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>render(t.dataset.s));
+
+// ---------- live bootstrap ----------
+async function boot(){
+  $('#app').innerHTML=`<div class="card pad"><b>Loading live HubSpot data…</b><div class="note">Pulling from the Search API — the first load takes a few seconds while Professional Services pages through.</div></div>`;
+  try{
+    const r=await fetch('/api/metrics');
+    LIVE=await r.json();
+    if(LIVE.error)throw new Error(LIVE.error);
+  }catch(e){
+    $('#app').innerHTML=`<div class="alert crit"><span class="ico">⚠</span><div><b>Couldn't load live data.</b> ${(e&&e.message)||e}<br><span class="basis">Check that <code>serve.py</code> is running and the HUBSPOT_TOKEN in .env is valid, then reload.</span></div></div>`;
+    return;
+  }
+  const map={sales:'sales',support:'helpdesk',ps:'task'};
+  Object.entries(map).forEach(([k,src])=>{ if(LIVE[k]&&LIVE[k]._error)SOURCES[src].up=false; });
+  buildRegister();
+  render('overview');
+}
+boot();
+</script>
