@@ -65,7 +65,7 @@
     ]
   },
   "execSummary": {
-    "finance": "hardware $410k = 57% of $715k vs 89% pace; this week +$38k gross (HW discounts -$10k); new-MRR register refresh pending",
+    "finance": "hardware $410k = 57% of $715k vs 89% pace; week invoiced $71k (HW $38k gross, discounts -$10k); new-MRR register refresh pending",
     "sales": "closed-won this week 46 deals · $161k (HubSpot); Q3 pipe $335k unweighted / $123k weighted",
     "ps": "utilisation not measurable during cutover — HubSpot time logging ramping (99h on 48 cases)",
     "support": "weekly inflow 490 vs resolved 591 — backlog 570 and falling",
@@ -1158,5 +1158,102 @@
         "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
       }
     ]
+  },
+  "invoicedRevenue": {
+    "source": "Sysnet weekly sales export (Finance)",
+    "thisWeek": "14–20 Sep",
+    "priorWeek": "7–13 Sep",
+    "totalThis": 71343.7,
+    "totalPrior": 127396.78,
+    "revGroups": [
+      [
+        "Hardware",
+        37636.0,
+        38478.75
+      ],
+      [
+        "Commission - Other",
+        37017.7,
+        77870.97
+      ],
+      [
+        "Tech Support",
+        2812.5,
+        2362.5
+      ],
+      [
+        "Consumables",
+        1710.5,
+        3729.1
+      ],
+      [
+        "Equipment Repair",
+        1315.0,
+        2275.0
+      ],
+      [
+        "Freight - Customer",
+        969.5,
+        1114.0
+      ],
+      [
+        "Support Travel",
+        240.0,
+        390.0
+      ],
+      [
+        "Training",
+        0.0,
+        4650.0
+      ],
+      [
+        "S/W Subscriptions",
+        -148.0,
+        871.0
+      ],
+      [
+        "Other (fees, deposits)",
+        -15.0,
+        -2017.54
+      ],
+      [
+        "Discounts (HW + training)",
+        -10194.5,
+        -2327.0
+      ]
+    ],
+    "byAm": [
+      [
+        "Bradford",
+        36573.11,
+        4548.0
+      ],
+      [
+        "Jasmine",
+        19936.0,
+        14694.75
+      ],
+      [
+        "National",
+        5922.09,
+        75780.43
+      ],
+      [
+        "Bjorn",
+        5717.5,
+        7671.5
+      ],
+      [
+        "Brett",
+        3150.0,
+        23359.1
+      ],
+      [
+        "Ho",
+        45.0,
+        1343.0
+      ]
+    ],
+    "note": "Adj Amount, ex GST · 'National' = unattributed/company-level lines (mostly commission)"
   }
 }

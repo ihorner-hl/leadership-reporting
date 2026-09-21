@@ -144,7 +144,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const s = pres.addSlide();
   header(s, "Agenda", null, null);
   const cards = [
-    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "New Products — target vs traction", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
+    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "Invoiced Revenue — weekly extract", "New Products — target vs traction", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
     { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: ["Backlog, ageing & first response", "AI Support Agent"] },
     { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
@@ -308,6 +308,74 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { text: "HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = day 82 of 92 in Q3.", muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);
+}
+
+// =============================================================================
+// 6 · INVOICED REVENUE — WEEKLY SYSNET EXTRACT
+// =============================================================================
+{
+  const s = pres.addSlide();
+  const iv = D.invoicedRevenue;
+  header(s, "Invoiced Revenue — Weekly Extract", "Finance · Sysnet weekly sales export", 1);
+  const hwThis = iv.revGroups.find((r) => r[0] === "Hardware");
+  const discThis = iv.revGroups.find((r) => r[0].startsWith("Discounts"));
+  const commThis = iv.revGroups.find((r) => r[0].startsWith("Commission"));
+  kpi(s, 0.45, 1.12, 2.95, 1.25, "TOTAL INVOICED — THIS WEEK", "$71.3k",
+    `${iv.thisWeek} · prior week $127.4k (${iv.priorWeek})`, NAVY);
+  kpi(s, 3.6, 1.12, 2.95, 1.25, "HARDWARE — GROSS", "$37.6k",
+    "commissionable · 53% of the week's invoicing", TEAL);
+  kpi(s, 6.75, 1.12, 2.95, 1.25, "DISCOUNTS", "-$10.2k",
+    "hardware discounts · prior week -$2.3k — nets hardware to $27.4k", TERRA);
+  kpi(s, 9.9, 1.12, 2.98, 1.25, "COMMISSION & OTHER", "$37.0k",
+    "Bradford $31.1k · National $5.9k — not commissionable hardware", GOLD);
+
+  // rev-group chart
+  const CX = 0.45, CY = 2.62, CW = 6.1, CH = 3.9;
+  card(s, CX, CY, CW, CH);
+  cardTitle(s, CX, CY, "WHERE THE WEEK'S INVOICING CAME FROM", 5.5);
+  const cats = iv.revGroups.map((r) => r[0]).reverse();
+  s.addChart(pres.ChartType.bar, [
+    { name: iv.priorWeek, labels: cats, values: iv.revGroups.map((r) => r[2]).reverse() },
+    { name: iv.thisWeek, labels: cats, values: iv.revGroups.map((r) => r[1]).reverse() },
+  ], {
+    x: CX + 0.2, y: CY + 0.46, w: CW - 0.42, h: CH - 0.9,
+    barDir: "bar", chartColors: [TEAL_LT, TEAL], barGapWidthPct: 45, barOverlapPct: -8,
+    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7, catAxisLabelFontFace: FONT,
+    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valAxisFormatCode: '$#,##0,"k"',
+    valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
+    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
+  });
+  s.addText(iv.note, { x: CX + 0.2, y: CY + CH - 0.42, w: CW - 0.4, h: 0.32, fontFace: FONT, fontSize: 6.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  // by account manager
+  const AMX = 6.7, AMW = 2.9;
+  card(s, AMX, CY, AMW, CH);
+  cardTitle(s, AMX, CY, "BY ACCOUNT MANAGER", 2.5);
+  ["AM", "THIS WK", "PRIOR"].forEach((h2, i) => {
+    const xs = [0.2, 1.2, 2.0], ws = [0.95, 0.75, 0.72];
+    s.addText(h2, { x: AMX + xs[i], y: CY + 0.5, w: ws[i], h: 0.2, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 });
+  });
+  iv.byAm.forEach((r, i) => {
+    const y = CY + 0.76 + i * 0.42;
+    s.addShape("rect", { x: AMX + 0.2, y: y + 0.37, w: AMW - 0.4, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
+    s.addText(r[0], { x: AMX + 0.2, y, w: 0.95, h: 0.38, fontFace: FONT, fontSize: 8.5, bold: true, color: r[0] === "National" ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    const amt = (v) => (Math.abs(v) < 1000 ? fmt$(v) : fmtK(v));
+    s.addText(amt(r[1]), { x: AMX + 1.2, y, w: 0.75, h: 0.38, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(amt(r[2]), { x: AMX + 2.0, y, w: 0.72, h: 0.38, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  const amTotY = CY + 0.76 + iv.byAm.length * 0.42 + 0.04;
+  s.addShape("rect", { x: AMX + 0.2, y: amTotY - 0.05, w: AMW - 0.4, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
+  s.addText("TOTAL", { x: AMX + 0.2, y: amTotY, w: 0.95, h: 0.3, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("$71.3k", { x: AMX + 1.2, y: amTotY, w: 0.75, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("$127.4k", { x: AMX + 2.0, y: amTotY, w: 0.72, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+
+  aiSummary(s, 9.8, CY, 3.08, CH, [
+    { lead: "The week invoiced $71.3k", text: "against $127.4k the week before — but the drop is mix, not collapse: last week carried $77.9k of commission, this week $37.0k.", dot: TEAL },
+    { lead: "Hardware held up at $37.6k gross", text: "(vs $38.5k) — the commissionable line is flat week on week.", dot: TERRA },
+    { lead: "Discounting is the watch item:", text: "-$10.2k this week vs -$2.3k prior, almost all on Jasmine's hardware. Gross $37.6k nets to $27.4k.", dot: GOLD },
+    { text: "Training billed nothing this week (vs $4.7k) · S/W subscriptions net -$148 on credits.", muted: true, dot: FAINT },
+  ]);
+  sourcePill(s, iv.source);
 }
 
 // =============================================================================
