@@ -144,7 +144,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const s = pres.addSlide();
   header(s, "Agenda", null, null);
   const cards = [
-    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "New Products — target vs traction", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
+    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
     { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: ["Backlog, ageing & first response", "AI Support Agent"] },
     { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
@@ -311,58 +311,98 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 }
 
 // =============================================================================
-// 6 · NEW PRODUCTS
+// 6 · AI-INFUSED PRODUCTS — PIPELINE & CONVERSION
 // =============================================================================
 {
   const s = pres.addSlide();
-  const n = D.newProducts;
-  header(s, "New Products — Target vs Traction", "Sales & Product", 1, { cutover: true });
-  card(s, 0.45, 1.1, 6.05, 1.28);
-  s.addText(`NEW-PRODUCT MRR — SEPTEMBER · committed ${fmtK(n.monthCommitted)}/mo`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText([{ text: "$0", options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  recorded of ${fmtK(n.monthCommitted)} committed`, options: { fontSize: 9.5, color: MUTED } }],
-    { x: 0.65, y: 1.46, w: 4.4, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("▲ +10 Roam deals this wk", { x: 4.3, y: 1.5, w: 2.1, h: 0.34, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
-  progressBar(s, 0.65, 2.08, 4.6, 0, D.week.monthPacePct);
-  s.addText([{ text: "0%", options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${D.week.monthPacePct}%`, options: { color: FAINT, fontSize: 8 } }],
-    { x: 5.35, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
+  const A = D.aiProducts;
+  const usd = (a) => Math.round(a * A.fx);
+  const US = (a) => "US$" + usd(a).toLocaleString();
+  const AU = (a) => "A$" + Math.round(a).toLocaleString();
+  header(s, "AI-Infused Products — Pipeline", "Sales & Product", 1, { cutover: true });
 
-  card(s, 6.83, 1.1, 6.05, 1.28);
-  s.addText("PATH TO DECEMBER · exit $136.8k MRR · 77% AI-built", { x: 7.03, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText([{ text: "$0", options: { fontSize: 24, bold: true, color: TERRA } }, { text: "  of $137k committed", options: { fontSize: 9.5, color: MUTED } }],
-    { x: 7.03, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("plan-to-date $30k/mo", { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: NAVY, isTextBox: true, margin: 0 });
-  progressBar(s, 7.03, 2.08, 4.6, 0, 22);
-  s.addText([{ text: "0%", options: { bold: true, color: TERRA, fontSize: 10 } }, { text: " · pace 22%", options: { color: FAINT, fontSize: 8 } }],
-    { x: 11.73, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
+  kpi(s, 0.45, 1.08, 2.95, 1.2, "OPEN PIPELINE", US(A.openAud), `${AU(A.openAud)} · ${A.openDeals} deals not yet ordered`, NAVY, 24);
+  kpi(s, 3.6, 1.08, 2.95, 1.2, "ORDER PLACED", US(A.placedAud), `${AU(A.placedAud)} · ${A.placedDeals} deals since 1 Jul`, GREEN, 24);
+  kpi(s, 6.75, 1.08, 2.95, 1.2, "CLOSED LOST", US(A.lostAud), `${AU(A.lostAud)} · ${A.lostDeals} deals since 1 Jul`, TERRA, 24);
+  kpi(s, 9.9, 1.08, 2.98, 1.2, "CONVERSION — OF CLOSED", `${A.convCount}%`, `${A.placedDeals} placed / ${A.lostDeals} lost by count · ${A.convValue}% by value`, TEAL, 24);
 
-  const TX = 0.45, TW = 8.35, TY = 2.56, TH = 4.42;
-  card(s, TX, TY, TW, TH);
-  s.addText([{ text: "BY PRODUCT   ", options: { fontSize: 12, bold: true, color: TEAL } }, { text: "▮ open pipe & Δ now HubSpot keyword-matched (deal name) · MRR from the deal mrr field", options: { fontSize: 7.5, color: FAINT } }],
-    { x: TX + 0.22, y: TY + 0.12, w: TW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0 });
-  const hdr = ["PRODUCT", "MO TGT", "QTD MRR", "STATE", "Δ WK PIPE", "DEC TGT", "OPEN PIPE"];
-  const colX = [0.22, 2.35, 3.25, 4.2, 5.55, 6.55, 7.2], colW = [2.05, 0.85, 0.9, 1.3, 0.95, 0.6, 1.0];
-  hdr.forEach((h2, i) => s.addText(h2, { x: TX + colX[i], y: TY + 0.5, w: colW[i], h: 0.22, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-  n.products.forEach((p, i) => {
-    const y = TY + 0.8 + i * 0.62;
-    s.addShape("rect", { x: TX + 0.22, y: y + 0.56, w: TW - 0.44, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    const vals = [p.name, p.moTgt ? fmtK(p.moTgt) : "—", "$" + p.qtdMrr, p.note, p.wkPipe, fmtK(p.decTgt), p.openPipe];
-    vals.forEach((v, j) => s.addText(String(v), { x: TX + colX[j], y, w: colW[j], h: 0.56, align: j === 0 ? "left" : "right", fontFace: FONT, fontSize: j === 0 ? 9.5 : 8.5, bold: j === 0 || j === 2, color: j === 0 ? NAVY : j === 2 ? TERRA : j === 3 ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" }));
+  // ---- stage flow, split order placed vs not -------------------------------
+  const CX = 0.45, CY = 2.42, CW = 7.5, CH = 3.5;
+  card(s, CX, CY, CW, CH);
+  s.addText([{ text: "PIPELINE BY STAGE   ", options: { fontSize: 11.5, bold: true, color: TEAL } },
+             { text: "converted at " + A.fx + " AUD→USD", options: { fontSize: 6.8, color: FAINT } }],
+    { x: CX + 0.22, y: CY + 0.1, w: CW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
+  const allV = A.stages.map((st) => st.aud), maxV = Math.max(...allV);
+  const bx = CX + 1.55, bw = 4.1, rowH2 = 0.38;
+  A.stages.forEach((st, i) => {
+    const y = CY + 0.46 + i * rowH2;
+    const col = st.placed ? GREEN : st.lost ? TERRA : TEAL;
+    s.addText(st.name, { x: CX + 0.28, y, w: 1.2, h: rowH2, fontFace: FONT, fontSize: 8.5, bold: true, color: st.lost ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: bx, y: y + 0.11, w: Math.max(0.06, (st.aud / maxV) * bw), h: 0.2, rectRadius: 0.08, fill: { color: col }, line: { type: "none" } });
+    s.addText(US(st.aud), { x: bx + bw + 0.1, y, w: 0.95, h: rowH2, align: "right", fontFace: FONT, fontSize: 9, bold: true, color: col, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${st.deals} ${st.deals === 1 ? "deal" : "deals"}`, { x: bx + bw + 1.1, y, w: 0.72, h: rowH2, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
-  const totY = TY + 0.8 + 4 * 0.62 + 0.08;
-  s.addShape("rect", { x: TX + 0.22, y: totY - 0.06, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText([{ text: "TOTAL   ", options: { bold: true, fontSize: 9.5, color: NAVY } }, { text: "$30k committed · $0 recorded · open pipe 24 deals · ~$1.6k/mo keyword-matched", options: { fontSize: 8.5, color: MUTED } }],
-    { x: TX + 0.22, y: totY, w: TW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText([{ text: "COMMITTED TRAJECTORY   ", options: { bold: true, fontSize: 8.5, color: TEAL } }, { text: n.trajectory, options: { fontSize: 8.5, color: MUTED } }],
-    { x: TX + 0.22, y: totY + 0.4, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
+  // divider between "not order placed" and "order placed"
+  const opY = CY + 0.46 + 3 * rowH2;
+  s.addShape("rect", { x: CX + 0.28, y: opY - 0.025, w: CW - 0.56, h: 0.014, fill: { color: GREEN }, line: { type: "none" } });
+  s.addText("▲  NOT ORDER PLACED", { x: CX + 3.9, y: opY - 0.2, w: 1.75, h: 0.17, align: "right", fontFace: FONT, fontSize: 6, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText("▼  ORDER PLACED", { x: CX + 3.9, y: opY + 0.03, w: 1.75, h: 0.17, align: "right", fontFace: FONT, fontSize: 6, bold: true, color: GREEN, isTextBox: true, margin: 0 });
 
-  aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
-    { lead: "September recorded MRR is $0 on the new basis", text: "— 2 Roam wins closed this month carry no MRR value on the deal. That's a tagging gap to fix in HubSpot, not zero traction.", dot: TERRA },
-    { lead: "Pipe is moving:", text: "+10 Roam-matched deals created this week; open pipe 18 · $372/mo (Roam), 2 · $598/mo (Sentinel).", dot: TEAL },
-    { lead: "Basis change:", text: "keyword matching moved from Creatio opportunity names to HubSpot deal names, and $ now read the deal mrr field — levels reset against last week's $217 QTD.", dot: GOLD },
-    { text: "Demos & pilots still come from the product-team feed — the CRM carries no demo/pilot signal. Product tagging in HubSpot is the unlock.", muted: true, dot: FAINT },
+  // ---- share bars: value and count -----------------------------------------
+  const sbY = CY + 0.46 + 5 * rowH2 + 0.16;
+  s.addText("ORDER PLACED VS NOT — SHARE", { x: CX + 0.28, y: sbY, w: 3.0, h: 0.2, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  const segs = [["Order placed", A.placedAud, A.placedDeals, GREEN], ["Still open", A.openAud, A.openDeals, TEAL], ["Closed lost", A.lostAud, A.lostDeals, TERRA]];
+  const totV = A.placedAud + A.openAud + A.lostAud, totN = A.placedDeals + A.openDeals + A.lostDeals;
+  [["BY VALUE", segs.map((x) => x[1]), totV], ["BY DEALS", segs.map((x) => x[2]), totN]].forEach(([lbl, vals, tot], ri) => {
+    const y = sbY + 0.26 + ri * 0.34, x0 = CX + 1.55, w0 = 5.2;
+    s.addText(lbl, { x: CX + 0.28, y, w: 1.2, h: 0.26, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    let cx2 = x0;
+    vals.forEach((v, i) => {
+      const seg = Math.max(0.03, (v / tot) * w0);
+      s.addShape("rect", { x: cx2, y: y + 0.05, w: seg, h: 0.18, fill: { color: segs[i][3] }, line: { type: "none" } });
+      if (seg > 0.34) s.addText(Math.round((v / tot) * 100) + "%", { x: cx2, y: y + 0.03, w: seg, h: 0.22, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
+      cx2 += seg + 0.02;
+    });
+  });
+  let lx2 = CX + 3.55;
+  segs.forEach((sg) => {
+    s.addShape("rect", { x: lx2, y: sbY + 0.05, w: 0.1, h: 0.1, fill: { color: sg[3] }, line: { type: "none" } });
+    s.addText(sg[0], { x: lx2 + 0.14, y: sbY, w: 1.0, h: 0.2, fontFace: FONT, fontSize: 6.3, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    lx2 += 1.2;
+  });
+
+  // ---- by product ----------------------------------------------------------
+  const PX = 8.15, PW = 4.73;
+  card(s, PX, CY, PW, 2.0);
+  cardTitle(s, PX, CY, "BY PRODUCT", 4.2);
+  ["PRODUCT", "OPEN", "PLACED", "LOST"].forEach((h2, i) => {
+    const xs = [0.22, 2.35, 3.15, 3.95], ws = [2.05, 0.72, 0.72, 0.6];
+    s.addText(h2, { x: PX + xs[i], y: CY + 0.42, w: ws[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 6.5, bold: true, color: FAINT, isTextBox: true, margin: 0 });
+  });
+  A.byProduct.forEach((p, i) => {
+    const y = CY + 0.64 + i * 0.33;
+    s.addText(p.name, { x: PX + 0.22, y, w: 2.05, h: 0.2, fontFace: FONT, fontSize: 7.5, bold: true, color: p.openAud || p.placedAud ? NAVY : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(p.note, { x: PX + 0.22, y: y + 0.15, w: 2.1, h: 0.15, fontFace: FONT, fontSize: 5.3, color: FAINT, isTextBox: true, margin: 0 });
+    [[p.openAud, 2.35, 0.72, TEAL], [p.placedAud, 3.15, 0.72, GREEN], [p.lostAud, 3.95, 0.6, TERRA]].forEach(([v, x, w2, c]) =>
+      s.addText(v ? US(v) : "—", { x: PX + x, y, w: w2, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: !!v, color: v ? c : FAINT, isTextBox: true, margin: 0, valign: "middle" }));
+  });
+
+  card(s, PX, CY + 2.14, PW, 1.18);
+  s.addText([{ text: "ANNUALISED VIEW   ", options: { fontSize: 9, bold: true, color: TEAL } }, { text: "ROAM lines are one month", options: { fontSize: 6, color: GOLD } }],
+    { x: PX + 0.22, y: CY + 2.22, w: PW - 0.44, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
+  s.addText(US(A.roamAnnualAud), { x: PX + 0.22, y: CY + 2.46, w: 1.75, h: 0.42, fontFace: FONT, fontSize: 18, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(`open ROAM pipeline at ×12 (${AU(A.roamAnnualAud)}) — the contract value behind the ${US(A.openAud)} of monthly lines`,
+    { x: PX + 2.05, y: CY + 2.44, w: PW - 2.3, h: 0.5, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(A.fxNote, { x: PX + 0.22, y: CY + 2.94, w: PW - 0.44, h: 0.3, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  aiSummary(s, 0.45, 6.02, 12.43, 0.98, [
+    { lead: "Conversion is real but tiny.", text: `${A.placedDeals} orders placed since 1 Jul (${US(A.placedAud)}) against ${A.lostDeals} lost — ${A.convCount}% by count, ${A.convValue}% by value. All of it is ROAM; Sentinel has ${US(A.byProduct[1].openAud)} in play and no order yet.`, dot: GREEN },
+    { lead: "The book is stuck mid-funnel:", text: `${US(A.stages[1].aud + A.stages[2].aud)} of the ${US(A.openAud)} open sits in Quote Sent and Negotiation across 27 deals — the movement to chase is quote-to-order, not top-of-funnel.`, dot: TEAL },
+    { text: "QR Ordering is priced $0 on every line, so its value reads nil · ROAM lines are one month, not contract value.", muted: true, dot: FAINT },
   ]);
-  sourcePill(s, n.source);
+  sourcePill(s, A.source);
 }
+
 
 // =============================================================================
 // 7 · H&L PAY — REFERRALS TO VALPAY

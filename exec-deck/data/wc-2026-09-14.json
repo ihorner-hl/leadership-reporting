@@ -1795,5 +1795,88 @@
         "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
       }
     ]
+  },
+  "aiProducts": {
+    "source": "HubSpot line items · products flagged ai_infused (live)",
+    "fx": 0.7122,
+    "fxNote": "AUD→USD 0.7122 (mid-market close 20 Sep 2026) — HubSpot holds no USD field",
+    "scope": "all open deals + deals closed on/after 1 Jul 2026",
+    "stages": [
+      {
+        "name": "Discovery",
+        "aud": 58,
+        "deals": 1,
+        "placed": false
+      },
+      {
+        "name": "Quote Sent",
+        "aud": 1821,
+        "deals": 19,
+        "placed": false
+      },
+      {
+        "name": "Negotiation",
+        "aud": 1074,
+        "deals": 8,
+        "placed": false
+      },
+      {
+        "name": "Order Placed",
+        "aud": 217,
+        "deals": 5,
+        "placed": true
+      },
+      {
+        "name": "Closed Lost",
+        "aud": 361,
+        "deals": 2,
+        "placed": false,
+        "lost": true
+      }
+    ],
+    "openAud": 2953,
+    "openDeals": 28,
+    "placedAud": 217,
+    "placedDeals": 5,
+    "lostAud": 361,
+    "lostDeals": 2,
+    "convCount": 71,
+    "convValue": 38,
+    "roamAnnualAud": 21084,
+    "byProduct": [
+      {
+        "name": "H&L ROAM Monthly",
+        "sku": "527",
+        "openAud": 1757,
+        "placedAud": 217,
+        "lostAud": 62,
+        "note": "$29–31/unit/mo · most volume"
+      },
+      {
+        "name": "Sentinel Reporting",
+        "sku": "200031",
+        "openAud": 1196,
+        "placedAud": 0,
+        "lostAud": 299,
+        "note": "$299/unit licence · no orders yet"
+      },
+      {
+        "name": "QR Ordering (OrderNow)",
+        "sku": "200004",
+        "openAud": 0,
+        "placedAud": 0,
+        "lostAud": 0,
+        "note": "every line priced $0 — value understated"
+      },
+      {
+        "name": "H&L ROAM Annual",
+        "sku": "13705",
+        "openAud": 0,
+        "placedAud": 0,
+        "lostAud": 0,
+        "note": "flagged but no line items anywhere"
+      }
+    ],
+    "caveats": "QR Ordering is priced $0 on every line so its value reads nil · ROAM lines are one month, not contract value · The Loose Goose Bar carries a duplicate ROAM line, counted once · Timeless Way Cafe is closed-won with no close date"
   }
 }
