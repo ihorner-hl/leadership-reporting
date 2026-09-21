@@ -501,7 +501,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
    .forEach(([t, x, w, al]) => s.addText(t, { x: CX + x, y: CY + 0.48, w, h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   // percentage axis across the bar column
   const TICKS = [0, 20, 40, 60, 80, 100];
-  const ROWP = 0.21, GRIDH = u.byEmployee.length * ROWP;
+  const ROWP = Math.min(0.26, 2.72 / u.byEmployee.length), BARY = (ROWP - 0.065) / 2, GRIDH = u.byEmployee.length * ROWP;
   TICKS.forEach((t, i) => {
     const tx = CX + EX.bar + (t / 100) * BARW;
     const first = i === 0, last = i === TICKS.length - 1;
@@ -514,8 +514,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     const y = CY + 0.72 + i * ROWP;
     const zero = r[1] === 0;
     s.addText(r[0], { x: CX + EX.name, y, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.073, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
-    if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.073, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addShape("roundRect", { x: CX + EX.bar, y: y + BARY, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + BARY, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
     s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
   });

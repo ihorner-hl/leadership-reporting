@@ -495,12 +495,12 @@
     "source": "HubSpot PS records (total_hours) + PS pipeline ticket owners \u2014 live, read-only",
     "weekLabel": "WC 14 Sep 2026",
     "weekHours": 38.0,
-    "staffCount": 13,
-    "availableHours": 494,
+    "staffCount": 11,
+    "availableHours": 418,
     "billedHours": 33.01,
-    "utilPct": 6.7,
+    "utilPct": 7.9,
     "targetPct": 80,
-    "staffBasis": "Available staff = the 13 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Argenis Rafael Guevara and Isaac Mercado carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base.",
+    "staffBasis": "Available staff = the 11 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Anton Lopez, Jasmine Hikuroa, Bjorn Magabo and Phuong Ho carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base.",
     "itemsWithHours": 17,
     "itemsCreated": 132,
     "coveragePct": 13,
@@ -560,25 +560,13 @@
         0.0
       ],
       [
-        "Anton Lopez",
+        "Argenis Rafael Guevara",
         0,
         0,
         0.0
       ],
       [
-        "Jasmine Hikuroa",
-        0,
-        0,
-        0.0
-      ],
-      [
-        "Bjorn Magabo",
-        0,
-        0,
-        0.0
-      ],
-      [
-        "Phuong Ho",
+        "Isaac Mercado",
         0,
         0,
         0.0
@@ -621,10 +609,12 @@
     "medianTtcNote": "Median time to close on PS tickets created and closed since 8 Sep: Tech 0.6 d \u00b7 Integrations 1.0 d \u00b7 Training 1.5 d \u00b7 Onboarding no closes yet.",
     "psCasesThisWk": 64,
     "excludedStaff": [
-      "Argenis Rafael Guevara",
-      "Isaac Mercado"
+      "Anton Lopez",
+      "Bjorn Magabo",
+      "Jasmine Hikuroa",
+      "Phuong Ho"
     ],
-    "excludedNote": "Argenis Rafael Guevara and Isaac Mercado carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base."
+    "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo and Phuong Ho carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base."
   },
   "wonVsInvoiced": {
     "source": "Finance Weekly Invoicing & Creatio \u00b7 register live for churn",
