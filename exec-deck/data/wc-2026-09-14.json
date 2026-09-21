@@ -495,33 +495,21 @@
     "source": "HubSpot PS records (total_hours) + PS pipeline ticket owners \u2014 live, read-only",
     "weekLabel": "WC 14 Sep 2026",
     "weekHours": 38.0,
-    "staffCount": 11,
-    "availableHours": 418,
-    "billedHours": 33.01,
-    "utilPct": 7.9,
+    "staffCount": 9,
+    "availableHours": 342,
+    "billedHours": 16.07,
+    "utilPct": 4.7,
     "targetPct": 80,
-    "staffBasis": "Available staff = the 11 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Anton Lopez, Jasmine Hikuroa, Bjorn Magabo and Phuong Ho carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base.",
-    "itemsWithHours": 17,
+    "staffBasis": "Available staff = the 9 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded.",
+    "itemsWithHours": 13,
     "itemsCreated": 132,
-    "coveragePct": 13,
+    "coveragePct": 10,
     "byEmployee": [
-      [
-        "Katherine Fenwick",
-        14.5,
-        3,
-        38.2
-      ],
       [
         "Rhys Woolcock",
         13.82,
         10,
         36.4
-      ],
-      [
-        "Yeran Hettiarachchy",
-        2.44,
-        1,
-        6.4
       ],
       [
         "Gregory St Clare-Hobbs",
@@ -575,15 +563,15 @@
     "byWork": [
       [
         "Tech",
-        31.44,
-        16,
-        95.2
+        16.0,
+        12,
+        99.6
       ],
       [
         "Integration",
-        1.57,
-        2,
-        4.8
+        0.07,
+        1,
+        0.4
       ],
       [
         "Onboarding",
@@ -604,17 +592,18 @@
         0.0
       ]
     ],
-    "billableNote": "All logged hours are treated as billable \u2014 creatio_non_billable is populated on only 3 of 30 records, so billable/non-billable is not yet separable.",
-    "hygieneNote": "2.44h of the Tech total sits on a record named 'Warranty Test' \u2014 worth clearing out.",
+    "billableNote": "All logged hours are treated as billable \u2014 creatio_non_billable is populated on only 3 of the 30 PS records carrying time, so billable/non-billable is not yet separable.",
     "medianTtcNote": "Median time to close on PS tickets created and closed since 8 Sep: Tech 0.6 d \u00b7 Integrations 1.0 d \u00b7 Training 1.5 d \u00b7 Onboarding no closes yet.",
     "psCasesThisWk": 64,
     "excludedStaff": [
       "Anton Lopez",
       "Bjorn Magabo",
       "Jasmine Hikuroa",
-      "Phuong Ho"
+      "Katherine Fenwick",
+      "Phuong Ho",
+      "Yeran Hettiarachchy"
     ],
-    "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo and Phuong Ho carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base."
+    "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded."
   },
   "wonVsInvoiced": {
     "source": "Finance Weekly Invoicing & Creatio \u00b7 register live for churn",

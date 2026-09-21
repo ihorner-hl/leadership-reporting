@@ -501,7 +501,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
    .forEach(([t, x, w, al]) => s.addText(t, { x: CX + x, y: CY + 0.48, w, h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   // percentage axis across the bar column
   const TICKS = [0, 20, 40, 60, 80, 100];
-  const ROWP = Math.min(0.26, 2.72 / u.byEmployee.length), BARY = (ROWP - 0.065) / 2, GRIDH = u.byEmployee.length * ROWP;
+  const ROWP = Math.min(0.26, 2.72 / (u.byEmployee.length + 1)), BARY = (ROWP - 0.065) / 2, GRIDH = u.byEmployee.length * ROWP;
   TICKS.forEach((t, i) => {
     const tx = CX + EX.bar + (t / 100) * BARW;
     const first = i === 0, last = i === TICKS.length - 1;
@@ -519,6 +519,15 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
   });
+  // TOTAL row
+  {
+    const ty = CY + 0.72 + u.byEmployee.length * ROWP + 0.04;
+    s.addShape("rect", { x: CX + EX.name, y: ty, w: CW - 0.5, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
+    s.addText("TOTAL", { x: CX + EX.name, y: ty + 0.04, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${u.staffCount} PS people × ${u.weekHours}h = ${u.availableHours}h available`, { x: CX + EX.bar, y: ty + 0.04, w: BARW, h: ROWP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.billedHours.toFixed(2) + "h", { x: CX + EX.hrs, y: ty + 0.04, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.utilPct.toFixed(1) + "%", { x: CX + EX.pct, y: ty + 0.04, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+  }
   s.addText(u.staffBasis, { x: CX + 0.25, y: CY + 3.52, w: CW - 0.5, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- right top: billable by PS work ---------------------------------------
@@ -531,21 +540,30 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     .forEach(([t, x, w, al]) => { if (t) s.addText(t, { x: RX + x, y: CY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }); });
   const wMax = Math.max(...u.byWork.map((r) => r[1])) || 1;
   u.byWork.forEach((r, i) => {
-    const y = CY + 0.60 + i * 0.215;
+    const y = CY + 0.58 + i * 0.19;
     const zero = r[1] === 0;
-    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: 0.215, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: RX + 1.8, y: y + 0.075, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
-    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + 0.075, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: 0.215, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: 0.19, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: RX + 1.8, y: y + 0.063, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + 0.063, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: 0.19, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: 0.19, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
+
+  {
+    const ty = CY + 0.58 + u.byWork.length * 0.19 + 0.03;
+    s.addShape("rect", { x: RX + 0.22, y: ty, w: RW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
+    s.addText("TOTAL", { x: RX + 0.22, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${u.itemsWithHours} PS items carry time`, { x: RX + 1.8, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 6.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.billedHours.toFixed(2) + "h", { x: RX + 3.4, y: ty + 0.03, w: 0.7, h: 0.2, align: "right", fontFace: FONT, fontSize: 9, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText("100%", { x: RX + 4.15, y: ty + 0.03, w: 0.66, h: 0.2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+  }
 
   aiSummary(s, RX, CY + 2.0, RW, CH - 2.0, [
     { lead: `${u.utilPct}% billable utilisation is a logging number, not a delivery number.`, text: `${u.billedHours}h landed against ${u.availableHours}h of capacity, but only ${u.coveragePct}% of the week's ${u.itemsCreated} PS items carry hours.`, dot: TERRA },
-    { lead: "Two people carry the entire logged total.", text: `Katherine Fenwick 38.2% and Rhys Woolcock 36.4%; the other ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
-    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries 95% of logged time. Median time to close since 8 Sep: Tech 0.6 d.`, dot: TEAL },
+    { lead: "One person carries almost the entire logged total.", text: `Rhys Woolcock 13.82h (36.4%) is 86% of the hours; Gregory, Isayah and Joshua logged under 2h each and ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
+    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries ${u.byWork[0][3]}% of logged time. Median time to close since 8 Sep: Tech 0.6 d.`, dot: TEAL },
   ]);
-  footnote(s, u.billableNote + " " + u.hygieneNote, 6.72);
+  footnote(s, u.billableNote, 6.72);
   sourcePill(s, u.source);
 }
 
