@@ -497,23 +497,29 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   const EX = { name: 0.25, bar: 2.25, hrs: 5.05, pct: 6.05 };
   const BARW = 2.6;
-  [["PS TEAM MEMBER", EX.name, 1.9, "left"], ["UTILISATION OF 38h", EX.bar, BARW, "left"],
-   ["HOURS", EX.hrs, 0.9, "right"], ["UTIL %", EX.pct, 0.9, "right"]]
+  [["PS TEAM MEMBER", EX.name, 1.9, "left"], ["HOURS", EX.hrs, 0.9, "right"], ["UTIL %", EX.pct, 0.9, "right"]]
    .forEach(([t, x, w, al]) => s.addText(t, { x: CX + x, y: CY + 0.48, w, h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  // percentage axis across the bar column
+  const TICKS = [0, 20, 40, 60, 80, 100];
+  const ROWP = 0.21, GRIDH = u.byEmployee.length * ROWP;
+  TICKS.forEach((t, i) => {
+    const tx = CX + EX.bar + (t / 100) * BARW;
+    const first = i === 0, last = i === TICKS.length - 1;
+    s.addText(t + "%", { x: first ? tx : (last ? tx - 0.44 : tx - 0.22), y: CY + 0.46, w: 0.44, h: 0.2,
+      align: first ? "left" : (last ? "right" : "center"), fontFace: FONT, fontSize: 6.5, bold: true, color: FAINT, isTextBox: true, margin: 0 });
+    if (!first) s.addShape("rect", { x: tx, y: CY + 0.68, w: 0.006, h: GRIDH, fill: { color: TRACK }, line: { type: "none" } });
+  });
 
   u.byEmployee.forEach((r, i) => {
-    const y = CY + 0.70 + i * 0.185;
+    const y = CY + 0.72 + i * ROWP;
     const zero = r[1] === 0;
-    s.addText(r[0], { x: CX + EX.name, y, w: 1.95, h: 0.185, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.066, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
-    if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.066, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: 0.185, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: 0.185, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[0], { x: CX + EX.name, y, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.073, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.073, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
   });
-  // 80% target marker across the bar column
-  s.addShape("rect", { x: CX + EX.bar + BARW * 0.8, y: CY + 0.66, w: 0.008, h: u.byEmployee.length * 0.185, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText("80% target", { x: CX + EX.bar + BARW * 0.8 - 0.48, y: CY + 0.46, w: 0.96, h: 0.18, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: TERRA, isTextBox: true, margin: 0 });
-  s.addText(u.staffBasis, { x: CX + 0.25, y: CY + 3.56, w: CW - 0.5, h: 0.28, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText(u.staffBasis, { x: CX + 0.25, y: CY + 3.52, w: CW - 0.5, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- right top: billable by PS work ---------------------------------------
   const RX = 7.85, RW = 5.03, RH = 1.86;

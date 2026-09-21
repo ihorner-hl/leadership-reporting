@@ -495,12 +495,12 @@
     "source": "HubSpot PS records (total_hours) + PS pipeline ticket owners \u2014 live, read-only",
     "weekLabel": "WC 14 Sep 2026",
     "weekHours": 38.0,
-    "staffCount": 15,
-    "availableHours": 570.0,
+    "staffCount": 13,
+    "availableHours": 494,
     "billedHours": 33.01,
-    "utilPct": 5.8,
+    "utilPct": 6.7,
     "targetPct": 80,
-    "staffBasis": "Available staff = the 15 people assigned to PS-pipeline tickets open now or closed this week (Tech, Onboarding, Integrations, Training, Warranty), at a 38h standard week.",
+    "staffBasis": "Available staff = the 13 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Argenis Rafael Guevara and Isaac Mercado carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base.",
     "itemsWithHours": 17,
     "itemsCreated": 132,
     "coveragePct": 13,
@@ -566,18 +566,6 @@
         0.0
       ],
       [
-        "Argenis Rafael Guevara",
-        0,
-        0,
-        0.0
-      ],
-      [
-        "Isaac Mercado",
-        0,
-        0,
-        0.0
-      ],
-      [
         "Jasmine Hikuroa",
         0,
         0,
@@ -631,7 +619,12 @@
     "billableNote": "All logged hours are treated as billable \u2014 creatio_non_billable is populated on only 3 of 30 records, so billable/non-billable is not yet separable.",
     "hygieneNote": "2.44h of the Tech total sits on a record named 'Warranty Test' \u2014 worth clearing out.",
     "medianTtcNote": "Median time to close on PS tickets created and closed since 8 Sep: Tech 0.6 d \u00b7 Integrations 1.0 d \u00b7 Training 1.5 d \u00b7 Onboarding no closes yet.",
-    "psCasesThisWk": 64
+    "psCasesThisWk": 64,
+    "excludedStaff": [
+      "Argenis Rafael Guevara",
+      "Isaac Mercado"
+    ],
+    "excludedNote": "Argenis Rafael Guevara and Isaac Mercado carry PS-pipeline tickets but are not Professional Services staff \u2014 excluded from the capacity base."
   },
   "wonVsInvoiced": {
     "source": "Finance Weekly Invoicing & Creatio \u00b7 register live for churn",
