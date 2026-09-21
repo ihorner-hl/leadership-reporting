@@ -3,7 +3,7 @@
     "label": "Week commencing 14 September 2026",
     "wc": "2026-09-14",
     "range": "Mon 14 Sep – Sun 20 Sep 2026",
-    "generated": "19 Sep 2026",
+    "generated": "21 Sep 2026",
     "quarterPacePct": 89,
     "quarterPaceNote": "day 82 of 92 in Q3 (Jul–Sep) at week end 20 Sep",
     "monthPacePct": 67,
@@ -52,20 +52,20 @@
         "area": "Finance invoiced (Sysnet)",
         "old": "Weekly file drop",
         "new": "Weekly file drop (unchanged)",
-        "status": "LAGGED",
-        "note": "Latest extract covers 7–13 Sep. Movement register (new-MRR line of record) refresh pending post-cutover."
+        "status": "AS BEFORE",
+        "note": "Weekly extracts current to 20 Sep (received 21 Sep). Movement register (new-MRR line of record) refresh still pending."
       },
       {
         "area": "Product / GTM / AI usage / ValPay",
         "old": "File drops",
         "new": "File drops (unchanged)",
         "status": "AS BEFORE",
-        "note": "GTM tracker current; Claude admin capture 11 Sep; ValPay export as at 6 Sep — weekly drop pending."
+        "note": "GTM tracker current; Claude admin weekly capture received; ValPay export as at 6 Sep — weekly drop pending."
       }
     ]
   },
   "execSummary": {
-    "finance": "hardware $373k = 52% of $715k vs 89% pace; extract week +$38k; new-MRR register refresh pending",
+    "finance": "hardware $410k = 57% of $715k vs 89% pace; this week +$38k gross (HW discounts -$10k); new-MRR register refresh pending",
     "sales": "closed-won this week 46 deals · $161k (HubSpot); Q3 pipe $335k unweighted / $123k weighted",
     "ps": "utilisation not measurable during cutover — HubSpot time logging ramping (99h on 48 cases)",
     "support": "weekly inflow 490 vs resolved 591 — backlog 570 and falling",
@@ -73,8 +73,8 @@
     "aiUsage": "AI-draft adoption 6.2% this week (4/65) — first HubSpot-measured week"
   },
   "targetVsInvoiced": {
-    "source": "Sysnet extract 7–13 Sep + sales targets · register refresh pending",
-    "extractWeek": "7–13 Sep 2026",
+    "source": "Sysnet extracts to 20 Sep + sales targets · MRR register pending",
+    "extractWeek": "14–20 Sep 2026",
     "mrr": {
       "okr2": 28000,
       "team": 30000,
@@ -82,13 +82,13 @@
       "asAt": "6 Sep",
       "deltaWk": null,
       "deltaNote": "register pending",
-      "extractNewSubsBilling": 871
+      "extractNewSubsBilling": -148
     },
     "hardware": {
       "okr2": 715000,
       "team": 761000,
-      "qtd": 373037,
-      "deltaWk": 38479
+      "qtd": 410115,
+      "deltaWk": 37636
     },
     "members": [
       {
@@ -96,32 +96,32 @@
         "mrrTgt": 5000,
         "mrrQtd": 3850,
         "hwTgt": 140000,
-        "hwQtd": 47400,
-        "hwDelta": 2400
+        "hwQtd": 51735,
+        "hwDelta": 4335
       },
       {
         "name": "Brett Gorman",
         "mrrTgt": 5000,
         "mrrQtd": 2950,
         "hwTgt": 143000,
-        "hwQtd": 76294,
-        "hwDelta": 21294
+        "hwQtd": 77914,
+        "hwDelta": 1620
       },
       {
         "name": "Bradford Young",
         "mrrTgt": 5000,
         "mrrQtd": 2350,
         "hwTgt": 163000,
-        "hwQtd": 46290,
-        "hwDelta": 2290
+        "hwQtd": 51295,
+        "hwDelta": 5005
       },
       {
         "name": "Jasmine Hikuroa",
         "mrrTgt": 6000,
         "mrrQtd": 1680,
         "hwTgt": 214000,
-        "hwQtd": 115955,
-        "hwDelta": 11955
+        "hwQtd": 142631,
+        "hwDelta": 26676
       },
       {
         "name": "Phuong Ho",
@@ -129,7 +129,7 @@
         "mrrQtd": 154,
         "hwTgt": 55000,
         "hwQtd": 12540,
-        "hwDelta": 540
+        "hwDelta": 0
       },
       {
         "name": "Mick Teasdale",
@@ -956,7 +956,7 @@
     }
   },
   "aiUsage": {
-    "source": "Claude Admin (capture 11 Sep)",
+    "source": "Claude Admin weekly capture",
     "activeWeekly": 43,
     "allMembers": 48,
     "daily": 34,
@@ -1119,7 +1119,8 @@
         66
       ],
       "note": "cell = one week (thousands of lines) · early weeks estimated from rolling windows · wk to 11 Sep = latest capture"
-    }
+    },
+    "coworkNote": "30-day Cowork sessions: engineering shows zeros (Hawraa, Chris, Eric, Tony, Brad, Nidhi, Rahul) — engineers live in Claude Code; Cowork is the ops/leadership surface."
   },
   "projects": {
     "asAt": "19 Sep 2026",

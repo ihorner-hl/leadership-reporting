@@ -249,7 +249,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText(`HARDWARE — Q3 · OKR2 ${fmtK(t.hardware.okr2)} · team ${fmtK(t.hardware.team)}`, { x: 7.03, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.hardware.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.hardware.okr2)} target`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 7.03, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`▲ +${fmtK(t.hardware.deltaWk)} extract wk`, { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
+  s.addText(`▲ +${fmtK(t.hardware.deltaWk)} this wk`, { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
   progressBar(s, 7.03, 2.08, 4.6, pct(t.hardware.qtd, t.hardware.okr2), pace);
   s.addText([{ text: `${pct(t.hardware.qtd, t.hardware.okr2)}%`, options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${pace}%`, options: { color: FAINT, fontSize: 8 } }],
     { x: 11.73, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
@@ -267,7 +267,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { label: "ATTAIN", x: 6.12, w: 1.06, align: "left" }, { label: "Δ WK", x: 7.22, w: 0.9, align: "right" },
   ];
   s.addText("NEW MRR ($/qtr) · as at 6 Sep", { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText("HARDWARE ($/qtr) · incl. extract wk 7–13 Sep", { x: TX + 4.6, y: TY + 0.42, w: 3.6, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText("HARDWARE ($/qtr) · extracts to 20 Sep · Δ wk = 14–20 Sep", { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   cols.forEach((c) => s.addText(c.label, { x: TX + c.x, y: TY + 0.66, w: c.w, h: 0.2, align: c.align, fontFace: FONT, fontSize: 7.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   const rows = t.members;
   const rH = 0.345;
@@ -302,10 +302,10 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText("* MRR QTD held at last register run (6 Sep) — movement register refresh pending post-cutover", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7.2, color: GOLD, isTextBox: true, margin: 0 });
 
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
-    { lead: "Hardware is $373k (52%)", text: `against an 89% pace mark. The 7–13 Sep extract added $38k — Brett +$21k, Jasmine +$12k.`, dot: TERRA },
-    { lead: "New MRR is the gap in this week's picture:", text: "the movement register (the line of record) hasn't run since 6 Sep. Extract shows $871 of new S/W subscription billing in 7–13 Sep — a different measure, shown for direction only.", dot: GOLD },
-    { lead: "No extract yet for 14–20 Sep", text: "— Sysnet drop lands next week; this slide bridges the skipped WC 7 Sep deck.", dot: TEAL },
-    { text: "HW = commissionable only · attainment = invoiced, never closed-won · pace = day 82 of 92 in Q3.", muted: true, dot: FAINT },
+    { lead: "Hardware is $410k (57%)", text: "against an 89% pace mark. This week's extract (14–20 Sep) added $38k gross — Jasmine +$27k, Bradford +$5k, Bjorn +$4k; the prior (7–13 Sep) week's $38k closed the skipped WC 7 Sep deck.", dot: TERRA },
+    { lead: "Watch the discounts:", text: "hardware discounts ran -$10.2k this week (-$10.0k on Jasmine's deals) vs -$2.2k last week — gross $37.6k nets to $27.4k.", dot: GOLD },
+    { lead: "New MRR is the remaining gap:", text: "the movement register (the line of record) hasn't rerun since 6 Sep; this week's extract shows a net -$148 S/W subscription movement (credits), a different measure shown for direction only.", dot: TEAL },
+    { text: "HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = day 82 of 92 in Q3.", muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);
 }
@@ -706,7 +706,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 {
   const s = pres.addSlide();
   const ai = D.aiUsage;
-  header(s, "AI Usage — Adoption & Activity", "IT · capture 11 Sep — this week's capture pending", 4);
+  header(s, "AI Usage — Adoption & Activity", "IT · weekly capture", 4);
   kpi(s, 0.45, 1.12, 2.95, 1.25, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
   kpi(s, 3.6, 1.12, 2.95, 1.25, "LINES OF CODE — WK TO 11 SEP", ai.locLastWeek.toLocaleString() + " ▲", `+${ai.locWoWPct}% WoW · derived from Friday-capture deltas`, TEAL);
   {
@@ -765,7 +765,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   aiSummary(s, AX, CY + 2.46, AW, CH - 2.46, [
     { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— Cowork now edges Claude Code on stickiness (64% vs 63% DAU/MAU). Code & scripts are 50% of Cowork file output.`, dot: TEAL },
-    { text: "Capture lag: numbers are the 11 Sep Friday capture — the 18 Sep capture wasn't taken during cutover week; deltas resume next drop.", muted: true, dot: GOLD },
+    { text: ai.coworkNote, muted: true, dot: GOLD },
   ]);
   sourcePill(s, ai.source);
 }
