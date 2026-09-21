@@ -73,16 +73,18 @@
     "aiUsage": "AI-draft adoption 6.2% this week (4/65) — first HubSpot-measured week"
   },
   "targetVsInvoiced": {
-    "source": "Sysnet extracts to 20 Sep + sales targets · MRR register pending",
+    "source": "Sysnet extracts to 20 Sep + MRR movement register (live)",
     "extractWeek": "14–20 Sep 2026",
     "mrr": {
       "okr2": 28000,
       "team": 30000,
-      "qtd": 11000,
-      "asAt": "6 Sep",
-      "deltaWk": null,
-      "deltaNote": "register pending",
-      "extractNewSubsBilling": -148
+      "qtd": 12129,
+      "asAt": "20 Sep",
+      "deltaWk": 139,
+      "deltaNote": null,
+      "extractNewSubsBilling": -148,
+      "live": true,
+      "basis": "Net New Customers + Expansion, Date of Invoice in Q3 · ValPay shown separately"
     },
     "hardware": {
       "okr2": 715000,
@@ -94,42 +96,47 @@
       {
         "name": "Bjorn Magabo",
         "mrrTgt": 5000,
-        "mrrQtd": 3850,
+        "mrrQtd": 4427,
         "hwTgt": 140000,
         "hwQtd": 51735,
-        "hwDelta": 4335
+        "hwDelta": 4335,
+        "mrrDelta": 44
       },
       {
         "name": "Brett Gorman",
         "mrrTgt": 5000,
-        "mrrQtd": 2950,
+        "mrrQtd": 3328,
         "hwTgt": 143000,
         "hwQtd": 77914,
-        "hwDelta": 1620
+        "hwDelta": 1620,
+        "mrrDelta": 44
       },
       {
         "name": "Bradford Young",
         "mrrTgt": 5000,
-        "mrrQtd": 2350,
+        "mrrQtd": 2507,
         "hwTgt": 163000,
         "hwQtd": 51295,
-        "hwDelta": 5005
+        "hwDelta": 5005,
+        "mrrDelta": 0
       },
       {
         "name": "Jasmine Hikuroa",
         "mrrTgt": 6000,
-        "mrrQtd": 1680,
+        "mrrQtd": 1622,
         "hwTgt": 214000,
         "hwQtd": 142631,
-        "hwDelta": 26676
+        "hwDelta": 26676,
+        "mrrDelta": 0
       },
       {
         "name": "Phuong Ho",
         "mrrTgt": 2000,
-        "mrrQtd": 154,
+        "mrrQtd": 205,
         "hwTgt": 55000,
         "hwQtd": 12540,
-        "hwDelta": 0
+        "hwDelta": 0,
+        "mrrDelta": 51
       },
       {
         "name": "Mick Teasdale",
@@ -137,7 +144,8 @@
         "mrrQtd": 0,
         "hwTgt": 46000,
         "hwQtd": null,
-        "hwDelta": null
+        "hwDelta": null,
+        "mrrDelta": 0
       },
       {
         "name": "Unassigned",
@@ -145,9 +153,11 @@
         "mrrQtd": 40,
         "hwTgt": 0,
         "hwQtd": null,
-        "hwDelta": null
+        "hwDelta": null,
+        "mrrDelta": 0
       }
-    ]
+    ],
+    "hlPayNetNewMrr": 1770
   },
   "newProducts": {
     "source": "HubSpot (keyword-matched deal names) + product plan",
@@ -195,14 +205,14 @@
     "trajectory": "Aug $10k → Sep $30k → Oct $60k → Nov $97k → Dec $137k"
   },
   "hlPay": {
-    "source": "ValPay export + identification register · as at 6 Sep",
+    "source": "H&L identification register (live) + ValPay export as at 6 Sep",
     "referred": 34,
     "signedGmv": "$38M",
     "won": 14,
     "shareOfWins": "39%",
     "openPipe": "$245M",
     "openDeals": 19,
-    "identified": 24,
+    "identified": 34,
     "referrers": [
       [
         "Bjorn Magabo",
@@ -263,17 +273,48 @@
         5
       ],
       "note": "bars = referrals given / month · 27 YTD · as at 6 Sep export"
-    }
+    },
+    "identifiedDeals": 32,
+    "identReferred": 10,
+    "identGmvRecorded": 6,
+    "identGmv": "$149M",
+    "identByMonth": {
+      "Aug": 23,
+      "Sep": 9
+    },
+    "identByAm": [
+      [
+        "Ho",
+        13,
+        4
+      ],
+      [
+        "Bradford",
+        11,
+        4
+      ],
+      [
+        "Brett",
+        6,
+        2
+      ],
+      [
+        "Bjorn",
+        4,
+        0
+      ]
+    ],
+    "identNote": "2 rows carry out-of-range identification dates (2027, 2036) — treated as keying errors, counted once"
   },
   "salesPipeline": {
     "source": "HubSpot (live) — cut over from Creatio",
-    "q3UnweightedK": 335,
-    "q3Deals": 116,
-    "q3WeightedK": 123,
-    "q3WonK": 809,
-    "q3WonDeals": 246,
-    "q3LostDeals": 27,
-    "winRatePct": 90.1,
+    "q3UnweightedK": 339,
+    "q3Deals": 119,
+    "q3WeightedK": 125,
+    "q3WonK": 810,
+    "q3WonDeals": 248,
+    "q3LostDeals": 28,
+    "winRatePct": 89.9,
     "wonThisWk": 46,
     "wonThisWkK": 161,
     "wonPriorWk": 20,
@@ -283,43 +324,91 @@
     "byMember": [
       {
         "name": "Bjorn",
-        "unw": 116910,
-        "wtd": 52252
+        "unw": 117795,
+        "wtd": 52823,
+        "newN": 10,
+        "newV": 41809,
+        "wonN": 7,
+        "wonV": 3571,
+        "lostN": 1,
+        "lostV": 6221
       },
       {
         "name": "Brett",
         "unw": 80951,
-        "wtd": 24285
+        "wtd": 24285,
+        "newN": 0,
+        "newV": 0,
+        "wonN": 6,
+        "wonV": 2061,
+        "lostN": 0,
+        "lostV": 0
       },
       {
         "name": "Jasmine",
         "unw": 58794,
-        "wtd": 22718
+        "wtd": 22718,
+        "newN": 4,
+        "newV": 16558,
+        "wonN": 14,
+        "wonV": 144211,
+        "lostN": 1,
+        "lostV": 803
       },
       {
         "name": "Bradford",
-        "unw": 26801,
-        "wtd": 7974
+        "unw": 26364,
+        "wtd": 7822,
+        "newN": 3,
+        "newV": 324,
+        "wonN": 8,
+        "wonV": 5379,
+        "lostN": 2,
+        "lostV": 467
       },
       {
         "name": "Kent",
         "unw": 26259,
-        "wtd": 7878
+        "wtd": 7878,
+        "newN": 1,
+        "newV": 2226,
+        "wonN": 0,
+        "wonV": 0,
+        "lostN": 0,
+        "lostV": 0
       },
       {
         "name": "Mick",
         "unw": 11668,
-        "wtd": 3500
+        "wtd": 3500,
+        "newN": 0,
+        "newV": 0,
+        "wonN": 0,
+        "wonV": 0,
+        "lostN": 0,
+        "lostV": 0
       },
       {
         "name": "Katherine",
         "unw": 10773,
-        "wtd": 3232
+        "wtd": 3232,
+        "newN": 0,
+        "newV": 0,
+        "wonN": 9,
+        "wonV": 4528,
+        "lostN": 1,
+        "lostV": 1657
       },
       {
         "name": "Phuong",
-        "unw": 1687,
-        "wtd": 601
+        "unw": 6117,
+        "wtd": 1930,
+        "newN": 2,
+        "newV": 650,
+        "wonN": 2,
+        "wonV": 1386,
+        "lostN": 6,
+        "lostV": 14883
       }
     ],
     "hygiene": {
@@ -328,55 +417,256 @@
       "undatedCreatio": 1678,
       "pastDated": 1545,
       "pastDatedM": 2.9
-    }
+    },
+    "asAt": "20 Sep",
+    "movementNote": "NEW / WON / LOST read live from HubSpot for 14–20 Sep · RESIZE returns once two weekly snapshots exist",
+    "totals": {
+      "unw": 339436,
+      "wtd": 124760,
+      "newN": 20,
+      "newV": 61567,
+      "wonN": 46,
+      "wonV": 161135,
+      "lostN": 11,
+      "lostV": 24011
+    },
+    "otherNote": "+ 2 deals ($715) held by other owners, included in totals"
   },
   "utilisation": {
-    "source": "HubSpot (hours ramping) — Creatio feed ended 4 Sep",
-    "hoursLoggedAllTime": 98.6,
-    "casesWithHours": 48,
-    "psOpenedThisWk": {
-      "Tech": 40,
-      "Integrations": 14,
-      "Training": 7,
-      "Onboarding": 3,
-      "Warranty": 0
+    "source": "Creatio (frozen to 4 Sep) + HubSpot PS records (live)",
+    "creatio": {
+      "months": [
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep*"
+      ],
+      "avail": [
+        1216,
+        988,
+        1102,
+        1482,
+        1064,
+        228
+      ],
+      "rows": [
+        [
+          "Onboarding",
+          [
+            280,
+            229,
+            354,
+            254,
+            225,
+            34
+          ]
+        ],
+        [
+          "Tech",
+          [
+            148,
+            93,
+            174,
+            198,
+            122,
+            54
+          ]
+        ],
+        [
+          "Other",
+          [
+            134,
+            111,
+            124,
+            194,
+            93,
+            29
+          ]
+        ],
+        [
+          "Travel",
+          [
+            177,
+            111,
+            119,
+            117,
+            100,
+            16
+          ]
+        ],
+        [
+          "Warranty",
+          [
+            89,
+            47,
+            43,
+            71,
+            62,
+            14
+          ]
+        ],
+        [
+          "Integrations",
+          [
+            34,
+            27,
+            80,
+            50,
+            38,
+            10
+          ]
+        ],
+        [
+          "Training",
+          [
+            26,
+            6,
+            14,
+            14,
+            14,
+            1
+          ]
+        ],
+        [
+          "ValPay",
+          [
+            7,
+            18,
+            8,
+            0,
+            6,
+            0
+          ]
+        ]
+      ],
+      "pctBilled": [
+        17,
+        27,
+        43,
+        32,
+        27,
+        32
+      ],
+      "pctUsed": [
+        74,
+        65,
+        83,
+        61,
+        63,
+        69
+      ],
+      "lastWeek": {
+        "billed": 31.8,
+        "nonBilled": 38.0,
+        "total": 69.4,
+        "roster": "6 of 8",
+        "wk": "2026-08-30"
+      },
+      "byMember": [
+        [
+          "Greg S.",
+          105,
+          11,
+          39.8
+        ],
+        [
+          "Isayah K.",
+          32,
+          14,
+          12.0
+        ],
+        [
+          "Argenis G.",
+          29,
+          16,
+          11.2
+        ],
+        [
+          "Isaac M.",
+          17,
+          20,
+          6.5
+        ],
+        [
+          "Rhys W.",
+          5,
+          74,
+          2.0
+        ],
+        [
+          "Josh C.",
+          3,
+          92,
+          1.0
+        ],
+        [
+          "Karim R.",
+          0,
+          0,
+          0.0
+        ],
+        [
+          "Rodney N.",
+          0,
+          4,
+          0.0
+        ]
+      ],
+      "note": "Frozen at the last Creatio extract (4 Sep) — Sep* is a part month"
     },
-    "hoursByPipeline": [
-      [
-        "Tech",
-        45.0,
-        27
+    "hubspot": {
+      "psRecords": 8969,
+      "createdThisWk": 131,
+      "recordsWithHours": 29,
+      "hoursTotal": 78.93,
+      "weeks": [
+        [
+          "w/c 07 Sep",
+          46.42,
+          13
+        ],
+        [
+          "w/c 14 Sep",
+          32.51,
+          16
+        ]
       ],
-      [
-        "Training",
-        18.5,
-        4
+      "openByPipeline": [
+        [
+          "Tech",
+          348
+        ],
+        [
+          "Onboarding",
+          161
+        ],
+        [
+          "Integrations",
+          122
+        ],
+        [
+          "Training",
+          59
+        ],
+        [
+          "Warranty",
+          2
+        ]
       ],
-      [
-        "Onboarding",
-        18.9,
-        1
-      ],
-      [
-        "Integrations",
-        13.2,
-        15
-      ],
-      [
-        "Warranty",
-        3.0,
-        1
-      ]
-    ]
+      "coveragePct": 12,
+      "note": "Hours now captured on the Professional Services record (total_hours) — 29 of 8,969 records carry time so far"
+    }
   },
   "wonVsInvoiced": {
-    "source": "Finance Weekly Invoicing & CRM · as at 6 Sep",
+    "source": "MRR movement register (live) + CRM matching as at 6 Sep",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
     "outstanding": 220,
-    "churnedArrM": 1.15,
-    "logosLost": 259,
+    "churnedArrM": 1.17,
+    "logosLost": 262,
     "netMrrK": -22,
     "topNotInvoiced": [
       [
@@ -480,15 +770,67 @@
         90012
       ],
       "note": "register series as last published (10 Aug deck, Creatio ARR basis) — post-cutover refresh pending"
+    },
+    "netMrrQ3K": -6.3,
+    "contractionArrK": 235,
+    "contractionLogos": 149,
+    "pendingIntegrationsMrr": 2297,
+    "pendingIntegrationsN": 45,
+    "mrrMonthly": {
+      "labels": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "new": [
+        5433,
+        5205,
+        7434,
+        3957,
+        8550,
+        9159,
+        5443,
+        4510,
+        3946
+      ],
+      "lost": [
+        -12639,
+        -5254,
+        -3409,
+        -1304,
+        -4714,
+        -4807,
+        -6947,
+        -5649,
+        -2569
+      ],
+      "net": [
+        -7206,
+        -49,
+        4026,
+        2653,
+        3836,
+        4351,
+        -1503,
+        -1140,
+        1377
+      ],
+      "note": "new = net new + expansion + ValPay · lost = churn + contraction · register basis, live"
     }
   },
   "backlog": {
     "source": "HubSpot (live) — cut over from Creatio",
-    "open": 570,
-    "aged31": 128,
-    "unanswered": 535,
+    "open": 575,
+    "aged31": 142,
+    "unanswered": 554,
     "unansweredOld": 441,
-    "past30": 128,
+    "past30": 142,
     "past90": 10,
     "totalCases": 13115,
     "totalCasesNote": "1 Feb 26 → 20 Sep 26 · HubSpot basis (all Support-pipeline tickets)",
@@ -551,7 +893,79 @@
         ]
       }
     ],
-    "bandNote": "age-band history restarts at cutover — pre-8-Sep weeks can't be restated (migration re-dated old closes)"
+    "bandNote": "age-band history restarts at cutover — pre-8-Sep weeks can't be restated (migration re-dated old closes)",
+    "asAt": "20 Sep",
+    "ageSeries": {
+      "creatio": [
+        {
+          "wk": "08-02",
+          "bands": [
+            159,
+            217,
+            237,
+            73
+          ]
+        },
+        {
+          "wk": "08-09",
+          "bands": [
+            255,
+            228,
+            85,
+            57
+          ]
+        },
+        {
+          "wk": "08-16",
+          "bands": [
+            172,
+            270,
+            90,
+            52
+          ]
+        },
+        {
+          "wk": "08-23",
+          "bands": [
+            164,
+            299,
+            111,
+            58
+          ]
+        },
+        {
+          "wk": "08-30",
+          "bands": [
+            151,
+            297,
+            79,
+            59
+          ]
+        }
+      ],
+      "hubspot": [
+        {
+          "wk": "09-13",
+          "bands": [
+            236,
+            259,
+            151,
+            35
+          ]
+        },
+        {
+          "wk": "09-20",
+          "bands": [
+            184,
+            249,
+            132,
+            10
+          ]
+        }
+      ],
+      "cutover": "HubSpot go-live 8 Sep",
+      "note": "Weeks to 30 Aug are the frozen Creatio series (extracts ended 4 Sep); 13 & 20 Sep read live from HubSpot. The 7 Sep week falls inside the migration and is not reported."
+    }
   },
   "aiAgent": {
     "source": "HubSpot draft state machine (live)",
@@ -963,7 +1377,7 @@
     "monthly": 45,
     "locLastWeek": 66273,
     "locWoWPct": 10,
-    "locWeekEnding": "11 Sep",
+    "locWeekEnding": "w/c 06 Sep",
     "stickiness": [
       [
         "Claude Code",
@@ -1120,7 +1534,212 @@
       ],
       "note": "cell = one week (thousands of lines) · early weeks estimated from rolling windows · wk to 11 Sep = latest capture"
     },
-    "coworkNote": "30-day Cowork sessions: engineering shows zeros (Hawraa, Chris, Eric, Tony, Brad, Nidhi, Rahul) — engineers live in Claude Code; Cowork is the ops/leadership surface."
+    "coworkNote": "30-day Cowork sessions: engineering shows zeros (Hawraa, Chris, Eric, Tony, Brad, Nidhi, Rahul) — engineers live in Claude Code; Cowork is the ops/leadership surface.",
+    "codeMatrix": {
+      "months": [
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "rows": [
+        [
+          "Brad Smith",
+          [
+            10351,
+            39579,
+            41244,
+            10108
+          ]
+        ],
+        [
+          "Nicolas Ibrahim",
+          [
+            18954,
+            15834,
+            38142,
+            27783
+          ]
+        ],
+        [
+          "Hawraa Khalil",
+          [
+            22385,
+            28536,
+            23285,
+            16658
+          ]
+        ],
+        [
+          "Ciaran Dempsey",
+          [
+            6280,
+            18918,
+            23650,
+            13006
+          ]
+        ],
+        [
+          "David Corbett",
+          [
+            10549,
+            27031,
+            10145,
+            6070
+          ]
+        ],
+        [
+          "Chris Huang",
+          [
+            12955,
+            19535,
+            12856,
+            4541
+          ]
+        ],
+        [
+          "Rahul Kumar",
+          [
+            0,
+            0,
+            42859,
+            7083
+          ]
+        ],
+        [
+          "Mohamed Ammar",
+          [
+            7046,
+            6582,
+            23266,
+            4017
+          ]
+        ],
+        [
+          "Tony Ghoussein",
+          [
+            885,
+            6208,
+            10369,
+            1816
+          ]
+        ],
+        [
+          "Eric Cruz",
+          [
+            1666,
+            2970,
+            7237,
+            5884
+          ]
+        ]
+      ],
+      "allDevelopers": [
+        120224,
+        228132,
+        293419,
+        101159
+      ],
+      "note": "Sep is month-to-date at the latest capture"
+    },
+    "byWeek": {
+      "labels": [
+        "07",
+        "14",
+        "21",
+        "28",
+        "05",
+        "12",
+        "19",
+        "26",
+        "02",
+        "09",
+        "16",
+        "23",
+        "30",
+        "06"
+      ],
+      "valuesK": [
+        28,
+        28,
+        28,
+        41,
+        52,
+        52,
+        52,
+        48,
+        28,
+        78,
+        87,
+        68,
+        60,
+        66
+      ],
+      "months": [
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "note": "cell = one week · early weeks estimated from the admin's rolling windows"
+    },
+    "cowork": {
+      "perWkTotal": 137,
+      "baseline": 130,
+      "members": [
+        [
+          "Matt Freeman",
+          17,
+          -3
+        ],
+        [
+          "Bradford Young",
+          16,
+          2
+        ],
+        [
+          "Dave Corbett",
+          15,
+          -4
+        ],
+        [
+          "Katherine Fenwick",
+          14,
+          1
+        ],
+        [
+          "Harjeet Sammi",
+          13,
+          1
+        ],
+        [
+          "Ron Makins",
+          8,
+          0
+        ],
+        [
+          "Youssef Medhat",
+          7,
+          null
+        ],
+        [
+          "Lee Atkins",
+          7,
+          -1
+        ],
+        [
+          "Glynn Johnson",
+          6,
+          null
+        ],
+        [
+          "Izaak Horner",
+          5,
+          -1
+        ]
+      ],
+      "note": "rate = 30-day sessions ÷ 4.3 · arrow = change vs last capture · — = first capture"
+    }
   },
   "projects": {
     "asAt": "19 Sep 2026",
