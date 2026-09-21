@@ -492,236 +492,74 @@
     "otherNote": "+ 2 deals ($715) on other owners, included in totals · 2 test deals sit in the lost column (Brad TestSA3, TEST OPTY ORD MGT) — worth deleting in HubSpot"
   },
   "utilisation": {
-    "source": "Creatio (frozen to 4 Sep) + HubSpot PS records (live)",
-    "creatio": {
-      "months": [
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep*"
+    "source": "HubSpot PS records (time logging ramping)",
+    "hoursLogged": 78.93,
+    "recordsWithHours": 29,
+    "psRecords": 8969,
+    "createdThisWk": 131,
+    "psCasesThisWk": 64,
+    "psCasesNote": "Tech 40 · Integrations 14 · Training 7 · Onboarding 3 · Warranty 0 (HubSpot, live)",
+    "hoursByType": [
+      [
+        "Tech",
+        36.9,
+        19
       ],
-      "avail": [
-        1216,
-        988,
-        1102,
-        1482,
-        1064,
-        228
+      [
+        "Onboarding",
+        35.9,
+        3
       ],
-      "rows": [
-        [
-          "Onboarding",
-          [
-            280,
-            229,
-            354,
-            254,
-            225,
-            34
-          ]
-        ],
-        [
-          "Tech",
-          [
-            148,
-            93,
-            174,
-            198,
-            122,
-            54
-          ]
-        ],
-        [
-          "Other",
-          [
-            134,
-            111,
-            124,
-            194,
-            93,
-            29
-          ]
-        ],
-        [
-          "Travel",
-          [
-            177,
-            111,
-            119,
-            117,
-            100,
-            16
-          ]
-        ],
-        [
-          "Warranty",
-          [
-            89,
-            47,
-            43,
-            71,
-            62,
-            14
-          ]
-        ],
-        [
-          "Integrations",
-          [
-            34,
-            27,
-            80,
-            50,
-            38,
-            10
-          ]
-        ],
-        [
-          "Training",
-          [
-            26,
-            6,
-            14,
-            14,
-            14,
-            1
-          ]
-        ],
-        [
-          "ValPay",
-          [
-            7,
-            18,
-            8,
-            0,
-            6,
-            0
-          ]
-        ]
+      [
+        "Other / unassigned",
+        3.0,
+        3
       ],
-      "pctBilled": [
-        17,
-        27,
-        43,
-        32,
-        27,
-        32
+      [
+        "Integration",
+        2.6,
+        3
       ],
-      "pctUsed": [
-        74,
-        65,
-        83,
-        61,
-        63,
-        69
+      [
+        "Training",
+        0.5,
+        1
+      ]
+    ],
+    "testNote": "21.4h of the 78.9h sits on two records named 'test' / 'Warranty Test' — worth clearing out",
+    "openWork": [
+      [
+        "Tech",
+        353,
+        0.6,
+        31
       ],
-      "lastWeek": {
-        "billed": 31.8,
-        "nonBilled": 38.0,
-        "total": 69.4,
-        "roster": "6 of 8",
-        "wk": "2026-08-30"
-      },
-      "byMember": [
-        [
-          "Greg S.",
-          105,
-          11,
-          39.8
-        ],
-        [
-          "Isayah K.",
-          32,
-          14,
-          12.0
-        ],
-        [
-          "Argenis G.",
-          29,
-          16,
-          11.2
-        ],
-        [
-          "Isaac M.",
-          17,
-          20,
-          6.5
-        ],
-        [
-          "Rhys W.",
-          5,
-          74,
-          2.0
-        ],
-        [
-          "Josh C.",
-          3,
-          92,
-          1.0
-        ],
-        [
-          "Karim R.",
-          0,
-          0,
-          0.0
-        ],
-        [
-          "Rodney N.",
-          0,
-          4,
-          0.0
-        ]
+      [
+        "Onboarding",
+        162,
+        null,
+        0
       ],
-      "note": "Frozen at the last Creatio extract (4 Sep) — Sep* is a part month"
-    },
-    "hubspot": {
-      "label": "Sep 8–20",
-      "availNote": "608h avail",
-      "period": "8–20 Sep (post-cutover)",
-      "avail": 608,
-      "rows": {
-        "Onboarding": 35.9,
-        "Tech": 36.9,
-        "Other": 3.0,
-        "Travel": null,
-        "Warranty": null,
-        "Integrations": 2.6,
-        "Training": 0.5,
-        "ValPay": null
-      },
-      "hoursTotal": 78.93,
-      "recordsWithHours": 29,
-      "psRecords": 8969,
-      "createdThisWk": 131,
-      "pctUsed": 13,
-      "pctBilled": null,
-      "openByPipeline": [
-        [
-          "Tech",
-          348
-        ],
-        [
-          "Onboarding",
-          161
-        ],
-        [
-          "Integrations",
-          122
-        ],
-        [
-          "Training",
-          59
-        ],
-        [
-          "Warranty",
-          2
-        ]
+      [
+        "Integrations",
+        122,
+        1.0,
+        5
       ],
-      "testHours": 21.4,
-      "testNote": "21.4h of the 78.9h sits on two records named 'test' / 'Warranty Test' — worth clearing out",
-      "note": "Hours now captured on the Professional Services record (total_hours). Billed vs non-billed is not yet separable — the billable flag is set on only 3 of 29 records."
-    }
+      [
+        "Training",
+        59,
+        1.5,
+        2
+      ],
+      [
+        "Warranty",
+        3,
+        0.0,
+        1
+      ]
+    ],
+    "openWorkNote": "Median TTC is measured on tickets created and closed since 8 Sep — all-time medians are unusable because the migration re-dated old closes."
   },
   "wonVsInvoiced": {
     "source": "Finance Weekly Invoicing & Creatio · register live for churn",

@@ -472,97 +472,60 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
 
 // =============================================================================
-// 9 · UTILISATION & DELIVERY HOURS (Creatio frozen · HubSpot continues the series)
+// 8 · UTILISATION & DELIVERY HOURS (honest cutover state)
 // =============================================================================
 {
   const s = pres.addSlide();
-  const u = D.utilisation, cr = u.creatio, hs = u.hubspot;
+  const u = D.utilisation;
   header(s, "Utilisation & Delivery Hours", "Professional Services", 2, { cutover: true });
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "BILLED VS NON-BILLED", `${cr.lastWeek.billed}% / ${cr.lastWeek.nonBilled}%`,
-    `last Creatio reading · week of ${cr.lastWeek.wk} — frozen`, GOLD, 21);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "TOTAL UTILISATION", `${cr.lastWeek.total}%`,
-    "all hours vs capacity · 80% target — frozen at cutover", GOLD, 24);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "UTILISATION — SINCE CUTOVER", `${hs.pctUsed}%`,
-    `${hs.hoursTotal}h logged vs ${hs.avail}h capacity, 8–20 Sep — logging still ramping`, TERRA, 24);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "PS ENGAGEMENTS — THIS WEEK", String(hs.createdThisWk),
-    `new PS records · ${hs.recordsWithHours} of ${hs.psRecords.toLocaleString()} carry time so far`, NAVY);
+  kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLED VS NON-BILLED", "not set up", "billable flag set on only 3 of 29 records carrying time — not yet separable", GOLD, 20);
+  kpi(s, 4.63, 1.12, 3.98, 1.25, "TOTAL UTILISATION", "not set up", "capacity model to be rebuilt on HubSpot hours · 80% target unchanged", GOLD, 20);
+  kpi(s, 8.81, 1.12, 4.07, 1.25, "PS CASES OPENED — THIS WEEK", String(u.psCasesThisWk), u.psCasesNote, NAVY);
 
-  const CX = 0.45, CY = 2.62, CW = 8.2, CH = 3.1;
+  const CX = 0.45, CY = 2.62, CW = 7.2, CH = 3.9;
   card(s, CX, CY, CW, CH);
-  cardTitle(s, CX, CY, "WHERE THE HOURS GO — AVAILABLE VS UTILISED, MONTHLY", 6.4);
-  const labX = CX + 0.22, labW = 1.05, m0 = CX + 1.35, mW = 0.78;
-  const divX = m0 + 6 * mW + 0.06, hsX = divX + 0.14, hsW = 1.2;
-  s.addText("CREATIO — FROZEN AT 4 SEP EXTRACT", { x: m0, y: CY + 0.32, w: 6 * mW, h: 0.16, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: GOLD, isTextBox: true, margin: 0 });
-  s.addText("HUBSPOT — LIVE", { x: hsX, y: CY + 0.32, w: hsW, h: 0.16, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  cr.months.forEach((mo, i) => {
-    s.addText(mo, { x: m0 + i * mW, y: CY + 0.5, w: mW, h: 0.18, align: "center", fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0 });
-    s.addText(cr.avail[i].toLocaleString() + "h avail", { x: m0 + i * mW, y: CY + 0.67, w: mW, h: 0.14, align: "center", fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0 });
+  cardTitle(s, CX, CY, "HOURS LOGGED ON PS RECORDS — RAMPING", 6.6);
+  s.addText(`${u.hoursLogged}h`, { x: CX + 0.25, y: CY + 0.45, w: 2.2, h: 0.55, fontFace: FONT, fontSize: 30, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`across ${u.recordsWithHours} of ${u.psRecords.toLocaleString()} records — the new ground truth (total_hours on the Professional Services record)`, { x: CX + 2.5, y: CY + 0.5, w: 4.4, h: 0.5, fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0 });
+  const hx = [0.25, 3.4, 5.2], hw2 = [3.0, 1.6, 1.6];
+  ["SERVICE TYPE", "HOURS LOGGED", "RECORDS"].forEach((h2, i) => s.addText(h2, { x: CX + hx[i], y: CY + 1.2, w: hw2[i], h: 0.22, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  const maxH = Math.max(...u.hoursByType.map((r) => r[1]));
+  u.hoursByType.forEach((r, i) => {
+    const y = CY + 1.48 + i * 0.42;
+    s.addShape("rect", { x: CX + 0.25, y: y + 0.37, w: CW - 0.5, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
+    s.addText(r[0], { x: CX + hx[0], y, w: 1.55, h: 0.38, fontFace: FONT, fontSize: 9.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: CX + 1.9, y: y + 0.13, w: Math.max(0.05, (r[1] / maxH) * 1.35), h: 0.13, rectRadius: 0.05, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(r[1].toFixed(1) + "h", { x: CX + hx[1], y, w: hw2[1], h: 0.38, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[2]), { x: CX + hx[2], y, w: hw2[2], h: 0.38, align: "right", fontFace: FONT, fontSize: 9.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
-  s.addText(hs.label, { x: hsX, y: CY + 0.5, w: hsW, h: 0.18, align: "center", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(hs.availNote, { x: hsX, y: CY + 0.67, w: hsW, h: 0.14, align: "center", fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0 });
+  s.addText(u.testNote, { x: CX + 0.25, y: CY + CH - 0.42, w: CW - 0.5, h: 0.32, fontFace: FONT, fontSize: 6.8, color: GOLD, isTextBox: true, margin: 0, valign: "top" });
 
-  const rH = 0.20, r0 = CY + 0.84;
-  const maxV = Math.max(...cr.rows.flatMap((r) => r[1]));
-  const tint = (v) => { const f = v / maxV; return f > 0.72 ? TEAL : f > 0.45 ? "7FB8C4" : f > 0.2 ? "B9D8DF" : f > 0 ? TEAL_PALE : "F4F8FA"; };
-  cr.rows.forEach((row, ri) => {
-    const y = r0 + ri * rH;
-    s.addText(row[0], { x: labX, y, w: labW, h: rH, fontFace: FONT, fontSize: 7, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    row[1].forEach((v, i) => {
-      s.addShape("rect", { x: m0 + i * mW + 0.02, y: y + 0.015, w: mW - 0.04, h: rH - 0.04, fill: { color: tint(v) }, line: { type: "none" } });
-      s.addText(String(v), { x: m0 + i * mW, y, w: mW, h: rH, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, bold: v / maxV > 0.45, color: v / maxV > 0.72 ? "FFFFFF" : NAVY, isTextBox: true, margin: 0 });
-    });
-    const hv = hs.rows[row[0]];
-    s.addShape("rect", { x: hsX + 0.02, y: y + 0.015, w: hsW - 0.04, h: rH - 0.04, fill: { color: hv ? tint(hv) : "F4F8FA" }, line: { type: "none" } });
-    s.addText(hv == null ? "—" : String(hv), { x: hsX, y, w: hsW, h: rH, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, color: hv == null ? FAINT : NAVY, isTextBox: true, margin: 0 });
+  const RX = 7.85, RW = 5.03;
+  card(s, RX, CY, RW, 1.86);
+  s.addText([{ text: "OPEN PS WORK  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "median time to close · since 8 Sep", options: { fontSize: 6.5, color: FAINT } }],
+    { x: RX + 0.22, y: CY + 0.1, w: RW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
+  ["SERVICE TYPE", "OPEN", "MEDIAN TTC"].forEach((h2, i) => {
+    const xs = [0.22, 2.35, 3.25], ws = [2.0, 0.8, 1.0];
+    s.addText(h2, { x: RX + xs[i], y: CY + 0.38, w: ws[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 });
   });
-  const uY = r0 + cr.rows.length * rH + 0.05;
-  s.addText([{ text: "UTILISED VS AVAILABLE\n", options: { fontSize: 6.2, bold: true, color: NAVY } }, { text: "% billed / % used", options: { fontSize: 5.5, color: FAINT } }],
-    { x: labX, y: uY - 0.02, w: labW, h: 0.32, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  cr.pctBilled.forEach((pb, i) => {
-    const pu = cr.pctUsed[i], x = m0 + i * mW;
-    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: mW - 0.1, h: 0.085, fill: { color: TRACK }, line: { type: "none" } });
-    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: (mW - 0.1) * pu / 100, h: 0.085, fill: { color: GOLD }, line: { type: "none" } });
-    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: (mW - 0.1) * pb / 100, h: 0.085, fill: { color: GREEN }, line: { type: "none" } });
-    s.addText([{ text: `${pb}%`, options: { fontSize: 6.3, bold: true, color: GREEN } }, { text: ` / ${pu}%`, options: { fontSize: 6.3, bold: true, color: GOLD } }],
-      { x, y: uY + 0.13, w: mW, h: 0.2, align: "center", fontFace: FONT, isTextBox: true, margin: 0 });
+  u.openWork.forEach((r, i) => {
+    const y = CY + 0.58 + i * 0.20;
+    s.addText(r[0], { x: RX + 0.22, y, w: 2.0, h: 0.21, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[1]), { x: RX + 2.35, y, w: 0.8, h: 0.21, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[2] == null ? "no closes yet" : (r[2] < 0.1 ? "<0.1 d" : r[2] + " d"), { x: RX + 3.25, y, w: 1.0, h: 0.21, align: "right", fontFace: FONT, fontSize: 8, bold: r[2] != null, color: r[2] == null ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[3] ? `n=${r[3]}` : "", { x: RX + 4.32, y, w: 0.48, h: 0.21, align: "right", fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
-  s.addShape("rect", { x: hsX + 0.05, y: uY + 0.03, w: hsW - 0.1, h: 0.085, fill: { color: TRACK }, line: { type: "none" } });
-  s.addShape("rect", { x: hsX + 0.05, y: uY + 0.03, w: (hsW - 0.1) * hs.pctUsed / 100, h: 0.085, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText([{ text: "— ", options: { fontSize: 6.3, bold: true, color: FAINT } }, { text: `/ ${hs.pctUsed}%`, options: { fontSize: 6.3, bold: true, color: TERRA } }],
-    { x: hsX, y: uY + 0.13, w: hsW, h: 0.2, align: "center", fontFace: FONT, isTextBox: true, margin: 0 });
-  // cutover divider through the matrix
-  s.addShape("rect", { x: divX + 0.04, y: CY + 0.3, w: 0.022, h: uY + 0.33 - (CY + 0.3), fill: { color: TERRA }, line: { type: "none" } });
-  s.addShape("roundRect", { x: divX - 0.42, y: CY + 0.06, w: 0.95, h: 0.2, rectRadius: 0.1, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText("CUTOVER 8 SEP", { x: divX - 0.42, y: CY + 0.06, w: 0.95, h: 0.2, align: "center", valign: "middle", fontFace: FONT, fontSize: 5.8, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
-  s.addText("Creatio months frozen at the final 4 Sep extract (Sep* is a part month) · HubSpot column = hours on the PS record vs 38h/week × 8-person roster; % billed not yet separable", { x: labX, y: CY + CH - 0.24, w: CW - 0.45, h: 0.22, fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText(u.openWorkNote, { x: RX + 0.22, y: CY + 1.60, w: RW - 0.44, h: 0.24, fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  const RX = 8.85, RW = 4.03;
-  card(s, RX, CY, RW, 1.55);
-  s.addText([{ text: "BILLABLE BY MEMBER  ", options: { fontSize: 9.5, bold: true, color: TEAL } }, { text: `wk ${cr.lastWeek.wk} · frozen`, options: { fontSize: 6, color: GOLD } }],
-    { x: RX + 0.2, y: CY + 0.09, w: RW - 0.4, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
-  cr.byMember.forEach((m, i) => {
-    s.addText([{ text: m[0] + "  ", options: { fontSize: 7, bold: true, color: NAVY } },
-               { text: `${m[1]}%`, options: { fontSize: 7, bold: true, color: m[1] >= 80 ? GREEN : MUTED } },
-               { text: `  (${m[2]}%)  ·  ${m[3]}h`, options: { fontSize: 6.5, color: FAINT } }],
-      { x: RX + 0.2, y: CY + 0.34 + i * 0.148, w: RW - 0.4, h: 0.145, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  card(s, RX, CY + 1.68, RW, 1.42);
-  s.addText([{ text: "OPEN PS WORK  ", options: { fontSize: 9.5, bold: true, color: TEAL } }, { text: "HubSpot · live", options: { fontSize: 6, color: GREEN } }],
-    { x: RX + 0.2, y: CY + 1.77, w: RW - 0.4, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
-  const maxOpen = Math.max(...hs.openByPipeline.map((r) => r[1]));
-  hs.openByPipeline.forEach((r, i) => {
-    const y = CY + 2.02 + i * 0.2;
-    s.addText(r[0], { x: RX + 0.2, y, w: 1.1, h: 0.19, fontFace: FONT, fontSize: 7, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: RX + 1.35, y: y + 0.055, w: Math.max(0.05, (r[1] / maxOpen) * 1.95), h: 0.085, rectRadius: 0.035, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(String(r[1]), { x: RX + 3.4, y, w: 0.45, h: 0.19, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-
-  aiSummary(s, 0.45, 5.85, 12.43, 1.13, [
-    { lead: "Utilisation continues across the cutover, on a thinner meter.", text: `13% of the 608h capacity is logged for 8–20 Sep (${hs.hoursTotal}h on ${hs.recordsWithHours} records) against 69.4% in the last full Creatio week — that gap is logging coverage, not idle teams: ${hs.createdThisWk} PS engagements were opened this week and only ${hs.recordsWithHours} carry time.`, dot: TERRA },
-    { lead: "Where the hours are going is consistent:", text: `Tech (36.9h) and Onboarding (35.9h) dominate, the same two categories that led every Creatio month. ${hs.testNote}.`, dot: TEAL },
+  aiSummary(s, RX, CY + 2.0, RW, CH - 2.0, [
+    { lead: "Utilisation is deliberately blank this week.", text: `Time logging covers ${u.hoursLogged}h on ${u.recordsWithHours} of ${u.psRecords.toLocaleString()} PS records. Computing a percentage on that coverage would fabricate a collapse that isn't real.`, dot: TERRA },
+    { lead: "What it takes to switch this back on:", text: "PS members logging hours on every Professional Services record, plus the 38h/week capacity roster re-based in the new reporting. The number returns automatically as coverage lands.", dot: TEAL },
+    { lead: "Demand signal is live meanwhile:", text: `${u.psCasesThisWk} PS cases opened this week, concentrated in Tech (40); ${u.createdThisWk} PS records created. Tech and Onboarding carry almost all the time logged.`, dot: GOLD },
   ]);
+  footnote(s, "Per the design ethos: where a source isn't ready the state is shown honestly — never an estimated utilisation presented as measured.", 6.72);
   sourcePill(s, u.source);
 }
+
 
 
 
