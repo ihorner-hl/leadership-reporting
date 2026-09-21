@@ -99,7 +99,7 @@ function aiSummary(s, x, y, w, h, bullets, title = "AI SUMMARY") {
   const runs = [];
   bullets.forEach((b, i) => {
     runs.push({ text: "•  ", options: { color: b.dot || TERRA, bold: true, fontSize: 9 } });
-    if (b.lead) runs.push({ text: b.lead + " ", options: { color: NAVY, bold: true, fontSize: 9 } });
+    if (b.lead) runs.push({ text: b.lead + (b.block ? "" : " "), options: { color: NAVY, bold: true, fontSize: 9, breakLine: !!b.block } });
     runs.push({ text: b.text, options: { color: b.muted ? FAINT : "3A4B57", fontSize: 9, breakLine: true, paraSpaceAfter: 8 } });
   });
   s.addText(runs, { x: x + 0.22, y: y + 0.46, w: w - 0.45, h: h - 0.6, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
@@ -144,7 +144,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const s = pres.addSlide();
   header(s, "Agenda", null, null);
   const cards = [
-    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "Invoiced Revenue — weekly extract", "New Products — target vs traction", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
+    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "New Products — target vs traction", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
     { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: ["Backlog, ageing & first response", "AI Support Agent"] },
     { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
@@ -311,74 +311,6 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 }
 
 // =============================================================================
-// 6 · INVOICED REVENUE — WEEKLY SYSNET EXTRACT
-// =============================================================================
-{
-  const s = pres.addSlide();
-  const iv = D.invoicedRevenue;
-  header(s, "Invoiced Revenue — Weekly Extract", "Finance · Sysnet weekly sales export", 1);
-  const hwThis = iv.revGroups.find((r) => r[0] === "Hardware");
-  const discThis = iv.revGroups.find((r) => r[0].startsWith("Discounts"));
-  const commThis = iv.revGroups.find((r) => r[0].startsWith("Commission"));
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "TOTAL INVOICED — THIS WEEK", "$71.3k",
-    `${iv.thisWeek} · prior week $127.4k (${iv.priorWeek})`, NAVY);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "HARDWARE — GROSS", "$37.6k",
-    "commissionable · 53% of the week's invoicing", TEAL);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "DISCOUNTS", "-$10.2k",
-    "hardware discounts · prior week -$2.3k — nets hardware to $27.4k", TERRA);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "COMMISSION & OTHER", "$37.0k",
-    "Bradford $31.1k · National $5.9k — not commissionable hardware", GOLD);
-
-  // rev-group chart
-  const CX = 0.45, CY = 2.62, CW = 6.1, CH = 3.9;
-  card(s, CX, CY, CW, CH);
-  cardTitle(s, CX, CY, "WHERE THE WEEK'S INVOICING CAME FROM", 5.5);
-  const cats = iv.revGroups.map((r) => r[0]).reverse();
-  s.addChart(pres.ChartType.bar, [
-    { name: iv.priorWeek, labels: cats, values: iv.revGroups.map((r) => r[2]).reverse() },
-    { name: iv.thisWeek, labels: cats, values: iv.revGroups.map((r) => r[1]).reverse() },
-  ], {
-    x: CX + 0.2, y: CY + 0.46, w: CW - 0.42, h: CH - 0.9,
-    barDir: "bar", chartColors: [TEAL_LT, TEAL], barGapWidthPct: 45, barOverlapPct: -8,
-    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7, catAxisLabelFontFace: FONT,
-    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valAxisFormatCode: '$#,##0,"k"',
-    valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
-    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
-  });
-  s.addText(iv.note, { x: CX + 0.2, y: CY + CH - 0.42, w: CW - 0.4, h: 0.32, fontFace: FONT, fontSize: 6.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
-
-  // by account manager
-  const AMX = 6.7, AMW = 2.9;
-  card(s, AMX, CY, AMW, CH);
-  cardTitle(s, AMX, CY, "BY ACCOUNT MANAGER", 2.5);
-  ["AM", "THIS WK", "PRIOR"].forEach((h2, i) => {
-    const xs = [0.2, 1.2, 2.0], ws = [0.95, 0.75, 0.72];
-    s.addText(h2, { x: AMX + xs[i], y: CY + 0.5, w: ws[i], h: 0.2, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 });
-  });
-  iv.byAm.forEach((r, i) => {
-    const y = CY + 0.76 + i * 0.42;
-    s.addShape("rect", { x: AMX + 0.2, y: y + 0.37, w: AMW - 0.4, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(r[0], { x: AMX + 0.2, y, w: 0.95, h: 0.38, fontFace: FONT, fontSize: 8.5, bold: true, color: r[0] === "National" ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    const amt = (v) => (Math.abs(v) < 1000 ? fmt$(v) : fmtK(v));
-    s.addText(amt(r[1]), { x: AMX + 1.2, y, w: 0.75, h: 0.38, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(amt(r[2]), { x: AMX + 2.0, y, w: 0.72, h: 0.38, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  const amTotY = CY + 0.76 + iv.byAm.length * 0.42 + 0.04;
-  s.addShape("rect", { x: AMX + 0.2, y: amTotY - 0.05, w: AMW - 0.4, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText("TOTAL", { x: AMX + 0.2, y: amTotY, w: 0.95, h: 0.3, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("$71.3k", { x: AMX + 1.2, y: amTotY, w: 0.75, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("$127.4k", { x: AMX + 2.0, y: amTotY, w: 0.72, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-
-  aiSummary(s, 9.8, CY, 3.08, CH, [
-    { lead: "The week invoiced $71.3k", text: "against $127.4k the week before — but the drop is mix, not collapse: last week carried $77.9k of commission, this week $37.0k.", dot: TEAL },
-    { lead: "Hardware held up at $37.6k gross", text: "(vs $38.5k) — the commissionable line is flat week on week.", dot: TERRA },
-    { lead: "Discounting is the watch item:", text: "-$10.2k this week vs -$2.3k prior, almost all on Jasmine's hardware. Gross $37.6k nets to $27.4k.", dot: GOLD },
-    { text: "Training billed nothing this week (vs $4.7k) · S/W subscriptions net -$148 on credits.", muted: true, dot: FAINT },
-  ]);
-  sourcePill(s, iv.source);
-}
-
-// =============================================================================
 // 6 · NEW PRODUCTS
 // =============================================================================
 {
@@ -433,70 +365,70 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 }
 
 // =============================================================================
-// 7 · H&L PAY — REFERRALS + IDENTIFICATION REGISTER
+// 7 · H&L PAY — REFERRALS TO VALPAY
 // =============================================================================
 {
   const s = pres.addSlide();
-  const hp = D.hlPay;
-  header(s, "H&L Pay — Our Referrals to ValPay", "Sales · identification register live · ValPay export as at 6 Sep", 1);
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "IDENTIFIED BY H&L", String(hp.identified),
-    `${hp.identifiedDeals} unique venues · ${hp.identReferred} already referred on — register, live`, GOLD);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "REFERRALS GIVEN — ALL-TIME", String(hp.referred), "tagged referred deals in the partner pipeline", NAVY);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "REFERRED GMV — SIGNED", hp.signedGmv, `${hp.won} deals won · ${hp.shareOfWins} of all wins`, TEAL);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "REFERRED — OPEN PIPELINE", hp.openPipe, `${hp.openDeals} referred deals in negotiation`, TERRA);
+  const hp = D.hlPay, F = hp.flow;
+  header(s, "H&L Pay — Our Referrals to ValPay", "Sales · ValPay export as at 6 Sep · identification register live", 1);
+  kpi(s, 0.45, 1.06, 4.1, 1.12, "REFERRALS GIVEN — ALL-TIME", String(hp.referred), "tagged referred deals in the partner pipeline", NAVY);
+  s.addText(hp.qtrNote, { x: 2.6, y: 1.14, w: 1.75, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
+  kpi(s, 4.7, 1.06, 4.1, 1.12, "REFERRED GMV — SIGNED", hp.signedGmv, `${hp.won} deals won · 2 venues live & billing`, TEAL);
+  s.addText(`${hp.shareOfWins} of all wins`, { x: 6.85, y: 1.14, w: 1.75, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
+  kpi(s, 8.95, 1.06, 3.93, 1.12, "REFERRED — OPEN PIPELINE", hp.openPipe, `${hp.openDeals} referred deals in negotiation`, TEAL);
 
-  const TX = 0.45, TY = 2.62, TW = 4.3, TH = 3.9;
-  card(s, TX, TY, TW, TH);
-  s.addText([{ text: "WHO IS GIVING THE REFERRALS  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "ValPay · 6 Sep", options: { fontSize: 6.5, color: GOLD } }],
-    { x: TX + 0.22, y: TY + 0.12, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  const hx = [0.22, 2.15, 2.85, 3.4], hw = [1.9, 0.62, 0.5, 0.72];
-  ["REFERRER", "GIVEN", "WON", "GMV"].forEach((h2, i) => s.addText(h2, { x: TX + hx[i], y: TY + 0.46, w: hw[i], h: 0.2, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  const CX = 0.45, CY = 2.34, CW = 7.6, CH = 3.34;
+  card(s, CX, CY, CW, CH);
+  cardTitle(s, CX, CY, "THE REFERRAL ENGINE — IDENTIFIED BY H&L → REFERRED → SIGNED", 7.1);
+  const fw = 1.5, fx0 = CX + 0.22, fy = CY + 0.44, fh = 0.62;
+  hp.funnel.forEach((f, i) => {
+    const x = fx0 + i * 1.38;
+    s.addShape(i === 0 ? "homePlate" : "chevron", { x, y: fy, w: fw, h: fh, fill: { color: f.col }, line: { type: "none" } });
+    s.addText(f.label, { x: x + (i === 0 ? 0.12 : 0.26), y: fy + 0.05, w: fw - 0.42, h: 0.16, fontFace: FONT, fontSize: 5.5, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
+    s.addText(f.value, { x: x + (i === 0 ? 0.12 : 0.26), y: fy + 0.2, w: fw - 0.42, h: 0.36, fontFace: FONT, fontSize: 16, bold: true, color: "FFFFFF", isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(f.cap, { x: x + (i === 0 ? 0.04 : 0.18), y: fy + fh + 0.02, w: fw - 0.2, h: 0.22, fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  });
+  s.addText("REFERRAL FLOW — WHEN REFERRALS WERE GIVEN", { x: CX + 0.22, y: CY + 1.36, w: 3.6, h: 0.2, fontFace: FONT, fontSize: 8.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(F.note, { x: CX + 3.8, y: CY + 1.36, w: 3.5, h: 0.2, align: "right", fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0 });
+  s.addChart([
+    { type: pres.ChartType.bar, data: [
+        { name: "identified", labels: F.labels, values: F.identified },
+        { name: "referred", labels: F.labels, values: F.referred }],
+      options: { chartColors: ["24435C", TEAL], barGrouping: "clustered", barGapWidthPct: 45, barOverlapPct: -10 } },
+    { type: pres.ChartType.line, data: [
+        { name: "cumulative referred", labels: F.labels, values: F.cumulative }],
+      options: { chartColors: [GOLD], lineSize: 2, lineSmooth: false, lineDataSymbolSize: 5 } },
+  ], {
+    x: CX + 0.18, y: CY + 1.58, w: CW - 0.42, h: CH - 1.82,
+    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7, catAxisLabelFontFace: FONT,
+    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6, valAxisLabelFontFace: FONT,
+    valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
+    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 6.5, legendFontFace: FONT, showTitle: false,
+  });
+
+  const RX = 8.2, RW = 4.68;
+  card(s, RX, CY, RW, CH);
+  cardTitle(s, RX, CY, "WHO IS GIVING THE REFERRALS", 4.2);
+  const rx = [0.22, 2.65, 3.35, 4.0], rw = [2.3, 0.6, 0.55, 0.5];
+  ["REFERRER", "GIVEN", "WON", "GMV"].forEach((h2, i) => s.addText(h2, { x: RX + rx[i], y: CY + 0.44, w: rw[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 6.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  const maxGiven = Math.max(...hp.referrers.map((r) => r[1]));
   hp.referrers.forEach((r, i) => {
-    const y = TY + 0.72 + i * 0.47;
-    s.addShape("rect", { x: TX + 0.22, y: y + 0.42, w: TW - 0.44, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(r[0], { x: TX + hx[0], y, w: hw[0], h: 0.44, fontFace: FONT, fontSize: 8.5, bold: true, color: r[0] === "Unattributed" ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    [1, 2, 3].forEach((j) => s.addText(String(r[j]), { x: TX + hx[j], y, w: hw[j], h: 0.44, align: "right", fontFace: FONT, fontSize: 8.5, bold: j === 3, color: j === 3 ? TEAL : MUTED, isTextBox: true, margin: 0, valign: "middle" }));
+    const y = CY + 0.66 + i * 0.40;
+    s.addText(r[0], { x: RX + rx[0], y, w: rw[0], h: 0.24, fontFace: FONT, fontSize: 8.5, bold: true, color: r[0] === "Unattributed" ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("rect", { x: RX + rx[0], y: y + 0.25, w: Math.max(0.06, (r[1] / maxGiven) * 2.2), h: 0.045, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(String(r[1]), { x: RX + rx[1], y, w: rw[1], h: 0.24, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[2]), { x: RX + rx[2], y, w: rw[2], h: 0.24, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: r[2] ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[3]), { x: RX + rx[3], y, w: rw[3], h: 0.24, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
+  s.addText(hp.footnote, { x: RX + 0.22, y: CY + CH - 0.26, w: RW - 0.44, h: 0.22, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  // identification register (live)
-  const IX = 4.95, IW = 4.1;
-  card(s, IX, TY, IW, TH);
-  s.addText([{ text: "IDENTIFICATION REGISTER  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "H&L owns · live", options: { fontSize: 6.5, color: GREEN } }],
-    { x: IX + 0.22, y: TY + 0.12, w: IW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  s.addText("accounts H&L flags before the referral is given", { x: IX + 0.22, y: TY + 0.36, w: IW - 0.44, h: 0.2, fontFace: FONT, fontSize: 6.5, color: FAINT, isTextBox: true, margin: 0 });
-  ["ACCOUNT MANAGER", "IDENTIFIED", "REFERRED"].forEach((h2, i) => {
-    const xs = [0.22, 1.85, 3.1], ws = [1.6, 1.1, 0.78];
-    s.addText(h2, { x: IX + xs[i], y: TY + 0.6, w: ws[i], h: 0.2, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 });
-  });
-  const maxId = Math.max(...hp.identByAm.map((r) => r[1]));
-  hp.identByAm.forEach((r, i) => {
-    const y = TY + 0.88 + i * 0.52;
-    s.addText(r[0], { x: IX + 0.22, y, w: 1.6, h: 0.24, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: IX + 0.22, y: y + 0.26, w: Math.max(0.05, (r[1] / maxId) * 2.6), h: 0.1, rectRadius: 0.04, fill: { color: TEAL }, line: { type: "none" } });
-    s.addShape("roundRect", { x: IX + 0.22, y: y + 0.26, w: Math.max(0.03, (r[2] / maxId) * 2.6), h: 0.1, rectRadius: 0.04, fill: { color: GREEN }, line: { type: "none" } });
-    s.addText(String(r[1]), { x: IX + 1.85, y, w: 1.1, h: 0.24, align: "right", fontFace: FONT, fontSize: 9, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[2]), { x: IX + 3.1, y, w: 0.78, h: 0.24, align: "right", fontFace: FONT, fontSize: 9, bold: true, color: r[2] ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  const mY = TY + 0.88 + hp.identByAm.length * 0.52 + 0.1;
-  s.addShape("rect", { x: IX + 0.22, y: mY - 0.06, w: IW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText("WHEN THEY WERE IDENTIFIED", { x: IX + 0.22, y: mY, w: IW - 0.44, h: 0.22, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 });
-  const months = Object.entries(hp.identByMonth), maxM = Math.max(...months.map((m) => m[1]));
-  months.forEach(([mo, v], i) => {
-    const y = mY + 0.26 + i * 0.3;
-    s.addText(mo, { x: IX + 0.22, y, w: 0.5, h: 0.26, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: IX + 0.8, y: y + 0.07, w: Math.max(0.06, (v / maxM) * 2.4), h: 0.13, rectRadius: 0.05, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(String(v), { x: IX + 3.3, y, w: 0.58, h: 0.26, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-  });
-
-  aiSummary(s, 9.25, TY, 3.63, TH, [
-    { lead: "Our referrals convert:", text: `${hp.referred} referred deals → ${hp.won} wins worth ${hp.signedGmv} GMV — ${hp.shareOfWins} of everything H&L Pay has signed — with ${hp.openPipe} more in negotiation.`, dot: TERRA },
-    { lead: "The front of the funnel is now tracked:", text: `${hp.identified} accounts identified by H&L (${hp.identifiedDeals} unique venues), but only ${hp.identReferred} have been referred on — the conversion from "identified" to "referred" is the gap to close.`, dot: GREEN },
-    { lead: "Ho and Bradford are doing the identifying", text: "(13 and 11); Bjorn has flagged 4 and referred none. Widening the referrer base remains the lever.", dot: TEAL },
-    { lead: "ValPay side is one export behind:", text: "GMV, wins and open pipeline are as at the 6 Sep partner export — the weekly drop is still pending.", dot: GOLD },
-    { text: hp.identNote, muted: true, dot: FAINT },
+  aiSummary(s, 0.45, 5.78, 12.43, 1.24, [
+    { lead: "Our referrals convert:", text: `${hp.referred} referred deals have produced ${hp.won} wins worth ${hp.signedGmv} GMV — ${hp.shareOfWins} of everything H&L Pay has signed — with ${hp.openPipe} more in negotiation. Flow: 6 (Jun) → 2 (Jul) → 5 (Aug), 27 YTD.`, dot: TERRA },
+    { lead: "Identification is now tracked ahead of referral:", text: `${hp.identified} accounts flagged (${hp.identifiedDeals} unique venues) but only ${hp.identReferred} carry a referral date — converting identified into referred is the gap. Ho (13) and Bradford (11) identify; Bjorn has flagged 4 and referred none.`, dot: TEAL },
   ]);
   sourcePill(s, hp.source);
 }
+
 
 
 // =============================================================================
@@ -504,73 +436,73 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 // =============================================================================
 {
   const s = pres.addSlide();
-  const sp = D.salesPipeline;
+  const sp = D.salesPipeline, T = sp.totals;
   header(s, "Sales Pipeline — Q3 FY26", "Sales", 1, { cutover: true });
-  const T = sp.totals;
   kpi(s, 0.45, 1.12, 2.95, 1.25, "Q3 PIPELINE (UNWEIGHTED)", `$${sp.q3UnweightedK}k`, `${sp.q3Deals} open deals with a Q3 close date · as at ${sp.asAt}`, NAVY);
   kpi(s, 3.6, 1.12, 2.95, 1.25, "Q3 PIPELINE (WEIGHTED)", `$${sp.q3WeightedK}k`, "× HubSpot stage probability · point-in-time", NAVY);
   kpi(s, 6.75, 1.12, 2.95, 1.25, "CLOSED WON — Q3", `$${sp.q3WonK}k`, `${sp.q3WonDeals} deals · deal amount, by close date`, GREEN);
   kpi(s, 9.9, 1.12, 2.98, 1.25, "Q3 WIN RATE", `${sp.winRatePct}%`, `${sp.q3WonDeals} won / ${sp.q3LostDeals} lost, closed in Q3 · by count`, GREEN);
-  s.addText(`▲ ${T.newN} new · ${fmtK(T.newV)}`, { x: 2.0, y: 1.5, w: 1.25, h: 0.3, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`▲ ${T.wonN} won · ${fmtK(T.wonV)}`, { x: 8.3, y: 1.5, w: 1.25, h: 0.3, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
+  // week deltas on the label line, as in the reference
+  s.addText(`▲ +${fmtK(T.newV)} wk`, { x: 2.2, y: 1.5, w: 1.04, h: 0.3, align: "right", valign: "middle", fontFace: FONT, fontSize: 7.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`▲ ${T.wonN} won wk`, { x: 8.45, y: 1.2, w: 1.05, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
 
-  const TX = 0.45, TW = 8.45, TY = 2.62, TH = 4.36;
+  const TX = 0.45, TW = 8.05, TY = 2.62, TH = 4.36;
   card(s, TX, TY, TW, TH);
-  s.addText([{ text: "BY MEMBER — Q3 PIPELINE HELD & THIS WEEK'S MOVEMENT", options: { fontSize: 11.5, bold: true, color: TEAL } }],
-    { x: TX + 0.22, y: TY + 0.1, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  s.addText(sp.movementNote, { x: TX + 0.22, y: TY + 0.34, w: TW - 0.44, h: 0.2, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
-  const CX2 = { mem: 0.22, bar: 1.25, val: 3.12, nw: 4.38, wn: 5.45, ls: 6.52, net: 7.6 };
-  const CW2 = { mem: 0.95, bar: 1.8, val: 1.18, nw: 1.02, wn: 1.02, ls: 1.02, net: 0.7 };
-  s.addText([{ text: "Q3 PIPELINE  ", options: { fontSize: 7, bold: true, color: FAINT } },
-             { text: "▉ unweighted / ", options: { fontSize: 7, bold: true, color: TEAL } },
-             { text: "▉ weighted", options: { fontSize: 7, bold: true, color: GREEN } }],
-    { x: TX + CX2.bar, y: TY + 0.58, w: 3.0, h: 0.2, fontFace: FONT, isTextBox: true, margin: 0 });
-  [["MEMBER", "mem", "left"], ["NEW", "nw", "right"], ["WON ✓", "wn", "right"], ["LOST", "ls", "right"], ["NET Δ*", "net", "right"]]
-    .forEach(([lbl, k, al]) => s.addText(lbl, { x: TX + CX2[k], y: TY + 0.58, w: CW2[k], h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  s.addText("BY MEMBER — Q3 PIPELINE HELD & THIS WEEK'S MOVEMENT", { x: TX + 0.22, y: TY + 0.1, w: TW - 0.44, h: 0.26, fontFace: FONT, fontSize: 11.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(sp.movementNote, { x: TX + 0.22, y: TY + 0.34, w: TW - 0.44, h: 0.2, fontFace: FONT, fontSize: 6.8, color: FAINT, isTextBox: true, margin: 0 });
+  const C = { mem: 0.22, bar: 1.2, val: 2.95, nw: 4.35, wn: 5.45, rs: 6.42, net: 7.2 };
+  const W = { mem: 0.95, bar: 1.65, val: 1.32, nw: 1.05, wn: 1.05, rs: 0.72, net: 0.62 };
+  s.addText([{ text: "Q3 PIPELINE  ", options: { fontSize: 6.8, bold: true, color: FAINT } },
+             { text: "▉ unweighted", options: { fontSize: 6.8, bold: true, color: TEAL } },
+             { text: " / ", options: { fontSize: 6.8, color: FAINT } },
+             { text: "▉ weighted", options: { fontSize: 6.8, bold: true, color: GREEN } }],
+    { x: TX + C.bar, y: TY + 0.58, w: 2.6, h: 0.2, fontFace: FONT, isTextBox: true, margin: 0 });
+  [["MEMBER", "mem", "left"], ["NEW", "nw", "right"], ["WON ✓", "wn", "right"], ["RESIZE", "rs", "right"], ["NET Δ", "net", "right"]]
+    .forEach(([l, k, al]) => s.addText(l, { x: TX + C[k], y: TY + 0.58, w: W[k], h: 0.2, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
 
-  const maxUnw = Math.max(...sp.byMember.map((m) => m.unw));
-  const rowH2 = 0.4;
-  const cell = (v, n) => (n ? `${n} · ${fmtK(v)}` : "—");
+  const maxUnw = Math.max(...sp.byMember.map((m) => m.unw)), rowH2 = 0.4;
+  const cell = (v, n) => (n ? `${n} · ${Math.abs(v) < 1000 ? fmt$(v) : fmtK(v)}` : "—");
   sp.byMember.forEach((m, i) => {
     const y = TY + 0.84 + i * rowH2;
     s.addShape("rect", { x: TX + 0.22, y: y + rowH2 - 0.035, w: TW - 0.44, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(m.name, { x: TX + CX2.mem, y, w: CW2.mem, h: rowH2, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    const bw = (v) => Math.max(0.03, (v / maxUnw) * CW2.bar);
-    s.addShape("roundRect", { x: TX + CX2.bar, y: y + 0.08, w: bw(m.unw), h: 0.11, rectRadius: 0.045, fill: { color: TEAL }, line: { type: "none" } });
-    s.addShape("roundRect", { x: TX + CX2.bar, y: y + 0.22, w: bw(m.wtd), h: 0.11, rectRadius: 0.045, fill: { color: GREEN }, line: { type: "none" } });
-    s.addText([{ text: fmtK(m.unw), options: { fontSize: 8.5, bold: true, color: NAVY } },
-               { text: " / " + fmtK(m.wtd), options: { fontSize: 8, color: GREEN } }],
-      { x: TX + CX2.val, y, w: CW2.val, h: rowH2, align: "right", fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(cell(m.newV, m.newN), { x: TX + CX2.nw, y, w: CW2.nw, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: m.newN ? TEAL : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(cell(m.wonV, m.wonN), { x: TX + CX2.wn, y, w: CW2.wn, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: !!m.wonN, color: m.wonN ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(cell(m.lostV, m.lostN), { x: TX + CX2.ls, y, w: CW2.ls, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: m.lostN ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.name, { x: TX + C.mem, y, w: W.mem, h: rowH2, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    const bw = (v) => Math.max(0.03, (v / maxUnw) * W.bar);
+    s.addShape("roundRect", { x: TX + C.bar, y: y + 0.08, w: bw(m.unw), h: 0.11, rectRadius: 0.045, fill: { color: TEAL }, line: { type: "none" } });
+    s.addShape("roundRect", { x: TX + C.bar, y: y + 0.22, w: bw(m.wtd), h: 0.11, rectRadius: 0.045, fill: { color: GREEN }, line: { type: "none" } });
+    s.addText([{ text: fmtK(m.unw), options: { fontSize: 8.5, bold: true, color: NAVY } }, { text: " / " + fmtK(m.wtd), options: { fontSize: 8, color: GREEN } }],
+      { x: TX + C.val, y, w: W.val, h: rowH2, align: "left", fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(cell(m.newV, m.newN), { x: TX + C.nw, y, w: W.nw, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: m.newN ? TEAL : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(cell(m.wonV, m.wonN), { x: TX + C.wn, y, w: W.wn, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: !!m.wonN, color: m.wonN ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText("—", { x: TX + C.rs, y, w: W.rs, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
     const net = m.newV - m.wonV - m.lostV;
-    s.addText(net === 0 ? "—" : (net > 0 ? "+" : "−") + fmtK(Math.abs(net)).slice(1), { x: TX + CX2.net, y, w: CW2.net, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: net > 0 ? GREEN : net < 0 ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(net === 0 ? "—" : (net > 0 ? "+" : "−") + fmtK(Math.abs(net)).slice(1), { x: TX + C.net, y, w: W.net, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: net > 0 ? GREEN : net < 0 ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
   const tY2 = TY + 0.84 + sp.byMember.length * rowH2 + 0.06;
   s.addShape("rect", { x: TX + 0.22, y: tY2 - 0.06, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText("TOTAL", { x: TX + CX2.mem, y: tY2, w: CW2.mem, h: 0.3, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText([{ text: fmtK(T.unw), options: { fontSize: 8.5, bold: true, color: NAVY } }, { text: " / " + fmtK(T.wtd), options: { fontSize: 8, color: GREEN } }],
-    { x: TX + CX2.val, y: tY2, w: CW2.val, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(cell(T.newV, T.newN), { x: TX + CX2.nw, y: tY2, w: CW2.nw, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(cell(T.wonV, T.wonN), { x: TX + CX2.wn, y: tY2, w: CW2.wn, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(cell(T.lostV, T.lostN), { x: TX + CX2.ls, y: tY2, w: CW2.ls, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("−" + fmtK(T.wonV + T.lostV - T.newV).slice(1), { x: TX + CX2.net, y: tY2, w: CW2.net, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("WON leaves the open pipeline — the goal, not a loss.  *NET Δ = new − won − lost; resize is not yet measurable (first weekly HubSpot snapshot taken this week), so it does not fully reconcile to the change in pipeline held.  " + sp.otherNote,
-    { x: TX + 0.22, y: tY2 + 0.34, w: TW - 0.44, h: 0.38, fontFace: FONT, fontSize: 6.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText("TOTAL", { x: TX + C.mem, y: tY2, w: W.mem, h: 0.3, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText([{ text: fmtK(T.unw), options: { fontSize: 9, bold: true, color: NAVY } }, { text: " / " + fmtK(T.wtd), options: { fontSize: 8, color: GREEN } },
+             { text: "  Q3 unw / wtd", options: { fontSize: 6.5, color: FAINT } }],
+    { x: TX + C.bar, y: tY2, w: 2.9, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(cell(T.newV, T.newN), { x: TX + C.nw, y: tY2, w: W.nw, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(cell(T.wonV, T.wonN), { x: TX + C.wn, y: tY2, w: W.wn, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("—", { x: TX + C.rs, y: tY2, w: W.rs, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("−" + fmtK(T.wonV + T.lostV - T.newV).slice(1), { x: TX + C.net, y: tY2, w: W.net, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("WON leaves the open pipeline — the goal, not a loss.  NET Δ = new + resize − won − lost − removed; resize is blank this week because it needs two stored snapshots and the first was taken 20 Sep — it reports from next week.  " + sp.otherNote,
+    { x: TX + 0.22, y: tY2 + 0.34, w: TW - 0.44, h: 0.44, fontFace: FONT, fontSize: 6.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  aiSummary(s, 9.1, TY, 3.78, TH, [
-    { lead: "Jasmine converted the week:", text: `14 deals won worth ${fmtK(T.wonV * 0 + 144211)} — 89% of all closed-won value this week, and the reason the member NET Δ reads negative.`, dot: GREEN },
-    { lead: "Bjorn is rebuilding cover:", text: "10 new Q3-dated deals worth $42k, the only member adding materially to the open book.", dot: TEAL },
-    { lead: "Phuong is the watch item:", text: "6 lost ($15k) against 2 won ($1k) — worth a pipeline review.", dot: TERRA },
-    { lead: "Basis change —", text: "values are HubSpot deal amounts (AUD), not the old Creatio ARR measure. Only 172 open deals ($360k) carry no close date, down from 1,678 in Creatio.", dot: GOLD },
+  aiSummary(s, 8.7, TY, 4.18, TH, [
+    { lead: "Q3-dated pipeline.", text: `$${sp.q3UnweightedK}k unweighted / $${sp.q3WeightedK}k weighted sits against a Jul–Sep close date, across ${sp.q3Deals} deals. Bjorn holds the most ($108k).`, dot: TEAL, block: true },
+    { lead: "Jasmine converted the week.", text: "14 deals won worth $144k — 89% of all closed-won value this week, and why the member NET Δ reads negative. Bjorn is the only one adding materially back: 10 new Q3 deals worth $42k.", dot: GREEN, block: true },
+    { lead: "Phuong is the watch item.", text: "6 lost ($15k) against 2 won ($1k), and the smallest book on the team at $6k — worth a pipeline review.", dot: TERRA, block: true },
+    { lead: "Attribution basis.", text: "Values are HubSpot deal amounts (AUD), not the old Creatio ARR measure. Only 172 open deals ($360k) carry no close date, down from 1,678 in Creatio — dating discipline has held through the migration.", dot: GOLD, block: true },
   ]);
   sourcePill(s, sp.source);
 }
 
 
+
 // =============================================================================
-// 9 · UTILISATION & DELIVERY HOURS (Creatio frozen at cutover · HubSpot after)
+// 9 · UTILISATION & DELIVERY HOURS (Creatio frozen · HubSpot continues the series)
 // =============================================================================
 {
   const s = pres.addSlide();
@@ -580,126 +512,123 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     `last Creatio reading · week of ${cr.lastWeek.wk} — frozen`, GOLD, 21);
   kpi(s, 3.6, 1.12, 2.95, 1.25, "TOTAL UTILISATION", `${cr.lastWeek.total}%`,
     "all hours vs capacity · 80% target — frozen at cutover", GOLD, 24);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "PS ENGAGEMENTS — THIS WEEK", String(hs.createdThisWk),
-    "new Professional Services records (HubSpot, live)", NAVY);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "HOURS ON PS RECORDS", `${hs.hoursTotal}h`,
-    `${hs.recordsWithHours} records carry time since 8 Sep · ~${hs.coveragePct}% of this week's engagements`, TEAL, 24);
+  kpi(s, 6.75, 1.12, 2.95, 1.25, "UTILISATION — SINCE CUTOVER", `${hs.pctUsed}%`,
+    `${hs.hoursTotal}h logged vs ${hs.avail}h capacity, 8–20 Sep — logging still ramping`, TERRA, 24);
+  kpi(s, 9.9, 1.12, 2.98, 1.25, "PS ENGAGEMENTS — THIS WEEK", String(hs.createdThisWk),
+    `new PS records · ${hs.recordsWithHours} of ${hs.psRecords.toLocaleString()} carry time so far`, NAVY);
 
-  const CX = 0.45, CY = 2.62, CW = 8.2, CH = 4.36;
+  const CX = 0.45, CY = 2.62, CW = 8.2, CH = 3.1;
   card(s, CX, CY, CW, CH);
   cardTitle(s, CX, CY, "WHERE THE HOURS GO — AVAILABLE VS UTILISED, MONTHLY", 6.4);
-  const labX = CX + 0.22, labW = 1.05, m0 = CX + 1.38, mW = 0.8;
-  const divX = CX + 6.35, hsX = CX + 6.55, hsW = 1.42;
-  // month headers
+  const labX = CX + 0.22, labW = 1.05, m0 = CX + 1.35, mW = 0.78;
+  const divX = m0 + 6 * mW + 0.06, hsX = divX + 0.14, hsW = 1.2;
+  s.addText("CREATIO — FROZEN AT 4 SEP EXTRACT", { x: m0, y: CY + 0.32, w: 6 * mW, h: 0.16, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: GOLD, isTextBox: true, margin: 0 });
+  s.addText("HUBSPOT — LIVE", { x: hsX, y: CY + 0.32, w: hsW, h: 0.16, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   cr.months.forEach((mo, i) => {
-    s.addText(mo, { x: m0 + i * mW, y: CY + 0.64, w: mW, h: 0.22, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0 });
-    s.addText(cr.avail[i].toLocaleString() + "h avail", { x: m0 + i * mW, y: CY + 0.84, w: mW, h: 0.18, align: "center", fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0 });
+    s.addText(mo, { x: m0 + i * mW, y: CY + 0.5, w: mW, h: 0.18, align: "center", fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0 });
+    s.addText(cr.avail[i].toLocaleString() + "h avail", { x: m0 + i * mW, y: CY + 0.67, w: mW, h: 0.14, align: "center", fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0 });
   });
-  s.addText("CREATIO — FROZEN AT 4 SEP EXTRACT", { x: m0, y: CY + 0.44, w: 4.8, h: 0.18, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
-  s.addText("HUBSPOT — LIVE", { x: hsX, y: CY + 0.44, w: hsW, h: 0.18, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  // matrix
-  const rowsN = cr.rows.length, rH = 0.29, r0 = CY + 1.06;
+  s.addText(hs.label, { x: hsX, y: CY + 0.5, w: hsW, h: 0.18, align: "center", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(hs.availNote, { x: hsX, y: CY + 0.67, w: hsW, h: 0.14, align: "center", fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0 });
+
+  const rH = 0.20, r0 = CY + 0.84;
   const maxV = Math.max(...cr.rows.flatMap((r) => r[1]));
   const tint = (v) => { const f = v / maxV; return f > 0.72 ? TEAL : f > 0.45 ? "7FB8C4" : f > 0.2 ? "B9D8DF" : f > 0 ? TEAL_PALE : "F4F8FA"; };
   cr.rows.forEach((row, ri) => {
     const y = r0 + ri * rH;
-    s.addText(row[0], { x: labX, y, w: labW, h: rH, fontFace: FONT, fontSize: 7.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(row[0], { x: labX, y, w: labW, h: rH, fontFace: FONT, fontSize: 7, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
     row[1].forEach((v, i) => {
-      s.addShape("rect", { x: m0 + i * mW + 0.02, y: y + 0.02, w: mW - 0.04, h: rH - 0.05, fill: { color: tint(v) }, line: { type: "none" } });
-      s.addText(String(v), { x: m0 + i * mW, y, w: mW, h: rH, align: "center", valign: "middle", fontFace: FONT, fontSize: 7, bold: v / maxV > 0.45, color: v / maxV > 0.72 ? "FFFFFF" : NAVY, isTextBox: true, margin: 0 });
+      s.addShape("rect", { x: m0 + i * mW + 0.02, y: y + 0.015, w: mW - 0.04, h: rH - 0.04, fill: { color: tint(v) }, line: { type: "none" } });
+      s.addText(String(v), { x: m0 + i * mW, y, w: mW, h: rH, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, bold: v / maxV > 0.45, color: v / maxV > 0.72 ? "FFFFFF" : NAVY, isTextBox: true, margin: 0 });
     });
+    const hv = hs.rows[row[0]];
+    s.addShape("rect", { x: hsX + 0.02, y: y + 0.015, w: hsW - 0.04, h: rH - 0.04, fill: { color: hv ? tint(hv) : "F4F8FA" }, line: { type: "none" } });
+    s.addText(hv == null ? "—" : String(hv), { x: hsX, y, w: hsW, h: rH, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, color: hv == null ? FAINT : NAVY, isTextBox: true, margin: 0 });
   });
-  // utilised vs available row
-  const uY = r0 + rowsN * rH + 0.08;
-  s.addText([{ text: "UTILISED VS AVAILABLE\n", options: { fontSize: 6.8, bold: true, color: NAVY } }, { text: "% billed / % used", options: { fontSize: 6, color: FAINT } }],
-    { x: labX, y: uY, w: labW, h: 0.4, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  const uY = r0 + cr.rows.length * rH + 0.05;
+  s.addText([{ text: "UTILISED VS AVAILABLE\n", options: { fontSize: 6.2, bold: true, color: NAVY } }, { text: "% billed / % used", options: { fontSize: 5.5, color: FAINT } }],
+    { x: labX, y: uY - 0.02, w: labW, h: 0.32, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
   cr.pctBilled.forEach((pb, i) => {
     const pu = cr.pctUsed[i], x = m0 + i * mW;
-    s.addShape("rect", { x: x + 0.06, y: uY + 0.04, w: mW - 0.12, h: 0.1, fill: { color: TRACK }, line: { type: "none" } });
-    s.addShape("rect", { x: x + 0.06, y: uY + 0.04, w: (mW - 0.12) * pu / 100, h: 0.1, fill: { color: GOLD }, line: { type: "none" } });
-    s.addShape("rect", { x: x + 0.06, y: uY + 0.04, w: (mW - 0.12) * pb / 100, h: 0.1, fill: { color: GREEN }, line: { type: "none" } });
-    s.addText([{ text: `${pb}%`, options: { fontSize: 7, bold: true, color: GREEN } }, { text: ` / ${pu}%`, options: { fontSize: 7, bold: true, color: GOLD } }],
-      { x, y: uY + 0.16, w: mW, h: 0.22, align: "center", fontFace: FONT, isTextBox: true, margin: 0 });
+    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: mW - 0.1, h: 0.085, fill: { color: TRACK }, line: { type: "none" } });
+    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: (mW - 0.1) * pu / 100, h: 0.085, fill: { color: GOLD }, line: { type: "none" } });
+    s.addShape("rect", { x: x + 0.05, y: uY + 0.03, w: (mW - 0.1) * pb / 100, h: 0.085, fill: { color: GREEN }, line: { type: "none" } });
+    s.addText([{ text: `${pb}%`, options: { fontSize: 6.3, bold: true, color: GREEN } }, { text: ` / ${pu}%`, options: { fontSize: 6.3, bold: true, color: GOLD } }],
+      { x, y: uY + 0.13, w: mW, h: 0.2, align: "center", fontFace: FONT, isTextBox: true, margin: 0 });
   });
-  // cutover divider
-  s.addShape("rect", { x: divX, y: CY + 0.6, w: 0.022, h: uY + 0.4 - (CY + 0.6), fill: { color: TERRA }, line: { type: "none" } });
-  s.addShape("roundRect", { x: divX - 0.42, y: CY + 0.02, w: 0.88, h: 0.2, rectRadius: 0.1, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText("CUTOVER 8 SEP", { x: divX - 0.42, y: CY + 0.02, w: 0.88, h: 0.2, align: "center", valign: "middle", fontFace: FONT, fontSize: 5.8, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
-  // HubSpot block
-  s.addText("HOURS LOGGED ON PS RECORDS", { x: hsX, y: CY + 1.06, w: hsW, h: 0.3, fontFace: FONT, fontSize: 6.8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  hs.weeks.forEach((w2, i) => {
-    const y = CY + 1.38 + i * 0.34;
-    s.addText(w2[0], { x: hsX, y, w: hsW * 0.55, h: 0.3, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(`${w2[1]}h`, { x: hsX + hsW * 0.5, y, w: hsW * 0.5, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(`${w2[2]} records`, { x: hsX, y: y + 0.17, w: hsW, h: 0.16, align: "right", fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0 });
-  });
-  s.addText("OPEN PS WORK — LIVE", { x: hsX, y: CY + 2.24, w: hsW, h: 0.24, fontFace: FONT, fontSize: 6.8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  hs.openByPipeline.forEach((r, i) => {
-    const y = CY + 2.5 + i * 0.24;
-    s.addText(r[0], { x: hsX, y, w: hsW * 0.62, h: 0.22, fontFace: FONT, fontSize: 7, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[1]), { x: hsX + hsW * 0.55, y, w: hsW * 0.45, h: 0.22, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  s.addText(cr.note, { x: labX, y: CY + CH - 0.34, w: 5.9, h: 0.28, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addShape("rect", { x: hsX + 0.05, y: uY + 0.03, w: hsW - 0.1, h: 0.085, fill: { color: TRACK }, line: { type: "none" } });
+  s.addShape("rect", { x: hsX + 0.05, y: uY + 0.03, w: (hsW - 0.1) * hs.pctUsed / 100, h: 0.085, fill: { color: TERRA }, line: { type: "none" } });
+  s.addText([{ text: "— ", options: { fontSize: 6.3, bold: true, color: FAINT } }, { text: `/ ${hs.pctUsed}%`, options: { fontSize: 6.3, bold: true, color: TERRA } }],
+    { x: hsX, y: uY + 0.13, w: hsW, h: 0.2, align: "center", fontFace: FONT, isTextBox: true, margin: 0 });
+  // cutover divider through the matrix
+  s.addShape("rect", { x: divX + 0.04, y: CY + 0.3, w: 0.022, h: uY + 0.33 - (CY + 0.3), fill: { color: TERRA }, line: { type: "none" } });
+  s.addShape("roundRect", { x: divX - 0.42, y: CY + 0.06, w: 0.95, h: 0.2, rectRadius: 0.1, fill: { color: TERRA }, line: { type: "none" } });
+  s.addText("CUTOVER 8 SEP", { x: divX - 0.42, y: CY + 0.06, w: 0.95, h: 0.2, align: "center", valign: "middle", fontFace: FONT, fontSize: 5.8, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
+  s.addText("Creatio months frozen at the final 4 Sep extract (Sep* is a part month) · HubSpot column = hours on the PS record vs 38h/week × 8-person roster; % billed not yet separable", { x: labX, y: CY + CH - 0.24, w: CW - 0.45, h: 0.22, fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   const RX = 8.85, RW = 4.03;
-  card(s, RX, CY, RW, 1.86);
-  s.addText([{ text: "BILLABLE BY MEMBER  ", options: { fontSize: 10, bold: true, color: TEAL } }, { text: `wk ${cr.lastWeek.wk} · frozen`, options: { fontSize: 6.5, color: GOLD } }],
-    { x: RX + 0.2, y: CY + 0.1, w: RW - 0.4, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
+  card(s, RX, CY, RW, 1.55);
+  s.addText([{ text: "BILLABLE BY MEMBER  ", options: { fontSize: 9.5, bold: true, color: TEAL } }, { text: `wk ${cr.lastWeek.wk} · frozen`, options: { fontSize: 6, color: GOLD } }],
+    { x: RX + 0.2, y: CY + 0.09, w: RW - 0.4, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
   cr.byMember.forEach((m, i) => {
-    const y = CY + 0.4 + i * 0.175;
-    s.addText([{ text: m[0] + "  ", options: { fontSize: 7.2, bold: true, color: NAVY } },
-               { text: `${m[1]}%`, options: { fontSize: 7.2, bold: true, color: m[1] >= 80 ? GREEN : MUTED } },
-               { text: `  (${m[2]}%)  ·  ${m[3]}h`, options: { fontSize: 6.8, color: FAINT } }],
-      { x: RX + 0.2, y, w: RW - 0.4, h: 0.17, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText([{ text: m[0] + "  ", options: { fontSize: 7, bold: true, color: NAVY } },
+               { text: `${m[1]}%`, options: { fontSize: 7, bold: true, color: m[1] >= 80 ? GREEN : MUTED } },
+               { text: `  (${m[2]}%)  ·  ${m[3]}h`, options: { fontSize: 6.5, color: FAINT } }],
+      { x: RX + 0.2, y: CY + 0.34 + i * 0.148, w: RW - 0.4, h: 0.145, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  card(s, RX, CY + 1.68, RW, 1.42);
+  s.addText([{ text: "OPEN PS WORK  ", options: { fontSize: 9.5, bold: true, color: TEAL } }, { text: "HubSpot · live", options: { fontSize: 6, color: GREEN } }],
+    { x: RX + 0.2, y: CY + 1.77, w: RW - 0.4, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
+  const maxOpen = Math.max(...hs.openByPipeline.map((r) => r[1]));
+  hs.openByPipeline.forEach((r, i) => {
+    const y = CY + 2.02 + i * 0.2;
+    s.addText(r[0], { x: RX + 0.2, y, w: 1.1, h: 0.19, fontFace: FONT, fontSize: 7, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: RX + 1.35, y: y + 0.055, w: Math.max(0.05, (r[1] / maxOpen) * 1.95), h: 0.085, rectRadius: 0.035, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(String(r[1]), { x: RX + 3.4, y, w: 0.45, h: 0.19, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
 
-  aiSummary(s, RX, CY + 2.02, RW, CH - 2.02, [
-    { lead: "History is frozen, not lost.", text: `Apr–Sep* is the Creatio series at the final 4 Sep extract; ${cr.lastWeek.total}% utilisation is that last reading.`, dot: GOLD },
-    { lead: "The new meter is running:", text: `hours now sit on the PS record — ${hs.hoursTotal}h across ${hs.recordsWithHours} records since 8 Sep (46.4h then 32.5h) against ${hs.createdThisWk} engagements opened this week, ~${hs.coveragePct}% coverage.`, dot: TEAL },
-    { lead: "Utilisation % stays dark", text: "until coverage lands — a % on 12% of engagements would read as a collapse that hasn't happened.", dot: TERRA },
+  aiSummary(s, 0.45, 5.85, 12.43, 1.13, [
+    { lead: "Utilisation continues across the cutover, on a thinner meter.", text: `13% of the 608h capacity is logged for 8–20 Sep (${hs.hoursTotal}h on ${hs.recordsWithHours} records) against 69.4% in the last full Creatio week — that gap is logging coverage, not idle teams: ${hs.createdThisWk} PS engagements were opened this week and only ${hs.recordsWithHours} carry time.`, dot: TERRA },
+    { lead: "Where the hours are going is consistent:", text: `Tech (36.9h) and Onboarding (35.9h) dominate, the same two categories that led every Creatio month. ${hs.testNote}.`, dot: TEAL },
   ]);
   sourcePill(s, u.source);
 }
 
 
+
 // =============================================================================
-// 10 · WON VS INVOICED & RETENTION (MRR movement register — live)
+// 10 · WON VS INVOICED & RETENTION
 // =============================================================================
 {
   const s = pres.addSlide();
-  const w = D.wonVsInvoiced, MM = w.mrrMonthly;
+  const w = D.wonVsInvoiced, M = w.monthly;
   header(s, "Won vs Invoiced & Retention", "Sales, Professional Services & Finance", 2);
   const WX = 0.45, WY = 1.1, WW = 7.35, WH = 3.15;
   card(s, WX, WY, WW, WH);
-  s.addText([{ text: "MRR MOVEMENT BY MONTH · 2026   ", options: { fontSize: 11.5, bold: true, color: TEAL } }, { text: "movement register — live", options: { fontSize: 6.8, color: GREEN } }],
+  s.addText([{ text: "CLOSED WON ARR VS INVOICED ARR BY MONTH · 2026   ", options: { fontSize: 11.5, bold: true, color: TEAL } },
+             { text: "frozen at cutover", options: { fontSize: 6.8, color: GOLD } }],
     { x: WX + 0.22, y: WY + 0.1, w: WW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
   s.addChart(pres.ChartType.bar, [
-    { name: "New MRR (net new + expansion + ValPay)", labels: MM.labels, values: MM.new },
-    { name: "Churn + contraction", labels: MM.labels, values: MM.lost },
+    { name: "Closed won", labels: M.labels, values: M.won },
+    { name: "Invoiced (new + expansion)", labels: M.labels, values: M.invoiced },
   ], {
-    x: WX + 0.2, y: WY + 0.38, w: WW - 0.44, h: WH - 0.92,
-    barDir: "col", chartColors: [GREEN, TERRA], barGapWidthPct: 45, barOverlapPct: -10,
-    showValue: true, dataLabelPosition: "outEnd", dataLabelColor: MUTED, dataLabelFontSize: 5.8, dataLabelFontFace: FONT, dataLabelFormatCode: "$#,##0,\"k\";$#,##0,\"k\"",
-    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT,
+    x: WX + 0.2, y: WY + 0.36, w: WW - 0.44, h: WH - 0.78,
+    barDir: "col", chartColors: [TEAL, GREEN], barGapWidthPct: 45, barOverlapPct: -10,
+    catAxisLabelColor: NAVY, catAxisLabelFontSize: 8, catAxisLabelFontFace: FONT,
     valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valAxisFormatCode: '$#,##0,"k"',
     valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
-    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7, legendFontFace: FONT, showTitle: false,
+    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
   });
-  // net strip
-  const nx0 = WX + 0.74, nw = (WW - 1.05) / MM.labels.length;
-  s.addText("NET", { x: WX + 0.22, y: WY + WH - 0.46, w: 0.5, h: 0.2, fontFace: FONT, fontSize: 6.5, bold: true, color: FAINT, isTextBox: true, margin: 0 });
-  MM.net.forEach((v, i) => s.addText((v > 0 ? "+" : "−") + "$" + Math.abs(Math.round(v / 100) / 10) + "k",
-    { x: nx0 + i * nw, y: WY + WH - 0.46, w: nw, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: v > 0 ? GREEN : TERRA, isTextBox: true, margin: 0 }));
-  s.addText(MM.note, { x: WX + 0.22, y: WY + WH - 0.25, w: WW - 0.44, h: 0.2, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0 });
+  s.addText(M.note, { x: WX + 0.22, y: WY + WH - 0.38, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   const KX = 7.95, KW = 4.93;
-  kpi(s, KX, 1.1, KW, 0.98, "NET MRR MOVEMENT — Q3", `-$${Math.abs(w.netMrrQ3K)}k`, "new MRR is not covering churn + contraction this quarter", TERRA, 20);
-  kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · contraction a further $${w.contractionArrK}k ARR`, TERRA, 20);
-  kpi(s, KX, 3.26, KW, 0.99, "AWAITING GO-LIVE — ARR", `$${w.awaitingGoLiveK}k`, `${w.outstanding} deals won and not yet invoiced · CRM match as at 6 Sep`, GOLD, 20);
+  kpi(s, KX, 1.1, KW, 0.98, "AWAITING GO-LIVE — ARR", `$${w.awaitingGoLiveK}k`, `${w.wonSinceMar} deals won since Mar · ${w.invoiced} invoiced · ${w.outstanding} outstanding`, GOLD, 20);
+  kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · register live`, TERRA, 20);
+  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT", `-$${Math.abs(w.netMrrQ3K)}k`, `${w.netMrrNote} — the base is still shrinking`, TERRA, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
   card(s, TX, TY, TW, TH);
-  s.addText([{ text: "TOP 10 NOT INVOICED   ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "ARR · as at 6 Sep", options: { fontSize: 6.5, color: GOLD } }],
+  s.addText([{ text: "TOP 10 NOT INVOICED   ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "ARR — sums to the awaiting figure", options: { fontSize: 6.5, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.09, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
   const cx2 = [0.48, 3.0, 3.95, 4.75, 5.3], cw2 = [2.5, 0.9, 0.75, 0.5, 0.42];
   ["CLIENT", "ARR", "MRR/mo", "WON", "DEALS"].forEach((h2, i) => s.addText(h2, { x: TX + cx2[i], y: TY + 0.36, w: cw2[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
@@ -713,14 +642,27 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     s.addText(String(r[4]), { x: TX + cx2[4], y, w: cw2[4], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
 
-  aiSummary(s, 0.45, TY, 6.3, TH, [
-    { lead: "The register has rerun — and the base is still shrinking.", text: `Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k: $13.9k of new MRR against $15.2k of churn and contraction. September is the first positive month since June (+$1.4k).`, dot: TERRA },
-    { lead: "Churn is the whole story, not new business.", text: `New MRR has run $4–9k a month all year; losses spike when they spike. ${w.logosLost} logos have gone since 2025 ($${w.churnedArrM}M ARR), with a further $${w.contractionArrK}k of ARR lost to contraction on accounts that stayed.`, dot: GOLD },
-    { lead: "Still to land:", text: `$${w.awaitingGoLiveK}k of won ARR awaiting go-live and $${w.pendingIntegrationsMrr.toLocaleString()}/mo across ${w.pendingIntegrationsN} pending integrations — both bill once the work completes.`, dot: TEAL },
-    { text: "Register basis: MRR ex GST by date of invoice (new/expansion) and date of MRR impact (churn/contraction). Go-live queue is the CRM match, still as at 6 Sep.", muted: true, dot: FAINT },
-  ]);
+  const AX = 0.45, AW = 6.3;
+  card(s, AX, TY, AW, TH);
+  cardTitle(s, AX, TY, "AI SUMMARY", 5.8);
+  s.addText([
+    { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
+    { text: "Install-to-invoice lag runs 60–90 days — wins bill ~a quarter later; March wins still uninvoiced are past normal lag and worth chasing.", options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: "•  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
+    { text: `Uninvoiced is top-loaded: Oscars Group is 62% of the $${w.awaitingGoLiveK}k awaiting go-live; the top 3 clients are ~78%.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: "•  ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
+    { text: `Churn is now read live from the movement register: $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction on accounts that stayed. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: "•  ", options: { color: FAINT, bold: true, fontSize: 8.5 } },
+    { text: "AVC excluded — Creatio MRR field misstated (annual values in the monthly field); correction pending.", options: { color: FAINT, fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
+    { text: "GO-LIVE CONTEXT", options: { color: TEAL, bold: true, fontSize: 9, breakLine: true } },
+    { text: "◆  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
+    { text: "Oscars Group — ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
+    { text: "Signed — ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge.", options: { color: "3A4B57", fontSize: 8.5 } },
+  ], { x: AX + 0.22, y: TY + 0.44, w: AW - 0.45, h: TH - 0.58, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
+  footnote(s, "Invoiced = new + expansion MRR movements annualised", 7.06);
   sourcePill(s, w.source);
 }
+
 
 
 // =============================================================================

@@ -65,8 +65,8 @@
     ]
   },
   "execSummary": {
-    "finance": "hardware $410k = 57% of $715k vs 89% pace; week invoiced $71k (HW $38k gross, discounts -$10k); new-MRR register refresh pending",
-    "sales": "closed-won this week 46 deals · $161k (HubSpot); Q3 pipe $335k unweighted / $123k weighted",
+    "finance": "hardware $410k = 57% of $715k vs 89% pace; this week +$38k gross (HW discounts -$10k); new MRR $12.1k = 43% of OKR2",
+    "sales": "closed-won this week 48 deals · $162k (HubSpot); Q3 pipe $321k unweighted / $114k weighted",
     "ps": "utilisation not measurable during cutover — HubSpot time logging ramping (99h on 48 cases)",
     "support": "weekly inflow 490 vs resolved 591 — backlog 570 and falling",
     "product": "Q3 roadmap: 10 done · 12 on track · 3 not started · 2 at risk",
@@ -260,7 +260,8 @@
         "May",
         "Jun",
         "Jul",
-        "Aug"
+        "Aug",
+        "Sep"
       ],
       "referred": [
         3,
@@ -270,9 +271,33 @@
         2,
         6,
         2,
-        5
+        5,
+        0
       ],
-      "note": "bars = referrals given / month · 27 YTD · as at 6 Sep export"
+      "identified": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        23,
+        9
+      ],
+      "cumulative": [
+        3,
+        5,
+        9,
+        12,
+        14,
+        20,
+        22,
+        27,
+        27
+      ],
+      "ytd": 27,
+      "note": "bars = identified / referred per month · line = cumulative referred → 27 YTD"
     },
     "identifiedDeals": 32,
     "identReferred": 10,
@@ -304,13 +329,47 @@
         0
       ]
     ],
-    "identNote": "2 rows carry out-of-range identification dates (2027, 2036) — treated as keying errors, counted once"
+    "identNote": "2 rows carry out-of-range identification dates (2027, 2036) — treated as keying errors, counted once",
+    "funnel": [
+      {
+        "label": "IDENTIFIED",
+        "value": "34",
+        "cap": "32 unique venues · register",
+        "col": "24435C"
+      },
+      {
+        "label": "REFERRED",
+        "value": "34",
+        "cap": "$285M GMV tagged",
+        "col": "3A6472"
+      },
+      {
+        "label": "OPEN",
+        "value": "19",
+        "cap": "$245M negotiating",
+        "col": "2C8394"
+      },
+      {
+        "label": "WON",
+        "value": "14",
+        "cap": "$38M signed",
+        "col": "3D8F5F"
+      },
+      {
+        "label": "SHARE OF WINS",
+        "value": "39%",
+        "cap": "of $98M signed",
+        "col": "5B7C8A"
+      }
+    ],
+    "qtrNote": "7 this qtr · 11 last",
+    "footnote": "6 deals untagged — referral figures are a floor. Referrer = Account Manager on the deal."
   },
   "salesPipeline": {
     "source": "HubSpot (live) — cut over from Creatio",
-    "q3UnweightedK": 339,
-    "q3Deals": 119,
-    "q3WeightedK": 125,
+    "q3UnweightedK": 321,
+    "q3Deals": 118,
+    "q3WeightedK": 114,
     "q3WonK": 810,
     "q3WonDeals": 248,
     "q3LostDeals": 28,
@@ -324,8 +383,8 @@
     "byMember": [
       {
         "name": "Bjorn",
-        "unw": 117795,
-        "wtd": 52823,
+        "unw": 107611,
+        "wtd": 44676,
         "newN": 10,
         "newV": 41809,
         "wonN": 7,
@@ -356,26 +415,26 @@
         "lostV": 803
       },
       {
-        "name": "Bradford",
-        "unw": 26364,
-        "wtd": 7822,
-        "newN": 3,
-        "newV": 324,
-        "wonN": 8,
-        "wonV": 5379,
-        "lostN": 2,
-        "lostV": 467
-      },
-      {
         "name": "Kent",
-        "unw": 26259,
-        "wtd": 7878,
+        "unw": 24224,
+        "wtd": 7267,
         "newN": 1,
         "newV": 2226,
         "wonN": 0,
         "wonV": 0,
         "lostN": 0,
         "lostV": 0
+      },
+      {
+        "name": "Bradford",
+        "unw": 20604,
+        "wtd": 6094,
+        "newN": 3,
+        "newV": 324,
+        "wonN": 10,
+        "wonV": 6521,
+        "lostN": 3,
+        "lostV": 6292
       },
       {
         "name": "Mick",
@@ -401,8 +460,8 @@
       },
       {
         "name": "Phuong",
-        "unw": 6117,
-        "wtd": 1930,
+        "unw": 5914,
+        "wtd": 1869,
         "newN": 2,
         "newV": 650,
         "wonN": 2,
@@ -419,18 +478,18 @@
       "pastDatedM": 2.9
     },
     "asAt": "20 Sep",
-    "movementNote": "NEW / WON / LOST read live from HubSpot for 14–20 Sep · RESIZE returns once two weekly snapshots exist",
+    "movementNote": "movement = live HubSpot reads for 14–20 Sep · resize returns next week from the first stored snapshot (20 Sep)",
     "totals": {
-      "unw": 339436,
-      "wtd": 124760,
+      "unw": 321254,
+      "wtd": 114214,
       "newN": 20,
       "newV": 61567,
-      "wonN": 46,
-      "wonV": 161135,
-      "lostN": 11,
-      "lostV": 24011
+      "wonN": 48,
+      "wonV": 162278,
+      "lostN": 12,
+      "lostV": 29855
     },
-    "otherNote": "+ 2 deals ($715) held by other owners, included in totals"
+    "otherNote": "+ 2 deals ($715) on other owners, included in totals · 2 test deals sit in the lost column (Brad TestSA3, TEST OPTY ORD MGT) — worth deleting in HubSpot"
   },
   "utilisation": {
     "source": "Creatio (frozen to 4 Sep) + HubSpot PS records (live)",
@@ -617,22 +676,26 @@
       "note": "Frozen at the last Creatio extract (4 Sep) — Sep* is a part month"
     },
     "hubspot": {
+      "label": "Sep 8–20",
+      "availNote": "608h avail",
+      "period": "8–20 Sep (post-cutover)",
+      "avail": 608,
+      "rows": {
+        "Onboarding": 35.9,
+        "Tech": 36.9,
+        "Other": 3.0,
+        "Travel": null,
+        "Warranty": null,
+        "Integrations": 2.6,
+        "Training": 0.5,
+        "ValPay": null
+      },
+      "hoursTotal": 78.93,
+      "recordsWithHours": 29,
       "psRecords": 8969,
       "createdThisWk": 131,
-      "recordsWithHours": 29,
-      "hoursTotal": 78.93,
-      "weeks": [
-        [
-          "w/c 07 Sep",
-          46.42,
-          13
-        ],
-        [
-          "w/c 14 Sep",
-          32.51,
-          16
-        ]
-      ],
+      "pctUsed": 13,
+      "pctBilled": null,
       "openByPipeline": [
         [
           "Tech",
@@ -655,12 +718,13 @@
           2
         ]
       ],
-      "coveragePct": 12,
-      "note": "Hours now captured on the Professional Services record (total_hours) — 29 of 8,969 records carry time so far"
+      "testHours": 21.4,
+      "testNote": "21.4h of the 78.9h sits on two records named 'test' / 'Warranty Test' — worth clearing out",
+      "note": "Hours now captured on the Professional Services record (total_hours). Billed vs non-billed is not yet separable — the billable flag is set on only 3 of 29 records."
     }
   },
   "wonVsInvoiced": {
-    "source": "MRR movement register (live) + CRM matching as at 6 Sep",
+    "source": "Finance Weekly Invoicing & Creatio · register live for churn",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
@@ -769,60 +833,14 @@
         45408,
         90012
       ],
-      "note": "register series as last published (10 Aug deck, Creatio ARR basis) — post-cutover refresh pending"
+      "note": "Frozen at cutover — Creatio ARR basis, as last published. Aug–Sep are not plotted: HubSpot closed-won is deal amount, not the Creatio ARR measure, so a new series starts once the post-cutover months are confirmed."
     },
     "netMrrQ3K": -6.3,
     "contractionArrK": 235,
     "contractionLogos": 149,
     "pendingIntegrationsMrr": 2297,
     "pendingIntegrationsN": 45,
-    "mrrMonthly": {
-      "labels": [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep"
-      ],
-      "new": [
-        5433,
-        5205,
-        7434,
-        3957,
-        8550,
-        9159,
-        5443,
-        4510,
-        3946
-      ],
-      "lost": [
-        -12639,
-        -5254,
-        -3409,
-        -1304,
-        -4714,
-        -4807,
-        -6947,
-        -5649,
-        -2569
-      ],
-      "net": [
-        -7206,
-        -49,
-        4026,
-        2653,
-        3836,
-        4351,
-        -1503,
-        -1140,
-        1377
-      ],
-      "note": "new = net new + expansion + ValPay · lost = churn + contraction · register basis, live"
-    }
+    "netMrrNote": "Q3 (Jul–Sep) · movement register, live"
   },
   "backlog": {
     "source": "HubSpot (live) — cut over from Creatio",
@@ -1777,102 +1795,5 @@
         "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
       }
     ]
-  },
-  "invoicedRevenue": {
-    "source": "Sysnet weekly sales export (Finance)",
-    "thisWeek": "14–20 Sep",
-    "priorWeek": "7–13 Sep",
-    "totalThis": 71343.7,
-    "totalPrior": 127396.78,
-    "revGroups": [
-      [
-        "Hardware",
-        37636.0,
-        38478.75
-      ],
-      [
-        "Commission - Other",
-        37017.7,
-        77870.97
-      ],
-      [
-        "Tech Support",
-        2812.5,
-        2362.5
-      ],
-      [
-        "Consumables",
-        1710.5,
-        3729.1
-      ],
-      [
-        "Equipment Repair",
-        1315.0,
-        2275.0
-      ],
-      [
-        "Freight - Customer",
-        969.5,
-        1114.0
-      ],
-      [
-        "Support Travel",
-        240.0,
-        390.0
-      ],
-      [
-        "Training",
-        0.0,
-        4650.0
-      ],
-      [
-        "S/W Subscriptions",
-        -148.0,
-        871.0
-      ],
-      [
-        "Other (fees, deposits)",
-        -15.0,
-        -2017.54
-      ],
-      [
-        "Discounts (HW + training)",
-        -10194.5,
-        -2327.0
-      ]
-    ],
-    "byAm": [
-      [
-        "Bradford",
-        36573.11,
-        4548.0
-      ],
-      [
-        "Jasmine",
-        19936.0,
-        14694.75
-      ],
-      [
-        "National",
-        5922.09,
-        75780.43
-      ],
-      [
-        "Bjorn",
-        5717.5,
-        7671.5
-      ],
-      [
-        "Brett",
-        3150.0,
-        23359.1
-      ],
-      [
-        "Ho",
-        45.0,
-        1343.0
-      ]
-    ],
-    "note": "Adj Amount, ex GST · 'National' = unattributed/company-level lines (mostly commission)"
   }
 }

@@ -1,0 +1,837 @@
+{
+ "asAt": "2026-09-20",
+ "pipeline": "default",
+ "quarter": "Q3-2026",
+ "basis": "open deals with a Q3 close date \u00b7 amount_in_home_currency (AUD)",
+ "count": 118,
+ "unweighted": 321254.24,
+ "weighted": 114213.69,
+ "deals": {
+  "294220185040": {
+   "owner": "Bradford",
+   "amount": 32.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "293951106525": {
+   "owner": "Bradford",
+   "amount": 53.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "294220180958": {
+   "owner": "Bjorn",
+   "amount": 690.0,
+   "prob": 0.8,
+   "closedate": "2026-09-30",
+   "stage": "3484912115"
+  },
+  "293942473188": {
+   "owner": "Phuong",
+   "amount": 4227.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "293619857873": {
+   "owner": "Bradford",
+   "amount": 107.0,
+   "prob": 0.1,
+   "closedate": "2026-09-30",
+   "stage": "3484912112"
+  },
+  "293369757136": {
+   "owner": "Bjorn",
+   "amount": 195.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "293369584091": {
+   "owner": "Bjorn",
+   "amount": 480.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "293687075267": {
+   "owner": "Kent",
+   "amount": 2226.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "293371721181": {
+   "owner": "Bjorn",
+   "amount": 5338.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "293371694576": {
+   "owner": "Bjorn",
+   "amount": 212.0,
+   "prob": 0.3,
+   "closedate": "2026-09-28",
+   "stage": "3484912113"
+  },
+  "293558363586": {
+   "owner": "Bjorn",
+   "amount": 243.0,
+   "prob": 0.5,
+   "closedate": "2026-09-21",
+   "stage": "3484912114"
+  },
+  "293648860610": {
+   "owner": "Bjorn",
+   "amount": 212.0,
+   "prob": 0.5,
+   "closedate": "2026-09-21",
+   "stage": "3484912114"
+  },
+  "293369530836": {
+   "owner": "Bjorn",
+   "amount": 274.0,
+   "prob": 0.5,
+   "closedate": "2026-09-28",
+   "stage": "3484912114"
+  },
+  "293370196452": {
+   "owner": "Bjorn",
+   "amount": 20421.75,
+   "prob": 0.8,
+   "closedate": "2026-09-29",
+   "stage": "3484912115"
+  },
+  "293369472469": {
+   "owner": "Jasmine",
+   "amount": 175.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "293558300148": {
+   "owner": "Jasmine",
+   "amount": 10804.3,
+   "prob": 0.5,
+   "closedate": "2026-09-29",
+   "stage": "3484912114"
+  },
+  "292333305287": {
+   "owner": "Bradford",
+   "amount": 289.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "292465260008": {
+   "owner": "Jasmine",
+   "amount": 329.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "292735885761": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "292735879657": {
+   "owner": "Bjorn",
+   "amount": 4249.3,
+   "prob": 0.5,
+   "closedate": "2026-09-28",
+   "stage": "3484912114"
+  },
+  "292339701200": {
+   "owner": "Phuong",
+   "amount": 174.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "292339643843": {
+   "owner": "Jasmine",
+   "amount": 5250.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "292733766087": {
+   "owner": "Phuong",
+   "amount": 476.0,
+   "prob": 0.5,
+   "closedate": "2026-09-30",
+   "stage": "3484912114"
+  },
+  "292602765771": {
+   "owner": "Bradford",
+   "amount": 35.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291698863587": {
+   "owner": "Katherine",
+   "amount": 8598.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291878942197": {
+   "owner": "Katherine",
+   "amount": 175.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291917859314": {
+   "owner": "Katherine",
+   "amount": 1020.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291704541630": {
+   "owner": "Katherine",
+   "amount": 980.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291695892954": {
+   "owner": "Jasmine",
+   "amount": 150.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "291557503456": {
+   "owner": "Kent",
+   "amount": 615.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291134977469": {
+   "owner": "Bradford",
+   "amount": 129.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291144323569": {
+   "owner": "Bradford",
+   "amount": 45.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "291357770176": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.8,
+   "closedate": "2026-09-30",
+   "stage": "3484912115"
+  },
+  "290736280003": {
+   "owner": "Brett",
+   "amount": 70.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "290736271851": {
+   "owner": "Kent",
+   "amount": 0.0,
+   "prob": 0.1,
+   "closedate": "2026-09-30",
+   "stage": "3484912112"
+  },
+  "288791923191": {
+   "owner": "Yeran",
+   "amount": 2.0,
+   "prob": 0.8,
+   "closedate": "2026-08-28",
+   "stage": "3484912115"
+  },
+  "290745791956": {
+   "owner": "Jasmine",
+   "amount": 3045.9,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "290976250306": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.1,
+   "closedate": "2026-08-17",
+   "stage": "3484912112"
+  },
+  "285314873812": {
+   "owner": "Yeran",
+   "amount": 713.0,
+   "prob": 0.8,
+   "closedate": "2026-09-04",
+   "stage": "3484912115"
+  },
+  "289865271740": {
+   "owner": "Jasmine",
+   "amount": 676.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289701196274": {
+   "owner": "Jasmine",
+   "amount": 506.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289675338181": {
+   "owner": "Jasmine",
+   "amount": 258.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289692260810": {
+   "owner": "Jasmine",
+   "amount": 423.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289861709287": {
+   "owner": "Jasmine",
+   "amount": 154.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289861709281": {
+   "owner": "Jasmine",
+   "amount": 731.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289692260814": {
+   "owner": "Jasmine",
+   "amount": 792.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289753482693": {
+   "owner": "Jasmine",
+   "amount": 577.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289701197278": {
+   "owner": "Brett",
+   "amount": 108.9,
+   "prob": 0.3,
+   "closedate": "2026-08-02",
+   "stage": "3484912113"
+  },
+  "289858124256": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.1,
+   "closedate": "2026-08-03",
+   "stage": "3484912112"
+  },
+  "289748850139": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-08-03",
+   "stage": "3484912113"
+  },
+  "289692260802": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-29",
+   "stage": "3484912113"
+  },
+  "289776620023": {
+   "owner": "Jasmine",
+   "amount": 1578.5,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289675338188": {
+   "owner": "Kent",
+   "amount": 550.0,
+   "prob": 0.3,
+   "closedate": "2026-07-29",
+   "stage": "3484912113"
+  },
+  "289745260009": {
+   "owner": "Brett",
+   "amount": 341.0,
+   "prob": 0.3,
+   "closedate": "2026-07-28",
+   "stage": "3484912113"
+  },
+  "289701196275": {
+   "owner": "Jasmine",
+   "amount": 814.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289771329985": {
+   "owner": "Brett",
+   "amount": 148.5,
+   "prob": 0.3,
+   "closedate": "2026-07-26",
+   "stage": "3484912113"
+  },
+  "289748850163": {
+   "owner": "Bjorn",
+   "amount": 684.75,
+   "prob": 0.3,
+   "closedate": "2026-07-28",
+   "stage": "3484912113"
+  },
+  "289858124239": {
+   "owner": "Brett",
+   "amount": 100.05,
+   "prob": 0.3,
+   "closedate": "2026-07-27",
+   "stage": "3484912113"
+  },
+  "289771329997": {
+   "owner": "Brett",
+   "amount": 165.0,
+   "prob": 0.3,
+   "closedate": "2026-07-28",
+   "stage": "3484912113"
+  },
+  "289745261007": {
+   "owner": "Brett",
+   "amount": 379.5,
+   "prob": 0.3,
+   "closedate": "2026-08-03",
+   "stage": "3484912113"
+  },
+  "289861710276": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-30",
+   "stage": "3484912113"
+  },
+  "289748850143": {
+   "owner": "Bradford",
+   "amount": 330.0,
+   "prob": 0.1,
+   "closedate": "2026-07-23",
+   "stage": "3484912112"
+  },
+  "289753481719": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-30",
+   "stage": "3484912113"
+  },
+  "289859913207": {
+   "owner": "Bjorn",
+   "amount": 7308.4,
+   "prob": 0.3,
+   "closedate": "2026-08-02",
+   "stage": "3484912113"
+  },
+  "289859914176": {
+   "owner": "Bjorn",
+   "amount": 7885.9,
+   "prob": 0.3,
+   "closedate": "2026-07-22",
+   "stage": "3484912113"
+  },
+  "289865270773": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-22",
+   "stage": "3484912113"
+  },
+  "289675338180": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-30",
+   "stage": "3484912113"
+  },
+  "289764184537": {
+   "owner": "Bjorn",
+   "amount": 203.5,
+   "prob": 0.3,
+   "closedate": "2026-07-22",
+   "stage": "3484912113"
+  },
+  "289764184517": {
+   "owner": "Phuong",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-30",
+   "stage": "3484912113"
+  },
+  "289865270760": {
+   "owner": "Brett",
+   "amount": 34.1,
+   "prob": 0.3,
+   "closedate": "2026-07-22",
+   "stage": "3484912113"
+  },
+  "289721003481": {
+   "owner": "Brett",
+   "amount": 23298.0,
+   "prob": 0.3,
+   "closedate": "2026-07-27",
+   "stage": "3484912113"
+  },
+  "289858124252": {
+   "owner": "Phuong",
+   "amount": 330.0,
+   "prob": 0.3,
+   "closedate": "2026-07-24",
+   "stage": "3484912113"
+  },
+  "289675338194": {
+   "owner": "Bjorn",
+   "amount": 682.0,
+   "prob": 0.3,
+   "closedate": "2026-07-23",
+   "stage": "3484912113"
+  },
+  "289675338197": {
+   "owner": "Bjorn",
+   "amount": 598.4,
+   "prob": 0.3,
+   "closedate": "2026-07-21",
+   "stage": "3484912113"
+  },
+  "289721003512": {
+   "owner": "Bjorn",
+   "amount": 121.0,
+   "prob": 0.3,
+   "closedate": "2026-07-20",
+   "stage": "3484912113"
+  },
+  "289771329986": {
+   "owner": "Bjorn",
+   "amount": 4413.2,
+   "prob": 0.3,
+   "closedate": "2026-07-20",
+   "stage": "3484912113"
+  },
+  "289861709288": {
+   "owner": "Phuong",
+   "amount": 707.3,
+   "prob": 0.3,
+   "closedate": "2026-09-14",
+   "stage": "3484912113"
+  },
+  "289745260997": {
+   "owner": "Bjorn",
+   "amount": 2333.1,
+   "prob": 0.3,
+   "closedate": "2026-07-20",
+   "stage": "3484912113"
+  },
+  "289764183541": {
+   "owner": "Bjorn",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289692260795": {
+   "owner": "Bjorn",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289771330001": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289865271749": {
+   "owner": "Bjorn",
+   "amount": 4422.0,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289692260838": {
+   "owner": "Mick",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "289771330017": {
+   "owner": "Mick",
+   "amount": 328.9,
+   "prob": 0.3,
+   "closedate": "2026-08-30",
+   "stage": "3484912113"
+  },
+  "289675338219": {
+   "owner": "Bradford",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-15",
+   "stage": "3484912113"
+  },
+  "289858124238": {
+   "owner": "Brett",
+   "amount": 863.5,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289865271745": {
+   "owner": "Bjorn",
+   "amount": 2271.5,
+   "prob": 0.3,
+   "closedate": "2026-07-14",
+   "stage": "3484912113"
+  },
+  "289745260023": {
+   "owner": "Bradford",
+   "amount": 4361.5,
+   "prob": 0.3,
+   "closedate": "2026-08-09",
+   "stage": "3484912113"
+  },
+  "289675338179": {
+   "owner": "Kent",
+   "amount": 1001.0,
+   "prob": 0.3,
+   "closedate": "2026-07-12",
+   "stage": "3484912113"
+  },
+  "289745260010": {
+   "owner": "Brett",
+   "amount": 136.4,
+   "prob": 0.3,
+   "closedate": "2026-07-09",
+   "stage": "3484912113"
+  },
+  "289865270768": {
+   "owner": "Bradford",
+   "amount": 2343.0,
+   "prob": 0.3,
+   "closedate": "2026-08-09",
+   "stage": "3484912113"
+  },
+  "289859914225": {
+   "owner": "Bjorn",
+   "amount": 11561.0,
+   "prob": 0.3,
+   "closedate": "2026-07-08",
+   "stage": "3484912113"
+  },
+  "289692260825": {
+   "owner": "Bjorn",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-07-07",
+   "stage": "3484912113"
+  },
+  "289764184522": {
+   "owner": "Jasmine",
+   "amount": 24405.59,
+   "prob": 0.5,
+   "closedate": "2026-09-30",
+   "stage": "3484912114"
+  },
+  "289675338176": {
+   "owner": "Mick",
+   "amount": 11338.8,
+   "prob": 0.3,
+   "closedate": "2026-08-09",
+   "stage": "3484912113"
+  },
+  "289748850137": {
+   "owner": "Mick",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-09-17",
+   "stage": "3484912113"
+  },
+  "289859914177": {
+   "owner": "Brett",
+   "amount": 217.8,
+   "prob": 0.3,
+   "closedate": "2026-07-02",
+   "stage": "3484912113"
+  },
+  "289748850138": {
+   "owner": "Brett",
+   "amount": 48.4,
+   "prob": 0.3,
+   "closedate": "2026-07-02",
+   "stage": "3484912113"
+  },
+  "289859914226": {
+   "owner": "Kent",
+   "amount": 3386.9,
+   "prob": 0.3,
+   "closedate": "2026-07-02",
+   "stage": "3484912113"
+  },
+  "289701197253": {
+   "owner": "Kent",
+   "amount": 2035.0,
+   "prob": 0.3,
+   "closedate": "2026-07-01",
+   "stage": "3484912113"
+  },
+  "289753481698": {
+   "owner": "Jasmine",
+   "amount": 1210.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289776620002": {
+   "owner": "Bjorn",
+   "amount": 3029.4,
+   "prob": 0.3,
+   "closedate": "2026-07-07",
+   "stage": "3484912113"
+  },
+  "289675337205": {
+   "owner": "Bjorn",
+   "amount": 3091.0,
+   "prob": 0.3,
+   "closedate": "2026-07-19",
+   "stage": "3484912113"
+  },
+  "289861709269": {
+   "owner": "Brett",
+   "amount": 8755.56,
+   "prob": 0.3,
+   "closedate": "2026-08-06",
+   "stage": "3484912113"
+  },
+  "289764184544": {
+   "owner": "Brett",
+   "amount": 42555.04,
+   "prob": 0.3,
+   "closedate": "2026-08-09",
+   "stage": "3484912113"
+  },
+  "289748850157": {
+   "owner": "Jasmine",
+   "amount": 1452.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289748850149": {
+   "owner": "Jasmine",
+   "amount": 1188.0,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "289858124235": {
+   "owner": "Jasmine",
+   "amount": 1169.3,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "289764183542": {
+   "owner": "Jasmine",
+   "amount": 504.9,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "289719205362": {
+   "owner": "Jasmine",
+   "amount": 638.0,
+   "prob": 0.1,
+   "closedate": "2026-09-29",
+   "stage": "3484912112"
+  },
+  "289865270757": {
+   "owner": "Brett",
+   "amount": 3729.0,
+   "prob": 0.3,
+   "closedate": "2026-07-07",
+   "stage": "3484912113"
+  },
+  "289748850136": {
+   "owner": "Jasmine",
+   "amount": 1960.2,
+   "prob": 0.3,
+   "closedate": "2026-09-29",
+   "stage": "3484912113"
+  },
+  "289745261005": {
+   "owner": "Bradford",
+   "amount": 12880.0,
+   "prob": 0.3,
+   "closedate": "2026-09-30",
+   "stage": "3484912113"
+  },
+  "289865271750": {
+   "owner": "Kent",
+   "amount": 14410.0,
+   "prob": 0.3,
+   "closedate": "2026-08-03",
+   "stage": "3484912113"
+  },
+  "289721004476": {
+   "owner": "Mick",
+   "amount": 0.0,
+   "prob": 0.1,
+   "closedate": "2026-09-30",
+   "stage": "3484912112"
+  },
+  "287699263956": {
+   "owner": "Unassigned",
+   "amount": 0.0,
+   "prob": 0.3,
+   "closedate": "2026-08-02",
+   "stage": "3484912113"
+  },
+  "287699261940": {
+   "owner": "Bjorn",
+   "amount": 24930.7,
+   "prob": 0.3,
+   "closedate": "2026-08-10",
+   "stage": "3484912113"
+  },
+  "287615873486": {
+   "owner": "Bjorn",
+   "amount": 1760.0,
+   "prob": 0.8,
+   "closedate": "2026-09-03",
+   "stage": "3484912115"
+  }
+ }
+}
