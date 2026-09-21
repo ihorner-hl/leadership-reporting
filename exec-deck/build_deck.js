@@ -144,7 +144,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const s = pres.addSlide();
   header(s, "Agenda", null, null);
   const cards = [
-    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion", "Sales Pipeline — Q3 FY26"] },
+    { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
     { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: ["Backlog, ageing & first response", "AI Support Agent"] },
     { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
@@ -467,76 +467,6 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { lead: "Identification is now tracked ahead of referral:", text: `${hp.identified} accounts flagged (${hp.identifiedDeals} unique venues) but only ${hp.identReferred} carry a referral date — converting identified into referred is the gap. Ho (13) and Bradford (11) identify; Bjorn has flagged 4 and referred none.`, dot: TEAL },
   ]);
   sourcePill(s, hp.source);
-}
-
-
-
-// =============================================================================
-// 8 · SALES PIPELINE — Q3 (HubSpot live — week-on-week movement)
-// =============================================================================
-{
-  const s = pres.addSlide();
-  const sp = D.salesPipeline, T = sp.totals;
-  header(s, "Sales Pipeline — Q3 FY26", "Sales", 1, { cutover: true });
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "Q3 PIPELINE (UNWEIGHTED)", `$${sp.q3UnweightedK}k`, `${sp.q3Deals} open deals with a Q3 close date · as at ${sp.asAt}`, NAVY);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "Q3 PIPELINE (WEIGHTED)", `$${sp.q3WeightedK}k`, "× HubSpot stage probability · point-in-time", NAVY);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "CLOSED WON — Q3", `$${sp.q3WonK}k`, `${sp.q3WonDeals} deals · deal amount, by close date`, GREEN);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "Q3 WIN RATE", `${sp.winRatePct}%`, `${sp.q3WonDeals} won / ${sp.q3LostDeals} lost, closed in Q3 · by count`, GREEN);
-  // week deltas on the label line, as in the reference
-  s.addText(`▲ +${fmtK(T.newV)} wk`, { x: 2.2, y: 1.5, w: 1.04, h: 0.3, align: "right", valign: "middle", fontFace: FONT, fontSize: 7.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(`▲ ${T.wonN} won wk`, { x: 8.45, y: 1.2, w: 1.05, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
-
-  const TX = 0.45, TW = 8.05, TY = 2.62, TH = 4.36;
-  card(s, TX, TY, TW, TH);
-  s.addText("BY MEMBER — Q3 PIPELINE HELD & THIS WEEK'S MOVEMENT", { x: TX + 0.22, y: TY + 0.1, w: TW - 0.44, h: 0.26, fontFace: FONT, fontSize: 11.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(sp.movementNote, { x: TX + 0.22, y: TY + 0.34, w: TW - 0.44, h: 0.2, fontFace: FONT, fontSize: 6.8, color: FAINT, isTextBox: true, margin: 0 });
-  const C = { mem: 0.22, bar: 1.2, val: 2.95, nw: 4.35, wn: 5.45, rs: 6.42, net: 7.2 };
-  const W = { mem: 0.95, bar: 1.65, val: 1.32, nw: 1.05, wn: 1.05, rs: 0.72, net: 0.62 };
-  s.addText([{ text: "Q3 PIPELINE  ", options: { fontSize: 6.8, bold: true, color: FAINT } },
-             { text: "▉ unweighted", options: { fontSize: 6.8, bold: true, color: TEAL } },
-             { text: " / ", options: { fontSize: 6.8, color: FAINT } },
-             { text: "▉ weighted", options: { fontSize: 6.8, bold: true, color: GREEN } }],
-    { x: TX + C.bar, y: TY + 0.58, w: 2.6, h: 0.2, fontFace: FONT, isTextBox: true, margin: 0 });
-  [["MEMBER", "mem", "left"], ["NEW", "nw", "right"], ["WON ✓", "wn", "right"], ["RESIZE", "rs", "right"], ["NET Δ", "net", "right"]]
-    .forEach(([l, k, al]) => s.addText(l, { x: TX + C[k], y: TY + 0.58, w: W[k], h: 0.2, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-
-  const maxUnw = Math.max(...sp.byMember.map((m) => m.unw)), rowH2 = 0.4;
-  const cell = (v, n) => (n ? `${n} · ${Math.abs(v) < 1000 ? fmt$(v) : fmtK(v)}` : "—");
-  sp.byMember.forEach((m, i) => {
-    const y = TY + 0.84 + i * rowH2;
-    s.addShape("rect", { x: TX + 0.22, y: y + rowH2 - 0.035, w: TW - 0.44, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(m.name, { x: TX + C.mem, y, w: W.mem, h: rowH2, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    const bw = (v) => Math.max(0.03, (v / maxUnw) * W.bar);
-    s.addShape("roundRect", { x: TX + C.bar, y: y + 0.08, w: bw(m.unw), h: 0.11, rectRadius: 0.045, fill: { color: TEAL }, line: { type: "none" } });
-    s.addShape("roundRect", { x: TX + C.bar, y: y + 0.22, w: bw(m.wtd), h: 0.11, rectRadius: 0.045, fill: { color: GREEN }, line: { type: "none" } });
-    s.addText([{ text: fmtK(m.unw), options: { fontSize: 8.5, bold: true, color: NAVY } }, { text: " / " + fmtK(m.wtd), options: { fontSize: 8, color: GREEN } }],
-      { x: TX + C.val, y, w: W.val, h: rowH2, align: "left", fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(cell(m.newV, m.newN), { x: TX + C.nw, y, w: W.nw, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: m.newN ? TEAL : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(cell(m.wonV, m.wonN), { x: TX + C.wn, y, w: W.wn, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: !!m.wonN, color: m.wonN ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText("—", { x: TX + C.rs, y, w: W.rs, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    const net = m.newV - m.wonV - m.lostV;
-    s.addText(net === 0 ? "—" : (net > 0 ? "+" : "−") + fmtK(Math.abs(net)).slice(1), { x: TX + C.net, y, w: W.net, h: rowH2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: net > 0 ? GREEN : net < 0 ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  const tY2 = TY + 0.84 + sp.byMember.length * rowH2 + 0.06;
-  s.addShape("rect", { x: TX + 0.22, y: tY2 - 0.06, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText("TOTAL", { x: TX + C.mem, y: tY2, w: W.mem, h: 0.3, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText([{ text: fmtK(T.unw), options: { fontSize: 9, bold: true, color: NAVY } }, { text: " / " + fmtK(T.wtd), options: { fontSize: 8, color: GREEN } },
-             { text: "  Q3 unw / wtd", options: { fontSize: 6.5, color: FAINT } }],
-    { x: TX + C.bar, y: tY2, w: 2.9, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(cell(T.newV, T.newN), { x: TX + C.nw, y: tY2, w: W.nw, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(cell(T.wonV, T.wonN), { x: TX + C.wn, y: tY2, w: W.wn, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("—", { x: TX + C.rs, y: tY2, w: W.rs, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("−" + fmtK(T.wonV + T.lostV - T.newV).slice(1), { x: TX + C.net, y: tY2, w: W.net, h: 0.3, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("WON leaves the open pipeline — the goal, not a loss.  NET Δ = new + resize − won − lost − removed; resize is blank this week because it needs two stored snapshots and the first was taken 20 Sep — it reports from next week.  " + sp.otherNote,
-    { x: TX + 0.22, y: tY2 + 0.34, w: TW - 0.44, h: 0.44, fontFace: FONT, fontSize: 6.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
-
-  aiSummary(s, 8.7, TY, 4.18, TH, [
-    { lead: "Q3-dated pipeline.", text: `$${sp.q3UnweightedK}k unweighted / $${sp.q3WeightedK}k weighted sits against a Jul–Sep close date, across ${sp.q3Deals} deals. Bjorn holds the most ($108k).`, dot: TEAL, block: true },
-    { lead: "Jasmine converted the week.", text: "14 deals won worth $144k — 89% of all closed-won value this week, and why the member NET Δ reads negative. Bjorn is the only one adding materially back: 10 new Q3 deals worth $42k.", dot: GREEN, block: true },
-    { lead: "Phuong is the watch item.", text: "6 lost ($15k) against 2 won ($1k), and the smallest book on the team at $6k — worth a pipeline review.", dot: TERRA, block: true },
-    { lead: "Attribution basis.", text: "Values are HubSpot deal amounts (AUD), not the old Creatio ARR measure. Only 172 open deals ($360k) carry no close date, down from 1,678 in Creatio — dating discipline has held through the migration.", dot: GOLD, block: true },
-  ]);
-  sourcePill(s, sp.source);
 }
 
 
