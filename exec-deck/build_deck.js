@@ -472,59 +472,77 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
 
 // =============================================================================
-// 8 · UTILISATION & DELIVERY HOURS (honest cutover state)
+// 8 · UTILISATION & DELIVERY HOURS (billable utilisation on HubSpot PS records)
 // =============================================================================
 {
   const s = pres.addSlide();
   const u = D.utilisation;
   header(s, "Utilisation & Delivery Hours", "Professional Services", 2, { cutover: true });
-  kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLED VS NON-BILLED", "not set up", "billable flag set on only 3 of 29 records carrying time — not yet separable", GOLD, 20);
-  kpi(s, 4.63, 1.12, 3.98, 1.25, "TOTAL UTILISATION", "not set up", "capacity model to be rebuilt on HubSpot hours · 80% target unchanged", GOLD, 20);
-  kpi(s, 8.81, 1.12, 4.07, 1.25, "PS CASES OPENED — THIS WEEK", String(u.psCasesThisWk), u.psCasesNote, NAVY);
 
-  const CX = 0.45, CY = 2.62, CW = 7.2, CH = 3.9;
+  kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLABLE UTILISATION", u.utilPct + "%",
+      `${u.billedHours}h billed of ${u.availableHours}h available · target ${u.targetPct}%`, GOLD);
+  kpi(s, 4.63, 1.12, 3.98, 1.25, "AVAILABLE HOURS — THIS WEEK", u.availableHours + "h",
+      `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`, NAVY);
+  kpi(s, 8.81, 1.12, 4.07, 1.25, "TIME-LOGGING COVERAGE", u.coveragePct + "%",
+      `${u.itemsWithHours} of ${u.itemsCreated} PS items raised this week carry hours — utilisation reads low because logging is ramping, not because delivery stopped`, GOLD);
+
+  const CY = 2.62, CH = 3.9;
+
+  // ---- left: billable by employee -------------------------------------------
+  const CX = 0.45, CW = 7.2;
   card(s, CX, CY, CW, CH);
-  cardTitle(s, CX, CY, "HOURS LOGGED ON PS RECORDS — RAMPING", 6.6);
-  s.addText(`${u.hoursLogged}h`, { x: CX + 0.25, y: CY + 0.45, w: 2.2, h: 0.55, fontFace: FONT, fontSize: 30, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(`across ${u.recordsWithHours} of ${u.psRecords.toLocaleString()} records — the new ground truth (total_hours on the Professional Services record)`, { x: CX + 2.5, y: CY + 0.5, w: 4.4, h: 0.5, fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0 });
-  const hx = [0.25, 3.4, 5.2], hw2 = [3.0, 1.6, 1.6];
-  ["SERVICE TYPE", "HOURS LOGGED", "RECORDS"].forEach((h2, i) => s.addText(h2, { x: CX + hx[i], y: CY + 1.2, w: hw2[i], h: 0.22, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-  const maxH = Math.max(...u.hoursByType.map((r) => r[1]));
-  u.hoursByType.forEach((r, i) => {
-    const y = CY + 1.48 + i * 0.42;
-    s.addShape("rect", { x: CX + 0.25, y: y + 0.37, w: CW - 0.5, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(r[0], { x: CX + hx[0], y, w: 1.55, h: 0.38, fontFace: FONT, fontSize: 9.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: CX + 1.9, y: y + 0.13, w: Math.max(0.05, (r[1] / maxH) * 1.35), h: 0.13, rectRadius: 0.05, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(r[1].toFixed(1) + "h", { x: CX + hx[1], y, w: hw2[1], h: 0.38, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[2]), { x: CX + hx[2], y, w: hw2[2], h: 0.38, align: "right", fontFace: FONT, fontSize: 9.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  s.addText(u.testNote, { x: CX + 0.25, y: CY + CH - 0.42, w: CW - 0.5, h: 0.32, fontFace: FONT, fontSize: 6.8, color: GOLD, isTextBox: true, margin: 0, valign: "top" });
+  s.addText([{ text: "BILLABLE BY EMPLOYEE  ", options: { fontSize: 12, bold: true, color: TEAL } },
+             { text: `hours logged against ${u.weekHours}h available each`, options: { fontSize: 7, color: FAINT } }],
+    { x: CX + 0.22, y: CY + 0.12, w: CW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0 });
 
-  const RX = 7.85, RW = 5.03;
-  card(s, RX, CY, RW, 1.86);
-  s.addText([{ text: "OPEN PS WORK  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "median time to close · since 8 Sep", options: { fontSize: 6.5, color: FAINT } }],
+  const EX = { name: 0.25, bar: 2.25, hrs: 5.05, pct: 6.05 };
+  const BARW = 2.6;
+  [["PS TEAM MEMBER", EX.name, 1.9, "left"], ["UTILISATION OF 38h", EX.bar, BARW, "left"],
+   ["HOURS", EX.hrs, 0.9, "right"], ["UTIL %", EX.pct, 0.9, "right"]]
+   .forEach(([t, x, w, al]) => s.addText(t, { x: CX + x, y: CY + 0.48, w, h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+
+  u.byEmployee.forEach((r, i) => {
+    const y = CY + 0.70 + i * 0.185;
+    const zero = r[1] === 0;
+    s.addText(r[0], { x: CX + EX.name, y, w: 1.95, h: 0.185, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.066, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + 0.066, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: 0.185, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: 0.185, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  // 80% target marker across the bar column
+  s.addShape("rect", { x: CX + EX.bar + BARW * 0.8, y: CY + 0.66, w: 0.008, h: u.byEmployee.length * 0.185, fill: { color: TERRA }, line: { type: "none" } });
+  s.addText("80% target", { x: CX + EX.bar + BARW * 0.8 - 0.48, y: CY + 0.46, w: 0.96, h: 0.18, align: "center", fontFace: FONT, fontSize: 6, bold: true, color: TERRA, isTextBox: true, margin: 0 });
+  s.addText(u.staffBasis, { x: CX + 0.25, y: CY + 3.56, w: CW - 0.5, h: 0.28, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  // ---- right top: billable by PS work ---------------------------------------
+  const RX = 7.85, RW = 5.03, RH = 1.86;
+  card(s, RX, CY, RW, RH);
+  s.addText([{ text: "BILLABLE BY PS WORK  ", options: { fontSize: 11, bold: true, color: TEAL } },
+             { text: "share of hours logged", options: { fontSize: 6.5, color: FAINT } }],
     { x: RX + 0.22, y: CY + 0.1, w: RW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  ["SERVICE TYPE", "OPEN", "MEDIAN TTC"].forEach((h2, i) => {
-    const xs = [0.22, 2.35, 3.25], ws = [2.0, 0.8, 1.0];
-    s.addText(h2, { x: RX + xs[i], y: CY + 0.38, w: ws[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 });
+  [["SERVICE TYPE", 0.22, 1.5, "left"], ["", 1.8, 1.6, "left"], ["HOURS", 3.4, 0.7, "right"], ["SHARE", 4.15, 0.66, "right"]]
+    .forEach(([t, x, w, al]) => { if (t) s.addText(t, { x: RX + x, y: CY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }); });
+  const wMax = Math.max(...u.byWork.map((r) => r[1])) || 1;
+  u.byWork.forEach((r, i) => {
+    const y = CY + 0.60 + i * 0.215;
+    const zero = r[1] === 0;
+    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: 0.215, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: RX + 1.8, y: y + 0.075, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + 0.075, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: 0.215, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
-  u.openWork.forEach((r, i) => {
-    const y = CY + 0.58 + i * 0.20;
-    s.addText(r[0], { x: RX + 0.22, y, w: 2.0, h: 0.21, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[1]), { x: RX + 2.35, y, w: 0.8, h: 0.21, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r[2] == null ? "no closes yet" : (r[2] < 0.1 ? "<0.1 d" : r[2] + " d"), { x: RX + 3.25, y, w: 1.0, h: 0.21, align: "right", fontFace: FONT, fontSize: 8, bold: r[2] != null, color: r[2] == null ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r[3] ? `n=${r[3]}` : "", { x: RX + 4.32, y, w: 0.48, h: 0.21, align: "right", fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  s.addText(u.openWorkNote, { x: RX + 0.22, y: CY + 1.60, w: RW - 0.44, h: 0.24, fontFace: FONT, fontSize: 5.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   aiSummary(s, RX, CY + 2.0, RW, CH - 2.0, [
-    { lead: "Utilisation is deliberately blank this week.", text: `Time logging covers ${u.hoursLogged}h on ${u.recordsWithHours} of ${u.psRecords.toLocaleString()} PS records. Computing a percentage on that coverage would fabricate a collapse that isn't real.`, dot: TERRA },
-    { lead: "What it takes to switch this back on:", text: "PS members logging hours on every Professional Services record, plus the 38h/week capacity roster re-based in the new reporting. The number returns automatically as coverage lands.", dot: TEAL },
-    { lead: "Demand signal is live meanwhile:", text: `${u.psCasesThisWk} PS cases opened this week, concentrated in Tech (40); ${u.createdThisWk} PS records created. Tech and Onboarding carry almost all the time logged.`, dot: GOLD },
+    { lead: `${u.utilPct}% billable utilisation is a logging number, not a delivery number.`, text: `${u.billedHours}h landed against ${u.availableHours}h of capacity, but only ${u.coveragePct}% of the week's ${u.itemsCreated} PS items carry hours.`, dot: TERRA },
+    { lead: "Two people carry the entire logged total.", text: `Katherine Fenwick 38.2% and Rhys Woolcock 36.4%; the other ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
+    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries 95% of logged time. Median time to close since 8 Sep: Tech 0.6 d.`, dot: TEAL },
   ]);
-  footnote(s, "Per the design ethos: where a source isn't ready the state is shown honestly — never an estimated utilisation presented as measured.", 6.72);
+  footnote(s, u.billableNote + " " + u.hygieneNote, 6.72);
   sourcePill(s, u.source);
 }
+
 
 
 
