@@ -53,7 +53,7 @@
         "old": "Weekly file drop",
         "new": "Weekly file drop (unchanged)",
         "status": "AS BEFORE",
-        "note": "Weekly extract current to 27 Sep (received 28 Sep). MRR movement register is live and carries entries through 12 Oct \u2014 no new-MRR rows fell in 21\u201327 Sep."
+        "note": "Sysnet extract current to 27 Sep. MRR movement register refreshed 28 Sep \u2014 new MRR, churn, contraction and credits all read from it."
       },
       {
         "area": "Product / GTM / AI usage / ValPay",
@@ -70,22 +70,22 @@
   },
   "execSummary": {
     "finance": "hardware $526k = 74% of $715k vs 97% pace; this week +$116k gross (HW discounts \u2212$8k) \u2014 Solotel Corporate is $102k of it",
-    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); no new MRR invoiced in the week \u2014 Q3 holds at $12.1k = 43% of OKR2",
+    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); new MRR +$1.7k in the week \u00b7 Q3 $15.1k = 54% of OKR2",
     "ps": "billable utilisation 6.1% \u2014 20.75h billed of 342h available, time logging reaching 17% of PS items",
     "support": "weekly inflow 498 vs resolved 420 \u2014 backlog 675 and rising for the first time since cutover",
     "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
     "aiUsage": "AI-draft adoption 2.9% this week (2 of 68) \u2014 1 sent as-is, 1 edited, 1 rejected"
   },
   "targetVsInvoiced": {
-    "source": "Sysnet extract 21\u201327 Sep + MRR movement register (live)",
+    "source": "Sysnet extract 21\u201327 Sep + MRR movement register (live, 28 Sep)",
     "extractWeek": "21\u201327 Sep 2026",
     "mrr": {
       "okr2": 28000,
       "team": 30000,
-      "qtd": 12129,
+      "qtd": 15126,
       "asAt": "27 Sep",
-      "deltaWk": 0,
-      "deltaNote": "HubSpot shows $3,440 of new software MRR won in the week across 34 deals \u2014 none of it invoiced yet. The register's next dated entries are 28 and 30 Sep.",
+      "deltaWk": 1659,
+      "deltaNote": "BRG Granville Tavern $899, Hallmark Coyote's Roadhouse $701, CSHG Walker Baker Evans $59.",
       "extractNewSubsBilling": 591.79,
       "live": true,
       "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately"
@@ -109,16 +109,16 @@
       {
         "name": "Brett Gorman",
         "mrrTgt": 5000,
-        "mrrQtd": 3328,
+        "mrrQtd": 4029,
         "hwTgt": 143000,
         "hwQtd": 87071,
         "hwDelta": 9157,
-        "mrrDelta": 0
+        "mrrDelta": 701
       },
       {
         "name": "Bradford Young",
         "mrrTgt": 5000,
-        "mrrQtd": 2507,
+        "mrrQtd": 2463,
         "hwTgt": 163000,
         "hwQtd": 53255,
         "hwDelta": 1960,
@@ -127,20 +127,20 @@
       {
         "name": "Jasmine Hikuroa",
         "mrrTgt": 6000,
-        "mrrQtd": 1622,
+        "mrrQtd": 3903,
         "hwTgt": 214000,
         "hwQtd": 245081,
         "hwDelta": 102450,
-        "mrrDelta": 0
+        "mrrDelta": 899
       },
       {
         "name": "Phuong Ho",
         "mrrTgt": 2000,
-        "mrrQtd": 205,
+        "mrrQtd": 264,
         "hwTgt": 55000,
         "hwQtd": 14130,
         "hwDelta": 1590,
-        "mrrDelta": 0
+        "mrrDelta": 59
       },
       {
         "name": "Mick Teasdale",
@@ -650,7 +650,7 @@
     "restateNote": "restates upward as hours land"
   },
   "wonVsInvoiced": {
-    "source": "HubSpot deals + company churn register + finance register \u2014 all live",
+    "source": "HubSpot deals + MRR movement register (live, 28 Sep) \u2014 all series live",
     "monthly": {
       "labels": [
         "Jan",
@@ -683,23 +683,23 @@
         7087,
         4860,
         3700,
-        3569
+        6567
       ],
-      "note": "Won = HubSpot closed-won Total Software (outright excluded, annual \u00f7 12) by close date. Invoiced = finance register new + expansion by date of invoice. Both live and refreshed weekly \u2014 nothing on this slide is frozen."
+      "note": "Won = HubSpot closed-won Total Software (outright excluded, annual \u00f7 12) by close date. Invoiced = movement register new + expansion by date of invoice. Both live and refreshed weekly \u2014 nothing on this slide is frozen."
     },
-    "awaitingArrK": 481,
-    "awaitingDeals": 45,
+    "awaitingArrK": 471,
+    "awaitingDeals": 44,
     "wonDeals2026": 66,
     "awaitingUnmappedArrK": 379,
     "awaitingUnmappedDeals": 20,
-    "awaitingConfirmedArrK": 102,
+    "awaitingConfirmedArrK": 92,
     "churnedArrK": 639,
-    "logosLost": 171,
+    "logosLost": 258,
     "churnedMrr": 53227,
     "churnFrom": "2025\u2192",
-    "churnNote": "HubSpot company churn register \u00b7 live",
-    "netMrrQ3K": 12.1,
-    "netMrrNote": "won $12.1k less churn recorded $0 \u2014 not yet a true net",
+    "churnNote": "MRR movement register, live \u00b7 HubSpot churn object still ramping",
+    "netMrrQ3K": -4.2,
+    "netMrrNote": "new $15.1k \u2212 churn $12.7k \u2212 contraction $3.7k \u2212 credits $2.9k",
     "topNotInvoiced": [
       [
         "Oscars Hotels",
@@ -737,13 +737,6 @@
         0
       ],
       [
-        "Coyote's Roadhouse (Hallmark)",
-        "$9k",
-        "$789",
-        "Sep",
-        1
-      ],
-      [
         "Caves House Hotel",
         "$8k",
         "$669",
@@ -770,6 +763,13 @@
         "$597",
         "Sep",
         1
+      ],
+      [
+        "Solotel - Kings Cross Hotel",
+        "$7k",
+        "$564",
+        "Jun",
+        1
       ]
     ],
     "listNote": "\u25c6 = company has no Debtor ID, so the invoice match cannot be confirmed either way",
@@ -777,26 +777,31 @@
       "q3Won": 12061,
       "weekWon": 3440,
       "weekDeals": 34,
-      "q3Invoiced": 12129
+      "q3Invoiced": 15126
     },
     "bullets": [
       [
-        "Won and invoiced now both read live.",
-        "Won is HubSpot Total Software by close date, invoiced is the finance register by invoice date. Q3 ties out: $12,061 won against $12,129 invoiced, a 0.6% gap. March and June are the two months where wins ran far ahead of billing."
+        "Invoicing has overtaken wins this quarter.",
+        "Q3 invoiced $15,126 against $12,061 won \u2014 the register caught up on earlier wins, and September alone billed $6,567. Nine months of both series now read live."
       ],
       [
-        "$481k of ARR is won and not yet invoiced.",
-        "45 of the 66 deals that carried software MRR in 2026. Oscars Group alone is $155k \u2014 32% of it \u2014 and the top three are 63%."
+        "Churn is the whole story: $1.19M of ARR across 258 logos since Jan 2025.",
+        "Q3 took $12.7k of MRR out against $15.1k in, plus $3.7k of contraction on accounts that stayed and $2.9k of credits. Net Q3 movement is \u2212$4.2k."
       ],
       [
-        "Debtor mapping is the blocker on $379k of that.",
-        "20 of the 45 companies carry no Debtor ID, so the match cannot be confirmed either way; only $102k is confirmed unbilled. Mapping those 20 is the single highest-value data fix on this slide."
+        "$471k of ARR is won and not yet invoiced.",
+        "44 of the 66 deals carrying software MRR in 2026. Oscars Group is $155k of it and the top three are 64%."
       ],
       [
-        "Churn recording stopped in February.",
-        "The HubSpot churn register is real through 2025 \u2014 171 logos and $53.2k of MRR since Jan 2025, $639k ARR \u2014 but 2026 holds 15 logos and nothing since Feb carries a churned MRR value. Until that resumes, net movement is not a true net."
+        "Debtor mapping blocks $379k of that.",
+        "20 of the 44 companies carry no Debtor ID, so the invoice match cannot be confirmed either way; $92k is confirmed unbilled. Mapping those 20 is the highest-value data fix on this slide."
       ]
-    ]
+    ],
+    "churnedArrLabel": "$1.19M",
+    "contractionArrK": 250,
+    "contractionAccounts": 143,
+    "pendingIntegrationsMrr": 2339,
+    "pendingIntegrationsN": 42
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",

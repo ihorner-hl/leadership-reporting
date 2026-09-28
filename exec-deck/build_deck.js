@@ -304,7 +304,7 @@ if (D.cutover.showSlide) {
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
     { lead: `Hardware is ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against a ${pace}% pace mark. The ${t.extractWeek} extract added ${fmtK(t.hardware.deltaWk)} gross — the biggest week of the quarter — but $102k of it is one Corporate account (Solotel) booked to Jasmine, who jumps to ${pct(245081, 214000)}% of target.`, dot: TERRA },
     { lead: "Discounts eased in proportion:", text: "hardware discounts ran -$8.4k on $115.6k gross (7%) against -$10.2k on $37.6k (27%) last week. Net hardware for the week is $107.2k.", dot: GOLD },
-    { lead: "New MRR did not move at all this week.", text: `The register carries no new-MRR rows dated ${t.extractWeek}, so Q3 stays at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: TERRA },
+    { lead: t.mrr.deltaWk ? `New MRR added ${fmt$(t.mrr.deltaWk)} in the week.` : "New MRR did not move at all this week.", text: `Q3 stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.deltaWk ? TEAL : TERRA },
     { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);
@@ -619,8 +619,8 @@ if (D.cutover.showSlide) {
 
   const KX = 7.95, KW = 4.93;
   kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of ${w.wonDeals2026} deals won with software MRR in 2026 · $${w.awaitingUnmappedArrK}k of it on ${w.awaitingUnmappedDeals} companies with no Debtor ID`, GOLD, 20);
-  kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, `$${w.churnedArrK}k`, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
-  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `+$${w.netMrrQ3K}k`, w.netMrrNote, GOLD, 20);
+  kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, w.churnedArrLabel, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
+  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `-$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
   card(s, TX, TY, TW, TH);
