@@ -650,7 +650,7 @@
     "restateNote": "restates upward as hours land"
   },
   "wonVsInvoiced": {
-    "source": "Finance Weekly Invoicing & Creatio \u00b7 movement register live",
+    "source": "Finance movement register (live) \u00b7 chart frozen on the Creatio ARR basis",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
@@ -730,7 +730,7 @@
         1
       ]
     ],
-    "goLiveContext": "Oscars Group \u2014 Signed \u2014 ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge.",
+    "goLiveContext": "Signed \u2014 ~1.5x rollout timeline expected. Held by the old provider's contract terms; asking H&L for a discount to bridge.",
     "monthly": {
       "labels": [
         "Jan",
@@ -766,8 +766,9 @@
     "contractionLogos": 149,
     "pendingIntegrationsMrr": 2297,
     "pendingIntegrationsN": 45,
-    "netMrrNote": "Q3 (Jul\u2013Sep) \u00b7 movement register, live",
-    "registerAsAt": "live"
+    "netMrrNote": "Jul\u2013Sep \u00b7 finance movement register, live \u2014 HubSpot cannot produce this yet",
+    "registerAsAt": "live",
+    "hubspotGap": "mrr is set on 13 of 114 September wins and on none of the 91 expansion deals, and $50.2k of the $52.1k it does hold is the misstated AVC migration batch (annual values in the monthly field). There is no churn source at all \u2014 Subscriptions is empty. The finance register stays the record until expansion carries mrr and a churn motion exists."
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",

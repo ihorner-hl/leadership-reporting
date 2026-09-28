@@ -620,7 +620,7 @@ if (D.cutover.showSlide) {
   const KX = 7.95, KW = 4.93;
   kpi(s, KX, 1.1, KW, 0.98, "AWAITING GO-LIVE — ARR", `$${w.awaitingGoLiveK}k`, `${w.wonSinceMar} deals won since Mar · ${w.invoiced} invoiced · ${w.outstanding} outstanding`, GOLD, 20);
   kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · register ${w.registerAsAt}`, TERRA, 20);
-  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT", `-$${Math.abs(w.netMrrQ3K)}k`, `${w.netMrrNote} — the base is still shrinking`, TERRA, 20);
+  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `-$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
   card(s, TX, TY, TW, TH);
@@ -643,17 +643,17 @@ if (D.cutover.showSlide) {
   cardTitle(s, AX, TY, "AI SUMMARY", 5.8);
   s.addText([
     { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
-    { text: "Install-to-invoice lag runs 60–90 days — wins bill ~a quarter later; March wins still uninvoiced are past normal lag and worth chasing.", options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: "Install-to-invoice lag runs 60–90 days; March wins still uninvoiced are past normal lag and worth chasing.", options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
     { text: "•  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
     { text: `Uninvoiced is top-loaded: Oscars Group is 62% of the $${w.awaitingGoLiveK}k awaiting go-live; the top 3 clients are ~78%.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
     { text: "•  ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
-    { text: `Churn reads from the movement register (${w.registerAsAt}): $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction on accounts that stayed. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
-    { text: "•  ", options: { color: FAINT, bold: true, fontSize: 8.5 } },
-    { text: "AVC excluded — Creatio MRR field misstated (annual values in the monthly field); correction pending.", options: { color: FAINT, fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
-    { text: "GO-LIVE CONTEXT", options: { color: TEAL, bold: true, fontSize: 9, breakLine: true } },
+    { text: `Churn reads from the movement register: $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
+    { text: "Net movement should read from HubSpot and cannot yet. ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
+    { text: w.hubspotGap, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
     { text: "◆  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
-    { text: "Oscars Group — ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
-    { text: "Signed — ~1.5x rollout timeline expected. Keen to start but held by old provider's contract terms; asking H&L for a discount to bridge.", options: { color: "3A4B57", fontSize: 8.5 } },
+    { text: "GO-LIVE CONTEXT · Oscars Group — ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
+    { text: w.goLiveContext.replace(/^Oscars Group — /, ""), options: { color: "3A4B57", fontSize: 8.5 } },
   ], { x: AX + 0.22, y: TY + 0.44, w: AW - 0.45, h: TH - 0.58, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
   footnote(s, "Invoiced = new + expansion MRR movements annualised", 7.06);
   sourcePill(s, w.source);
