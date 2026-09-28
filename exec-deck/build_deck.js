@@ -472,7 +472,7 @@ if (D.cutover.showSlide) {
 
 
 // =============================================================================
-// 8 · UTILISATION & DELIVERY HOURS (billable utilisation on HubSpot PS records)
+// 8 · UTILISATION & DELIVERY HOURS (billable utilisation + week-on-week restatement)
 // =============================================================================
 {
   const s = pres.addSlide();
@@ -480,16 +480,16 @@ if (D.cutover.showSlide) {
   header(s, "Utilisation & Delivery Hours", "Professional Services", 2, { cutover: true });
 
   kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLABLE UTILISATION", u.utilPct + "%",
-      `${u.billedHours}h billed of ${u.availableHours}h available · target ${u.targetPct}%`, GOLD);
+      `${u.billedHours}h billed of ${u.availableHours}h available · target ${u.targetPct}% · ${u.restateNote}`, GOLD);
   kpi(s, 4.63, 1.12, 3.98, 1.25, "AVAILABLE HOURS — THIS WEEK", u.availableHours + "h",
       `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`, NAVY);
   kpi(s, 8.81, 1.12, 4.07, 1.25, "TIME-LOGGING COVERAGE", u.coveragePct + "%",
       `${u.itemsWithHours} of ${u.itemsCreated} PS items raised this week carry hours — utilisation reads low because logging is ramping, not because delivery stopped`, GOLD);
 
-  const CY = 2.62, CH = 3.9;
+  const CY = 2.62;
 
   // ---- left: billable by employee -------------------------------------------
-  const CX = 0.45, CW = 7.2;
+  const CX = 0.45, CW = 7.2, CH = 3.24;
   card(s, CX, CY, CW, CH);
   s.addText([{ text: "BILLABLE BY EMPLOYEE  ", options: { fontSize: 12, bold: true, color: TEAL } },
              { text: `hours logged against ${u.weekHours}h available each`, options: { fontSize: 7, color: FAINT } }],
@@ -499,74 +499,94 @@ if (D.cutover.showSlide) {
   const BARW = 2.6;
   [["PS TEAM MEMBER", EX.name, 1.9, "left"], ["HOURS", EX.hrs, 0.9, "right"], ["UTIL %", EX.pct, 0.9, "right"]]
    .forEach(([t, x, w, al]) => s.addText(t, { x: CX + x, y: CY + 0.48, w, h: 0.2, align: al, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-  // percentage axis across the bar column
-  const TICKS = [0, 20, 40, 60, 80, 100];
-  const ROWP = Math.min(0.26, 2.72 / (u.byEmployee.length + 1)), BARY = (ROWP - 0.065) / 2, GRIDH = u.byEmployee.length * ROWP;
-  TICKS.forEach((t, i) => {
-    const tx = CX + EX.bar + (t / 100) * BARW;
-    const first = i === 0, last = i === TICKS.length - 1;
+
+  const ROWP = Math.min(0.26, (CH - 1.12) / (u.byEmployee.length + 1)), BARY = (ROWP - 0.065) / 2;
+  const GRIDH = u.byEmployee.length * ROWP;
+  [0, 20, 40, 60, 80, 100].forEach((t, i, arr) => {
+    const tx = CX + EX.bar + (t / 100) * BARW, first = i === 0, last = i === arr.length - 1;
     s.addText(t + "%", { x: first ? tx : (last ? tx - 0.44 : tx - 0.22), y: CY + 0.46, w: 0.44, h: 0.2,
       align: first ? "left" : (last ? "right" : "center"), fontFace: FONT, fontSize: 6.5, bold: true, color: FAINT, isTextBox: true, margin: 0 });
     if (!first) s.addShape("rect", { x: tx, y: CY + 0.68, w: 0.006, h: GRIDH, fill: { color: TRACK }, line: { type: "none" } });
   });
 
   u.byEmployee.forEach((r, i) => {
-    const y = CY + 0.72 + i * ROWP;
-    const zero = r[1] === 0;
+    const y = CY + 0.72 + i * ROWP, zero = r[1] === 0;
     s.addText(r[0], { x: CX + EX.name, y, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
     s.addShape("roundRect", { x: CX + EX.bar, y: y + BARY, w: BARW, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
     if (!zero) s.addShape("roundRect", { x: CX + EX.bar, y: y + BARY, w: Math.max(0.05, Math.min(1, r[3] / 100) * BARW), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
     s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: CX + EX.hrs, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(zero ? "no time logged" : r[3].toFixed(1) + "%", { x: CX + EX.pct, y, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: zero ? 6 : 8, bold: !zero, color: zero ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
   });
-  // TOTAL row
   {
-    const ty = CY + 0.72 + u.byEmployee.length * ROWP + 0.04;
+    const ty = CY + 0.72 + u.byEmployee.length * ROWP + 0.02;
     s.addShape("rect", { x: CX + EX.name, y: ty, w: CW - 0.5, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
-    s.addText("TOTAL", { x: CX + EX.name, y: ty + 0.04, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(`${u.staffCount} PS people × ${u.weekHours}h = ${u.availableHours}h available`, { x: CX + EX.bar, y: ty + 0.04, w: BARW, h: ROWP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(u.billedHours.toFixed(2) + "h", { x: CX + EX.hrs, y: ty + 0.04, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(u.utilPct.toFixed(1) + "%", { x: CX + EX.pct, y: ty + 0.04, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText("TOTAL", { x: CX + EX.name, y: ty + 0.03, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${u.staffCount} PS people × ${u.weekHours}h = ${u.availableHours}h available`, { x: CX + EX.bar, y: ty + 0.03, w: BARW, h: ROWP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.billedHours.toFixed(2) + "h", { x: CX + EX.hrs, y: ty + 0.03, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.utilPct.toFixed(1) + "%", { x: CX + EX.pct, y: ty + 0.03, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.staffBasis, { x: CX + 0.25, y: CY + CH - 0.36, w: CW - 0.5, h: 0.34, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   }
-  s.addText(u.staffBasis, { x: CX + 0.25, y: CY + 3.52, w: CW - 0.5, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- right top: billable by PS work ---------------------------------------
-  const RX = 7.85, RW = 5.03, RH = 1.86;
+  const RX = 7.85, RW = 5.03, RH = 1.62;
   card(s, RX, CY, RW, RH);
   s.addText([{ text: "BILLABLE BY PS WORK  ", options: { fontSize: 11, bold: true, color: TEAL } },
              { text: "share of hours logged", options: { fontSize: 6.5, color: FAINT } }],
-    { x: RX + 0.22, y: CY + 0.1, w: RW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  [["SERVICE TYPE", 0.22, 1.5, "left"], ["", 1.8, 1.6, "left"], ["HOURS", 3.4, 0.7, "right"], ["SHARE", 4.15, 0.66, "right"]]
-    .forEach(([t, x, w, al]) => { if (t) s.addText(t, { x: RX + x, y: CY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }); });
+    { x: RX + 0.22, y: CY + 0.08, w: RW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
+  [["SERVICE TYPE", 0.22, 1.5, "left"], ["HOURS", 3.4, 0.7, "right"], ["SHARE", 4.15, 0.66, "right"]]
+    .forEach(([t, x, w, al]) => s.addText(t, { x: RX + x, y: CY + 0.34, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   const wMax = Math.max(...u.byWork.map((r) => r[1])) || 1;
-  const ROWW = Math.min(0.19, 1.0 / u.byWork.length);
+  const ROWW = Math.min(0.19, (RH - 0.53 - 0.26) / u.byWork.length);
   u.byWork.forEach((r, i) => {
-    const y = CY + 0.56 + i * ROWW;
-    const zero = r[1] === 0;
-    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: ROWW, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.065) / 2, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
-    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.065) / 2, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: ROWW, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: ROWW, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    const y = CY + 0.53 + i * ROWW, zero = r[1] === 0;
+    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: ROWW, fontFace: FONT, fontSize: 7, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.06) / 2, w: 1.5, h: 0.06, rectRadius: 0.03, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.06) / 2, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.06, rectRadius: 0.03, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: ROWW, align: "right", fontFace: FONT, fontSize: 7.5, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: ROWW, align: "right", fontFace: FONT, fontSize: zero ? 6 : 7.5, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
-
   {
-    const ty = CY + 0.56 + u.byWork.length * ROWW + 0.03;
+    const ty = CY + 0.53 + u.byWork.length * ROWW + 0.02;
     s.addShape("rect", { x: RX + 0.22, y: ty, w: RW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
-    s.addText("TOTAL", { x: RX + 0.22, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(`${u.itemsWithHours} PS items carry time`, { x: RX + 1.8, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 6.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(u.billedHours.toFixed(2) + "h", { x: RX + 3.4, y: ty + 0.03, w: 0.7, h: 0.2, align: "right", fontFace: FONT, fontSize: 9, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText("100%", { x: RX + 4.15, y: ty + 0.03, w: 0.66, h: 0.2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText("TOTAL", { x: RX + 0.22, y: ty + 0.02, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${u.itemsWithHours} PS items carry time`, { x: RX + 1.8, y: ty + 0.02, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 6.3, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.billedHours.toFixed(2) + "h", { x: RX + 3.4, y: ty + 0.02, w: 0.7, h: 0.2, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText("100%", { x: RX + 4.15, y: ty + 0.02, w: 0.66, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   }
 
-  aiSummary(s, RX, CY + 2.0, RW, CH - 2.0, [
-    { lead: `${u.utilPct}% billable utilisation is a logging number, not a delivery number.`, text: `${u.billedHours}h landed against ${u.availableHours}h of capacity, but only ${u.coveragePct}% of the week's ${u.itemsCreated} PS items carry hours.`, dot: TERRA },
-    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h (${u.byEmployee[0][3]}% of a ${u.weekHours}h week) and ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h (${u.byEmployee[1][3]}%); ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
-    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries ${u.byWork[0][3]}% of logged time. ${u.medianTtcNote}`, dot: TEAL },
+  // ---- right bottom: week on week -------------------------------------------
+  const WY = CY + RH + 0.10, WH = 1.52, W = u.weekOnWeek;
+  card(s, RX, WY, RW, WH);
+  s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 11, bold: true, color: TEAL } },
+             { text: "as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
+    { x: RX + 0.22, y: WY + 0.07, w: RW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
+  [["WEEK", 0.22, 1.05, "left"], ["ITEMS", 1.32, 0.5, "right"], ["HOURS NOW", 1.88, 0.85, "right"],
+   ["UTIL", 2.79, 0.5, "right"], ["AS FIRST REPORTED", 3.35, 1.46, "right"]]
+    .forEach(([t, x, w, al]) => s.addText(t, { x: RX + x, y: WY + 0.32, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  W.rows.forEach((r, i) => {
+    const y = WY + 0.52 + i * 0.215;
+    const restated = r.firstHours != null && Math.abs(r.hours - r.firstHours) > 0.01;
+    s.addShape("rect", { x: RX + 0.22, y: y + 0.205, w: RW - 0.44, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
+    s.addText(r.label + (r.current ? "  ●" : ""), { x: RX + 0.22, y, w: 1.05, h: 0.215, fontFace: FONT, fontSize: 7.5, bold: true, color: r.current ? TEAL : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r.items), { x: RX + 1.32, y, w: 0.5, h: 0.215, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r.hours.toFixed(2) + "h", { x: RX + 1.88, y, w: 0.85, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r.util.toFixed(1) + "%", { x: RX + 2.79, y, w: 0.5, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r.firstHours == null ? "not reported" : (restated
+        ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ▲ +${(r.hours - r.firstHours).toFixed(2)}h`
+        : "first report"),
+      { x: RX + 3.35, y, w: 1.46, h: 0.215, align: "right", fontFace: FONT, fontSize: restated ? 6.3 : 6.5,
+        bold: restated, color: restated ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  s.addText(W.note, { x: RX + 0.22, y: WY + WH - 0.32, w: RW - 0.44, h: 0.26, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  // ---- full-width summary ----------------------------------------------------
+  aiSummary(s, 0.45, 5.94, 12.43, 1.12, [
+    { lead: "Last week's utilisation has already restated upward.", text: `14–20 Sep went out at 16.07h (4.7%) and now stands at 24.82h (7.3%) — Rhys +5.75h, Joshua +2.0h, Isayah +1.0h. This week's ${u.utilPct}% is a floor, not a result.`, dot: TERRA },
+    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h and ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h; ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing. ${u.psCasesThisWk} PS cases opened this week and Tech carries ${u.byWork[0][3]}% of logged time.`, dot: GOLD },
   ]);
-  footnote(s, u.billableNote, 6.72);
   sourcePill(s, u.source);
 }
+
 
 
 

@@ -506,7 +506,7 @@
     "billedHours": 20.75,
     "utilPct": 6.1,
     "targetPct": 80,
-    "staffBasis": "Available staff = the 9 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded.",
+    "staffBasis": "Available staff = the 9 PS people on PS-pipeline tickets open now or closed this week, at 38h each. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff \u2014 they and their hours are excluded.",
     "itemsWithHours": 11,
     "itemsCreated": 63,
     "coveragePct": 17,
@@ -615,7 +615,39 @@
       "Phuong Ho",
       "Yeran Hettiarachchy"
     ],
-    "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded."
+    "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded.",
+    "weekOnWeek": {
+      "rows": [
+        {
+          "label": "8\u201313 Sep",
+          "items": 16,
+          "hours": 57.5,
+          "util": 16.8,
+          "firstHours": null,
+          "firstUtil": null
+        },
+        {
+          "label": "14\u201320 Sep",
+          "items": 17,
+          "hours": 24.82,
+          "util": 7.3,
+          "firstHours": 16.07,
+          "firstUtil": 4.7
+        },
+        {
+          "label": "21\u201327 Sep",
+          "items": 11,
+          "hours": 20.75,
+          "util": 6.1,
+          "firstHours": 20.75,
+          "firstUtil": 6.1,
+          "current": true
+        }
+      ],
+      "note": "Hours land retrospectively \u2014 treat the current week as a floor. Base held at 9 PS staff \u00d7 38h so the weeks compare.",
+      "detail": "14\u201320 Sep was first reported at 16.07h (4.7%); four records gained time after the deck went out and it now stands at 24.82h (7.3%) \u2014 Rhys +5.75h, Joshua +2.0h, Isayah +1.0h. The 8\u201313 Sep week excludes one 18.92h record named 'test'."
+    },
+    "restateNote": "restates upward as hours land"
   },
   "wonVsInvoiced": {
     "source": "Finance Weekly Invoicing & Creatio \u00b7 movement register live",
