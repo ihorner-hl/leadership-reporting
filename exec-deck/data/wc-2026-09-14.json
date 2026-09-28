@@ -65,7 +65,8 @@
     ],
     "deckSeq": "1st on new sources",
     "deckSeqNote": "WC 7 Sep deck skipped in the cutover \u2014 deltas flagged where they bridge two weeks",
-    "coverChip": "CUTOVER EDITION \u2014 FIRST DECK ON HUBSPOT SOURCES"
+    "coverChip": "CUTOVER EDITION \u2014 FIRST DECK ON HUBSPOT SOURCES",
+    "showSlide": false
   },
   "execSummary": {
     "finance": "hardware $410k = 57% of $715k vs 89% pace; this week +$38k gross (HW discounts -$10k); new MRR $12.1k = 43% of OKR2",
@@ -160,7 +161,8 @@
         "mrrDelta": 0
       }
     ],
-    "hlPayNetNewMrr": 1770
+    "hlPayNetNewMrr": 1770,
+    "extractTo": "20 Sep"
   },
   "newProducts": {
     "source": "HubSpot (keyword-matched deal names) + product plan",
@@ -367,7 +369,7 @@
     ],
     "qtrNote": "7 this qtr \u00b7 11 last",
     "footnote": "6 deals untagged \u2014 referral figures are a floor. Referrer = Account Manager on the deal.",
-    "deptLine": "Sales \u00b7 ValPay export as at 6 Sep \u00b7 identification register live"
+    "deptLine": "Sales"
   },
   "salesPipeline": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",
@@ -870,7 +872,8 @@
       ],
       "cutover": "HubSpot go-live 8 Sep",
       "note": "Weeks to 30 Aug are the frozen Creatio series (extracts ended 4 Sep); 13 & 20 Sep read live from HubSpot. The 7 Sep week falls inside the migration and is not reported."
-    }
+    },
+    "medianAgeDays": 12
   },
   "aiAgent": {
     "source": "HubSpot draft state machine (live)",
@@ -901,7 +904,8 @@
       "sent": 64,
       "drafted": 874,
       "note": "frozen at cutover"
-    }
+    },
+    "showSlide": false
   },
   "roadmap": {
     "source": "GTM Tracker (product team)",
@@ -1654,32 +1658,32 @@
         "phase": "Shipped \u00b7 live 2026-09-08",
         "owner": "Izaak Horner",
         "status": "DONE",
-        "state": "Cutover complete \u2014 this deck is the first produced fully on HubSpot sources",
-        "roadblock": "Post-migration data quality: owner attribution on tickets/deals, SLA fields ramping, PS time logging habit"
+        "state": "Cutover complete",
+        "roadblock": "N/A"
       },
       {
         "name": "AI Support Agents \u2014 Email + Voice",
         "phase": "Rollout",
         "owner": "Izaak Horner / Nicolas Ibrahim",
-        "status": "WATCH",
-        "state": "Live in HubSpot with draft state machine \u2014 rejects now separable, decision rate measurable for the first time",
-        "roadblock": "Review-queue habit: 62 drafts pending review on open tickets \u00b7 85 flagged needs-human"
+        "status": "ON TRACK",
+        "state": "Live in HubSpot with drafts and voice triage handover, Autonomous launching on Sysnet and Exceed and gates will start to open progressively.",
+        "roadblock": "N/A \u2013 just cautiously rolling out."
       },
       {
         "name": "Leadership Reporting & Hosting",
         "phase": "Ship",
         "owner": "Izaak Horner",
         "status": "ON TRACK",
-        "state": "Reporting safety net live \u2014 weekly deck generated from HubSpot (live) + file drops while the tiered dashboard is built out",
-        "roadblock": "Finance movement register & ValPay export drops pending post-cutover \u00b7 AWS hosting still gated on budget approval"
+        "state": "Cutover is still ongoing but on track for 30 September",
+        "roadblock": "Time to build out reporting. The reporting scope from Anicca was limited."
       },
       {
         "name": "ALH RFP",
         "phase": "Response",
         "owner": "Luke Plunkett",
         "status": "ON TRACK",
-        "state": "In-person demo done 24 Aug; three win themes locked",
-        "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
+        "state": "Waiting on outcome.",
+        "roadblock": "N/A"
       }
     ]
   },

@@ -65,7 +65,8 @@
     ],
     "deckSeq": "3rd on new sources",
     "deckSeqNote": "Third full week reading from HubSpot \u2014 deltas are now week-on-week within the new basis, not cutover bridges",
-    "coverChip": "POST-CUTOVER \u2014 WEEK 3 ON HUBSPOT SOURCES"
+    "coverChip": "POST-CUTOVER \u2014 WEEK 3 ON HUBSPOT SOURCES",
+    "showSlide": false
   },
   "execSummary": {
     "finance": "hardware $526k = 74% of $715k vs 97% pace; this week +$116k gross (HW discounts \u2212$8k) \u2014 Solotel Corporate is $102k of it",
@@ -160,7 +161,8 @@
         "mrrDelta": null
       }
     ],
-    "hlPayNetNewMrr": 1770
+    "hlPayNetNewMrr": 1770,
+    "extractTo": "27 Sep"
   },
   "newProducts": {
     "source": "HubSpot (keyword-matched deal names) + product plan",
@@ -208,7 +210,7 @@
     "trajectory": "Aug $10k \u2192 Sep $30k \u2192 Oct $60k \u2192 Nov $97k \u2192 Dec $137k"
   },
   "hlPay": {
-    "source": "H&L identification register + ValPay export as at 6 Sep \u2014 refresh pending",
+    "source": "H&L identification register + ValPay export \u00b7 workbook received 28 Sep",
     "referred": 34,
     "signedGmv": "$38M",
     "won": 14,
@@ -366,8 +368,8 @@
       }
     ],
     "qtrNote": "7 this qtr \u00b7 11 last",
-    "footnote": "6 deals untagged \u2014 referral figures are a floor. Referrer = Account Manager on the deal.",
-    "deptLine": "Sales \u00b7 ValPay export as at 6 Sep \u00b7 registers not refreshed this week"
+    "footnote": "6 deals untagged \u2014 referral figures are a floor. Referrer = Account Manager on the deal. The 28 Sep workbook adds no identifications or referrals, so these figures are unchanged from last week.",
+    "deptLine": "Sales"
   },
   "salesPipeline": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",
@@ -890,7 +892,9 @@
       ],
       "cutover": "HubSpot go-live 8 Sep",
       "note": "Weeks to 30 Aug are the frozen Creatio series (extracts ended 4 Sep); 13, 20 & 27 Sep read live from HubSpot. The 7 Sep week falls inside the migration and is not reported."
-    }
+    },
+    "medianAgeDays": 17,
+    "medianAgeNote": "median create date 10 Sep on the open queue, as at 28 Sep"
   },
   "aiAgent": {
     "source": "HubSpot draft state machine (live)",
@@ -921,7 +925,8 @@
       "sent": 64,
       "drafted": 874,
       "note": "frozen at cutover"
-    }
+    },
+    "showSlide": false
   },
   "roadmap": {
     "source": "GTM Tracker (product team) \u2014 as at 19 Sep, refresh pending",
@@ -1295,125 +1300,125 @@
     }
   },
   "aiUsage": {
-    "source": "Claude Admin weekly capture (w/c 06 Sep) \u2014 refresh pending",
-    "activeWeekly": 43,
-    "allMembers": 48,
-    "daily": 34,
-    "monthly": 45,
-    "locLastWeek": 66273,
-    "locWoWPct": 10,
-    "locWeekEnding": "w/c 06 Sep",
+    "source": "Claude Admin weekly capture (30d to 27 Sep)",
+    "activeWeekly": 37,
+    "allMembers": 47,
+    "daily": 10,
+    "monthly": 43,
+    "locLastWeek": 176102,
+    "locWoWPct": null,
+    "locWeekEnding": "week to 27 Sep",
     "stickiness": [
       [
         "Claude Code",
-        63
+        12
       ],
       [
         "Cowork",
-        64
+        23
       ],
       [
         "Claude.ai",
-        53
+        7
       ],
       [
         "Office Agents",
-        33
+        0
       ]
     ],
     "sepToDate": [
       [
         "Nicolas Ibrahim",
-        27783
-      ],
-      [
-        "Hawraa Khalil",
-        16658
-      ],
-      [
-        "Ciaran Dempsey",
-        13006
-      ],
-      [
-        "Brad Smith",
-        10108
-      ],
-      [
-        "Rahul Kumar",
-        7083
+        99693
       ],
       [
         "David Corbett",
-        6070
+        30828
+      ],
+      [
+        "Ciaran Dempsey",
+        24443
+      ],
+      [
+        "Rahul Kumar",
+        23286
       ],
       [
         "Eric Cruz",
-        5884
+        19289
+      ],
+      [
+        "Hawraa Khalil",
+        19047
       ],
       [
         "Chris Huang",
-        4541
+        17516
       ],
       [
-        "Mohamed Ammar",
-        4017
+        "Brad Smith",
+        15821
+      ],
+      [
+        "Tony Ghoussein",
+        11891
       ],
       [
         "Kumari Nidhi",
-        2757
+        4616
       ]
     ],
-    "sepTotal": 101159,
+    "sepTotal": 277261,
     "coworkPerWk": [
       [
-        "Matt Freeman",
-        17
+        "Bjorn Magabo",
+        244
+      ],
+      [
+        "Phuong Ho",
+        92
       ],
       [
         "Bradford Young",
-        16
+        18
       ],
       [
         "Dave Corbett",
-        15
-      ],
-      [
-        "Katherine Fenwick",
-        14
+        16
       ],
       [
         "Harjeet Sammi",
-        13
+        14
       ],
       [
-        "Ron Makins",
-        8
+        "Katherine Fenwick",
+        12
+      ],
+      [
+        "Matt Freeman",
+        12
+      ],
+      [
+        "Glynn Johnson",
+        10
       ],
       [
         "Youssef Medhat",
         7
       ],
       [
-        "Lee Atkins",
+        "Isayah Kuhlmann",
         7
-      ],
-      [
-        "Glynn Johnson",
-        6
-      ],
-      [
-        "Izaak Horner",
-        5
       ]
     ],
     "filesByCategory": [
       [
         "Code & scripts",
-        50
+        62
       ],
       [
         "Documents & reports",
-        18
+        16
       ],
       [
         "Config & structured data",
@@ -1421,7 +1426,7 @@
       ],
       [
         "Web pages & styles",
-        9
+        6
       ]
     ],
     "weeklyLoc": {
@@ -1457,9 +1462,9 @@
         60,
         66
       ],
-      "note": "cell = one week (thousands of lines) \u00b7 early weeks estimated from rolling windows \u00b7 wk to 11 Sep = latest capture"
+      "note": "cell = one week (thousands of lines) \u00b7 series ends at the last capture that carried a weekly breakdown (w/c 06 Sep)"
     },
-    "coworkNote": "30-day Cowork sessions: engineering shows zeros (Hawraa, Chris, Eric, Tony, Brad, Nidhi, Rahul) \u2014 engineers live in Claude Code; Cowork is the ops/leadership surface.",
+    "coworkNote": "Bjorn Magabo alone logged 1,050 Cowork sessions in 30 days against 1,126 messages \u2014 roughly one message per session, so read it as very short repeated sessions, not depth of use.",
     "codeMatrix": {
       "months": [
         "Jun",
@@ -1474,7 +1479,7 @@
             10351,
             39579,
             41244,
-            10108
+            15821
           ]
         ],
         [
@@ -1483,7 +1488,7 @@
             18954,
             15834,
             38142,
-            27783
+            99693
           ]
         ],
         [
@@ -1492,7 +1497,7 @@
             22385,
             28536,
             23285,
-            16658
+            19047
           ]
         ],
         [
@@ -1501,7 +1506,7 @@
             6280,
             18918,
             23650,
-            13006
+            24443
           ]
         ],
         [
@@ -1510,7 +1515,7 @@
             10549,
             27031,
             10145,
-            6070
+            30828
           ]
         ],
         [
@@ -1519,7 +1524,7 @@
             12955,
             19535,
             12856,
-            4541
+            17516
           ]
         ],
         [
@@ -1528,7 +1533,7 @@
             0,
             0,
             42859,
-            7083
+            23286
           ]
         ],
         [
@@ -1537,7 +1542,7 @@
             7046,
             6582,
             23266,
-            4017
+            4322
           ]
         ],
         [
@@ -1546,7 +1551,7 @@
             885,
             6208,
             10369,
-            1816
+            11891
           ]
         ],
         [
@@ -1555,7 +1560,7 @@
             1666,
             2970,
             7237,
-            5884
+            19289
           ]
         ]
       ],
@@ -1563,9 +1568,9 @@
         120224,
         228132,
         293419,
-        101159
+        277261
       ],
-      "note": "Sep is month-to-date at the latest capture"
+      "note": "Sep is month-to-date at the 27 Sep capture"
     },
     "byWeek": {
       "labels": [
@@ -1606,65 +1611,67 @@
         "Aug",
         "Sep"
       ],
-      "note": "cell = one week \u00b7 early weeks estimated from the admin's rolling windows"
+      "note": "cell = one week \u00b7 series ends w/c 06 Sep \u2014 later captures give month-to-date only"
     },
     "cowork": {
-      "perWkTotal": 137,
-      "baseline": 130,
+      "perWkTotal": 476,
+      "baseline": 137,
       "members": [
         [
-          "Matt Freeman",
-          17,
-          -3
+          "Bjorn Magabo",
+          244,
+          null
+        ],
+        [
+          "Phuong Ho",
+          92,
+          null
         ],
         [
           "Bradford Young",
-          16,
+          18,
           2
         ],
         [
           "Dave Corbett",
-          15,
-          -4
-        ],
-        [
-          "Katherine Fenwick",
-          14,
+          16,
           1
         ],
         [
           "Harjeet Sammi",
-          13,
+          14,
           1
         ],
         [
-          "Ron Makins",
-          8,
-          0
+          "Katherine Fenwick",
+          12,
+          -2
+        ],
+        [
+          "Matt Freeman",
+          12,
+          -5
+        ],
+        [
+          "Glynn Johnson",
+          10,
+          4
         ],
         [
           "Youssef Medhat",
           7,
-          null
+          0
         ],
         [
-          "Lee Atkins",
+          "Isayah Kuhlmann",
           7,
-          -1
-        ],
-        [
-          "Glynn Johnson",
-          6,
           null
-        ],
-        [
-          "Izaak Horner",
-          5,
-          -1
         ]
       ],
       "note": "rate = 30-day sessions \u00f7 4.3 \u00b7 arrow = change vs last capture \u00b7 \u2014 = first capture"
-    }
+    },
+    "stickinessNote": "DAU/MAU \u2014 daily active share of each product's monthly actives",
+    "locNote": "derived from the September month-to-date delta since the 20 Sep capture"
   },
   "projects": {
     "asAt": "28 Sep 2026",
@@ -1674,32 +1681,32 @@
         "phase": "Shipped \u00b7 live 2026-09-08",
         "owner": "Izaak Horner",
         "status": "DONE",
-        "state": "Cutover complete \u2014 third weekly deck produced fully on HubSpot sources",
-        "roadblock": "Post-migration data quality: owner attribution on tickets/deals, SLA fields ramping, PS time logging habit"
+        "state": "Cutover complete",
+        "roadblock": "N/A"
       },
       {
         "name": "AI Support Agents \u2014 Email + Voice",
         "phase": "Rollout",
         "owner": "Izaak Horner / Nicolas Ibrahim",
-        "status": "WATCH",
-        "state": "Live in HubSpot with draft state machine \u2014 rejects now separable, decision rate measurable for the first time",
-        "roadblock": "Review-queue habit: 72 drafts pending review on open tickets \u00b7 124 flagged needs-human"
+        "status": "ON TRACK",
+        "state": "Live in HubSpot with drafts and voice triage handover, Autonomous launching on Sysnet and Exceed and gates will start to open progressively.",
+        "roadblock": "N/A \u2013 just cautiously rolling out."
       },
       {
         "name": "Leadership Reporting & Hosting",
         "phase": "Ship",
         "owner": "Izaak Horner",
         "status": "ON TRACK",
-        "state": "Reporting safety net live \u2014 weekly deck generated from HubSpot (live) + file drops while the tiered dashboard is built out",
-        "roadblock": "Finance movement register & ValPay export drops pending post-cutover \u00b7 AWS hosting still gated on budget approval"
+        "state": "Cutover is still ongoing but on track for 30 September",
+        "roadblock": "Time to build out reporting. The reporting scope from Anicca was limited."
       },
       {
         "name": "ALH RFP",
         "phase": "Response",
         "owner": "Luke Plunkett",
         "status": "ON TRACK",
-        "state": "In-person demo done 24 Aug; three win themes locked",
-        "roadblock": "Security and compliance criteria need early IT input (Glynn flagged third-party dependencies)"
+        "state": "Waiting on outcome.",
+        "roadblock": "N/A"
       }
     ]
   },

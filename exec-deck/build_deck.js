@@ -146,7 +146,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const cards = [
     { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
-    { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: ["Backlog, ageing & first response", "AI Support Agent"] },
+    { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: D.aiAgent.showSlide ? ["Backlog, ageing & first response", "AI Support Agent"] : ["Backlog, ageing & first response"] },
     { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
   ];
   cards.forEach((cfg, i) => {
@@ -164,9 +164,9 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 }
 
 // =============================================================================
-// 3 · REPORTING CUTOVER (one-week special)
+// 3 · REPORTING CUTOVER (one-week special · shown only when D.cutover.showSlide)
 // =============================================================================
-{
+if (D.cutover.showSlide) {
   const s = pres.addSlide();
   header(s, "Reporting Cutover — Creatio → HubSpot", "All teams · this week's deck reads from the new sources", null);
   const kY = 1.08, kH = 1.12;
@@ -266,8 +266,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { label: "TGT", x: 4.6, w: 0.7, align: "right" }, { label: "QTD", x: 5.34, w: 0.72, align: "right" },
     { label: "ATTAIN", x: 6.12, w: 1.06, align: "left" }, { label: "Δ WK", x: 7.22, w: 0.9, align: "right" },
   ];
-  s.addText(`NEW MRR ($/qtr) · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(`HARDWARE ($/qtr) · Sysnet Δ wk = ${t.extractWeek.replace(/ \d{4}$/, "")}`, { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`NEW MRR ($/qtr) · register ${t.mrr.live ? "live" : t.mrr.asAt}`, { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`HARDWARE ($/qtr) · extracts to ${t.extractTo} · Δ wk = ${t.extractWeek.replace(/ \d{4}$/, "")}`, { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   cols.forEach((c) => s.addText(c.label, { x: TX + c.x, y: TY + 0.66, w: c.w, h: 0.2, align: c.align, fontFace: FONT, fontSize: 7.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   const rows = t.members;
   const rH = 0.345;
@@ -388,7 +388,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   });
 
   card(s, PX, CY + 2.14, PW, 1.18);
-  s.addText([{ text: "ANNUALISED VIEW   ", options: { fontSize: 9, bold: true, color: TEAL } }, { text: "ROAM lines are one month", options: { fontSize: 6, color: GOLD } }],
+  s.addText([{ text: "ANNUALISED VIEW", options: { fontSize: 9, bold: true, color: TEAL } }],
     { x: PX + 0.22, y: CY + 2.22, w: PW - 0.44, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0 });
   s.addText(US(A.roamAnnualAud), { x: PX + 0.22, y: CY + 2.46, w: 1.75, h: 0.42, fontFace: FONT, fontSize: 18, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`open ROAM pipeline at ×12 (${AU(A.roamAnnualAud)}) — the contract value behind the ${US(A.openAud)} of monthly lines`,
@@ -410,7 +410,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 {
   const s = pres.addSlide();
   const hp = D.hlPay, F = hp.flow;
-  header(s, "H&L Pay — Our Referrals to ValPay", D.hlPay.deptLine, 1);
+  header(s, "H&L Pay", D.hlPay.deptLine, 1);
   kpi(s, 0.45, 1.06, 4.1, 1.12, "REFERRALS GIVEN — ALL-TIME", String(hp.referred), "tagged referred deals in the partner pipeline", NAVY);
   s.addText(hp.qtrNote, { x: 2.6, y: 1.14, w: 1.75, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
   kpi(s, 4.7, 1.06, 4.1, 1.12, "REFERRED GMV — SIGNED", hp.signedGmv, `${hp.won} deals won · 2 venues live & billing`, TEAL);
@@ -419,7 +419,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   const CX = 0.45, CY = 2.34, CW = 7.6, CH = 3.34;
   card(s, CX, CY, CW, CH);
-  cardTitle(s, CX, CY, "THE REFERRAL ENGINE — IDENTIFIED BY H&L → REFERRED → SIGNED", 7.1);
+  cardTitle(s, CX, CY, "IDENTIFIED BY H&L → REFERRED → SIGNED", 7.1);
   const fw = 1.5, fx0 = CX + 0.22, fy = CY + 0.44, fh = 0.62;
   hp.funnel.forEach((f, i) => {
     const x = fx0 + i * 1.38;
@@ -648,9 +648,9 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const s = pres.addSlide();
   const b = D.backlog, AS = b.ageSeries;
   header(s, "Backlog", "Support", 3, { cutover: true });
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "OPEN BACKLOG", String(b.open), `${b.aged31} aged 31d+ · as at ${b.asAt}`, TERRA);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "UNANSWERED OPEN", String(b.unanswered), "no first response · HubSpot-conversation basis — overstates during transition", TERRA);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "OPEN PAST 30 DAYS", String(b.past30), "de facto resolution overdue", TERRA);
+  kpi(s, 0.45, 1.12, 2.95, 1.25, "OPEN BACKLOG", String(b.open), `as at ${b.asAt}`, TERRA);
+  kpi(s, 3.6, 1.12, 2.95, 1.25, "OPEN PAST 30 DAYS", String(b.past30), "resolution overdue", TERRA);
+  kpi(s, 6.75, 1.12, 2.95, 1.25, "MEDIAN TICKET AGE", `${b.medianAgeDays} Days`, "All open tickets", TERRA);
   kpi(s, 9.9, 1.12, 2.98, 1.25, "TOTAL CASES", b.totalCases.toLocaleString(), b.totalCasesNote, NAVY);
 
   const BANDS = ["0–7 days", "8–30 days", "31–90 days", "90+ days"];
@@ -701,9 +701,9 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
 
 // =============================================================================
-// 12 · AI SUPPORT AGENT (HubSpot state machine)
+// 12 · AI SUPPORT AGENT (shown only when D.aiAgent.showSlide)
 // =============================================================================
-{
+if (D.aiAgent.showSlide) {
   const s = pres.addSlide();
   const a = D.aiAgent;
   header(s, "AI Support Agent", "Support", 3, { cutover: true });
@@ -810,7 +810,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const ai = D.aiUsage, CM = ai.codeMatrix, BW = ai.byWeek, CO = ai.cowork;
   header(s, "AI Usage — Adoption & Activity", "IT", 4);
   kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
-  kpi(s, 3.6, 1.08, 2.95, 1.2, "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + " ▲", `+${ai.locWoWPct}% WoW · ${ai.locWeekEnding}`, TEAL, 24);
+  kpi(s, 3.6, 1.08, 2.95, 1.2, "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + " ▲",
+      ai.locWoWPct == null ? `${ai.locWeekEnding} · ${ai.locNote}` : `+${ai.locWoWPct}% WoW · ${ai.locWeekEnding}`, TEAL, 24);
   {
     const x = 6.75, y = 1.08, w2 = 6.13, h = 1.2;
     card(s, x, y, w2, h);
@@ -879,7 +880,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText(CO.note, { x: RX + 0.2, y: CY + CH - 0.3, w: RW - 0.4, h: 0.26, fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   aiSummary(s, 0.45, 6.2, 12.43, 0.86, [
-    { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— Cowork edges Claude Code on stickiness (64% vs 63% DAU/MAU); code output ${ai.locLastWeek.toLocaleString()} lines (+${ai.locWoWPct}% WoW), Nicolas leading September. Engineers show zero Cowork sessions because they live in Claude Code — Cowork is the ops and leadership surface, not a sign of inactivity.`, dot: TEAL },
+    { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— Cowork is the stickiest surface at ${ai.stickiness[1][1]}% DAU/MAU against Claude Code's ${ai.stickiness[0][1]}%. September code output stands at ${ai.sepTotal.toLocaleString()} lines, ${ai.locLastWeek.toLocaleString()} of them since the 20 Sep capture, with ${ai.sepToDate[0][0]} on ${ai.sepToDate[0][1].toLocaleString()} alone. ${ai.coworkNote}`, dot: TEAL },
   ]);
   sourcePill(s, ai.source);
 }
@@ -891,7 +892,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 {
   const s = pres.addSlide();
   const p = D.projects;
-  header(s, "Projects — Portfolio Status", "Portfolio · " + p.asAt, 4);
+  header(s, "Projects — Portfolio Status", null, 4);
   ["PROJECT", "STATUS", "CURRENT STATE", "ROADBLOCK"].forEach((h2, i) => {
     const xs = [0.85, 4.95, 6.35, 9.75];
     s.addText(h2, { x: xs[i], y: 1.05, w: 3, h: 0.26, fontFace: FONT, fontSize: 9, bold: true, color: TEAL, isTextBox: true, margin: 0 });
