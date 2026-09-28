@@ -9,8 +9,8 @@ leadership reporting moves from Creatio to HubSpot (go-live 8 Sep 2026).
 ```bash
 cd exec-deck
 npm install          # pptxgenjs only
-node build_deck.js data/wc-2026-09-14.json
-# → output/H&L Weekly Update - WC 14 Sep 2026.pptx
+node build_deck.js data/wc-2026-09-21.json
+# → output/H&L Weekly Update - WC 21 Sep 2026.pptx  (name derives from week.wc)
 ```
 
 Upload the output to SharePoint:
@@ -47,7 +47,9 @@ Upload the output to SharePoint:
 ## Files
 
 - `build_deck.js` — layout + house style (navy/teal/terracotta/gold, Poppins).
-- `data/wc-2026-09-14.json` — the week's numbers **with provenance notes**; the
-  auditable record of what was reported and from where.
+- `data/wc-2026-09-<date>.json` — the week's numbers **with provenance notes**; the
+  auditable record of what was reported and from where. Copy the previous week's
+  file and update it; every narrative string on the slides is computed from it,
+  so a stale block shows its own as-at date rather than lying.
 - `reference/` — the pre-cutover template deck (visual reference).
 - `output/` — generated decks.

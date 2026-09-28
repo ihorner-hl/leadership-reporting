@@ -1,13 +1,13 @@
 {
   "week": {
-    "label": "Week commencing 14 September 2026",
-    "wc": "2026-09-14",
-    "range": "Mon 14 Sep \u2013 Sun 20 Sep 2026",
-    "generated": "21 Sep 2026",
-    "quarterPacePct": 89,
-    "quarterPaceNote": "day 82 of 92 in Q3 (Jul\u2013Sep) at week end 20 Sep",
-    "monthPacePct": 67,
-    "notes": "First deck fully on post-cutover sources. HubSpot went live 8 Sep 2026; Creatio extracts ended 4 Sep. The WC 7 Sep deck was not produced during cutover \u2014 weekly deltas that lean on file drops bridge two weeks where flagged."
+    "label": "Week commencing 21 September 2026",
+    "wc": "2026-09-21",
+    "range": "Mon 21 Sep \u2013 Sun 27 Sep 2026",
+    "generated": "28 Sep 2026",
+    "quarterPacePct": 97,
+    "quarterPaceNote": "day 89 of 92 in Q3 (Jul\u2013Sep) at week end 27 Sep",
+    "monthPacePct": 90,
+    "notes": "Third week on post-cutover sources (HubSpot live 8 Sep 2026). Sysnet weekly extract received for 21\u201327 Sep. The MRR movement register, ValPay export, Claude Admin capture and GTM/roadmap tracker were not refreshed this week \u2014 those slides carry an explicit as-at date."
   },
   "cutover": {
     "creatioLastExtract": "2026-09-04",
@@ -18,7 +18,7 @@
         "old": "Creatio case export",
         "new": "HubSpot (live)",
         "status": "LIVE",
-        "note": "Inflow/outflow, backlog and age bands read live. 7 Sep week shows a resolved spike (1,250) from migration cleanup \u2014 not real throughput."
+        "note": "Inflow/outflow, backlog and age bands read live. Third clean post-cutover week: inflow 498 vs resolved 420, so the backlog rose."
       },
       {
         "area": "Unanswered / first response",
@@ -44,56 +44,56 @@
       {
         "area": "PS utilisation & hours",
         "old": "Creatio work orders",
-        "new": "HubSpot actual_hours (ramping)",
-        "status": "NOT SET UP",
-        "note": "Work-order feed ended 4 Sep. HubSpot time logging covers too few cases to compute utilisation honestly \u2014 shown as not set up, not faked."
+        "new": "HubSpot PS records \u00b7 total_hours (ramping)",
+        "status": "RAMPING",
+        "note": "Billable utilisation is now computed: 20.75h billed of 342h available (9 PS staff \u00d7 38h). Time logging still reaches only 17% of PS items, so the percentage is a logging floor."
       },
       {
         "area": "Finance invoiced (Sysnet)",
         "old": "Weekly file drop",
         "new": "Weekly file drop (unchanged)",
         "status": "AS BEFORE",
-        "note": "Weekly extracts current to 20 Sep (received 21 Sep). Movement register (new-MRR line of record) refresh still pending."
+        "note": "Weekly extract current to 27 Sep (received 28 Sep). MRR movement register not refreshed this week \u2014 new-MRR held at its 20 Sep value."
       },
       {
         "area": "Product / GTM / AI usage / ValPay",
         "old": "File drops",
         "new": "File drops (unchanged)",
         "status": "AS BEFORE",
-        "note": "GTM tracker current; Claude admin weekly capture received; ValPay export as at 6 Sep \u2014 weekly drop pending."
+        "note": "No file drops received this week. GTM tracker, Claude Admin capture and ValPay export all carry their previous as-at dates on the slide."
       }
     ],
-    "deckSeq": "1st on new sources",
-    "deckSeqNote": "WC 7 Sep deck skipped in the cutover \u2014 deltas flagged where they bridge two weeks",
-    "coverChip": "CUTOVER EDITION \u2014 FIRST DECK ON HUBSPOT SOURCES"
+    "deckSeq": "3rd on new sources",
+    "deckSeqNote": "Third full week reading from HubSpot \u2014 deltas are now week-on-week within the new basis, not cutover bridges",
+    "coverChip": "POST-CUTOVER \u2014 WEEK 3 ON HUBSPOT SOURCES"
   },
   "execSummary": {
-    "finance": "hardware $410k = 57% of $715k vs 89% pace; this week +$38k gross (HW discounts -$10k); new MRR $12.1k = 43% of OKR2",
-    "sales": "closed-won this week 48 deals \u00b7 $162k (HubSpot); new MRR $12.1k QTD = 43% of OKR2",
-    "ps": "utilisation not measurable during cutover \u2014 HubSpot time logging ramping (99h on 48 cases)",
-    "support": "weekly inflow 490 vs resolved 591 \u2014 backlog 570 and falling",
-    "product": "Q3 roadmap: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk",
-    "aiUsage": "AI-draft adoption 6.2% this week (4/65) \u2014 first HubSpot-measured week"
+    "finance": "hardware $526k = 74% of $715k vs 97% pace; this week +$116k gross (HW discounts \u2212$8k) \u2014 Solotel Corporate is $102k of it",
+    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); new MRR held at $12.1k QTD \u2014 movement register not refreshed",
+    "ps": "billable utilisation 6.1% \u2014 20.75h billed of 342h available, time logging reaching 17% of PS items",
+    "support": "weekly inflow 498 vs resolved 420 \u2014 backlog 675 and rising for the first time since cutover",
+    "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
+    "aiUsage": "AI-draft adoption 2.9% this week (2 of 68) \u2014 1 sent as-is, 1 edited, 1 rejected"
   },
   "targetVsInvoiced": {
-    "source": "Sysnet extracts to 20 Sep + MRR movement register (live)",
-    "extractWeek": "14\u201320 Sep 2026",
+    "source": "Sysnet extract 21\u201327 Sep + MRR movement register (as at 20 Sep)",
+    "extractWeek": "21\u201327 Sep 2026",
     "mrr": {
       "okr2": 28000,
       "team": 30000,
       "qtd": 12129,
       "asAt": "20 Sep",
-      "deltaWk": 139,
-      "deltaNote": null,
-      "extractNewSubsBilling": -148,
-      "live": true,
+      "deltaWk": null,
+      "deltaNote": "movement register not refreshed this week \u2014 held at 20 Sep",
+      "extractNewSubsBilling": 591.79,
+      "live": false,
       "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately"
     },
     "hardware": {
       "okr2": 715000,
       "team": 761000,
-      "qtd": 410115,
-      "deltaWk": 37636
+      "qtd": 525677,
+      "deltaWk": 115562
     },
     "members": [
       {
@@ -101,45 +101,45 @@
         "mrrTgt": 5000,
         "mrrQtd": 4427,
         "hwTgt": 140000,
-        "hwQtd": 51735,
-        "hwDelta": 4335,
-        "mrrDelta": 44
+        "hwQtd": 52140,
+        "hwDelta": 405,
+        "mrrDelta": null
       },
       {
         "name": "Brett Gorman",
         "mrrTgt": 5000,
         "mrrQtd": 3328,
         "hwTgt": 143000,
-        "hwQtd": 77914,
-        "hwDelta": 1620,
-        "mrrDelta": 44
+        "hwQtd": 87071,
+        "hwDelta": 9157,
+        "mrrDelta": null
       },
       {
         "name": "Bradford Young",
         "mrrTgt": 5000,
         "mrrQtd": 2507,
         "hwTgt": 163000,
-        "hwQtd": 51295,
-        "hwDelta": 5005,
-        "mrrDelta": 0
+        "hwQtd": 53255,
+        "hwDelta": 1960,
+        "mrrDelta": null
       },
       {
         "name": "Jasmine Hikuroa",
         "mrrTgt": 6000,
         "mrrQtd": 1622,
         "hwTgt": 214000,
-        "hwQtd": 142631,
-        "hwDelta": 26676,
-        "mrrDelta": 0
+        "hwQtd": 245081,
+        "hwDelta": 102450,
+        "mrrDelta": null
       },
       {
         "name": "Phuong Ho",
         "mrrTgt": 2000,
         "mrrQtd": 205,
         "hwTgt": 55000,
-        "hwQtd": 12540,
-        "hwDelta": 0,
-        "mrrDelta": 51
+        "hwQtd": 14130,
+        "hwDelta": 1590,
+        "mrrDelta": null
       },
       {
         "name": "Mick Teasdale",
@@ -148,7 +148,7 @@
         "hwTgt": 46000,
         "hwQtd": null,
         "hwDelta": null,
-        "mrrDelta": 0
+        "mrrDelta": null
       },
       {
         "name": "Unassigned",
@@ -157,7 +157,7 @@
         "hwTgt": 0,
         "hwQtd": null,
         "hwDelta": null,
-        "mrrDelta": 0
+        "mrrDelta": null
       }
     ],
     "hlPayNetNewMrr": 1770
@@ -208,7 +208,7 @@
     "trajectory": "Aug $10k \u2192 Sep $30k \u2192 Oct $60k \u2192 Nov $97k \u2192 Dec $137k"
   },
   "hlPay": {
-    "source": "H&L identification register (live) + ValPay export as at 6 Sep",
+    "source": "H&L identification register + ValPay export as at 6 Sep \u2014 refresh pending",
     "referred": 34,
     "signedGmv": "$38M",
     "won": 14,
@@ -367,7 +367,7 @@
     ],
     "qtrNote": "7 this qtr \u00b7 11 last",
     "footnote": "6 deals untagged \u2014 referral figures are a floor. Referrer = Account Manager on the deal.",
-    "deptLine": "Sales \u00b7 ValPay export as at 6 Sep \u00b7 identification register live"
+    "deptLine": "Sales \u00b7 ValPay export as at 6 Sep \u00b7 registers not refreshed this week"
   },
   "salesPipeline": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",
@@ -497,29 +497,35 @@
   },
   "utilisation": {
     "source": "HubSpot PS records (total_hours) + PS pipeline ticket owners \u2014 live, read-only",
-    "weekLabel": "WC 14 Sep 2026",
+    "weekLabel": "WC 21 Sep 2026",
     "weekHours": 38.0,
     "staffCount": 9,
     "availableHours": 342,
-    "billedHours": 16.07,
-    "utilPct": 4.7,
+    "billedHours": 20.75,
+    "utilPct": 6.1,
     "targetPct": 80,
     "staffBasis": "Available staff = the 9 Professional Services people assigned to PS-pipeline tickets open now or closed this week, at a 38h standard week. Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded.",
-    "itemsWithHours": 13,
-    "itemsCreated": 132,
-    "coveragePct": 10,
+    "itemsWithHours": 11,
+    "itemsCreated": 63,
+    "coveragePct": 17,
     "byEmployee": [
       [
         "Rhys Woolcock",
-        13.82,
-        10,
-        36.4
+        10.5,
+        2,
+        27.6
       ],
       [
-        "Gregory St Clare-Hobbs",
-        1.5,
-        1,
-        3.9
+        "Joshua Casey",
+        8.0,
+        6,
+        21.1
+      ],
+      [
+        "Argenis Rafael Guevara",
+        1.75,
+        2,
+        4.6
       ],
       [
         "Isayah Kuhlmann",
@@ -528,10 +534,16 @@
         1.3
       ],
       [
-        "Joshua Casey",
-        0.25,
-        1,
-        0.7
+        "Gregory St Clare-Hobbs",
+        0,
+        0,
+        0.0
+      ],
+      [
+        "Isaac Mercado",
+        0,
+        0,
+        0.0
       ],
       [
         "Rodney Nolan",
@@ -550,32 +562,32 @@
         0,
         0,
         0.0
-      ],
-      [
-        "Argenis Rafael Guevara",
-        0,
-        0,
-        0.0
-      ],
-      [
-        "Isaac Mercado",
-        0,
-        0,
-        0.0
       ]
     ],
     "byWork": [
       [
         "Tech",
-        16.0,
-        12,
-        99.6
+        16.5,
+        8,
+        79.5
       ],
       [
         "Integration",
-        0.07,
+        2.0,
+        2,
+        9.6
+      ],
+      [
+        "Not required",
+        2.0,
         1,
-        0.4
+        9.6
+      ],
+      [
+        "Warranty",
+        0.25,
+        1,
+        1.2
       ],
       [
         "Onboarding",
@@ -588,17 +600,11 @@
         0,
         0,
         0.0
-      ],
-      [
-        "Warranty",
-        0,
-        0,
-        0.0
       ]
     ],
-    "billableNote": "All logged hours are treated as billable \u2014 creatio_non_billable is populated on only 3 of the 30 PS records carrying time, so billable/non-billable is not yet separable.",
-    "medianTtcNote": "Median time to close on PS tickets created and closed since 8 Sep: Tech 0.6 d \u00b7 Integrations 1.0 d \u00b7 Training 1.5 d \u00b7 Onboarding no closes yet.",
-    "psCasesThisWk": 64,
+    "billableNote": "All logged hours are treated as billable \u2014 creatio_non_billable is still populated on only a handful of records, so billable/non-billable is not yet separable.",
+    "medianTtcNote": "Median time to close since 8 Sep: Tech 1.0 d.",
+    "psCasesThisWk": 69,
     "excludedStaff": [
       "Anton Lopez",
       "Bjorn Magabo",
@@ -610,7 +616,7 @@
     "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded."
   },
   "wonVsInvoiced": {
-    "source": "Finance Weekly Invoicing & Creatio \u00b7 register live for churn",
+    "source": "Finance Weekly Invoicing & Creatio \u00b7 register as at 20 Sep \u2014 refresh pending",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
@@ -727,23 +733,23 @@
     "pendingIntegrationsMrr": 2297,
     "pendingIntegrationsN": 45,
     "netMrrNote": "Q3 (Jul\u2013Sep) \u00b7 movement register, live",
-    "registerAsAt": "live"
+    "registerAsAt": "as at 20 Sep"
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",
-    "open": 575,
-    "aged31": 142,
-    "unanswered": 554,
-    "unansweredOld": 441,
-    "past30": 142,
-    "past90": 10,
-    "totalCases": 13115,
-    "totalCasesNote": "1 Feb 26 \u2192 20 Sep 26 \u00b7 HubSpot basis (all Support-pipeline tickets)",
+    "open": 675,
+    "aged31": 179,
+    "unanswered": 626,
+    "unansweredOld": 442,
+    "past30": 179,
+    "past90": 11,
+    "totalCases": 13627,
+    "totalCasesNote": "1 Feb 26 \u2192 27 Sep 26 \u00b7 HubSpot basis (all Support-pipeline tickets)",
     "ageBands": {
-      "b0_7": 200,
-      "b8_30": 242,
-      "b31_90": 118,
-      "b90": 10
+      "b0_7": 194,
+      "b8_30": 302,
+      "b31_90": 168,
+      "b90": 11
     },
     "weekly": [
       {
@@ -775,31 +781,36 @@
         "wk": "09-14",
         "in": 490,
         "out": 591
+      },
+      {
+        "wk": "09-21",
+        "in": 498,
+        "out": 420
       }
     ],
     "spikeNote": "09-07 resolved spike (1,250) is migration cleanup, not real throughput",
     "bandSnapshots": [
       {
-        "label": "W/E 13 Sep",
+        "label": "W/E 20 Sep",
         "bands": [
-          236,
-          259,
-          151,
-          35
+          184,
+          249,
+          132,
+          10
         ]
       },
       {
-        "label": "Fri 19 Sep",
+        "label": "W/E 27 Sep",
         "bands": [
-          200,
-          242,
-          118,
-          10
+          194,
+          302,
+          168,
+          11
         ]
       }
     ],
     "bandNote": "age-band history restarts at cutover \u2014 pre-8-Sep weeks can't be restated (migration re-dated old closes)",
-    "asAt": "20 Sep",
+    "asAt": "27 Sep",
     "ageSeries": {
       "creatio": [
         {
@@ -866,35 +877,44 @@
             132,
             10
           ]
+        },
+        {
+          "wk": "09-27",
+          "bands": [
+            194,
+            302,
+            168,
+            11
+          ]
         }
       ],
       "cutover": "HubSpot go-live 8 Sep",
-      "note": "Weeks to 30 Aug are the frozen Creatio series (extracts ended 4 Sep); 13 & 20 Sep read live from HubSpot. The 7 Sep week falls inside the migration and is not reported."
+      "note": "Weeks to 30 Aug are the frozen Creatio series (extracts ended 4 Sep); 13, 20 & 27 Sep read live from HubSpot. The 7 Sep week falls inside the migration and is not reported."
     }
   },
   "aiAgent": {
     "source": "HubSpot draft state machine (live)",
     "week": {
-      "drafted": 65,
-      "sent": 4,
+      "drafted": 68,
+      "sent": 2,
       "asIs": 1,
-      "edited": 3,
-      "rejected": 2,
-      "pendingOnClosed": 25,
-      "needsHuman": 34,
-      "adoptionPct": 6.2,
+      "edited": 1,
+      "rejected": 1,
+      "pendingOnClosed": 23,
+      "needsHuman": 37,
+      "adoptionPct": 2.9,
       "decisionRatePct": 67,
-      "confidencePct": 25
+      "confidencePct": 50
     },
     "sinceCutover": {
       "from": "8 Sep",
-      "drafted": 92,
-      "sent": 4,
-      "adoptionPct": 4.3
+      "drafted": 160,
+      "sent": 6,
+      "adoptionPct": 3.8
     },
     "openQueue": {
-      "pendingReview": 62,
-      "needsHuman": 85
+      "pendingReview": 72,
+      "needsHuman": 124
     },
     "creatioAllTime": {
       "adoptionPct": 7.3,
@@ -904,7 +924,7 @@
     }
   },
   "roadmap": {
-    "source": "GTM Tracker (product team)",
+    "source": "GTM Tracker (product team) \u2014 as at 19 Sep, refresh pending",
     "counts": {
       "done": 10,
       "onTrack": 12,
@@ -1130,7 +1150,7 @@
     ]
   },
   "gtm": {
-    "source": "GTM Tracker (product team)",
+    "source": "GTM Tracker (product team) \u2014 as at 19 Sep, refresh pending",
     "dims": [
       "MESSAGING & COLLATERAL",
       "VALUE CASE $ PROVEN",
@@ -1275,7 +1295,7 @@
     }
   },
   "aiUsage": {
-    "source": "Claude Admin weekly capture",
+    "source": "Claude Admin weekly capture (w/c 06 Sep) \u2014 refresh pending",
     "activeWeekly": 43,
     "allMembers": 48,
     "daily": 34,
@@ -1647,14 +1667,14 @@
     }
   },
   "projects": {
-    "asAt": "19 Sep 2026",
+    "asAt": "28 Sep 2026",
     "rows": [
       {
         "name": "HubSpot Migration",
         "phase": "Shipped \u00b7 live 2026-09-08",
         "owner": "Izaak Horner",
         "status": "DONE",
-        "state": "Cutover complete \u2014 this deck is the first produced fully on HubSpot sources",
+        "state": "Cutover complete \u2014 third weekly deck produced fully on HubSpot sources",
         "roadblock": "Post-migration data quality: owner attribution on tickets/deals, SLA fields ramping, PS time logging habit"
       },
       {
@@ -1663,7 +1683,7 @@
         "owner": "Izaak Horner / Nicolas Ibrahim",
         "status": "WATCH",
         "state": "Live in HubSpot with draft state machine \u2014 rejects now separable, decision rate measurable for the first time",
-        "roadblock": "Review-queue habit: 62 drafts pending review on open tickets \u00b7 85 flagged needs-human"
+        "roadblock": "Review-queue habit: 72 drafts pending review on open tickets \u00b7 124 flagged needs-human"
       },
       {
         "name": "Leadership Reporting & Hosting",
@@ -1686,56 +1706,56 @@
   "aiProducts": {
     "source": "HubSpot line items \u00b7 products flagged ai_infused (live)",
     "fx": 0.7122,
-    "fxNote": "AUD\u2192USD 0.7122 (mid-market close 20 Sep 2026) \u2014 HubSpot holds no USD field",
+    "fxNote": "AUD\u2192USD 0.7122 (mid-market close 20 Sep 2026) \u2014 rate not refreshed this week; HubSpot holds no USD field",
     "scope": "all open deals + deals closed on/after 1 Jul 2026",
     "stages": [
       {
         "name": "Discovery",
-        "aud": 58,
-        "deals": 1,
+        "aud": 120,
+        "deals": 2,
         "placed": false
       },
       {
         "name": "Quote Sent",
         "aud": 1821,
-        "deals": 19,
+        "deals": 21,
         "placed": false
       },
       {
         "name": "Negotiation",
-        "aud": 1074,
-        "deals": 8,
+        "aud": 1012,
+        "deals": 9,
         "placed": false
       },
       {
         "name": "Order Placed",
-        "aud": 217,
-        "deals": 5,
+        "aud": 310,
+        "deals": 6,
         "placed": true
       },
       {
         "name": "Closed Lost",
         "aud": 361,
-        "deals": 2,
+        "deals": 3,
         "placed": false,
         "lost": true
       }
     ],
     "openAud": 2953,
-    "openDeals": 28,
-    "placedAud": 217,
-    "placedDeals": 5,
+    "openDeals": 32,
+    "placedAud": 310,
+    "placedDeals": 6,
     "lostAud": 361,
-    "lostDeals": 2,
-    "convCount": 71,
-    "convValue": 38,
+    "lostDeals": 3,
+    "convCount": 67,
+    "convValue": 46,
     "roamAnnualAud": 21084,
     "byProduct": [
       {
         "name": "H&L ROAM Monthly",
         "sku": "527",
         "openAud": 1757,
-        "placedAud": 217,
+        "placedAud": 310,
         "lostAud": 62,
         "note": "$29\u201331/unit/mo \u00b7 most volume"
       },
@@ -1764,6 +1784,6 @@
         "note": "flagged but no line items anywhere"
       }
     ],
-    "caveats": "QR Ordering is priced $0 on every line so its value reads nil \u00b7 ROAM lines are one month, not contract value \u00b7 The Loose Goose Bar carries a duplicate ROAM line, counted once \u00b7 Timeless Way Cafe is closed-won with no close date"
+    "caveats": "QR Ordering is priced $0 on every line so its value reads nil \u00b7 ROAM lines are one month, not contract value \u00b7 The Loose Goose Bar carries a duplicate ROAM line, counted once \u00b7 Order Placed gained one ROAM deal (+$93) this week; open pipeline is unmoved"
   }
 }

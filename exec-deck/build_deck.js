@@ -133,7 +133,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText(D.week.label, { x: 0.98, y: 4.35, w: 9, h: 0.45, fontFace: FONT, fontSize: 18, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
   s.addText("Generated: " + D.week.generated, { x: 0.98, y: 4.85, w: 9, h: 0.35, fontFace: FONT, fontSize: 11, color: TEAL_LT, isTextBox: true, margin: 0 });
   s.addShape("roundRect", { x: 0.98, y: 5.5, w: 5.0, h: 0.44, rectRadius: 0.22, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText("CUTOVER EDITION — FIRST DECK ON HUBSPOT SOURCES", { x: 0.98, y: 5.5, w: 5.0, h: 0.44, align: "center", valign: "middle", fontFace: FONT, fontSize: 9, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
+  s.addText(D.cutover.coverChip, { x: 0.98, y: 5.5, w: 5.0, h: 0.44, align: "center", valign: "middle", fontFace: FONT, fontSize: 9, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
   s.addNotes("First weekly deck produced after the Creatio → HubSpot migration (live 8 Sep 2026). Slide 3 carries the cutover register; per-slide source pills carry the provenance.");
 }
 
@@ -172,7 +172,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   const kY = 1.08, kH = 1.12;
   kpi(s, 0.45, kY, 3.9, kH, "CREATIO EXTRACTS ENDED", "4 Sep", "last case / task / work-order export — history frozen", NAVY, 22);
   kpi(s, 4.55, kY, 3.9, kH, "HUBSPOT LIVE", "8 Sep", "support, sales & PS now read live from the portal", TEAL, 22);
-  kpi(s, 8.65, kY, 4.23, kH, "THIS DECK", "1st on new sources", "WC 7 Sep deck skipped in the cutover — deltas flagged where they bridge two weeks", TERRA, 14);
+  kpi(s, 8.65, kY, 4.23, kH, "THIS DECK", D.cutover.deckSeq, D.cutover.deckSeqNote, TERRA, 14);
 
   const tY = 2.36, rowH = 0.61;
   card(s, 0.45, tY, 12.43, rowH * D.cutover.register.length + 0.42);
@@ -238,9 +238,9 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   // headline cards
   card(s, 0.45, 1.1, 6.05, 1.28);
   s.addText(`NEW MRR — Q3 · OKR2 ${fmtK(t.mrr.okr2)} · team ${fmtK(t.mrr.team)}`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText([{ text: fmtK(t.mrr.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.mrr.okr2)} target · register live`, options: { fontSize: 9.5, color: MUTED } }],
+  s.addText([{ text: fmtK(t.mrr.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.mrr.okr2)} target · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 0.65, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`▲ +${fmt$(t.mrr.deltaWk)} this wk`, { x: 4.15, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
+  s.addText(t.mrr.deltaWk == null ? "refresh pending" : `▲ +${fmt$(t.mrr.deltaWk)} this wk`, { x: 4.15, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.deltaWk == null ? GOLD : GREEN, isTextBox: true, margin: 0 });
   progressBar(s, 0.65, 2.08, 4.6, pct(t.mrr.qtd, t.mrr.okr2), pace);
   s.addText([{ text: `${pct(t.mrr.qtd, t.mrr.okr2)}%`, options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${pace}%`, options: { color: FAINT, fontSize: 8 } }],
     { x: 5.35, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
@@ -257,7 +257,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   // member table
   const TX = 0.45, TW = 8.35, TY = 2.56, TH = 4.42;
   card(s, TX, TY, TW, TH);
-  s.addText([{ text: "Q3 BY MEMBER   ", options: { fontSize: 12, bold: true, color: TEAL } }, { text: "▮ pace mark = share of quarter elapsed (89%)", options: { fontSize: 8, color: FAINT } }],
+  s.addText([{ text: "Q3 BY MEMBER   ", options: { fontSize: 12, bold: true, color: TEAL } }, { text: `▮ pace mark = share of quarter elapsed (${pace}%)`, options: { fontSize: 8, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.12, w: TW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0 });
   const cols = [
     { label: "MEMBER", x: 0.22, w: 1.7, align: "left" },
@@ -266,8 +266,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { label: "TGT", x: 4.6, w: 0.7, align: "right" }, { label: "QTD", x: 5.34, w: 0.72, align: "right" },
     { label: "ATTAIN", x: 6.12, w: 1.06, align: "left" }, { label: "Δ WK", x: 7.22, w: 0.9, align: "right" },
   ];
-  s.addText("NEW MRR ($/qtr) · register live", { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText("HARDWARE ($/qtr) · extracts to 20 Sep · Δ wk = 14–20 Sep", { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`NEW MRR ($/qtr) · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`HARDWARE ($/qtr) · Sysnet Δ wk = ${t.extractWeek.replace(/ \d{4}$/, "")}`, { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   cols.forEach((c) => s.addText(c.label, { x: TX + c.x, y: TY + 0.66, w: c.w, h: 0.2, align: c.align, fontFace: FONT, fontSize: 7.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   const rows = t.members;
   const rH = 0.345;
@@ -278,17 +278,17 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     s.addText(m.name, { x: TX + 0.22, y, w: 1.74, h: rH, fontFace: FONT, fontSize: 9, color: nameColor, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(fmtK(m.mrrTgt), { x: TX + 1.98, y, w: 0.62, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(m.mrrQtd >= 1000 ? fmtK(m.mrrQtd) : fmt$(m.mrrQtd), { x: TX + 2.62, y, w: 0.62, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-    progressBar(s, TX + 3.34, y + rH / 2 - 0.05, 0.8, m.mrrTgt ? pct(m.mrrQtd, m.mrrTgt) : 0, 89);
+    progressBar(s, TX + 3.34, y + rH / 2 - 0.05, 0.8, m.mrrTgt ? pct(m.mrrQtd, m.mrrTgt) : 0, pace);
     s.addText(m.mrrTgt ? `${pct(m.mrrQtd, m.mrrTgt)}%` : "—", { x: TX + 3.3 + 0.88, y, w: 0.42, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(m.hwTgt ? fmtK(m.hwTgt) : "—", { x: TX + 4.6, y, w: 0.7, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(m.hwQtd != null ? fmtK(m.hwQtd) : "—", { x: TX + 5.34, y, w: 0.72, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     if (m.hwQtd != null && m.hwTgt) {
-      progressBar(s, TX + 6.16, y + rH / 2 - 0.05, 0.8, pct(m.hwQtd, m.hwTgt), 89);
+      progressBar(s, TX + 6.16, y + rH / 2 - 0.05, 0.8, pct(m.hwQtd, m.hwTgt), pace);
       s.addText(`${pct(m.hwQtd, m.hwTgt)}%`, { x: TX + 6.12 + 0.88, y, w: 0.42, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     } else {
       s.addText("—", { x: TX + 6.12, y, w: 1.06, h: rH, align: "center", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
     }
-    s.addText(m.hwDelta != null ? "+" + fmtK(m.hwDelta).slice(1) : "—", { x: TX + 7.22, y, w: 0.9, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.hwDelta == null ? "—" : "+" + (Math.abs(m.hwDelta) < 1000 ? fmt$(m.hwDelta).slice(1) : fmtK(m.hwDelta).slice(1)), { x: TX + 7.22, y, w: 0.9, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
   const totY = TY + 0.92 + rows.length * rH + 0.04;
   s.addShape("rect", { x: TX + 0.22, y: totY - 0.05, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
@@ -299,13 +299,13 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText(fmtK(t.hardware.qtd), { x: TX + 5.34, y: totY, w: 0.72, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`${pct(t.hardware.qtd, t.hardware.team)}%`, { x: TX + 6.12, y: totY, w: 1.06, h: 0.3, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   s.addText("+" + fmtK(t.hardware.deltaWk).slice(1), { x: TX + 7.22, y: totY, w: 0.9, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("MRR = net new + expansion invoiced in Q3 (movement register, live to 20 Sep) · H&L Pay net new $" + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
+  s.addText(`MRR = net new + expansion invoiced in Q3 (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
 
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
-    { lead: "Hardware is $410k (57%)", text: "against an 89% pace mark. This week's extract (14–20 Sep) added $38k gross — Jasmine +$27k, Bradford +$5k, Bjorn +$4k; the prior (7–13 Sep) week's $38k closed the skipped WC 7 Sep deck.", dot: TERRA },
-    { lead: "Watch the discounts:", text: "hardware discounts ran -$10.2k this week (-$10.0k on Jasmine's deals) vs -$2.2k last week — gross $37.6k nets to $27.4k.", dot: GOLD },
-    { lead: "New MRR is now live — and behind.", text: `The movement register has rerun: $${t.mrr.qtd.toLocaleString()} invoiced this quarter (43% of the $28k OKR2) against an 89% pace mark, with only $${t.mrr.deltaWk} added in the reporting week. Bjorn leads on $4.4k (89% of target); Jasmine sits at 27%.`, dot: TEAL },
-    { text: "HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = day 82 of 92 in Q3.", muted: true, dot: FAINT },
+    { lead: `Hardware is ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against a ${pace}% pace mark. The ${t.extractWeek} extract added ${fmtK(t.hardware.deltaWk)} gross — the biggest week of the quarter — but $102k of it is one Corporate account (Solotel) booked to Jasmine, who jumps to ${pct(245081, 214000)}% of target.`, dot: TERRA },
+    { lead: "Discounts eased in proportion:", text: "hardware discounts ran -$8.4k on $115.6k gross (7%) against -$10.2k on $37.6k (27%) last week. Net hardware for the week is $107.2k.", dot: GOLD },
+    { lead: "New MRR was not refreshed this week.", text: `It is held at ${fmt$(t.mrr.qtd)} (${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2) as at ${t.mrr.asAt}, against a ${pace}% pace mark. The Sysnet extract's own subscription line moved +$592, which is a different measure and is not carried into MRR.`, dot: TEAL },
+    { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);
 }
@@ -397,7 +397,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   aiSummary(s, 0.45, 6.02, 12.43, 0.98, [
     { lead: "Conversion is real but tiny.", text: `${A.placedDeals} orders placed since 1 Jul (${US(A.placedAud)}) against ${A.lostDeals} lost — ${A.convCount}% by count, ${A.convValue}% by value. All of it is ROAM; Sentinel has ${US(A.byProduct[1].openAud)} in play and no order yet.`, dot: GREEN },
-    { lead: "The book is stuck mid-funnel:", text: `${US(A.stages[1].aud + A.stages[2].aud)} of the ${US(A.openAud)} open sits in Quote Sent and Negotiation across 27 deals — the movement to chase is quote-to-order, not top-of-funnel.`, dot: TEAL },
+    { lead: "The book is stuck mid-funnel:", text: `${US(A.stages[1].aud + A.stages[2].aud)} of the ${US(A.openAud)} open sits in Quote Sent and Negotiation across ${A.stages[1].deals + A.stages[2].deals} deals — the movement to chase is quote-to-order, not top-of-funnel.`, dot: TEAL },
     { text: "QR Ordering is priced $0 on every line, so its value reads nil · ROAM lines are one month, not contract value.", muted: true, dot: FAINT },
   ]);
   sourcePill(s, A.source);
@@ -410,7 +410,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 {
   const s = pres.addSlide();
   const hp = D.hlPay, F = hp.flow;
-  header(s, "H&L Pay — Our Referrals to ValPay", "Sales · ValPay export as at 6 Sep · identification register live", 1);
+  header(s, "H&L Pay — Our Referrals to ValPay", D.hlPay.deptLine, 1);
   kpi(s, 0.45, 1.06, 4.1, 1.12, "REFERRALS GIVEN — ALL-TIME", String(hp.referred), "tagged referred deals in the partner pipeline", NAVY);
   s.addText(hp.qtrNote, { x: 2.6, y: 1.14, w: 1.75, h: 0.2, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
   kpi(s, 4.7, 1.06, 4.1, 1.12, "REFERRED GMV — SIGNED", hp.signedGmv, `${hp.won} deals won · 2 venues live & billing`, TEAL);
@@ -539,18 +539,19 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   [["SERVICE TYPE", 0.22, 1.5, "left"], ["", 1.8, 1.6, "left"], ["HOURS", 3.4, 0.7, "right"], ["SHARE", 4.15, 0.66, "right"]]
     .forEach(([t, x, w, al]) => { if (t) s.addText(t, { x: RX + x, y: CY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }); });
   const wMax = Math.max(...u.byWork.map((r) => r[1])) || 1;
+  const ROWW = Math.min(0.19, 1.0 / u.byWork.length);
   u.byWork.forEach((r, i) => {
-    const y = CY + 0.58 + i * 0.19;
+    const y = CY + 0.56 + i * ROWW;
     const zero = r[1] === 0;
-    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: 0.19, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addShape("roundRect", { x: RX + 1.8, y: y + 0.063, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
-    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + 0.063, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
-    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: 0.19, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: 0.19, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[0], { x: RX + 0.22, y, w: 1.5, h: ROWW, fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? MUTED : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.065) / 2, w: 1.5, h: 0.065, rectRadius: 0.032, fill: { color: TRACK }, line: { type: "none" } });
+    if (!zero) s.addShape("roundRect", { x: RX + 1.8, y: y + (ROWW - 0.065) / 2, w: Math.max(0.05, (r[1] / wMax) * 1.5), h: 0.065, rectRadius: 0.032, fill: { color: TEAL }, line: { type: "none" } });
+    s.addText(zero ? "—" : r[1].toFixed(2) + "h", { x: RX + 3.4, y, w: 0.7, h: ROWW, align: "right", fontFace: FONT, fontSize: 8, bold: !zero, color: zero ? FAINT : TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(zero ? "none" : r[3].toFixed(1) + "%", { x: RX + 4.15, y, w: 0.66, h: ROWW, align: "right", fontFace: FONT, fontSize: zero ? 6.5 : 8, color: zero ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
 
   {
-    const ty = CY + 0.58 + u.byWork.length * 0.19 + 0.03;
+    const ty = CY + 0.56 + u.byWork.length * ROWW + 0.03;
     s.addShape("rect", { x: RX + 0.22, y: ty, w: RW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
     s.addText("TOTAL", { x: RX + 0.22, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(`${u.itemsWithHours} PS items carry time`, { x: RX + 1.8, y: ty + 0.03, w: 1.5, h: 0.2, fontFace: FONT, fontSize: 6.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
@@ -560,8 +561,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   aiSummary(s, RX, CY + 2.0, RW, CH - 2.0, [
     { lead: `${u.utilPct}% billable utilisation is a logging number, not a delivery number.`, text: `${u.billedHours}h landed against ${u.availableHours}h of capacity, but only ${u.coveragePct}% of the week's ${u.itemsCreated} PS items carry hours.`, dot: TERRA },
-    { lead: "One person carries almost the entire logged total.", text: `Rhys Woolcock 13.82h (36.4%) is 86% of the hours; Gregory, Isayah and Joshua logged under 2h each and ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
-    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries ${u.byWork[0][3]}% of logged time. Median time to close since 8 Sep: Tech 0.6 d.`, dot: TEAL },
+    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h (${u.byEmployee[0][3]}% of a ${u.weekHours}h week) and ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h (${u.byEmployee[1][3]}%); ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing at all.`, dot: GOLD },
+    { lead: "Work is landing even where hours aren't.", text: `${u.psCasesThisWk} PS cases opened this week; Tech carries ${u.byWork[0][3]}% of logged time. ${u.medianTtcNote}`, dot: TEAL },
   ]);
   footnote(s, u.billableNote, 6.72);
   sourcePill(s, u.source);
@@ -598,7 +599,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 
   const KX = 7.95, KW = 4.93;
   kpi(s, KX, 1.1, KW, 0.98, "AWAITING GO-LIVE — ARR", `$${w.awaitingGoLiveK}k`, `${w.wonSinceMar} deals won since Mar · ${w.invoiced} invoiced · ${w.outstanding} outstanding`, GOLD, 20);
-  kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · register live`, TERRA, 20);
+  kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · register ${w.registerAsAt}`, TERRA, 20);
   kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT", `-$${Math.abs(w.netMrrQ3K)}k`, `${w.netMrrNote} — the base is still shrinking`, TERRA, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
@@ -626,7 +627,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { text: "•  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
     { text: `Uninvoiced is top-loaded: Oscars Group is 62% of the $${w.awaitingGoLiveK}k awaiting go-live; the top 3 clients are ~78%.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
     { text: "•  ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
-    { text: `Churn is now read live from the movement register: $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction on accounts that stayed. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
+    { text: `Churn reads from the movement register (${w.registerAsAt}): $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction on accounts that stayed. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
     { text: "•  ", options: { color: FAINT, bold: true, fontSize: 8.5 } },
     { text: "AVC excluded — Creatio MRR field misstated (annual values in the monthly field); correction pending.", options: { color: FAINT, fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
     { text: "GO-LIVE CONTEXT", options: { color: TEAL, bold: true, fontSize: 9, breakLine: true } },
@@ -690,8 +691,8 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   s.addText(AS.note, { x: CX + 0.22, y: CY + CH - 0.42, w: CW - 0.44, h: 0.36, fontFace: FONT, fontSize: 6.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   aiSummary(s, 7.85, CY, 5.03, CH, [
-    { lead: "The tail is finally coming down.", text: "90+ day cases fell 35 → 10 and the 31–90 band 151 → 132 across the first two HubSpot weeks; backlog 681 → 575. Outflow beat inflow this week (591 resolved vs 490 in).", dot: GREEN },
-    { lead: "History is frozen, not restated.", text: "Weeks to 30 Aug are the Creatio series as it stood at the final extract. The migration re-dated old closes, so those weeks cannot be recomputed in HubSpot — and the 7 Sep week sits inside the cutover, so it is not reported.", dot: GOLD },
+    { lead: "The backlog turned this week.", text: `Inflow ${b.weekly[b.weekly.length - 1].in} beat resolved ${b.weekly[b.weekly.length - 1].out} — the first week since cutover where it did. Open rose 575 → ${b.open}, and the 8–30 day band carried it (249 → ${b.ageBands.b8_30}). The 90+ tail is still the win: 10 → ${b.ageBands.b90}.`, dot: TERRA },
+    { lead: "31–90 days is where it is building.", text: `That band went 132 → ${b.ageBands.b31_90} in the week, so ${b.past30} cases are now past 30 days against 142 a fortnight ago. Work aged 8–30 days is ageing through rather than closing.`, dot: GOLD },
     { lead: "The queue is still the live risk:", text: `${b.unanswered} open cases show no first response. Migrated tickets answered only in Creatio count as unanswered here — treat as a ceiling until the transition washes through.`, dot: TERRA },
     { text: "SLA fields are populating on new HubSpot tickets — attainment reporting returns once coverage is credible.", muted: true, dot: FAINT },
   ]);
@@ -708,14 +709,14 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   header(s, "AI Support Agent", "Support", 3, { cutover: true });
   s.addText([
     { text: "Adoption basis: ", options: { color: FAINT, fontSize: 7.5 } },
-    { text: "tickets closed this week (14–20 Sep) with an AI draft in scope · voicemail/junk excluded · ", options: { color: MUTED, fontSize: 7.5, bold: true } },
+    { text: `tickets closed this week (${D.week.range.replace(/^Mon /, "").replace(/ \d{4}$/, "").replace(" – Sun ", "–")}) with an AI draft in scope · voicemail/junk excluded · `, options: { color: MUTED, fontSize: 7.5, bold: true } },
     { text: "now read live from the HubSpot draft state machine (ai_draft_status) — Creatio all-time history frozen at cutover", options: { color: TEAL, fontSize: 7.5 } },
   ], { x: 0.45, y: 0.96, w: 12.4, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
 
   kpi(s, 0.45, 1.26, 2.95, 1.2, "APPROVED & SENT — THIS WEEK", String(a.week.sent), `${a.week.asIs} as-is · ${a.week.edited} edited`, GREEN);
   kpi(s, 3.6, 1.26, 2.95, 1.2, "REJECTED — THIS WEEK", String(a.week.rejected), "now measurable — separable from auto-clear for the first time", GOLD);
   kpi(s, 6.75, 1.26, 2.95, 1.2, "DRAFTED (IN SCOPE)", String(a.week.drafted), "on tickets closed this week", NAVY);
-  kpi(s, 9.9, 1.26, 2.98, 1.2, "DECISION RATE — NEW", `${a.week.decisionRatePct}%`, "approved / (approved + rejected) = 4/6 — the metric Creatio couldn't measure", TEAL);
+  kpi(s, 9.9, 1.26, 2.98, 1.2, "DECISION RATE — NEW", `${a.week.decisionRatePct}%`, `approved / (approved + rejected) = ${a.week.sent}/${a.week.sent + a.week.rejected} — the metric Creatio couldn't measure`, TEAL);
 
   kpi(s, 0.45, 2.62, 4.05, 1.2, "ADOPTION — APPROVED OF ALL DRAFTS", `${a.week.adoptionPct}%`, `${a.week.sent} of ${a.week.drafted} drafts in scope · since cutover (8 Sep): ${a.sinceCutover.adoptionPct}% (${a.sinceCutover.sent}/${a.sinceCutover.drafted}) · human-approved throughout`, TERRA);
   kpi(s, 4.7, 2.62, 4.05, 1.2, "CONFIDENCE — RIGHT FIRST TIME", `${a.week.confidencePct}%`, `${a.week.asIs} as-is of ${a.week.sent} approved · target 95% · small base this week`, GOLD);
@@ -725,13 +726,13 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
   cardTitle(s, 0.45, 4.0, "HOW TO READ ADOPTION — POST-CUTOVER", 8);
   s.addText([
     { text: "•  ", options: { color: TEAL, bold: true, fontSize: 9 } },
-    { text: "This week: 65 in-scope drafts on closed tickets, 4 approved & sent (1 as-is, 3 edited) = 6.2% adoption. Every approved reply is human-reviewed — assisted resolution, not autonomous deflection.", options: { color: "3A4B57", fontSize: 9, breakLine: true, paraSpaceAfter: 8 } },
+    { text: `This week: ${a.week.drafted} in-scope drafts on closed tickets, ${a.week.sent} approved & sent (${a.week.asIs} as-is, ${a.week.edited} edited) = ${a.week.adoptionPct}% adoption. Every approved reply is human-reviewed — assisted resolution, not autonomous deflection.`, options: { color: "3A4B57", fontSize: 9, breakLine: true, paraSpaceAfter: 8 } },
     { text: "•  ", options: { color: GOLD, bold: true, fontSize: 9 } },
     { text: "The cutover upgrade: ", options: { color: NAVY, bold: true, fontSize: 9 } },
-    { text: "ai_draft_status now distinguishes sent as-is / sent edited / rejected / pending review / needs human. Rejects are separable from auto-clears for the first time, so the true decision rate (67% this week, 4 of 6 decided drafts approved) is finally measurable — the number the old CRM export could never produce.", options: { color: "3A4B57", fontSize: 9, breakLine: true, paraSpaceAfter: 8 } },
+    { text: `ai_draft_status now distinguishes sent as-is / sent edited / rejected / pending review / needs human. Rejects are separable from auto-clears for the first time, so the true decision rate (${a.week.decisionRatePct}% this week, ${a.week.sent} of ${a.week.sent + a.week.rejected} decided drafts approved) is finally measurable — the number the old CRM export could never produce.`, options: { color: "3A4B57", fontSize: 9, breakLine: true, paraSpaceAfter: 8 } },
     { text: "•  ", options: { color: TERRA, bold: true, fontSize: 9 } },
     { text: "Comparisons: ", options: { color: NAVY, bold: true, fontSize: 9 } },
-    { text: "Creatio all-time (7.3% adoption, 64/874) is frozen as the pre-cutover baseline — don't chain it with HubSpot weeks. 34 closed tickets this week ended needs-human (drafts weak on complex technical fixes — knowledge-base gaps, not tone) and 25 closed with a draft still pending review: the review-queue habit is the adoption lever.", options: { color: "3A4B57", fontSize: 9 } },
+    { text: `Creatio all-time (${a.creatioAllTime.adoptionPct}% adoption, ${a.creatioAllTime.sent}/${a.creatioAllTime.drafted}) is frozen as the pre-cutover baseline — don't chain it with HubSpot weeks. ${a.week.needsHuman} closed tickets this week ended needs-human (drafts weak on complex technical fixes — knowledge-base gaps, not tone) and ${a.week.pendingOnClosed} closed with a draft still pending review: the review-queue habit is the adoption lever.`, options: { color: "3A4B57", fontSize: 9 } },
   ], { x: 0.67, y: 4.42, w: 12.0, h: 2.1, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
   footnote(s, "Adoption = approved & sent / drafts in scope on closed tickets · confidence = sent as-is / approved · decision rate = approved / (approved + rejected)", 6.74);
   sourcePill(s, a.source);
@@ -910,6 +911,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 }
 
 // -----------------------------------------------------------------------------
-const outName = `H&L Weekly Update - WC 14 Sep 2026.pptx`;
+const wcDate = new Date(D.week.wc + "T00:00:00Z");
+const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
 const outPath = path.join(__dirname, "output", outName);
 pres.writeFile({ fileName: outPath }).then(() => console.log("written:", outPath));
