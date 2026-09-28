@@ -85,7 +85,7 @@
       "qtd": 12129,
       "asAt": "27 Sep",
       "deltaWk": 0,
-      "deltaNote": "The last entry was 18 Sep; the next dated ones are 28 Sep ($598, Piermount) and 30 Sep ($62) \u2014 inside Q3 but after this reporting week.",
+      "deltaNote": "HubSpot shows $3,440 of new software MRR won in the week across 34 deals \u2014 none of it invoiced yet. The register's next dated entries are 28 and 30 Sep.",
       "extractNewSubsBilling": 591.79,
       "live": true,
       "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately"
@@ -650,7 +650,7 @@
     "restateNote": "restates upward as hours land"
   },
   "wonVsInvoiced": {
-    "source": "Finance movement register (live) \u00b7 chart frozen on the Creatio ARR basis",
+    "source": "HubSpot total_software_cost (won) + finance movement register (invoiced) \u00b7 chart frozen at cutover",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
@@ -766,9 +766,57 @@
     "contractionLogos": 149,
     "pendingIntegrationsMrr": 2297,
     "pendingIntegrationsN": 45,
-    "netMrrNote": "Jul\u2013Sep \u00b7 finance movement register, live \u2014 HubSpot cannot produce this yet",
+    "netMrrNote": "Jul\u2013Sep \u00b7 won $12.1k (HubSpot) vs invoiced $12.1k (register) \u00b7 churn has no HubSpot source",
     "registerAsAt": "live",
-    "hubspotGap": "mrr is set on 13 of 114 September wins and on none of the 91 expansion deals, and $50.2k of the $52.1k it does hold is the misstated AVC migration batch (annual values in the monthly field). There is no churn source at all \u2014 Subscriptions is empty. The finance register stays the record until expansion carries mrr and a churn motion exists."
+    "hubspotGap": "Your Total Software field (outright excluded, annual \u00f7 12) gives $3,440 won in 21\u201327 Sep and $12,061 across Q3 against $12,129 invoiced on the register \u2014 a 0.6% gap, so the two tie out. That is why the register shows a nil week: the $3.4k won has not been invoiced yet. Net movement still needs the register because HubSpot has no churn or contraction motion.",
+    "hubspotMrr": {
+      "field": "total_software_cost \u2014 outright software excluded, annual \u00f7 12",
+      "q3Won": 12061,
+      "monthly": [
+        [
+          "Jul",
+          969
+        ],
+        [
+          "Aug",
+          2685
+        ],
+        [
+          "Sep",
+          8407
+        ]
+      ],
+      "weekWon": 3440,
+      "weekDeals": 34,
+      "weekByType": [
+        [
+          "New Business",
+          2,
+          1313
+        ],
+        [
+          "Change of Ownership",
+          2,
+          886
+        ],
+        [
+          "Expansion (New Venue)",
+          3,
+          834
+        ],
+        [
+          "Expansion (Other)",
+          18,
+          309
+        ],
+        [
+          "Expansion (Migration)",
+          9,
+          98
+        ]
+      ],
+      "q3Invoiced": 12129
+    }
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",

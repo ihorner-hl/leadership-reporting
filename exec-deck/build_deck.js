@@ -649,7 +649,7 @@ if (D.cutover.showSlide) {
     { text: "•  ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
     { text: `Churn reads from the movement register: $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
     { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
-    { text: "Net movement should read from HubSpot and cannot yet. ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
+    { text: "Won MRR now reads from HubSpot. ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
     { text: w.hubspotGap, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
     { text: "◆  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
     { text: "GO-LIVE CONTEXT · Oscars Group — ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
