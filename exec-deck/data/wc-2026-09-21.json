@@ -650,87 +650,7 @@
     "restateNote": "restates upward as hours land"
   },
   "wonVsInvoiced": {
-    "source": "HubSpot total_software_cost (won) + finance movement register (invoiced) \u00b7 chart frozen at cutover",
-    "awaitingGoLiveK": 250,
-    "wonSinceMar": 497,
-    "invoiced": 277,
-    "outstanding": 220,
-    "churnedArrM": 1.17,
-    "logosLost": 262,
-    "netMrrK": -22,
-    "topNotInvoiced": [
-      [
-        "Oscars Group \u25c6",
-        "$155k",
-        "$12,880",
-        "Mar",
-        1
-      ],
-      [
-        "Wayi Restaurant",
-        "$21k",
-        "$1,790",
-        "May",
-        1
-      ],
-      [
-        "Hallmark Hospitality \u00b7 2 venues",
-        "$19k",
-        "$1,557",
-        "Jun",
-        3
-      ],
-      [
-        "BRG \u00b7 2 venues",
-        "$6k",
-        "$492",
-        "Jul",
-        2
-      ],
-      [
-        "Grand Cru - Claremont",
-        "$6k",
-        "$480",
-        "Aug",
-        1
-      ],
-      [
-        "Downs Club Toowoomba",
-        "$5k",
-        "$455",
-        "May",
-        1
-      ],
-      [
-        "Crazy Horse Revue",
-        "$5k",
-        "$437",
-        "Apr",
-        1
-      ],
-      [
-        "Citi Group - Harp",
-        "$5k",
-        "$410",
-        "Mar",
-        1
-      ],
-      [
-        "Woodside Beach Hotel",
-        "$5k",
-        "$394",
-        "Sep",
-        1
-      ],
-      [
-        "Bistro Margaux",
-        "$4k",
-        "$333",
-        "Aug",
-        1
-      ]
-    ],
-    "goLiveContext": "Signed \u2014 ~1.5x rollout timeline expected. Held by the old provider's contract terms; asking H&L for a discount to bridge.",
+    "source": "HubSpot deals + company churn register + finance register \u2014 all live",
     "monthly": {
       "labels": [
         "Jan",
@@ -739,84 +659,144 @@
         "Apr",
         "May",
         "Jun",
-        "Jul"
+        "Jul",
+        "Aug",
+        "Sep"
       ],
       "won": [
-        89148,
-        53717,
-        200064,
-        34236,
-        39372,
-        77748,
-        15377
+        188,
+        472,
+        16627,
+        3799,
+        6312,
+        17288,
+        969,
+        2685,
+        8407
       ],
       "invoiced": [
-        30732,
-        66948,
-        44352,
-        58572,
-        70788,
-        45408,
-        90012
+        2829,
+        5205,
+        5883,
+        3463,
+        5482,
+        7087,
+        4860,
+        3700,
+        3569
       ],
-      "note": "Frozen at cutover \u2014 Creatio ARR basis, as last published. Aug\u2013Sep are not plotted: HubSpot closed-won is deal amount, not the Creatio ARR measure, so a new series starts once the post-cutover months are confirmed."
+      "note": "Won = HubSpot closed-won Total Software (outright excluded, annual \u00f7 12) by close date. Invoiced = finance register new + expansion by date of invoice. Both live and refreshed weekly \u2014 nothing on this slide is frozen."
     },
-    "netMrrQ3K": -6.3,
-    "contractionArrK": 235,
-    "contractionLogos": 149,
-    "pendingIntegrationsMrr": 2297,
-    "pendingIntegrationsN": 45,
-    "netMrrNote": "Jul\u2013Sep \u00b7 won $12.1k (HubSpot) vs invoiced $12.1k (register) \u00b7 churn has no HubSpot source",
-    "registerAsAt": "live",
-    "hubspotGap": "Your Total Software field (outright excluded, annual \u00f7 12) gives $3,440 won in 21\u201327 Sep and $12,061 across Q3 against $12,129 invoiced on the register \u2014 a 0.6% gap, so the two tie out. That is why the register shows a nil week: the $3.4k won has not been invoiced yet. Net movement still needs the register because HubSpot has no churn or contraction motion.",
-    "hubspotMrr": {
-      "field": "total_software_cost \u2014 outright software excluded, annual \u00f7 12",
-      "q3Won": 12061,
-      "monthly": [
-        [
-          "Jul",
-          969
-        ],
-        [
-          "Aug",
-          2685
-        ],
-        [
-          "Sep",
-          8407
-        ]
+    "awaitingArrK": 481,
+    "awaitingDeals": 45,
+    "wonDeals2026": 66,
+    "awaitingUnmappedArrK": 379,
+    "awaitingUnmappedDeals": 20,
+    "awaitingConfirmedArrK": 102,
+    "churnedArrK": 639,
+    "logosLost": 171,
+    "churnedMrr": 53227,
+    "churnFrom": "2025\u2192",
+    "churnNote": "HubSpot company churn register \u00b7 live",
+    "netMrrQ3K": 12.1,
+    "netMrrNote": "won $12.1k less churn recorded $0 \u2014 not yet a true net",
+    "topNotInvoiced": [
+      [
+        "Oscars Hotels",
+        "$155k",
+        "$12,880",
+        "Mar",
+        0
       ],
+      [
+        "Hotel Grand Chancellor \u2014 Adelaide",
+        "$95k",
+        "$7,900",
+        "Jun",
+        0
+      ],
+      [
+        "AVC - White Cockatoo Hotel",
+        "$52k",
+        "$4,345",
+        "May",
+        0
+      ],
+      [
+        "Terminus Hotel - Strathalbyn",
+        "$10k",
+        "$850",
+        "Apr",
+        0
+      ],
+      [
+        "BRG - Grand Hotel Millicent",
+        "$10k",
+        "$795",
+        "Aug",
+        0
+      ],
+      [
+        "Coyote's Roadhouse (Hallmark)",
+        "$9k",
+        "$789",
+        "Sep",
+        1
+      ],
+      [
+        "Caves House Hotel",
+        "$8k",
+        "$669",
+        "Aug",
+        1
+      ],
+      [
+        "TH - Cote Basque",
+        "$8k",
+        "$641",
+        "Sep",
+        0
+      ],
+      [
+        "New Whyalla Hotel",
+        "$7k",
+        "$606",
+        "Apr",
+        1
+      ],
+      [
+        "Royal Family Hotel",
+        "$7k",
+        "$597",
+        "Sep",
+        1
+      ]
+    ],
+    "listNote": "\u25c6 = company has no Debtor ID, so the invoice match cannot be confirmed either way",
+    "hubspotMrr": {
+      "q3Won": 12061,
       "weekWon": 3440,
       "weekDeals": 34,
-      "weekByType": [
-        [
-          "New Business",
-          2,
-          1313
-        ],
-        [
-          "Change of Ownership",
-          2,
-          886
-        ],
-        [
-          "Expansion (New Venue)",
-          3,
-          834
-        ],
-        [
-          "Expansion (Other)",
-          18,
-          309
-        ],
-        [
-          "Expansion (Migration)",
-          9,
-          98
-        ]
-      ],
       "q3Invoiced": 12129
-    }
+    },
+    "bullets": [
+      [
+        "Won and invoiced now both read live.",
+        "Won is HubSpot Total Software by close date, invoiced is the finance register by invoice date. Q3 ties out: $12,061 won against $12,129 invoiced, a 0.6% gap. March and June are the two months where wins ran far ahead of billing."
+      ],
+      [
+        "$481k of ARR is won and not yet invoiced.",
+        "45 of the 66 deals that carried software MRR in 2026. Oscars Group alone is $155k \u2014 32% of it \u2014 and the top three are 63%."
+      ],
+      [
+        "Debtor mapping is the blocker on $379k of that.",
+        "20 of the 45 companies carry no Debtor ID, so the match cannot be confirmed either way; only $102k is confirmed unbilled. Mapping those 20 is the single highest-value data fix on this slide."
+      ],
+      [
+        "Churn recording stopped in February.",
+        "The HubSpot churn register is real through 2025 \u2014 171 logos and $53.2k of MRR since Jan 2025, $639k ARR \u2014 but 2026 holds 15 logos and nothing since Feb carries a churned MRR value. Until that resumes, net movement is not a true net."
+      ]
+    ]
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",

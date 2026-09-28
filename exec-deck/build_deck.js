@@ -601,33 +601,33 @@ if (D.cutover.showSlide) {
   header(s, "Won vs Invoiced & Retention", "Sales, Professional Services & Finance", 2);
   const WX = 0.45, WY = 1.1, WW = 7.35, WH = 3.15;
   card(s, WX, WY, WW, WH);
-  s.addText([{ text: "CLOSED WON ARR VS INVOICED ARR BY MONTH · 2026   ", options: { fontSize: 11.5, bold: true, color: TEAL } },
-             { text: "frozen at cutover", options: { fontSize: 6.8, color: GOLD } }],
+  s.addText([{ text: "NEW MRR — WON VS INVOICED BY MONTH · 2026   ", options: { fontSize: 11.5, bold: true, color: TEAL } },
+             { text: "both series live", options: { fontSize: 6.8, color: GREEN } }],
     { x: WX + 0.22, y: WY + 0.1, w: WW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
   s.addChart(pres.ChartType.bar, [
-    { name: "Closed won", labels: M.labels, values: M.won },
-    { name: "Invoiced (new + expansion)", labels: M.labels, values: M.invoiced },
+    { name: "Won (HubSpot)", labels: M.labels, values: M.won },
+    { name: "Invoiced (register)", labels: M.labels, values: M.invoiced },
   ], {
     x: WX + 0.2, y: WY + 0.36, w: WW - 0.44, h: WH - 0.78,
     barDir: "col", chartColors: [TEAL, GREEN], barGapWidthPct: 45, barOverlapPct: -10,
     catAxisLabelColor: NAVY, catAxisLabelFontSize: 8, catAxisLabelFontFace: FONT,
-    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valAxisFormatCode: '$#,##0,"k"',
+    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valAxisFormatCode: '$#,##0',
     valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
     showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
   });
   s.addText(M.note, { x: WX + 0.22, y: WY + WH - 0.38, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   const KX = 7.95, KW = 4.93;
-  kpi(s, KX, 1.1, KW, 0.98, "AWAITING GO-LIVE — ARR", `$${w.awaitingGoLiveK}k`, `${w.wonSinceMar} deals won since Mar · ${w.invoiced} invoiced · ${w.outstanding} outstanding`, GOLD, 20);
-  kpi(s, KX, 2.18, KW, 0.98, "CHURNED ARR · 2025→", `$${w.churnedArrM}M`, `${w.logosLost} logos lost · register ${w.registerAsAt}`, TERRA, 20);
-  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `-$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
+  kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of ${w.wonDeals2026} deals won with software MRR in 2026 · $${w.awaitingUnmappedArrK}k of it on ${w.awaitingUnmappedDeals} companies with no Debtor ID`, GOLD, 20);
+  kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, `$${w.churnedArrK}k`, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
+  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `+$${w.netMrrQ3K}k`, w.netMrrNote, GOLD, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
   card(s, TX, TY, TW, TH);
   s.addText([{ text: "TOP 10 NOT INVOICED   ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "ARR — sums to the awaiting figure", options: { fontSize: 6.5, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.09, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
   const cx2 = [0.48, 3.0, 3.95, 4.75, 5.3], cw2 = [2.5, 0.9, 0.75, 0.5, 0.42];
-  ["CLIENT", "ARR", "MRR/mo", "WON", "DEALS"].forEach((h2, i) => s.addText(h2, { x: TX + cx2[i], y: TY + 0.36, w: cw2[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  ["CLIENT", "ARR", "MRR/mo", "WON", ""].forEach((h2, i) => s.addText(h2, { x: TX + cx2[i], y: TY + 0.36, w: cw2[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   w.topNotInvoiced.forEach((r, i) => {
     const y = TY + 0.56 + i * 0.192;
     s.addText(String(i + 1), { x: TX + 0.22, y, w: 0.22, h: 0.19, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
@@ -635,27 +635,24 @@ if (D.cutover.showSlide) {
     s.addText(r[1], { x: TX + cx2[1], y, w: cw2[1], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r[2], { x: TX + cx2[2], y, w: cw2[2], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r[3], { x: TX + cx2[3], y, w: cw2[3], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[4]), { x: TX + cx2[4], y, w: cw2[4], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[4] ? "" : "◆", { x: TX + cx2[4], y, w: cw2[4], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
   });
 
   const AX = 0.45, AW = 6.3;
   card(s, AX, TY, AW, TH);
   cardTitle(s, AX, TY, "AI SUMMARY", 5.8);
-  s.addText([
-    { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
-    { text: "Install-to-invoice lag runs 60–90 days; March wins still uninvoiced are past normal lag and worth chasing.", options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
-    { text: "•  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
-    { text: `Uninvoiced is top-loaded: Oscars Group is 62% of the $${w.awaitingGoLiveK}k awaiting go-live; the top 3 clients are ~78%.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
-    { text: "•  ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
-    { text: `Churn reads from the movement register: $${w.churnedArrM}M of ARR across ${w.logosLost} logos since 2025, plus $${w.contractionArrK}k lost to contraction. Q3 net MRR is -$${Math.abs(w.netMrrQ3K)}k — new business is not covering it.`, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } },
-    { text: "•  ", options: { color: TERRA, bold: true, fontSize: 8.5 } },
-    { text: "Won MRR now reads from HubSpot. ", options: { color: NAVY, bold: true, fontSize: 8.5 } },
-    { text: w.hubspotGap, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 8 } },
-    { text: "◆  ", options: { color: GOLD, bold: true, fontSize: 8.5 } },
-    { text: "GO-LIVE CONTEXT · Oscars Group — ", options: { color: TEAL, bold: true, fontSize: 8.5 } },
-    { text: w.goLiveContext.replace(/^Oscars Group — /, ""), options: { color: "3A4B57", fontSize: 8.5 } },
-  ], { x: AX + 0.22, y: TY + 0.44, w: AW - 0.45, h: TH - 0.58, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
-  footnote(s, "Invoiced = new + expansion MRR movements annualised", 7.06);
+  {
+    const dots = [TERRA, GOLD, TEAL, TERRA];
+    const runs = [];
+    w.bullets.forEach(([lead, text], i) => {
+      runs.push({ text: "•  ", options: { color: dots[i % dots.length], bold: true, fontSize: 8.5 } });
+      runs.push({ text: lead + " ", options: { color: NAVY, bold: true, fontSize: 8.5 } });
+      runs.push({ text, options: { color: "3A4B57", fontSize: 8.5, breakLine: true, paraSpaceAfter: 6 } });
+    });
+    runs.push({ text: w.listNote, options: { color: FAINT, fontSize: 7, breakLine: true } });
+    s.addText(runs, { x: AX + 0.22, y: TY + 0.44, w: AW - 0.45, h: TH - 0.58, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
+  }
+  footnote(s, "ARR = monthly software MRR × 12 · matched on Debtor ID from the HubSpot company record", 7.06);
   sourcePill(s, w.source);
 }
 
