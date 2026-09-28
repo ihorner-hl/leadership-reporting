@@ -240,7 +240,7 @@ if (D.cutover.showSlide) {
   s.addText(`NEW MRR — Q3 · OKR2 ${fmtK(t.mrr.okr2)} · team ${fmtK(t.mrr.team)}`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.mrr.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.mrr.okr2)} target · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 0.65, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(t.mrr.deltaWk == null ? "refresh pending" : (t.mrr.deltaWk === 0 ? "nil this wk" : `▲ +${fmt$(t.mrr.deltaWk)} this wk`), { x: 4.15, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.deltaWk ? GREEN : GOLD, isTextBox: true, margin: 0 });
+  s.addText(t.mrr.netDeltaWk == null ? "refresh pending" : (t.mrr.netDeltaWk === 0 ? "nil net this wk" : `${t.mrr.netDeltaWk > 0 ? "▲ +" : "▼ −"}${fmt$(Math.abs(t.mrr.netDeltaWk))} net this wk`), { x: 3.95, y: 1.5, w: 2.45, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.netDeltaWk > 0 ? GREEN : (t.mrr.netDeltaWk < 0 ? TERRA : GOLD), isTextBox: true, margin: 0 });
   progressBar(s, 0.65, 2.08, 4.6, pct(t.mrr.qtd, t.mrr.okr2), pace);
   s.addText([{ text: `${pct(t.mrr.qtd, t.mrr.okr2)}%`, options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${pace}%`, options: { color: FAINT, fontSize: 8 } }],
     { x: 5.35, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
@@ -260,14 +260,14 @@ if (D.cutover.showSlide) {
   s.addText([{ text: "Q3 BY MEMBER   ", options: { fontSize: 12, bold: true, color: TEAL } }, { text: `▮ pace mark = share of quarter elapsed (${pace}%)`, options: { fontSize: 8, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.12, w: TW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0 });
   const cols = [
-    { label: "MEMBER", x: 0.22, w: 1.7, align: "left" },
-    { label: "TGT", x: 1.98, w: 0.62, align: "right" }, { label: "QTD", x: 2.62, w: 0.62, align: "right" },
-    { label: "ATTAIN", x: 3.3, w: 1.06, align: "left" },
-    { label: "TGT", x: 4.6, w: 0.7, align: "right" }, { label: "QTD", x: 5.34, w: 0.72, align: "right" },
-    { label: "ATTAIN", x: 6.12, w: 1.06, align: "left" }, { label: "Δ WK", x: 7.22, w: 0.9, align: "right" },
+    { label: "MEMBER", x: 0.22, w: 1.5, align: "left" },
+    { label: "TGT", x: 1.74, w: 0.52, align: "right" }, { label: "QTD", x: 2.30, w: 0.52, align: "right" },
+    { label: "ATTAIN", x: 2.88, w: 1.00, align: "left" }, { label: "NET Δ WK", x: 3.82, w: 0.70, align: "right" },
+    { label: "TGT", x: 4.58, w: 0.60, align: "right" }, { label: "QTD", x: 5.22, w: 0.66, align: "right" },
+    { label: "ATTAIN", x: 5.94, w: 1.02, align: "left" }, { label: "Δ WK", x: 7.02, w: 1.08, align: "right" },
   ];
-  s.addText(`NEW MRR ($/qtr) · register ${t.mrr.live ? "live" : t.mrr.asAt}`, { x: TX + 1.98, y: TY + 0.42, w: 2.4, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(`HARDWARE ($/qtr) · extracts to ${t.extractTo} · Δ wk = ${t.extractWeek.replace(/ \d{4}$/, "")}`, { x: TX + 4.6, y: TY + 0.42, w: 3.7, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`NEW MRR ($/qtr) · register ${t.mrr.live ? "live" : t.mrr.asAt}`, { x: TX + 1.74, y: TY + 0.42, w: 2.78, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`HARDWARE ($/qtr) · extracts to ${t.extractTo}`, { x: TX + 4.58, y: TY + 0.42, w: 3.5, h: 0.22, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   cols.forEach((c) => s.addText(c.label, { x: TX + c.x, y: TY + 0.66, w: c.w, h: 0.2, align: c.align, fontFace: FONT, fontSize: 7.5, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   const rows = t.members;
   const rH = 0.345;
@@ -275,36 +275,38 @@ if (D.cutover.showSlide) {
     const y = TY + 0.92 + i * rH;
     s.addShape("rect", { x: TX + 0.22, y: y + rH - 0.04, w: TW - 0.44, h: 0.007, fill: { color: TRACK }, line: { type: "none" } });
     const nameColor = m.name === "Unassigned" ? GOLD : NAVY;
-    s.addText(m.name, { x: TX + 0.22, y, w: 1.74, h: rH, fontFace: FONT, fontSize: 9, color: nameColor, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(fmtK(m.mrrTgt), { x: TX + 1.98, y, w: 0.62, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(m.mrrQtd >= 1000 ? fmtK(m.mrrQtd) : fmt$(m.mrrQtd), { x: TX + 2.62, y, w: 0.62, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-    progressBar(s, TX + 3.34, y + rH / 2 - 0.05, 0.8, m.mrrTgt ? pct(m.mrrQtd, m.mrrTgt) : 0, pace);
-    s.addText(m.mrrTgt ? `${pct(m.mrrQtd, m.mrrTgt)}%` : "—", { x: TX + 3.3 + 0.88, y, w: 0.42, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(m.hwTgt ? fmtK(m.hwTgt) : "—", { x: TX + 4.6, y, w: 0.7, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(m.hwQtd != null ? fmtK(m.hwQtd) : "—", { x: TX + 5.34, y, w: 0.72, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.name, { x: TX + 0.22, y, w: 1.5, h: rH, fontFace: FONT, fontSize: 9, color: nameColor, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(fmtK(m.mrrTgt), { x: TX + 1.74, y, w: 0.52, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.mrrQtd >= 1000 ? fmtK(m.mrrQtd) : fmt$(m.mrrQtd), { x: TX + 2.30, y, w: 0.52, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+    progressBar(s, TX + 2.92, y + rH / 2 - 0.05, 0.60, m.mrrTgt ? pct(m.mrrQtd, m.mrrTgt) : 0, pace);
+    s.addText(m.mrrTgt ? `${pct(m.mrrQtd, m.mrrTgt)}%` : "—", { x: TX + 3.52, y, w: 0.36, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.mrrDelta == null ? "—" : (m.mrrDelta === 0 ? "—" : (m.mrrDelta > 0 ? "+" : "−") + fmt$(Math.abs(m.mrrDelta)).slice(1)), { x: TX + 3.82, y, w: 0.70, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: !!m.mrrDelta, color: m.mrrDelta > 0 ? GREEN : (m.mrrDelta < 0 ? TERRA : FAINT), isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.hwTgt ? fmtK(m.hwTgt) : "—", { x: TX + 4.58, y, w: 0.60, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.hwQtd != null ? fmtK(m.hwQtd) : "—", { x: TX + 5.22, y, w: 0.66, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     if (m.hwQtd != null && m.hwTgt) {
-      progressBar(s, TX + 6.16, y + rH / 2 - 0.05, 0.8, pct(m.hwQtd, m.hwTgt), pace);
-      s.addText(`${pct(m.hwQtd, m.hwTgt)}%`, { x: TX + 6.12 + 0.88, y, w: 0.42, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+      progressBar(s, TX + 5.98, y + rH / 2 - 0.05, 0.62, pct(m.hwQtd, m.hwTgt), pace);
+      s.addText(`${pct(m.hwQtd, m.hwTgt)}%`, { x: TX + 6.62, y, w: 0.36, h: rH, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     } else {
-      s.addText("—", { x: TX + 6.12, y, w: 1.06, h: rH, align: "center", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText("—", { x: TX + 5.94, y, w: 1.02, h: rH, align: "center", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
     }
-    s.addText(m.hwDelta == null ? "—" : "+" + (Math.abs(m.hwDelta) < 1000 ? fmt$(m.hwDelta).slice(1) : fmtK(m.hwDelta).slice(1)), { x: TX + 7.22, y, w: 0.9, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.hwDelta == null ? "—" : "+" + (Math.abs(m.hwDelta) < 1000 ? fmt$(m.hwDelta).slice(1) : fmtK(m.hwDelta).slice(1)), { x: TX + 7.02, y, w: 1.08, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
   const totY = TY + 0.92 + rows.length * rH + 0.04;
   s.addShape("rect", { x: TX + 0.22, y: totY - 0.05, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
-  s.addText("SALES TEAM TOTAL", { x: TX + 0.22, y: totY, w: 1.74, h: 0.3, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(fmtK(t.mrr.team), { x: TX + 1.98, y: totY, w: 0.62, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(fmtK(t.mrr.qtd), { x: TX + 2.62, y: totY, w: 0.62, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(fmtK(t.hardware.team), { x: TX + 4.6, y: totY, w: 0.7, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(fmtK(t.hardware.qtd), { x: TX + 5.34, y: totY, w: 0.72, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`${pct(t.hardware.qtd, t.hardware.team)}%`, { x: TX + 6.12, y: totY, w: 1.06, h: 0.3, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("+" + fmtK(t.hardware.deltaWk).slice(1), { x: TX + 7.22, y: totY, w: 0.9, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("SALES TEAM TOTAL", { x: TX + 0.22, y: totY, w: 1.5, h: 0.3, fontFace: FONT, fontSize: 9, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmtK(t.mrr.team), { x: TX + 1.74, y: totY, w: 0.52, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmtK(t.mrr.qtd), { x: TX + 2.30, y: totY, w: 0.52, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(t.mrr.netDeltaWk == null ? "—" : (t.mrr.netDeltaWk > 0 ? "+" : "−") + fmt$(Math.abs(t.mrr.netDeltaWk)).slice(1), { x: TX + 3.82, y: totY, w: 0.70, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: t.mrr.netDeltaWk >= 0 ? GREEN : TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmtK(t.hardware.team), { x: TX + 4.58, y: totY, w: 0.60, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmtK(t.hardware.qtd), { x: TX + 5.22, y: totY, w: 0.66, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(`${pct(t.hardware.qtd, t.hardware.team)}%`, { x: TX + 5.94, y: totY, w: 1.02, h: 0.3, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText("+" + fmtK(t.hardware.deltaWk).slice(1), { x: TX + 7.02, y: totY, w: 1.08, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`MRR = net new + expansion invoiced in Q3 (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
 
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
     { lead: `Hardware is ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against a ${pace}% pace mark. The ${t.extractWeek} extract added ${fmtK(t.hardware.deltaWk)} gross — the biggest week of the quarter — but $102k of it is one Corporate account (Solotel) booked to Jasmine, who jumps to ${pct(245081, 214000)}% of target.`, dot: TERRA },
     { lead: "Discounts eased in proportion:", text: "hardware discounts ran -$8.4k on $115.6k gross (7%) against -$10.2k on $37.6k (27%) last week. Net hardware for the week is $107.2k.", dot: GOLD },
-    { lead: t.mrr.deltaWk ? `New MRR added ${fmt$(t.mrr.deltaWk)} in the week.` : "New MRR did not move at all this week.", text: `Q3 stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.deltaWk ? TEAL : TERRA },
+    { lead: t.mrr.netDeltaWk ? `Net new MRR moved ${(t.mrr.netDeltaWk > 0 ? "+" : "−") + fmt$(Math.abs(t.mrr.netDeltaWk))} in the week.` : "Net new MRR did not move this week.", text: `Q3 stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.netDeltaWk > 0 ? TEAL : TERRA },
     { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);

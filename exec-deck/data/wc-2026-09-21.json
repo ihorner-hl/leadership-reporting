@@ -70,7 +70,7 @@
   },
   "execSummary": {
     "finance": "hardware $526k = 74% of $715k vs 97% pace; this week +$116k gross (HW discounts \u2212$8k) \u2014 Solotel Corporate is $102k of it",
-    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); new MRR +$1.7k in the week \u00b7 Q3 $15.1k = 54% of OKR2",
+    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); net new MRR +$1.2k in the week (+$1.7k new, \u2212$0.5k churn) \u00b7 Q3 $15.1k = 54% of OKR2",
     "ps": "billable utilisation 6.1% \u2014 20.75h billed of 342h available, time logging reaching 17% of PS items",
     "support": "weekly inflow 498 vs resolved 420 \u2014 backlog 675 and rising for the first time since cutover",
     "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
@@ -85,10 +85,11 @@
       "qtd": 15126,
       "asAt": "27 Sep",
       "deltaWk": 1659,
-      "deltaNote": "BRG Granville Tavern $899, Hallmark Coyote's Roadhouse $701, CSHG Walker Baker Evans $59.",
+      "deltaNote": "New MRR added $1,659 (BRG Granville Tavern $899, Hallmark Coyote's Roadhouse $701, CSHG Walker Baker Evans $59); The Jungle Tingalpa churned $455, so net movement is +$1,204.",
       "extractNewSubsBilling": 591.79,
       "live": true,
-      "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately"
+      "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately",
+      "netDeltaWk": 1204
     },
     "hardware": {
       "okr2": 715000,
@@ -113,7 +114,7 @@
         "hwTgt": 143000,
         "hwQtd": 87071,
         "hwDelta": 9157,
-        "mrrDelta": 701
+        "mrrDelta": 246
       },
       {
         "name": "Bradford Young",
