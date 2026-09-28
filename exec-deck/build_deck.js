@@ -618,7 +618,7 @@ if (D.cutover.showSlide) {
   s.addText(M.note, { x: WX + 0.22, y: WY + WH - 0.38, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   const KX = 7.95, KW = 4.93;
-  kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of ${w.wonDeals2026} deals won with software MRR in 2026 · $${w.awaitingUnmappedArrK}k of it on ${w.awaitingUnmappedDeals} companies with no Debtor ID`, GOLD, 20);
+  kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of the ${w.wonDeals2026} deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it`, GOLD, 20);
   kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, w.churnedArrLabel, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
   kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `-$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
 
@@ -652,7 +652,7 @@ if (D.cutover.showSlide) {
     runs.push({ text: w.listNote, options: { color: FAINT, fontSize: 7, breakLine: true } });
     s.addText(runs, { x: AX + 0.22, y: TY + 0.44, w: AW - 0.45, h: TH - 0.58, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
   }
-  footnote(s, "ARR = monthly software MRR × 12 · matched on Debtor ID from the HubSpot company record", 7.06);
+  footnote(s, "ARR = monthly MRR × 12 · matched on debtor ID and venue name", 7.06);
   sourcePill(s, w.source);
 }
 

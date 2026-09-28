@@ -687,12 +687,9 @@
       ],
       "note": "Won = HubSpot closed-won Total Software (outright excluded, annual \u00f7 12) by close date. Invoiced = movement register new + expansion by date of invoice. Both live and refreshed weekly \u2014 nothing on this slide is frozen."
     },
-    "awaitingArrK": 471,
-    "awaitingDeals": 44,
+    "awaitingArrK": 236,
+    "awaitingDeals": 21,
     "wonDeals2026": 66,
-    "awaitingUnmappedArrK": 379,
-    "awaitingUnmappedDeals": 20,
-    "awaitingConfirmedArrK": 92,
     "churnedArrK": 639,
     "logosLost": 258,
     "churnedMrr": 53227,
@@ -706,48 +703,6 @@
         "$155k",
         "$12,880",
         "Mar",
-        0
-      ],
-      [
-        "Hotel Grand Chancellor \u2014 Adelaide",
-        "$95k",
-        "$7,900",
-        "Jun",
-        0
-      ],
-      [
-        "AVC - White Cockatoo Hotel",
-        "$52k",
-        "$4,345",
-        "May",
-        0
-      ],
-      [
-        "Terminus Hotel - Strathalbyn",
-        "$10k",
-        "$850",
-        "Apr",
-        0
-      ],
-      [
-        "BRG - Grand Hotel Millicent",
-        "$10k",
-        "$795",
-        "Aug",
-        0
-      ],
-      [
-        "Caves House Hotel",
-        "$8k",
-        "$669",
-        "Aug",
-        1
-      ],
-      [
-        "TH - Cote Basque",
-        "$8k",
-        "$641",
-        "Sep",
         0
       ],
       [
@@ -765,14 +720,56 @@
         1
       ],
       [
-        "Solotel - Kings Cross Hotel",
-        "$7k",
-        "$564",
+        "Gastevski - Australind Liquor Store",
+        "$6k",
+        "$524",
+        "Sep",
+        1
+      ],
+      [
+        "The Berrigan",
+        "$6k",
+        "$475",
+        "Mar",
+        1
+      ],
+      [
+        "Champion Lakes Tavern WA",
+        "$5k",
+        "$435",
         "Jun",
+        1
+      ],
+      [
+        "Commercial Hotel - Morgan",
+        "$5k",
+        "$432",
+        "Feb",
+        1
+      ],
+      [
+        "Hotel Augusta",
+        "$5k",
+        "$410",
+        "Jun",
+        1
+      ],
+      [
+        "Argyle Hotel Maclean",
+        "$5k",
+        "$402",
+        "Jun",
+        1
+      ],
+      [
+        "Litchfield Outback Resort",
+        "$5k",
+        "$387",
+        "Mar",
         1
       ]
     ],
-    "listNote": "\u25c6 = company has no Debtor ID, so the invoice match cannot be confirmed either way",
+    "listNote": "\u25c6 Oscars Group \u2014 signed, ~1.5x rollout, held by the old provider's contract terms. AVC new sites excluded (parked licences, not counted in MRR); Grand Chancellor Adelaide is on the register awaiting an invoice date.",
     "hubspotMrr": {
       "q3Won": 12061,
       "weekWon": 3440,
@@ -782,19 +779,19 @@
     "bullets": [
       [
         "Invoicing has overtaken wins this quarter.",
-        "Q3 invoiced $15,126 against $12,061 won \u2014 the register caught up on earlier wins, and September alone billed $6,567. Nine months of both series now read live."
+        "Q3 invoiced $15,126 against $12,061 won \u2014 the register caught up on earlier wins, and September alone billed $6,567. Nine months of both series read live."
       ],
       [
         "Churn is the whole story: $1.19M of ARR across 258 logos since Jan 2025.",
-        "Q3 took $12.7k of MRR out against $15.1k in, plus $3.7k of contraction on accounts that stayed and $2.9k of credits. Net Q3 movement is \u2212$4.2k."
+        "Q3 took $12.7k of MRR out against $15.1k in, plus $3.7k of contraction and $2.9k of credits. Net Q3 movement is \u2212$4.2k."
       ],
       [
-        "$471k of ARR is won and not yet invoiced.",
-        "44 of the 66 deals carrying software MRR in 2026. Oscars Group is $155k of it and the top three are 64%."
+        "$236k of ARR is won with no row on the register.",
+        "21 of the 66 deals that carried software MRR in 2026. Oscars Group is $155k of it \u2014 66%. Matched on debtor ID and venue name, not debtor ID alone."
       ],
       [
-        "Debtor mapping blocks $379k of that.",
-        "20 of the 44 companies carry no Debtor ID, so the invoice match cannot be confirmed either way; $92k is confirmed unbilled. Mapping those 20 is the highest-value data fix on this slide."
+        "HubSpot's Total Software does not yet agree with the register deal by deal.",
+        "Across the 39 won deals the register has invoiced it reads $22.9k/mo against $11.9k \u2014 1.9x, and over 1.5x on 14 of them. The register stays the MRR source of record."
       ]
     ],
     "churnedArrLabel": "$1.19M",
