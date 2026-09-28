@@ -53,7 +53,7 @@
         "old": "Weekly file drop",
         "new": "Weekly file drop (unchanged)",
         "status": "AS BEFORE",
-        "note": "Weekly extract current to 27 Sep (received 28 Sep). MRR movement register not refreshed this week \u2014 new-MRR held at its 20 Sep value."
+        "note": "Weekly extract current to 27 Sep (received 28 Sep). MRR movement register is live and carries entries through 12 Oct \u2014 no new-MRR rows fell in 21\u201327 Sep."
       },
       {
         "area": "Product / GTM / AI usage / ValPay",
@@ -70,24 +70,24 @@
   },
   "execSummary": {
     "finance": "hardware $526k = 74% of $715k vs 97% pace; this week +$116k gross (HW discounts \u2212$8k) \u2014 Solotel Corporate is $102k of it",
-    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); new MRR held at $12.1k QTD \u2014 movement register not refreshed",
+    "sales": "closed-won this week 34 deals \u00b7 $131k (HubSpot); no new MRR invoiced in the week \u2014 Q3 holds at $12.1k = 43% of OKR2",
     "ps": "billable utilisation 6.1% \u2014 20.75h billed of 342h available, time logging reaching 17% of PS items",
     "support": "weekly inflow 498 vs resolved 420 \u2014 backlog 675 and rising for the first time since cutover",
     "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
     "aiUsage": "AI-draft adoption 2.9% this week (2 of 68) \u2014 1 sent as-is, 1 edited, 1 rejected"
   },
   "targetVsInvoiced": {
-    "source": "Sysnet extract 21\u201327 Sep + MRR movement register (as at 20 Sep)",
+    "source": "Sysnet extract 21\u201327 Sep + MRR movement register (live)",
     "extractWeek": "21\u201327 Sep 2026",
     "mrr": {
       "okr2": 28000,
       "team": 30000,
       "qtd": 12129,
-      "asAt": "20 Sep",
-      "deltaWk": null,
-      "deltaNote": "movement register not refreshed this week \u2014 held at 20 Sep",
+      "asAt": "27 Sep",
+      "deltaWk": 0,
+      "deltaNote": "The last entry was 18 Sep; the next dated ones are 28 Sep ($598, Piermount) and 30 Sep ($62) \u2014 inside Q3 but after this reporting week.",
       "extractNewSubsBilling": 591.79,
-      "live": false,
+      "live": true,
       "basis": "Net New Customers + Expansion, Date of Invoice in Q3 \u00b7 ValPay shown separately"
     },
     "hardware": {
@@ -104,7 +104,7 @@
         "hwTgt": 140000,
         "hwQtd": 52140,
         "hwDelta": 405,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Brett Gorman",
@@ -113,7 +113,7 @@
         "hwTgt": 143000,
         "hwQtd": 87071,
         "hwDelta": 9157,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Bradford Young",
@@ -122,7 +122,7 @@
         "hwTgt": 163000,
         "hwQtd": 53255,
         "hwDelta": 1960,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Jasmine Hikuroa",
@@ -131,7 +131,7 @@
         "hwTgt": 214000,
         "hwQtd": 245081,
         "hwDelta": 102450,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Phuong Ho",
@@ -140,7 +140,7 @@
         "hwTgt": 55000,
         "hwQtd": 14130,
         "hwDelta": 1590,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Mick Teasdale",
@@ -149,7 +149,7 @@
         "hwTgt": 46000,
         "hwQtd": null,
         "hwDelta": null,
-        "mrrDelta": null
+        "mrrDelta": 0
       },
       {
         "name": "Unassigned",
@@ -158,7 +158,7 @@
         "hwTgt": 0,
         "hwQtd": null,
         "hwDelta": null,
-        "mrrDelta": null
+        "mrrDelta": 0
       }
     ],
     "hlPayNetNewMrr": 1770,
@@ -618,7 +618,7 @@
     "excludedNote": "Anton Lopez, Jasmine Hikuroa, Bjorn Magabo, Phuong Ho, Katherine Fenwick and Yeran Hettiarachchy carry PS-pipeline tickets but are not Professional Services staff \u2014 they and their hours are excluded."
   },
   "wonVsInvoiced": {
-    "source": "Finance Weekly Invoicing & Creatio \u00b7 register as at 20 Sep \u2014 refresh pending",
+    "source": "Finance Weekly Invoicing & Creatio \u00b7 movement register live",
     "awaitingGoLiveK": 250,
     "wonSinceMar": 497,
     "invoiced": 277,
@@ -735,7 +735,7 @@
     "pendingIntegrationsMrr": 2297,
     "pendingIntegrationsN": 45,
     "netMrrNote": "Q3 (Jul\u2013Sep) \u00b7 movement register, live",
-    "registerAsAt": "as at 20 Sep"
+    "registerAsAt": "live"
   },
   "backlog": {
     "source": "HubSpot (live) \u2014 cut over from Creatio",

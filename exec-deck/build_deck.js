@@ -240,7 +240,7 @@ if (D.cutover.showSlide) {
   s.addText(`NEW MRR — Q3 · OKR2 ${fmtK(t.mrr.okr2)} · team ${fmtK(t.mrr.team)}`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.mrr.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.mrr.okr2)} target · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 0.65, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(t.mrr.deltaWk == null ? "refresh pending" : `▲ +${fmt$(t.mrr.deltaWk)} this wk`, { x: 4.15, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.deltaWk == null ? GOLD : GREEN, isTextBox: true, margin: 0 });
+  s.addText(t.mrr.deltaWk == null ? "refresh pending" : (t.mrr.deltaWk === 0 ? "nil this wk" : `▲ +${fmt$(t.mrr.deltaWk)} this wk`), { x: 4.15, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.deltaWk ? GREEN : GOLD, isTextBox: true, margin: 0 });
   progressBar(s, 0.65, 2.08, 4.6, pct(t.mrr.qtd, t.mrr.okr2), pace);
   s.addText([{ text: `${pct(t.mrr.qtd, t.mrr.okr2)}%`, options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${pace}%`, options: { color: FAINT, fontSize: 8 } }],
     { x: 5.35, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
@@ -304,7 +304,7 @@ if (D.cutover.showSlide) {
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
     { lead: `Hardware is ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against a ${pace}% pace mark. The ${t.extractWeek} extract added ${fmtK(t.hardware.deltaWk)} gross — the biggest week of the quarter — but $102k of it is one Corporate account (Solotel) booked to Jasmine, who jumps to ${pct(245081, 214000)}% of target.`, dot: TERRA },
     { lead: "Discounts eased in proportion:", text: "hardware discounts ran -$8.4k on $115.6k gross (7%) against -$10.2k on $37.6k (27%) last week. Net hardware for the week is $107.2k.", dot: GOLD },
-    { lead: "New MRR was not refreshed this week.", text: `It is held at ${fmt$(t.mrr.qtd)} (${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2) as at ${t.mrr.asAt}, against a ${pace}% pace mark. The Sysnet extract's own subscription line moved +$592, which is a different measure and is not carried into MRR.`, dot: TEAL },
+    { lead: "New MRR did not move at all this week.", text: `The register carries no new-MRR rows dated ${t.extractWeek}, so Q3 stays at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: TERRA },
     { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
   ]);
   sourcePill(s, t.source);
