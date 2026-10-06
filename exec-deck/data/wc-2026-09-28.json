@@ -74,7 +74,7 @@
     "ps": "billable utilisation 33.4% \u2014 88.9h of 266h with Rhys and Rodney on leave, but one 50.5h record carries most of it; 14.4% without it",
     "support": "weekly inflow 460 vs resolved 432 \u2014 backlog 698 and still rising, 204 past 30 days",
     "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
-    "aiUsage": "AI-draft adoption 4.5% this week (5 of 110) \u2014 best week since cutover, 3 sent as-is"
+    "aiUsage": "39 of 46 active weekly, 19 daily \u2014 daily use nearly doubled; Cowork stickiest at 33% DAU/MAU and Office Agents live at 11%"
   },
   "targetVsInvoiced": {
     "source": "Sysnet extract 28 Sep\u20134 Oct + MRR movement register (live, 6 Oct)",
@@ -1404,111 +1404,111 @@
     }
   },
   "aiUsage": {
-    "source": "Claude Admin weekly capture (30d to 27 Sep) \u2014 refresh pending",
-    "activeWeekly": 37,
-    "allMembers": 47,
-    "daily": 10,
-    "monthly": 43,
-    "locLastWeek": 176102,
+    "source": "Claude Admin weekly capture (30d to 5 Oct)",
+    "activeWeekly": 39,
+    "allMembers": 46,
+    "daily": 19,
+    "monthly": 42,
+    "locLastWeek": 50453,
     "locWoWPct": null,
-    "locWeekEnding": "week to 27 Sep",
+    "locWeekEnding": "1\u20136 Oct",
     "stickiness": [
       [
         "Claude Code",
-        12
+        18
       ],
       [
         "Cowork",
-        23
+        33
       ],
       [
         "Claude.ai",
-        7
+        29
       ],
       [
         "Office Agents",
-        0
+        11
       ]
     ],
     "sepToDate": [
       [
         "Nicolas Ibrahim",
-        99693
+        39709
       ],
       [
         "David Corbett",
-        30828
-      ],
-      [
-        "Ciaran Dempsey",
-        24443
-      ],
-      [
-        "Rahul Kumar",
-        23286
-      ],
-      [
-        "Eric Cruz",
-        19289
-      ],
-      [
-        "Hawraa Khalil",
-        19047
-      ],
-      [
-        "Chris Huang",
-        17516
-      ],
-      [
-        "Brad Smith",
-        15821
-      ],
-      [
-        "Tony Ghoussein",
-        11891
+        3067
       ],
       [
         "Kumari Nidhi",
-        4616
+        1657
+      ],
+      [
+        "Rahul Kumar",
+        1642
+      ],
+      [
+        "Eric Cruz",
+        1249
+      ],
+      [
+        "Mohamed Ammar",
+        1015
+      ],
+      [
+        "Chris Huang",
+        568
+      ],
+      [
+        "Glynn Johnson",
+        547
+      ],
+      [
+        "Bjorn Magabo",
+        461
+      ],
+      [
+        "Tony Ghoussein",
+        328
       ]
     ],
-    "sepTotal": 277261,
+    "sepTotal": 50453,
     "coworkPerWk": [
       [
         "Bjorn Magabo",
-        244
+        485
       ],
       [
         "Phuong Ho",
-        92
+        136
       ],
       [
         "Bradford Young",
-        18
+        21
       ],
       [
         "Dave Corbett",
-        16
+        20
       ],
       [
         "Harjeet Sammi",
-        14
+        13
+      ],
+      [
+        "Matt Freeman",
+        13
       ],
       [
         "Katherine Fenwick",
         12
       ],
       [
-        "Matt Freeman",
-        12
-      ],
-      [
         "Glynn Johnson",
-        10
+        11
       ],
       [
-        "Youssef Medhat",
-        7
+        "Mostafa Essa",
+        8
       ],
       [
         "Isayah Kuhlmann",
@@ -1568,113 +1568,113 @@
       ],
       "note": "cell = one week (thousands of lines) \u00b7 series ends at the last capture that carried a weekly breakdown (w/c 06 Sep)"
     },
-    "coworkNote": "Bjorn Magabo alone logged 1,050 Cowork sessions in 30 days against 1,126 messages \u2014 roughly one message per session, so read it as very short repeated sessions, not depth of use.",
+    "coworkNote": "Bjorn Magabo logged 2,085 Cowork sessions in 30 days against 2,187 messages \u2014 about one message each, so read it as very short repeated sessions.",
     "codeMatrix": {
       "months": [
-        "Jun",
         "Jul",
         "Aug",
-        "Sep"
+        "Sep",
+        "Oct"
       ],
       "rows": [
         [
           "Brad Smith",
           [
-            10351,
             39579,
             41244,
-            15821
+            15821,
+            0
           ]
         ],
         [
           "Nicolas Ibrahim",
           [
-            18954,
             15834,
             38142,
-            99693
+            99693,
+            39709
           ]
         ],
         [
           "Hawraa Khalil",
           [
-            22385,
             28536,
             23285,
-            19047
+            19047,
+            0
           ]
         ],
         [
           "Ciaran Dempsey",
           [
-            6280,
             18918,
             23650,
-            24443
+            24443,
+            210
           ]
         ],
         [
           "David Corbett",
           [
-            10549,
             27031,
             10145,
-            30828
+            30828,
+            3067
           ]
         ],
         [
           "Chris Huang",
           [
-            12955,
             19535,
             12856,
-            17516
+            17516,
+            568
           ]
         ],
         [
           "Rahul Kumar",
           [
             0,
-            0,
             42859,
-            23286
+            23286,
+            1642
           ]
         ],
         [
           "Mohamed Ammar",
           [
-            7046,
             6582,
             23266,
-            4322
+            4322,
+            1015
           ]
         ],
         [
           "Tony Ghoussein",
           [
-            885,
             6208,
             10369,
-            11891
+            11891,
+            328
           ]
         ],
         [
           "Eric Cruz",
           [
-            1666,
             2970,
             7237,
-            19289
+            19289,
+            1249
           ]
         ]
       ],
       "allDevelopers": [
-        120224,
         228132,
         293419,
-        277261
+        277261,
+        50453
       ],
-      "note": "Sep is month-to-date at the 27 Sep capture"
+      "note": "Sep is the 27 Sep capture (month incomplete); Oct is month-to-date at the 5 Oct capture"
     },
     "byWeek": {
       "labels": [
@@ -1718,64 +1718,66 @@
       "note": "cell = one week \u00b7 series ends w/c 06 Sep \u2014 later captures give month-to-date only"
     },
     "cowork": {
-      "perWkTotal": 476,
-      "baseline": 137,
+      "perWkTotal": 770,
+      "baseline": 476,
       "members": [
         [
           "Bjorn Magabo",
-          244,
-          null
+          485,
+          241
         ],
         [
           "Phuong Ho",
-          92,
-          null
+          136,
+          44
         ],
         [
           "Bradford Young",
-          18,
-          2
+          21,
+          3
         ],
         [
           "Dave Corbett",
-          16,
-          1
+          20,
+          4
         ],
         [
           "Harjeet Sammi",
-          14,
+          13,
+          -1
+        ],
+        [
+          "Matt Freeman",
+          13,
           1
         ],
         [
           "Katherine Fenwick",
           12,
-          -2
-        ],
-        [
-          "Matt Freeman",
-          12,
-          -5
+          0
         ],
         [
           "Glynn Johnson",
-          10,
-          4
+          11,
+          1
         ],
         [
-          "Youssef Medhat",
-          7,
-          0
+          "Mostafa Essa",
+          8,
+          1
         ],
         [
           "Isayah Kuhlmann",
           7,
-          null
+          0
         ]
       ],
       "note": "rate = 30-day sessions \u00f7 4.3 \u00b7 arrow = change vs last capture \u00b7 \u2014 = first capture"
     },
     "stickinessNote": "DAU/MAU \u2014 daily active share of each product's monthly actives",
-    "locNote": "derived from the September month-to-date delta since the 20 Sep capture"
+    "locNote": "October month-to-date; the admin capture gives month totals only, so there is no weekly split",
+    "locLabel": "LINES OF CODE \u2014 OCT MTD",
+    "filesNote": "Files by category not in this capture \u2014 held at the 27 Sep split."
   },
   "projects": {
     "asAt": "6 Oct 2026",

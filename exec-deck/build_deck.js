@@ -857,7 +857,7 @@ if (D.aiAgent.showSlide) {
   const ai = D.aiUsage, CM = ai.codeMatrix, BW = ai.byWeek, CO = ai.cowork;
   header(s, "AI Usage — Adoption & Activity", "IT", 4);
   kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
-  kpi(s, 3.6, 1.08, 2.95, 1.2, "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + " ▲",
+  kpi(s, 3.6, 1.08, 2.95, 1.2, ai.locLabel || "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + " ▲",
       ai.locWoWPct == null ? `${ai.locWeekEnding} · ${ai.locNote}` : `+${ai.locWoWPct}% WoW · ${ai.locWeekEnding}`, TEAL, 24);
   {
     const x = 6.75, y = 1.08, w2 = 6.13, h = 1.2;
@@ -927,7 +927,7 @@ if (D.aiAgent.showSlide) {
   s.addText(CO.note, { x: RX + 0.2, y: CY + CH - 0.3, w: RW - 0.4, h: 0.26, fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   aiSummary(s, 0.45, 6.2, 12.43, 0.86, [
-    { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— Cowork is the stickiest surface at ${ai.stickiness[1][1]}% DAU/MAU against Claude Code's ${ai.stickiness[0][1]}%. September code output stands at ${ai.sepTotal.toLocaleString()} lines, ${ai.locLastWeek.toLocaleString()} of them since the 20 Sep capture, with ${ai.sepToDate[0][0]} on ${ai.sepToDate[0][1].toLocaleString()} alone. ${ai.coworkNote}`, dot: TEAL },
+    { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— daily actives nearly doubled, ${ai.daily} against 10 a week ago. Cowork is the stickiest surface at ${ai.stickiness[1][1]}% DAU/MAU, Claude.ai has jumped to ${ai.stickiness[2][1]}% and Office Agents are live at ${ai.stickiness[3][1]}%. October code output is ${ai.sepTotal.toLocaleString()} lines in six days, ${ai.sepToDate[0][1].toLocaleString()} of them ${ai.sepToDate[0][0]}. ${ai.coworkNote}`, dot: TEAL },
   ]);
   sourcePill(s, ai.source);
 }
