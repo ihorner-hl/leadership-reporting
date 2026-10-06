@@ -289,7 +289,7 @@ if (D.cutover.showSlide) {
     } else {
       s.addText("—", { x: TX + 5.94, y, w: 1.02, h: rH, align: "center", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
     }
-    s.addText(m.hwDelta == null ? "—" : "+" + (Math.abs(m.hwDelta) < 1000 ? fmt$(m.hwDelta).slice(1) : fmtK(m.hwDelta).slice(1)), { x: TX + 7.02, y, w: 1.08, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta ? GREEN : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(m.hwDelta == null ? "—" : (m.hwDelta < 0 ? "−" : "+") + (Math.abs(m.hwDelta) < 1000 ? fmt$(Math.abs(m.hwDelta)).slice(1) : fmtK(Math.abs(m.hwDelta)).slice(1)), { x: TX + 7.02, y, w: 1.08, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta > 0 ? GREEN : (m.hwDelta < 0 ? TERRA : FAINT), isTextBox: true, margin: 0, valign: "middle" });
   });
   const totY = TY + 0.92 + rows.length * rH + 0.04;
   s.addShape("rect", { x: TX + 0.22, y: totY - 0.05, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
@@ -304,8 +304,8 @@ if (D.cutover.showSlide) {
   s.addText(`MRR = net new + expansion invoiced in Q3 (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
 
   aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
-    { lead: `Hardware is ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against a ${pace}% pace mark. The ${t.extractWeek} extract added ${fmtK(t.hardware.deltaWk)} gross — the biggest week of the quarter — but $102k of it is one Corporate account (Solotel) booked to Jasmine, who jumps to ${pct(245081, 214000)}% of target.`, dot: TERRA },
-    { lead: "Discounts eased in proportion:", text: "hardware discounts ran -$8.4k on $115.6k gross (7%) against -$10.2k on $37.6k (27%) last week. Net hardware for the week is $107.2k.", dot: GOLD },
+    { lead: `Q3 hardware closed at ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against the ${fmtK(t.hardware.okr2)} OKR2, with the quarter now over. ${t.hardwareNote}`, dot: TERRA },
+    { lead: "The week is the 1 October billing run, not trading.", text: `SEP $196k, software subscriptions $324k and SMA $95k dominate the ${t.extractWeek} extract, so most of its ${fmtK(t.hardware.deltaWk)} hardware almost certainly sits in Q4. Jasmine carries $94.6k of it.`, dot: GOLD },
     { lead: t.mrr.netDeltaWk ? `Net new MRR moved ${(t.mrr.netDeltaWk > 0 ? "+" : "−") + fmt$(Math.abs(t.mrr.netDeltaWk))} in the week.` : "Net new MRR did not move this week.", text: `Q3 stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.netDeltaWk > 0 ? TEAL : TERRA },
     { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
   ]);
@@ -565,26 +565,27 @@ if (D.cutover.showSlide) {
   [["WEEK", 0.22, 1.05, "left"], ["ITEMS", 1.32, 0.5, "right"], ["HOURS NOW", 1.88, 0.85, "right"],
    ["UTIL", 2.79, 0.5, "right"], ["AS FIRST REPORTED", 3.35, 1.46, "right"]]
     .forEach(([t, x, w, al]) => s.addText(t, { x: RX + x, y: WY + 0.32, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  const WROW = Math.min(0.215, (WH - 0.86) / W.rows.length), WFS = WROW < 0.19 ? 7 : 7.5;
   W.rows.forEach((r, i) => {
-    const y = WY + 0.52 + i * 0.215;
+    const y = WY + 0.52 + i * WROW;
     const restated = r.firstHours != null && Math.abs(r.hours - r.firstHours) > 0.01;
-    s.addShape("rect", { x: RX + 0.22, y: y + 0.205, w: RW - 0.44, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
-    s.addText(r.label + (r.current ? "  ●" : ""), { x: RX + 0.22, y, w: 1.05, h: 0.215, fontFace: FONT, fontSize: 7.5, bold: true, color: r.current ? TEAL : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r.items), { x: RX + 1.32, y, w: 0.5, h: 0.215, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r.hours.toFixed(2) + "h", { x: RX + 1.88, y, w: 0.85, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r.util.toFixed(1) + "%", { x: RX + 2.79, y, w: 0.5, h: 0.215, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("rect", { x: RX + 0.22, y: y + WROW - 0.01, w: RW - 0.44, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
+    s.addText(r.label + (r.current ? "  ●" : ""), { x: RX + 0.22, y, w: 1.05, h: WROW, fontFace: FONT, fontSize: WFS, bold: true, color: r.current ? TEAL : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r.items), { x: RX + 1.32, y, w: 0.5, h: WROW, align: "right", fontFace: FONT, fontSize: WFS, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r.hours.toFixed(2) + "h", { x: RX + 1.88, y, w: 0.85, h: WROW, align: "right", fontFace: FONT, fontSize: WFS + 0.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r.util.toFixed(1) + "%", { x: RX + 2.79, y, w: 0.5, h: WROW, align: "right", fontFace: FONT, fontSize: WFS + 0.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r.firstHours == null ? "not reported" : (restated
         ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ▲ +${(r.hours - r.firstHours).toFixed(2)}h`
         : "first report"),
-      { x: RX + 3.35, y, w: 1.46, h: 0.215, align: "right", fontFace: FONT, fontSize: restated ? 6.3 : 6.5,
+      { x: RX + 3.35, y, w: 1.46, h: WROW, align: "right", fontFace: FONT, fontSize: restated ? 6.1 : 6.3,
         bold: restated, color: restated ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
-  s.addText(W.note, { x: RX + 0.22, y: WY + WH - 0.32, w: RW - 0.44, h: 0.26, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText(W.note, { x: RX + 0.22, y: WY + WH - 0.30, w: RW - 0.44, h: 0.26, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- full-width summary ----------------------------------------------------
   aiSummary(s, 0.45, 5.94, 12.43, 1.12, [
-    { lead: "Last week's utilisation has already restated upward.", text: `14–20 Sep went out at 16.07h (4.7%) and now stands at 24.82h (7.3%) — Rhys +5.75h, Joshua +2.0h, Isayah +1.0h. This week's ${u.utilPct}% is a floor, not a result.`, dot: TERRA },
-    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h and ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h; ${u.byEmployee.filter((r) => r[1] === 0).length} PS members logged nothing. ${u.psCasesThisWk} PS cases opened this week and Tech carries ${u.byWork[0][3]}% of logged time.`, dot: GOLD },
+    { lead: "Every closed week keeps restating upward.", text: (() => { const pr = W.rows.filter((r) => !r.current); const p0 = pr[pr.length - 1]; return `${p0.label} went out at ${p0.firstHours.toFixed(2)}h (${p0.firstUtil}%) and now stands at ${p0.hours.toFixed(2)}h (${p0.util}%); the two weeks before it have grown too. This week's ${u.utilPct}% is a floor, not a result.`; })(), dot: TERRA },
+    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total — and one record carries the week.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h, of which 50.5h sits on one hardware record; ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h across 21 items; ${u.byEmployee.filter((r) => r[1] === 0).length} logged nothing. Strip that record and utilisation is 11.2%.`, dot: GOLD },
   ]);
   sourcePill(s, u.source);
 }
@@ -674,47 +675,74 @@ if (D.cutover.showSlide) {
 
   const BANDS = ["0–7 days", "8–30 days", "31–90 days", "90+ days"];
   const BCOL = ["3D8F5F", "6FAEBB", "C88A2E", "7A3B21"];
+  const CLOSEDCOL = "1C5765";
   const CX = 0.45, CY = 2.62, CW = 7.2, CH = 4.28;
   card(s, CX, CY, CW, CH);
-  cardTitle(s, CX, CY, "OPEN BACKLOG BY AGE BAND — WEEKLY", 5.4);
-  // shared legend
+  cardTitle(s, CX, CY, "OPEN BACKLOG BY AGE BAND vs CLOSED — WEEKLY", 6.4);
+
+  // legend
   let lx = CX + 0.24;
   BANDS.forEach((bn, i) => {
     s.addShape("rect", { x: lx, y: CY + 0.45, w: 0.12, h: 0.12, fill: { color: BCOL[i] }, line: { type: "none" } });
     s.addText(bn, { x: lx + 0.15, y: CY + 0.4, w: 0.78, h: 0.22, fontFace: FONT, fontSize: 6.8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    lx += 0.92;
+    lx += 0.9;
   });
-  const chY = CY + 0.72, chH = 2.95, MAXV = 800;
-  const mkSeries = (rows) => BANDS.map((bn, bi) => ({ name: bn, labels: rows.map((r) => r.wk), values: rows.map((r) => r.bands[bi]) }));
-  const common = {
-    barDir: "col", barGrouping: "stacked", chartColors: BCOL, barGapWidthPct: 55,
-    showValue: true, dataLabelPosition: "ctr", dataLabelColor: "FFFFFF", dataLabelFontSize: 6.5, dataLabelFontFace: FONT,
-    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT,
-    valAxisMaxVal: MAXV, valAxisMinVal: 0, valGridLine: { color: TRACK, size: 0.5 }, catGridLine: { style: "none" },
-    showLegend: false, showTitle: false,
-  };
-  s.addChart(pres.ChartType.bar, mkSeries(AS.creatio), Object.assign({}, common, {
-    x: CX + 0.14, y: chY, w: 4.3, h: chH,
-    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT,
-  }));
-  s.addChart(pres.ChartType.bar, mkSeries(AS.hubspot), Object.assign({}, common, {
-    x: CX + 4.72, y: chY, w: 2.32, h: chH, valAxisHidden: true,
-  }));
-  // cutover divider between the two series
-  const dX = CX + 4.58;
-  s.addShape("rect", { x: dX, y: chY + 0.05, w: 0.022, h: chH - 0.4, fill: { color: TERRA }, line: { type: "none" } });
-  s.addShape("roundRect", { x: dX - 0.5, y: CY + 0.4, w: 1.05, h: 0.22, rectRadius: 0.11, fill: { color: TERRA }, line: { type: "none" } });
-  s.addText("CUTOVER 8 SEP", { x: dX - 0.5, y: CY + 0.4, w: 1.05, h: 0.22, align: "center", valign: "middle", fontFace: FONT, fontSize: 6, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
-  s.addText("CREATIO — FROZEN", { x: CX + 0.6, y: chY + chH - 0.12, w: 3.4, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
-  s.addText("HUBSPOT — LIVE", { x: CX + 4.72, y: chY + chH - 0.12, w: 2.32, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
-  s.addText(AS.note, { x: CX + 0.22, y: CY + CH - 0.42, w: CW - 0.44, h: 0.36, fontFace: FONT, fontSize: 6.5, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addShape("rect", { x: lx, y: CY + 0.45, w: 0.12, h: 0.12, fill: { color: CLOSEDCOL }, line: { type: "none" } });
+  s.addText("closed in week", { x: lx + 0.15, y: CY + 0.4, w: 1.0, h: 0.22, fontFace: FONT, fontSize: 6.8, bold: true, color: CLOSEDCOL, isTextBox: true, margin: 0, valign: "middle" });
 
-  aiSummary(s, 7.85, CY, 5.03, CH, [
-    { lead: "The backlog turned this week.", text: `Inflow ${b.weekly[b.weekly.length - 1].in} beat resolved ${b.weekly[b.weekly.length - 1].out} — the first week since cutover where it did. Open rose 575 → ${b.open}, and the 8–30 day band carried it (249 → ${b.ageBands.b8_30}). The 90+ tail is still the win: 10 → ${b.ageBands.b90}.`, dot: TERRA },
-    { lead: "31–90 days is where it is building.", text: `That band went 132 → ${b.ageBands.b31_90} in the week, so ${b.past30} cases are now past 30 days against 142 a fortnight ago. Work aged 8–30 days is ageing through rather than closing.`, dot: GOLD },
-    { lead: "The queue is still the live risk:", text: `${b.unanswered} open cases show no first response. Migrated tickets answered only in Creatio count as unanswered here — treat as a ceiling until the transition washes through.`, dot: TERRA },
-    { text: "SLA fields are populating on new HubSpot tickets — attainment reporting returns once coverage is credible.", muted: true, dot: FAINT },
-  ]);
+  // plot geometry
+  const weeks = AS.creatio.map((r) => Object.assign({ grp: "c" }, r)).concat(AS.hubspot.map((r) => Object.assign({ grp: "h" }, r)));
+  const nC = AS.creatio.length, nH = AS.hubspot.length, nW = weeks.length;
+  const PX = CX + 0.62, PW = CW - 0.86, PY = CY + 0.95, PH = 2.42;
+  const DIVW = 0.16, SLOT = (PW - DIVW) / nW;
+  const BARW = Math.min(0.26, SLOT * 0.36), BGAP = 0.035;
+  const MAXV = 800, base = PY + PH;
+  const slotX = (i) => PX + i * SLOT + (i >= nC ? DIVW : 0);
+
+  // gridlines + value axis
+  [0, 200, 400, 600, 800].forEach((v) => {
+    const y = base - (v / MAXV) * PH;
+    s.addShape("rect", { x: PX - 0.06, y, w: PW + 0.06, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
+    s.addText(String(v), { x: CX + 0.14, y: y - 0.08, w: 0.44, h: 0.16, align: "right", fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0 });
+  });
+
+  weeks.forEach((r, i) => {
+    const x0 = slotX(i) + (SLOT - (BARW * 2 + BGAP)) / 2;
+    // stacked open bars
+    let yTop = base;
+    r.bands.forEach((v, bi) => {
+      const h = (v / MAXV) * PH;
+      yTop -= h;
+      s.addShape("rect", { x: x0, y: yTop, w: BARW, h, fill: { color: BCOL[bi] }, line: { type: "none" } });
+      if (h > 0.13) s.addText(String(v), { x: x0, y: yTop + h / 2 - 0.07, w: BARW, h: 0.15, align: "center", fontFace: FONT, fontSize: 6, color: "FFFFFF", isTextBox: true, margin: 0 });
+    });
+    const tot = r.bands.reduce((a, c) => a + c, 0);
+    s.addText(String(tot), { x: x0 - 0.05, y: yTop - 0.17, w: BARW + 0.1, h: 0.16, align: "center", fontFace: FONT, fontSize: 6.2, bold: true, color: NAVY, isTextBox: true, margin: 0 });
+    // closed bar
+    const cx2 = x0 + BARW + BGAP;
+    if (r.closed == null) {
+      s.addText("—", { x: cx2, y: base - 0.18, w: BARW, h: 0.16, align: "center", fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
+    } else {
+      const h = (r.closed / MAXV) * PH;
+      s.addShape("rect", { x: cx2, y: base - h, w: BARW, h, fill: { color: CLOSEDCOL }, line: { type: "none" } });
+      s.addText(String(r.closed), { x: cx2 - 0.05, y: base - h - 0.17, w: BARW + 0.1, h: 0.16, align: "center", fontFace: FONT, fontSize: 6.2, bold: true, color: CLOSEDCOL, isTextBox: true, margin: 0 });
+    }
+    s.addText(r.wk, { x: slotX(i), y: base + 0.04, w: SLOT, h: 0.18, align: "center", fontFace: FONT, fontSize: 6.5, color: NAVY, isTextBox: true, margin: 0 });
+  });
+  s.addShape("rect", { x: PX - 0.06, y: base, w: PW + 0.06, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
+
+  // cutover divider
+  const dX = PX + nC * SLOT + DIVW / 2 - 0.011;
+  s.addShape("rect", { x: dX, y: PY - 0.06, w: 0.022, h: PH + 0.06, fill: { color: TERRA }, line: { type: "none" } });
+  s.addShape("roundRect", { x: dX - 0.5, y: CY + 0.68, w: 1.05, h: 0.22, rectRadius: 0.11, fill: { color: TERRA }, line: { type: "none" } });
+  s.addText("CUTOVER 8 SEP", { x: dX - 0.5, y: CY + 0.68, w: 1.05, h: 0.22, align: "center", valign: "middle", fontFace: FONT, fontSize: 6, bold: true, color: "FFFFFF", isTextBox: true, margin: 0 });
+  s.addText("CREATIO — FROZEN", { x: PX, y: base + 0.23, w: nC * SLOT, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: GOLD, isTextBox: true, margin: 0 });
+  s.addText("HUBSPOT — LIVE", { x: PX + nC * SLOT + DIVW, y: base + 0.23, w: nH * SLOT, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(AS.note, { x: CX + 0.22, y: CY + CH - 0.46, w: CW - 0.44, h: 0.42, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  aiSummary(s, 7.85, CY, 5.03, CH, b.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, GREEN, TEAL][k % 4] })).concat([
+    { text: b.footnote, muted: true, dot: FAINT },
+  ]));
   sourcePill(s, b.source);
 }
 
