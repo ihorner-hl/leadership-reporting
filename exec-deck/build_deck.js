@@ -484,7 +484,7 @@ if (D.cutover.showSlide) {
   kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLABLE UTILISATION", u.utilPct + "%",
       `${u.billedHours}h billed of ${u.availableHours}h available · target ${u.targetPct}% · ${u.restateNote}`, GOLD);
   kpi(s, 4.63, 1.12, 3.98, 1.25, "AVAILABLE HOURS — THIS WEEK", u.availableHours + "h",
-      `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`, NAVY);
+      (u.onLeave && u.onLeave.length ? `${u.staffCount} available × ${u.weekHours}h · ${u.onLeave.join(" and ")} on leave` : `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`), NAVY);
   kpi(s, 8.81, 1.12, 4.07, 1.25, "TIME-LOGGING COVERAGE", u.coveragePct + "%",
       `${u.itemsWithHours} of ${u.itemsCreated} PS items raised this week carry hours — utilisation reads low because logging is ramping, not because delivery stopped`, GOLD);
 
@@ -585,7 +585,7 @@ if (D.cutover.showSlide) {
   // ---- full-width summary ----------------------------------------------------
   aiSummary(s, 0.45, 5.94, 12.43, 1.12, [
     { lead: "Every closed week keeps restating upward.", text: (() => { const pr = W.rows.filter((r) => !r.current); const p0 = pr[pr.length - 1]; return `${p0.label} went out at ${p0.firstHours.toFixed(2)}h (${p0.firstUtil}%) and now stands at ${p0.hours.toFixed(2)}h (${p0.util}%); the two weeks before it have grown too. This week's ${u.utilPct}% is a floor, not a result.`; })(), dot: TERRA },
-    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total — and one record carries the week.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h, of which 50.5h sits on one hardware record; ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h across 21 items; ${u.byEmployee.filter((r) => r[1] === 0).length} logged nothing. Strip that record and utilisation is 11.2%.`, dot: GOLD },
+    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total — and one record carries the week.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h, of which 50.5h sits on one hardware record; ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h across 21 items; ${u.byEmployee.filter((r) => r[1] === 0).length} logged nothing. Strip that record and utilisation is ${u.strippedPct}%.`, dot: GOLD },
   ]);
   sourcePill(s, u.source);
 }

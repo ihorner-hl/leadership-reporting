@@ -71,7 +71,7 @@
   "execSummary": {
     "finance": "Q3 hardware closed at $526k = 74% of the $715k OKR2; the 28 Sep\u20134 Oct extract adds $102k gross but straddles the quarter end",
     "sales": "Q3 new MRR final $15.2k = 54% of OKR2; the week itself nets \u2212$535 as the 1 Oct billing run booked churn and contraction",
-    "ps": "billable utilisation 26.0% \u2014 88.9h of 342h, but one 50.5h record carries most of it; 11.2% without it",
+    "ps": "billable utilisation 33.4% \u2014 88.9h of 266h with Rhys and Rodney on leave, but one 50.5h record carries most of it; 14.4% without it",
     "support": "weekly inflow 460 vs resolved 432 \u2014 backlog 698 and still rising, 204 past 30 days",
     "product": "Q3 roadmap as at 19 Sep: 10 done \u00b7 12 on track \u00b7 3 not started \u00b7 2 at risk \u2014 tracker refresh pending",
     "aiUsage": "AI-draft adoption 4.5% this week (5 of 110) \u2014 best week since cutover, 3 sent as-is"
@@ -503,12 +503,12 @@
     "source": "HubSpot PS records (total_hours) + PS pipeline ticket owners \u2014 live, read-only",
     "weekLabel": "WC 28 Sep 2026",
     "weekHours": 38.0,
-    "staffCount": 9,
-    "availableHours": 342,
+    "staffCount": 7,
+    "availableHours": 266,
     "billedHours": 88.87,
-    "utilPct": 26.0,
+    "utilPct": 33.4,
     "targetPct": 80,
-    "staffBasis": "Available staff = the 9 PS people on PS-pipeline tickets open now or closed this week, at 38h each. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff \u2014 they and their hours are excluded.",
+    "staffBasis": "Available staff = the 7 Professional Services people on PS-pipeline tickets open now or closed this week and not on leave, at 38h each. Rhys Woolcock and Rodney Nolan were on leave and are out of the base. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff \u2014 they and their hours are excluded.",
     "itemsWithHours": 23,
     "itemsCreated": 139,
     "coveragePct": 17,
@@ -526,19 +526,7 @@
         99.7
       ],
       [
-        "Rhys Woolcock",
-        0,
-        0,
-        0.0
-      ],
-      [
         "Isaac Mercado",
-        0,
-        0,
-        0.0
-      ],
-      [
-        "Rodney Nolan",
         0,
         0,
         0.0
@@ -648,16 +636,21 @@
           "label": "28 Sep\u20134 Oct",
           "items": 23,
           "hours": 88.87,
-          "util": 26.0,
+          "util": 33.4,
           "firstHours": 88.87,
-          "firstUtil": 26.0,
+          "firstUtil": 33.4,
           "current": true
         }
       ],
-      "note": "Every closed week has restated upward since first reporting. Base held at 9 PS staff \u00d7 38h. A 722h record on 21\u201327 Sep is excluded as a keying error.",
+      "note": "Base is available staff \u00d7 38h: 9 for the first three weeks, 7 for 28 Sep\u20134 Oct with Rhys Woolcock and Rodney Nolan on leave. Every closed week has restated upward since first reporting. A 722h record on 21\u201327 Sep is excluded as a keying error.",
       "detail": "restated again"
     },
-    "restateNote": "one 50.5h record carries most of it"
+    "restateNote": "one 50.5h record carries most of it",
+    "onLeave": [
+      "Rhys Woolcock",
+      "Rodney Nolan"
+    ],
+    "strippedPct": 14.4
   },
   "wonVsInvoiced": {
     "source": "HubSpot deals + MRR movement register (live, 6 Oct) \u2014 all series live",
