@@ -23,6 +23,7 @@ const NAVY = "12293A", TEAL = "2C8394", TERRA = "B4552D", GOLD = "C88A2E", GREEN
 const BG = "F2F6F8", CARD = "FFFFFF", MUTED = "5E7280", FAINT = "8FA1AC", TRACK = "E2EAEE";
 const TEAL_DK = "1C5765", TEAL_LT = "6FAEBB", TEAL_PALE = "E4F1F4", NA_GRAY = "C7D3DA";
 const FONT = "Poppins";
+const QTR = (D.week && D.week.quarter) || "Q3";
 const PAGEW = 13.33, PAGEH = 7.5;
 const CHAPTER = { 1: TEAL, 2: GREEN, 3: GOLD, 4: NAVY };
 const CHAPTER_LABEL = { 1: "DID WE SELL?", 2: "DID WE DELIVER?", 3: "DID WE KEEP THEM?", 4: "BUILDING THE FUTURE?" };
@@ -147,7 +148,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
     { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion"] },
     { n: 2, c: GREEN, t: "DID WE DELIVER?", st: "From signed to billed", items: ["Utilisation & Delivery Hours", "Won vs Invoiced & Retention"] },
     { n: 3, c: GOLD, t: "DID WE KEEP THEM?", st: "Support health", items: D.aiAgent.showSlide ? ["Backlog, ageing & first response", "AI Support Agent"] : ["Backlog, ageing & first response"] },
-    { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: ["Q3 Roadmap · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
+    { n: 4, c: NAVY, t: "BUILDING THE FUTURE?", st: "Product, AI & projects", items: [(D.roadmap.title || "Q3 Roadmap") + " · GTM Readiness", "AI Usage — adoption & activity", "Projects — portfolio status"] },
   ];
   cards.forEach((cfg, i) => {
     const x = 0.45 + i * 3.17, y = 1.5, w = 2.92, h = 4.9;
@@ -237,7 +238,7 @@ if (D.cutover.showSlide) {
 
   // headline cards
   card(s, 0.45, 1.1, 6.05, 1.28);
-  s.addText(`NEW MRR — Q3 · OKR2 ${fmtK(t.mrr.okr2)} · team ${fmtK(t.mrr.team)}`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`NEW MRR — ${QTR} · OKR2 ${fmtK(t.mrr.okr2)} · team ${fmtK(t.mrr.team)}`, { x: 0.65, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.mrr.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.mrr.okr2)} target · register ${t.mrr.live ? "live" : "as at " + t.mrr.asAt}`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 0.65, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(t.mrr.netDeltaWk == null ? "refresh pending" : (t.mrr.netDeltaWk === 0 ? "nil net this wk" : `${t.mrr.netDeltaWk > 0 ? "▲ +" : "▼ −"}${fmt$(Math.abs(t.mrr.netDeltaWk))} net this wk`), { x: 3.95, y: 1.5, w: 2.45, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.mrr.netDeltaWk > 0 ? GREEN : (t.mrr.netDeltaWk < 0 ? TERRA : GOLD), isTextBox: true, margin: 0 });
@@ -246,7 +247,7 @@ if (D.cutover.showSlide) {
     { x: 5.35, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
 
   card(s, 6.83, 1.1, 6.05, 1.28);
-  s.addText(`HARDWARE — Q3 · OKR2 ${fmtK(t.hardware.okr2)} · team ${fmtK(t.hardware.team)}`, { x: 7.03, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
+  s.addText(`HARDWARE — ${QTR} · OKR2 ${fmtK(t.hardware.okr2)} · team ${fmtK(t.hardware.team)}`, { x: 7.03, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.hardware.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.hardware.okr2)} target`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 7.03, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`▲ +${fmtK(t.hardware.deltaWk)} this wk`, { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
@@ -257,7 +258,7 @@ if (D.cutover.showSlide) {
   // member table
   const TX = 0.45, TW = 8.35, TY = 2.56, TH = 4.42;
   card(s, TX, TY, TW, TH);
-  s.addText([{ text: "Q3 BY MEMBER   ", options: { fontSize: 12, bold: true, color: TEAL } }, { text: `▮ pace mark = share of quarter elapsed (${pace}%)`, options: { fontSize: 8, color: FAINT } }],
+  s.addText([{ text: `${QTR} BY MEMBER   `, options: { fontSize: 12, bold: true, color: TEAL } }, { text: `▮ pace mark = share of quarter elapsed (${pace}%)`, options: { fontSize: 8, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.12, w: TW - 0.44, h: 0.3, fontFace: FONT, isTextBox: true, margin: 0 });
   const cols = [
     { label: "MEMBER", x: 0.22, w: 1.5, align: "left" },
@@ -289,7 +290,7 @@ if (D.cutover.showSlide) {
     } else {
       s.addText("—", { x: TX + 5.94, y, w: 1.02, h: rH, align: "center", fontFace: FONT, fontSize: 8, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
     }
-    s.addText(m.hwDelta == null ? "—" : (m.hwDelta < 0 ? "−" : "+") + (Math.abs(m.hwDelta) < 1000 ? fmt$(Math.abs(m.hwDelta)).slice(1) : fmtK(Math.abs(m.hwDelta)).slice(1)), { x: TX + 7.02, y, w: 1.08, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta > 0 ? GREEN : (m.hwDelta < 0 ? TERRA : FAINT), isTextBox: true, margin: 0, valign: "middle" });
+    s.addText((m.hwDelta == null || m.hwDelta === 0) ? "—" : (m.hwDelta < 0 ? "−" : "+") + (Math.abs(m.hwDelta) < 1000 ? fmt$(Math.abs(m.hwDelta)).slice(1) : fmtK(Math.abs(m.hwDelta)).slice(1)), { x: TX + 7.02, y, w: 1.08, h: rH, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: m.hwDelta > 0 ? GREEN : (m.hwDelta < 0 ? TERRA : FAINT), isTextBox: true, margin: 0, valign: "middle" });
   });
   const totY = TY + 0.92 + rows.length * rH + 0.04;
   s.addShape("rect", { x: TX + 0.22, y: totY - 0.05, w: TW - 0.44, h: 0.016, fill: { color: NAVY }, line: { type: "none" } });
@@ -300,15 +301,19 @@ if (D.cutover.showSlide) {
   s.addText(fmtK(t.hardware.team), { x: TX + 4.58, y: totY, w: 0.60, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(fmtK(t.hardware.qtd), { x: TX + 5.22, y: totY, w: 0.66, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`${pct(t.hardware.qtd, t.hardware.team)}%`, { x: TX + 5.94, y: totY, w: 1.02, h: 0.3, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText("+" + fmtK(t.hardware.deltaWk).slice(1), { x: TX + 7.02, y: totY, w: 1.08, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`MRR = net new + expansion invoiced in Q3 (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
+  s.addText((t.hardware.deltaWk < 0 ? "\u2212" : "+") + fmtK(Math.abs(t.hardware.deltaWk)).slice(1), { x: TX + 7.02, y: totY, w: 1.08, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(`MRR = net new + expansion invoiced in ${QTR} (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
 
-  aiSummary(s, 9.0, 2.56, 3.88, 4.42, [
-    { lead: `Q3 hardware closed at ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against the ${fmtK(t.hardware.okr2)} OKR2, with the quarter now over. ${t.hardwareNote}`, dot: TERRA },
-    { lead: "The week is the 1 October billing run, not trading.", text: `SEP $196k, software subscriptions $324k and SMA $95k dominate the ${t.extractWeek} extract, so most of its ${fmtK(t.hardware.deltaWk)} hardware almost certainly sits in Q4. Jasmine carries $94.6k of it.`, dot: GOLD },
-    { lead: t.mrr.netDeltaWk ? `Net new MRR moved ${(t.mrr.netDeltaWk > 0 ? "+" : "−") + fmt$(Math.abs(t.mrr.netDeltaWk))} in the week.` : "Net new MRR did not move this week.", text: `Q3 stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.netDeltaWk > 0 ? TEAL : TERRA },
-    { text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT },
-  ]);
+  const DOTS = { terra: TERRA, gold: GOLD, teal: TEAL, green: GREEN, faint: FAINT };
+  const salesBullets = (t.bullets || []).map(([lead, text, c]) => ({ lead, text, dot: DOTS[c] || TERRA }));
+  if (!salesBullets.length) {
+    salesBullets.push(
+      { lead: `${QTR} hardware stands at ${fmtK(t.hardware.qtd)} (${pct(t.hardware.qtd, t.hardware.okr2)}%)`, text: `against the ${fmtK(t.hardware.okr2)} OKR2 at a ${pace}% pace mark. ${t.hardwareNote}`, dot: TERRA },
+      { lead: t.mrr.netDeltaWk ? `Net new MRR moved ${(t.mrr.netDeltaWk > 0 ? "+" : "−") + fmt$(Math.abs(t.mrr.netDeltaWk))} in the week.` : "Net new MRR did not move this week.", text: `${QTR} stands at ${fmt$(t.mrr.qtd)} — ${pct(t.mrr.qtd, t.mrr.okr2)}% of the ${fmtK(t.mrr.okr2)} OKR2 against a ${pace}% pace mark. ${t.mrr.deltaNote}`, dot: t.mrr.netDeltaWk > 0 ? TEAL : TERRA },
+    );
+  }
+  salesBullets.push({ text: `HW = commissionable only, gross of discounts · attainment = invoiced, never closed-won · pace = ${D.week.quarterPaceNote}.`, muted: true, dot: FAINT });
+  aiSummary(s, 9.0, 2.56, 3.88, 4.42, salesBullets);
   sourcePill(s, t.source);
 }
 
@@ -397,10 +402,10 @@ if (D.cutover.showSlide) {
     { x: PX + 2.05, y: CY + 2.44, w: PW - 2.3, h: 0.5, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(A.fxNote, { x: PX + 0.22, y: CY + 2.94, w: PW - 0.44, h: 0.3, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  aiSummary(s, 0.45, 6.02, 12.43, 0.98, [
+  aiSummary(s, 0.45, 5.92, 12.43, 1.14, [
     { lead: "Conversion is real but tiny.", text: `${A.placedDeals} orders placed since 1 Jul (${US(A.placedAud)}) against ${A.lostDeals} lost — ${A.convCount}% by count, ${A.convValue}% by value. All of it is ROAM; Sentinel has ${US(A.byProduct[1].openAud)} in play and no order yet.`, dot: GREEN },
     { lead: "The book is stuck mid-funnel:", text: `${US(A.stages[1].aud + A.stages[2].aud)} of the ${US(A.openAud)} open sits in Quote Sent and Negotiation across ${A.stages[1].deals + A.stages[2].deals} deals — the movement to chase is quote-to-order, not top-of-funnel.`, dot: TEAL },
-    { text: "QR Ordering is priced $0 on every line, so its value reads nil · ROAM lines are one month, not contract value.", muted: true, dot: FAINT },
+    { text: A.caveats, muted: true, dot: FAINT },
   ]);
   sourcePill(s, A.source);
 }
@@ -575,17 +580,17 @@ if (D.cutover.showSlide) {
     s.addText(r.hours.toFixed(2) + "h", { x: RX + 1.88, y, w: 0.85, h: WROW, align: "right", fontFace: FONT, fontSize: WFS + 0.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r.util.toFixed(1) + "%", { x: RX + 2.79, y, w: 0.5, h: WROW, align: "right", fontFace: FONT, fontSize: WFS + 0.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r.firstHours == null ? "not reported" : (restated
-        ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ▲ +${(r.hours - r.firstHours).toFixed(2)}h`
+        ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ${r.hours > r.firstHours ? "▲ +" : "▼ −"}${Math.abs(r.hours - r.firstHours).toFixed(2)}h`
         : "first report"),
       { x: RX + 3.35, y, w: 1.46, h: WROW, align: "right", fontFace: FONT, fontSize: restated ? 6.1 : 6.3,
-        bold: restated, color: restated ? TERRA : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+        bold: restated, color: restated ? (r.hours >= r.firstHours ? TERRA : GOLD) : FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
   s.addText(W.note, { x: RX + 0.22, y: WY + WH - 0.30, w: RW - 0.44, h: 0.26, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- full-width summary ----------------------------------------------------
   aiSummary(s, 0.45, 5.94, 12.43, 1.12, [
-    { lead: "Every closed week keeps restating upward.", text: (() => { const pr = W.rows.filter((r) => !r.current); const p0 = pr[pr.length - 1]; return `${p0.label} went out at ${p0.firstHours.toFixed(2)}h (${p0.firstUtil}%) and now stands at ${p0.hours.toFixed(2)}h (${p0.util}%); the two weeks before it have grown too. This week's ${u.utilPct}% is a floor, not a result.`; })(), dot: TERRA },
-    { lead: `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total — and one record carries the week.`, text: `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h, of which 50.5h sits on one hardware record; ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h across 21 items; ${u.byEmployee.filter((r) => r[1] === 0).length} logged nothing. Strip that record and utilisation is ${u.strippedPct}%.`, dot: GOLD },
+    { lead: W.lead || "Every closed week keeps restating upward.", text: W.text || (() => { const pr = W.rows.filter((r) => !r.current); const p0 = pr[pr.length - 1]; return `${p0.label} went out at ${p0.firstHours.toFixed(2)}h (${p0.firstUtil}%) and now stands at ${p0.hours.toFixed(2)}h (${p0.util}%). This week's ${u.utilPct}% is a floor, not a result.`; })(), dot: TERRA },
+    { lead: u.concLead || `Two people carry ${Math.round(((u.byEmployee[0][1] + u.byEmployee[1][1]) / u.billedHours) * 100)}% of the logged total — and one record carries the week.`, text: u.concText || `${u.byEmployee[0][0]} ${u.byEmployee[0][1].toFixed(2)}h; ${u.byEmployee[1][0]} ${u.byEmployee[1][1].toFixed(2)}h; ${u.byEmployee.filter((r) => r[1] === 0).length} logged nothing. Strip the largest record and utilisation is ${u.strippedPct}%.`, dot: GOLD },
   ]);
   sourcePill(s, u.source);
 }
@@ -623,7 +628,7 @@ if (D.cutover.showSlide) {
   const KX = 7.95, KW = 4.93;
   kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of the ${w.wonDeals2026} deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it`, GOLD, 20);
   kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, w.churnedArrLabel, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
-  kpi(s, KX, 3.26, KW, 0.99, "NET MRR MOVEMENT · Q3", `-$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
+  kpi(s, KX, 3.26, KW, 0.99, `NET MRR MOVEMENT · ${QTR}`, `${w.netMrrQ3K < 0 ? "-" : "+"}$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
 
   const TX = 6.9, TY = 4.4, TW = 5.98, TH = 2.56;
   card(s, TX, TY, TW, TH);
@@ -791,7 +796,7 @@ if (D.aiAgent.showSlide) {
 {
   const s = pres.addSlide();
   const r = D.roadmap;
-  header(s, "Q3 Roadmap", "Product", 4);
+  header(s, r.title || "Q3 Roadmap", "Product", 4);
   const legend = [[`${r.counts.done} Done`, GREEN], [`${r.counts.onTrack} On Track`, GOLD], [`${r.counts.notStarted} Not Started`, NA_GRAY], [`${r.counts.atRisk} At risk`, TERRA]];
   let lx = 0.45;
   legend.forEach(([t2, c]) => {
@@ -857,7 +862,7 @@ if (D.aiAgent.showSlide) {
   const ai = D.aiUsage, CM = ai.codeMatrix, BW = ai.byWeek, CO = ai.cowork;
   header(s, "AI Usage — Adoption & Activity", "IT", 4);
   kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
-  kpi(s, 3.6, 1.08, 2.95, 1.2, ai.locLabel || "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + " ▲",
+  kpi(s, 3.6, 1.08, 2.95, 1.2, ai.locLabel || "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + (ai.locWoWPct == null ? "" : " ▲"),
       ai.locWoWPct == null ? `${ai.locWeekEnding} · ${ai.locNote}` : `+${ai.locWoWPct}% WoW · ${ai.locWeekEnding}`, TEAL, 24);
   {
     const x = 6.75, y = 1.08, w2 = 6.13, h = 1.2;
@@ -913,9 +918,9 @@ if (D.aiAgent.showSlide) {
   const RX = 8.85, RW = 4.03;
   card(s, RX, CY, RW, CH);
   cardTitle(s, RX, CY, "COWORK — SESSIONS PER WEEK", 3.6);
-  s.addText(`~${CO.perWkTotal}`, { x: RX + 0.2, y: CY + 0.42, w: 1.5, h: 0.6, fontFace: FONT, fontSize: 30, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(`~${CO.perWkTotal}`, { x: RX + 0.2, y: CY + 0.42, w: 1.62, h: 0.6, fontFace: FONT, fontSize: String(CO.perWkTotal).length > 3 ? 26 : 30, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
   s.addText([{ text: "team total / wk\n", options: { fontSize: 7.5, color: MUTED } }, { text: `~${CO.baseline} baseline`, options: { fontSize: 7, color: FAINT } }],
-    { x: RX + 1.6, y: CY + 0.45, w: 2.2, h: 0.55, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    { x: RX + 1.88, y: CY + 0.45, w: 1.95, h: 0.55, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
   CO.members.forEach((m, i) => {
     const y = CY + 1.12 + i * 0.21;
     s.addText(m[0], { x: RX + 0.2, y, w: 1.9, h: 0.22, fontFace: FONT, fontSize: 7.5, bold: i < 5, color: i < 5 ? NAVY : MUTED, isTextBox: true, margin: 0, valign: "middle" });
@@ -927,7 +932,7 @@ if (D.aiAgent.showSlide) {
   s.addText(CO.note, { x: RX + 0.2, y: CY + CH - 0.3, w: RW - 0.4, h: 0.26, fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   aiSummary(s, 0.45, 6.2, 12.43, 0.86, [
-    { lead: `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: `— daily actives nearly doubled, ${ai.daily} against 10 a week ago. Cowork is the stickiest surface at ${ai.stickiness[1][1]}% DAU/MAU, Claude.ai has jumped to ${ai.stickiness[2][1]}% and Office Agents are live at ${ai.stickiness[3][1]}%. October code output is ${ai.sepTotal.toLocaleString()} lines in six days, ${ai.sepToDate[0][1].toLocaleString()} of them ${ai.sepToDate[0][0]}. ${ai.coworkNote}`, dot: TEAL },
+    { lead: ai.summaryLead || `${ai.activeWeekly} of ${ai.allMembers} active weekly (${ai.daily} daily)`, text: ai.summaryText || `Cowork is the stickiest surface at ${ai.stickiness[1][1]}% DAU/MAU. Code output is ${ai.sepTotal.toLocaleString()} lines, ${ai.sepToDate[0][1].toLocaleString()} of them ${ai.sepToDate[0][0]}. ${ai.coworkNote}`, dot: TEAL },
   ]);
   sourcePill(s, ai.source);
 }
