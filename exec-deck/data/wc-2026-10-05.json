@@ -1040,7 +1040,30 @@
     "15 against 12 last week and 73 at the start of August. The oldest work is still being cleared, but three cases crossed the line this week."
    ]
   ],
-  "footnote": "SLA fields are populating on new HubSpot tickets — attainment reporting returns once coverage is credible."
+  "footnote": "SLA fields are populating on new HubSpot tickets — attainment reporting returns once coverage is credible.",
+  "stages": [
+   [
+    "NEW",
+    529,
+    false
+   ],
+   [
+    "IN PROGRESS",
+    88,
+    false
+   ],
+   [
+    "PENDING INTERNAL",
+    23,
+    true
+   ],
+   [
+    "PENDING EXTERNAL",
+    18,
+    true
+   ]
+  ],
+  "stagesNote": "Pending Internal and Pending External are inside the 657 — 41 tickets, 6% of it; exclude both and the backlog reads 616. The number to watch is the other end: 529 of 657, 81%, have never left New."
  },
  "aiAgent": {
   "source": "HubSpot draft state machine (live)",

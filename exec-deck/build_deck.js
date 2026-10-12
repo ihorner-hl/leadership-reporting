@@ -745,9 +745,31 @@ if (D.cutover.showSlide) {
   s.addText("HUBSPOT — LIVE", { x: PX + nC * SLOT + DIVW, y: base + 0.23, w: nH * SLOT, h: 0.2, align: "center", fontFace: FONT, fontSize: 6.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText(AS.note, { x: CX + 0.22, y: CY + CH - 0.46, w: CW - 0.44, h: 0.42, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  aiSummary(s, 7.85, CY, 5.03, CH, b.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, GREEN, TEAL][k % 4] })).concat([
+  const stg = b.stages || [];
+  const SUMH = stg.length ? 3.05 : CH;
+  aiSummary(s, 7.85, CY, 5.03, SUMH, b.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, GREEN, TEAL][k % 4] })).concat([
     { text: b.footnote, muted: true, dot: FAINT },
   ]));
+
+  // ---- open backlog by stage: the two pending states called out ----------------
+  if (stg.length) {
+    const SX = 7.85, SY = CY + SUMH + 0.13, SW = 5.03, SH = CY + CH - (CY + SUMH + 0.13);
+    card(s, SX, SY, SW, SH);
+    s.addText([{ text: `WHERE THE ${b.open} OPEN SIT   `, options: { fontSize: 9.5, bold: true, color: TEAL } },
+               { text: "the two pending states are counted in", options: { fontSize: 6.3, color: FAINT } }],
+      { x: SX + 0.22, y: SY + 0.1, w: SW - 0.44, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    const pad = 0.22, gap = 0.07, tw = (SW - pad * 2 - gap * 3) / 4, ty = SY + 0.36, th = 0.46;
+    stg.forEach(([label, n, pend], i) => {
+      const x = SX + pad + i * (tw + gap);
+      s.addShape("rect", { x, y: ty, w: tw, h: th, fill: { color: pend ? "F7EEDF" : BG }, line: { type: "none" } });
+      if (pend) s.addShape("rect", { x, y: ty, w: 0.035, h: th, fill: { color: GOLD }, line: { type: "none" } });
+      s.addText(String(n), { x: x + 0.1, y: ty + 0.03, w: tw - 0.2, h: 0.24, align: "center", fontFace: FONT, fontSize: 14, bold: true,
+        color: pend ? GOLD : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText(label, { x: x + 0.03, y: ty + 0.27, w: tw - 0.06, h: 0.17, align: "center", fontFace: FONT, fontSize: label.length > 12 ? 5.4 : 6.2, bold: true,
+        color: pend ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    });
+    s.addText(b.stagesNote, { x: SX + 0.22, y: ty + th + 0.05, w: SW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.4, color: MUTED, isTextBox: true, margin: 0, valign: "top" });
+  }
   sourcePill(s, b.source);
 }
 
