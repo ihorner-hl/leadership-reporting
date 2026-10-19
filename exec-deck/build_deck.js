@@ -32,10 +32,14 @@ const pres = new PptxGenJS();
 
 // --only=N renders just slide N (1-based) into a standalone file; everything
 // else is drawn into a sink that swallows the calls, so no slide code changes.
-const ONLY = (() => { const a = process.argv.find((x) => x.startsWith("--only=")); return a ? Number(a.split("=")[1]) : null; })();
+// Slides passed a name are "extra": they are left out of the main deck and
+// rendered only by --only=<name>, which emits that one slide to its own file.
+const ONLY = (() => { const a = process.argv.find((x) => x.startsWith("--only=")); return a ? a.split("=")[1] : null; })();
 const SINK = new Proxy({}, { get: () => () => SINK });
-let SLIDE_N = 0;
-function addSlide() { SLIDE_N += 1; return (ONLY && SLIDE_N !== ONLY) ? SINK : pres.addSlide(); }
+function addSlide(name) {
+  if (ONLY) return name === ONLY ? pres.addSlide() : SINK;
+  return name ? SINK : pres.addSlide();
+}
 pres.defineLayout({ name: "WIDE", width: PAGEW, height: PAGEH });
 pres.layout = "WIDE";
 pres.theme = { headFontFace: FONT, bodyFontFace: FONT };
@@ -611,7 +615,7 @@ if (D.cutover.showSlide) {
 // 9 · CLOSED WON — NOT YET LIVE (PS delivery backlog; also emitted standalone)
 // =============================================================================
 if (D.notYetLive) {
-  const s = addSlide();
+  const s = addSlide("ps-not-yet-live");
   const N = D.notYetLive;
   header(s, "Closed Won — Not Yet Live", "Professional Services", 2);
 
@@ -1070,9 +1074,9 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { 8: "PS - Closed Won Not Yet Live" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live" };
 const outFile = ONLY
-  ? `H&L ${ONLY_NAME[ONLY] || "Slide " + ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
+  ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;
 const outPath = path.join(__dirname, "output", outFile);
 pres.writeFile({ fileName: outPath }).then(() => console.log("written:", outPath));
