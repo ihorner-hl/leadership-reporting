@@ -674,7 +674,7 @@
   "concText": "Rhys Woolcock 19.50h — half the week — against Joshua Casey 6.50h and Rodney Nolan 5.75h; Karim AlRifaii logged nothing. Strip Rhys out and utilisation is 6.6%."
  },
  "wonVsInvoiced": {
-  "source": "HubSpot closed-won deals (total_software_cost) + MRR movement register (live, 19 Oct) — all series live",
+  "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) + MRR movement register (live, 19 Oct)",
   "monthly": {
    "labels": [
     "Jan",
@@ -693,12 +693,12 @@
     7481,
     16726,
     3839,
-    2327,
-    17288,
+    1967,
+    12943,
     969,
-    2685,
-    10950,
-    5021
+    1935,
+    8778,
+    3889
    ],
    "invoiced": [
     2829,
@@ -711,11 +711,12 @@
     3700,
     6853,
     3817
-   ]
+   ],
+   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132"
   },
-  "awaitingArrK": 240,
-  "awaitingDeals": 20,
-  "wonDeals2026": 95,
+  "awaitingArrK": 233,
+  "awaitingDeals": 18,
+  "wonDeals2026": 78,
   "churnedArrK": 1278,
   "logosLost": 271,
   "churnedMrr": 53227,
@@ -795,7 +796,7 @@
     1
    ]
   ],
-  "listNote": "◆ Oscars Group — signed, ~1.5x rollout, held by the old provider's contract terms. AVC new sites excluded where they are parked licences. Ten more sit below the cut, together worth $2.2k/mo. The full list is in the PS pack.",
+  "listNote": "◆ Oscars Group — signed, ~1.5x rollout, held by the old provider's contract terms. AVC new sites are excluded throughout — 17 deals worth $8,759 of 2026 software MRR, parked licences that are not counted in MRR or ARR. Eight more sit below the cut, worth $1.6k/mo.",
   "hubspotMrr": {
    "q3Won": 12061,
    "weekWon": 3440,
@@ -804,16 +805,16 @@
   },
   "bullets": [
    [
-    "October has won more than it has invoiced, for the first time since June.",
-    "$5,021 won against $3,817 invoiced. Ten months of both series read live from HubSpot and the register."
+    "October has won more than it has invoiced for a second month.",
+    "$3,889 won against $3,817 invoiced, after $8,778 against $6,853 in September. Both series read live for ten months, and AVC new sites are now out of the won series."
    ],
    [
     "Churn is still the whole story: $1.28M of ARR across 271 logos since Jan 2025.",
     "Q4 is −$7.7k net — $3.8k in against $9.4k of churn and $2.1k of contraction, eighteen days in. Two more logos went this week: Solotel Sackville divested, Zig Zag Lithgow to a competitor."
    ],
    [
-    "$240k of ARR is won with no row on the register.",
-    "20 of the 95 deals that carried software MRR in 2026. Oscars Group is $155k of it — 64%. The PS pack breaks the whole list down by age."
+    "$233k of ARR is won with no row on the register.",
+    "18 of the 78 deals that carried software MRR in 2026. Oscars Group is $155k of it — 66%. The PS pack breaks the whole list down by age."
    ]
   ],
   "churnedArrLabel": "$1.28M",
@@ -1984,11 +1985,11 @@
   "caveats": "Six new deals entered Discovery, five of them QR Ordering priced $0 · no AI-infused order placed for a second week, Order Placed unchanged at A$651 · 27 ROAM lines worth A$2,046 sit on no deal and are excluded."
  },
  "notYetLive": {
-  "source": "HubSpot closed-won deals (total_software_cost) vs MRR movement register (live, 19 Oct) · as at 18 Oct",
-  "deals": 20,
-  "wonDeals": 95,
-  "mrr": 20038,
-  "arr": 240454,
+  "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) vs MRR movement register (live, 19 Oct) · as at 18 Oct",
+  "deals": 18,
+  "wonDeals": 78,
+  "mrr": 19450,
+  "arr": 233400,
   "oldestDays": 209,
   "oldestName": "The Berrigan — closed 23 March",
   "medianDays": 31,
@@ -2078,20 +2079,6 @@
     315
    ],
    [
-    "AVC - Bellevue Bar & Terrace",
-    "Jasmine Hikuroa",
-    "15 Oct",
-    3,
-    294
-   ],
-   [
-    "AVC - Carson",
-    "Jasmine Hikuroa",
-    "15 Oct",
-    3,
-    294
-   ],
-   [
     "Wayi Restaurant",
     "Jasmine Hikuroa",
     "17 Sep",
@@ -2137,8 +2124,8 @@
   "ageing": [
    [
     "0–30 days",
-    10,
-    3989
+    8,
+    3401
    ],
    [
     "31–90 days",
@@ -2173,14 +2160,14 @@
   "onboardingNote": "68 open, up from 62 a fortnight ago. One carries a go-live date, so none of this can be forecast.",
   "bullets": [
    [
-    "Three deals over six months old carry 68% of the value.",
-    "Oscars Group ($12,880/mo, 201 days), The Berrigan ($475, 209) and Riverton ($315, 184). Oscars alone is $155k of the $240k."
+    "Three deals over six months old carry 70% of the value.",
+    "Oscars Group ($12,880/mo, 201 days), The Berrigan ($475, 209) and Riverton ($315, 184). Oscars alone is $155k of the $233k."
    ],
    [
-    "Strip those three and the rest is $6,368/mo across 17 venues, median 31 days.",
-    "A normal delivery queue — but ten of the seventeen closed inside the last month, so it fills faster than it clears."
+    "Strip those three and the rest is $5,780/mo across 15 venues, median 31 days.",
+    "A normal delivery queue — but eight of the fifteen closed inside the last month, so it fills faster than it clears."
    ]
   ],
-  "footnote": "Not yet billing = won with recurring revenue in 2026, no row on the register. A live venue is billing."
+  "footnote": "Not yet billing = won with recurring revenue in 2026, no row on the register. AVC parked licences excluded. A live venue is billing."
  }
 }

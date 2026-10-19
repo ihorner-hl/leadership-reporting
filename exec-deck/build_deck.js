@@ -36,9 +36,9 @@ const pres = new PptxGenJS();
 // rendered only by --only=<name>, which emits that one slide to its own file.
 const ONLY = (() => { const a = process.argv.find((x) => x.startsWith("--only=")); return a ? a.split("=")[1] : null; })();
 const SINK = new Proxy({}, { get: () => () => SINK });
-function addSlide(name) {
+function addSlide(name, extra) {
   if (ONLY) return name === ONLY ? pres.addSlide() : SINK;
-  return name ? SINK : pres.addSlide();
+  return extra ? SINK : pres.addSlide();
 }
 pres.defineLayout({ name: "WIDE", width: PAGEW, height: PAGEH });
 pres.layout = "WIDE";
@@ -615,7 +615,7 @@ if (D.cutover.showSlide) {
 // 9 · CLOSED WON — NOT YET LIVE (PS delivery backlog; also emitted standalone)
 // =============================================================================
 if (D.notYetLive) {
-  const s = addSlide("ps-not-yet-live");
+  const s = addSlide("ps-not-yet-live", true);
   const N = D.notYetLive;
   header(s, "Closed Won — Not Yet Live", "Professional Services", 2);
 
@@ -689,7 +689,7 @@ if (D.notYetLive) {
 // 10 · WON VS INVOICED & RETENTION
 // =============================================================================
 {
-  const s = addSlide();
+  const s = addSlide("won-vs-invoiced");
   const w = D.wonVsInvoiced, M = w.monthly;
   header(s, "Won vs Invoiced & Retention", "Sales, Professional Services & Finance", 2);
   const WX = 0.45, WY = 1.1, WW = 7.35, WH = 3.15;
@@ -1074,7 +1074,7 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "won-vs-invoiced": "Won vs Invoiced" };
 const outFile = ONLY
   ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;
