@@ -72,7 +72,7 @@
  "execSummary": {
   "finance": "Q4 hardware $99k = 14% of the $715k OKR2 — best week of the quarter at $70.9k, Ho and Jasmine 87% of it",
   "sales": "Q4 new MRR $3.8k = 14% of OKR2; the week nets −$181 and Q4 net MRR is −$7.7k",
-  "ps": "billable utilisation 11.5% — 39.5h of 342h; last week restated 21.3h → 30.3h, so this is a floor again",
+  "ps": "billable utilisation 13.0% — 39.5h of 304h with Isayah out; last week restated 21.3h → 30.3h, so this is a floor again",
   "support": "inflow 564 vs resolved 611 — backlog 657 → 588, second straight fall, and the 90+ tail is down to 10",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now five weeks pending",
   "aiUsage": "no new Claude Admin capture this week — slide holds the 12 Oct read: 39 of 47 weekly, 12 daily"
@@ -521,12 +521,12 @@
   "source": "HubSpot PS-pipeline tickets · actual_hours + training_actual_hours, Sydney weeks — live, read-only",
   "weekLabel": "WC 12 Oct 2026",
   "weekHours": 38.0,
-  "staffCount": 9,
-  "availableHours": 342,
+  "staffCount": 8,
+  "availableHours": 304,
   "billedHours": 39.45,
-  "utilPct": 11.5,
+  "utilPct": 13.0,
   "targetPct": 50,
-  "staffBasis": "Available staff = the 9 Professional Services people holding PS-pipeline tickets this week, at 38h each. No leave reported. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — they and their hours are excluded; none carried hours this week.",
+  "staffBasis": "Available staff = the 8 Professional Services people holding PS-pipeline tickets this week and not on leave, at 38h each. Isayah Kuhlmann was on leave and is out of the base. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — they and their hours are excluded; none carried hours this week.",
   "itemsWithHours": 27,
   "itemsCreated": 109,
   "coveragePct": 25,
@@ -572,12 +572,6 @@
     0.59,
     2,
     1.6
-   ],
-   [
-    "Isayah Kuhlmann",
-    0,
-    0,
-    0.0
    ],
    [
     "Karim AlRifaii",
@@ -660,22 +654,24 @@
      "label": "12–18 Oct",
      "items": 27,
      "hours": 39.45,
-     "util": 11.5,
+     "util": 13.0,
      "firstHours": 39.45,
-     "firstUtil": 11.5,
+     "firstUtil": 13.0,
      "current": true
     }
    ],
-   "note": "Base is available staff × 38h: 9 every week except 28 Sep–4 Oct (7, Rhys and Rodney on leave). PS-pipeline tickets by Sydney week.",
+   "note": "Base is available staff × 38h: 9 for the September weeks, 7 for 28 Sep–4 Oct (Rhys and Rodney on leave) and 8 for 12–18 Oct (Isayah on leave). PS-pipeline tickets by Sydney week.",
    "detail": "restated again",
    "lead": "Last week restated up 42% in seven days.",
-   "text": "5–11 Oct went out at 21.25h (6.2%) and now reads 30.25h (8.8%); 21–27 Sep has grown again to 44.50h from the 20.75h first published. Only 28 Sep–4 Oct sits below its first number, and that is the attribution fix from last week. Treat 11.5% as a floor."
+   "text": "5–11 Oct went out at 21.25h (6.2%) and now reads 30.25h (8.8%); 21–27 Sep has grown again to 44.50h from the 20.75h first published. Only 28 Sep–4 Oct sits below its first number, and that is the attribution fix from last week. Treat 13.0% as a floor."
   },
   "restateNote": "Rhys logged half of it",
-  "onLeave": [],
-  "strippedPct": 5.8,
+  "onLeave": [
+   "Isayah Kuhlmann"
+  ],
+  "strippedPct": 6.6,
   "concLead": "The manager logged more than the team.",
-  "concText": "Rhys Woolcock 19.50h — half the week — against Joshua Casey 6.50h and Rodney Nolan 5.75h; Isayah Kuhlmann and Karim AlRifaii logged nothing. Strip Rhys out and utilisation is 5.8%."
+  "concText": "Rhys Woolcock 19.50h — half the week — against Joshua Casey 6.50h and Rodney Nolan 5.75h; Karim AlRifaii logged nothing. Strip Rhys out and utilisation is 6.6%."
  },
  "wonVsInvoiced": {
   "source": "HubSpot closed-won deals (total_software_cost) + MRR movement register (live, 19 Oct) — all series live",
