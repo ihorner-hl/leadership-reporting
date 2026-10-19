@@ -29,6 +29,13 @@ const CHAPTER = { 1: TEAL, 2: GREEN, 3: GOLD, 4: NAVY };
 const CHAPTER_LABEL = { 1: "DID WE SELL?", 2: "DID WE DELIVER?", 3: "DID WE KEEP THEM?", 4: "BUILDING THE FUTURE?" };
 
 const pres = new PptxGenJS();
+
+// --only=N renders just slide N (1-based) into a standalone file; everything
+// else is drawn into a sink that swallows the calls, so no slide code changes.
+const ONLY = (() => { const a = process.argv.find((x) => x.startsWith("--only=")); return a ? Number(a.split("=")[1]) : null; })();
+const SINK = new Proxy({}, { get: () => () => SINK });
+let SLIDE_N = 0;
+function addSlide() { SLIDE_N += 1; return (ONLY && SLIDE_N !== ONLY) ? SINK : pres.addSlide(); }
 pres.defineLayout({ name: "WIDE", width: PAGEW, height: PAGEH });
 pres.layout = "WIDE";
 pres.theme = { headFontFace: FONT, bodyFontFace: FONT };
@@ -125,7 +132,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 // 1 · COVER
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   s.background = { color: NAVY };
   motif(s, 12.55, 0.55, 4.2);
   s.addShape("roundRect", { x: 0.95, y: 0.85, w: 1.15, h: 1.15, rectRadius: 0.16, fill: { color: CARD }, line: { type: "none" }, shadow: shadow() });
@@ -142,7 +149,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 // 2 · AGENDA
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   header(s, "Agenda", null, null);
   const cards = [
     { n: 1, c: TEAL, t: "DID WE SELL?", st: "Sales & partner motion", items: ["Target vs Invoiced — sales team roll-up", "AI-Infused Products — pipeline & conversion", "H&L Pay — partner motion"] },
@@ -168,7 +175,7 @@ function statusChip(s, x, y, w, text, color, textColor = "FFFFFF") {
 // 3 · REPORTING CUTOVER (one-week special · shown only when D.cutover.showSlide)
 // =============================================================================
 if (D.cutover.showSlide) {
-  const s = pres.addSlide();
+  const s = addSlide();
   header(s, "Reporting Cutover — Creatio → HubSpot", "All teams · this week's deck reads from the new sources", null);
   const kY = 1.08, kH = 1.12;
   kpi(s, 0.45, kY, 3.9, kH, "CREATIO EXTRACTS ENDED", "4 Sep", "last case / task / work-order export — history frozen", NAVY, 22);
@@ -201,7 +208,7 @@ if (D.cutover.showSlide) {
 // 4 · EXECUTIVE SUMMARY
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   header(s, "Executive Summary", null, null);
   const cells = [
     ["OVERALL PERFORMANCE & FINANCE SUMMARY", D.execSummary.finance],
@@ -231,7 +238,7 @@ if (D.cutover.showSlide) {
 // 5 · TARGET VS INVOICED (Finance file drop)
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const t = D.targetVsInvoiced;
   header(s, "Target vs Invoiced — Sales Team Roll-up", "Finance", 1);
   const pace = D.week.quarterPacePct;
@@ -321,7 +328,7 @@ if (D.cutover.showSlide) {
 // 6 · AI-INFUSED PRODUCTS — PIPELINE & CONVERSION
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const A = D.aiProducts;
   const usd = (a) => Math.round(a * A.fx);
   const US = (a) => "US$" + usd(a).toLocaleString();
@@ -415,7 +422,7 @@ if (D.cutover.showSlide) {
 // 7 · H&L PAY — REFERRALS TO VALPAY
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const hp = D.hlPay, F = hp.flow;
   header(s, "H&L Pay", D.hlPay.deptLine, 1);
   kpi(s, 0.45, 1.06, 4.1, 1.12, "REFERRALS GIVEN — ALL-TIME", String(hp.referred), "tagged referred deals in the partner pipeline", NAVY);
@@ -482,7 +489,7 @@ if (D.cutover.showSlide) {
 // 8 · UTILISATION & DELIVERY HOURS (billable utilisation + week-on-week restatement)
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const u = D.utilisation;
   header(s, "Utilisation & Delivery Hours", "Professional Services", 2, { cutover: true });
 
@@ -601,10 +608,84 @@ if (D.cutover.showSlide) {
 
 
 // =============================================================================
+// 9 · CLOSED WON — NOT YET LIVE (PS delivery backlog; also emitted standalone)
+// =============================================================================
+if (D.notYetLive) {
+  const s = addSlide();
+  const N = D.notYetLive;
+  header(s, "Closed Won — Not Yet Live", "Professional Services", 2);
+
+  kpi(s, 0.45, 1.08, 3.05, 1.2, "WON, NOT YET BILLING", String(N.deals),
+      `of the ${N.wonDeals} deals won with recurring revenue in 2026`, TERRA);
+  kpi(s, 3.7, 1.08, 3.05, 1.2, "ARR AT STAKE", `$${Math.round(N.arr / 1000)}k`,
+      `$${Math.round(N.mrr).toLocaleString("en-AU")}/mo signed and not invoiced`, TERRA);
+  kpi(s, 6.95, 1.08, 3.05, 1.2, "OLDEST", `${N.oldestDays} Days`, N.oldestName, TERRA);
+  kpi(s, 10.2, 1.08, 2.68, 1.2, "MEDIAN AGE", `${N.medianDays} Days`, "since close", NAVY);
+
+  // ---- the list --------------------------------------------------------------
+  const LX = 0.45, LY = 2.42, LW = 7.3, LH = 4.48;
+  card(s, LX, LY, LW, LH);
+  s.addText([{ text: "WON WITH RECURRING REVENUE, NO INVOICE RAISED   ", options: { fontSize: 11, bold: true, color: TEAL } },
+             { text: "matched on debtor ID and venue name", options: { fontSize: 6.5, color: FAINT } }],
+    { x: LX + 0.22, y: LY + 0.12, w: LW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  const cols = [["VENUE", 0.22, 3.0, "left"], ["ACCOUNT MANAGER", 3.24, 1.5, "left"], ["CLOSED", 4.78, 0.8, "left"],
+                ["DAYS", 5.6, 0.5, "right"], ["MRR/MO", 6.14, 0.84, "right"]];
+  cols.forEach(([t2, dx, w, al]) => s.addText(t2, { x: LX + dx, y: LY + 0.44, w, h: 0.2, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: MUTED, isTextBox: true, margin: 0 }));
+  const RP = Math.min(0.178, (LH - 1.1) / N.rows.length);
+  N.rows.forEach((r, i) => {
+    const y = LY + 0.68 + i * RP;
+    if (i % 2 === 1) s.addShape("rect", { x: LX + 0.14, y, w: LW - 0.28, h: RP, fill: { color: BG }, line: { type: "none" } });
+    const old = r[3] > 90;
+    s.addText(r[0], { x: LX + 0.22, y, w: 3.0, h: RP, fontFace: FONT, fontSize: 7.2, bold: old, color: old ? NAVY : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[1], { x: LX + 3.24, y, w: 1.5, h: RP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[2], { x: LX + 4.78, y, w: 0.8, h: RP, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[3]), { x: LX + 5.6, y, w: 0.5, h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true,
+      color: r[3] > 180 ? TERRA : r[3] > 90 ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(fmt$(r[4]), { x: LX + 6.14, y, w: 0.84, h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  const tY = LY + 0.68 + N.rows.length * RP + 0.04;
+  s.addShape("rect", { x: LX + 0.22, y: tY, w: LW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
+  s.addText("TOTAL", { x: LX + 0.22, y: tY + 0.04, w: 2.0, h: 0.24, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmt$(N.mrr) + "/mo", { x: LX + 5.3, y: tY + 0.04, w: 1.68, h: 0.24, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+
+  // ---- ageing ---------------------------------------------------------------
+  const RX = 7.95, RW = 4.93;
+  card(s, RX, 2.42, RW, 1.45);
+  cardTitle(s, RX, 2.42, "AGEING — DAYS SINCE CLOSE", 4.4);
+  const maxB = Math.max(...N.ageing.map((b) => b[1]));
+  N.ageing.forEach(([label, n2, v], i) => {
+    const y = 2.42 + 0.46 + i * 0.22;
+    s.addText(label, { x: RX + 0.22, y, w: 1.0, h: 0.2, fontFace: FONT, fontSize: 6.8, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    const bw = Math.max(0.03, (n2 / maxB) * 1.75);
+    s.addShape("rect", { x: RX + 1.3, y: y + 0.045, w: bw, h: 0.11, fill: { color: [GREEN, GOLD, TERRA, "7A3B21"][i] }, line: { type: "none" } });
+    s.addText(`${n2} deal${n2 === 1 ? "" : "s"}`, { x: RX + 3.12, y, w: 0.76, h: 0.2, align: "right", fontFace: FONT, fontSize: 6.8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(fmt$(v) + "/mo", { x: RX + 3.9, y, w: 0.81, h: 0.2, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  });
+
+  // ---- onboarding pipeline ---------------------------------------------------
+  card(s, RX, 4.00, RW, 1.42);
+  cardTitle(s, RX, 4.00, "ONBOARDING PIPELINE — OPEN", 4.4);
+  const totO = N.onboarding.reduce((a, b) => a + b[1], 0);
+  let ox = RX + 0.22;
+  N.onboarding.forEach(([label, n2], i) => {
+    const w = ((RW - 0.44) * n2) / totO;
+    s.addShape("rect", { x: ox, y: 4.00 + 0.46, w: w - 0.04, h: 0.34, fill: { color: [TEAL_DK, TEAL, TEAL_LT][i] }, line: { type: "none" } });
+    s.addText(String(n2), { x: ox, y: 4.00 + 0.46, w: w - 0.04, h: 0.34, align: "center", fontFace: FONT, fontSize: 11, bold: true, color: "FFFFFF", isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(label, { x: ox - 0.14, y: 4.00 + 0.84, w: w + 0.24, h: 0.2, align: "center", fontFace: FONT, fontSize: 5.5, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    ox += w;
+  });
+  s.addText(N.onboardingNote, { x: RX + 0.22, y: 4.00 + 1.08, w: RW - 0.44, h: 0.28, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  aiSummary(s, RX, 5.55, RW, 1.35, N.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, TEAL][k % 3] })));
+  footnote(s, N.footnote);
+  sourcePill(s, N.source);
+}
+
+// =============================================================================
 // 10 · WON VS INVOICED & RETENTION
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const w = D.wonVsInvoiced, M = w.monthly;
   header(s, "Won vs Invoiced & Retention", "Sales, Professional Services & Finance", 2);
   const WX = 0.45, WY = 1.1, WW = 7.35, WH = 3.15;
@@ -670,7 +751,7 @@ if (D.cutover.showSlide) {
 // 11 · BACKLOG (Creatio frozen at cutover · HubSpot after)
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const b = D.backlog, AS = b.ageSeries;
   header(s, "Backlog", "Support", 3, { cutover: true });
   kpi(s, 0.45, 1.12, 2.95, 1.25, "OPEN BACKLOG", String(b.open), `as at ${b.asAt}`, TERRA);
@@ -778,7 +859,7 @@ if (D.cutover.showSlide) {
 // 12 · AI SUPPORT AGENT (shown only when D.aiAgent.showSlide)
 // =============================================================================
 if (D.aiAgent.showSlide) {
-  const s = pres.addSlide();
+  const s = addSlide();
   const a = D.aiAgent;
   header(s, "AI Support Agent", "Support", 3, { cutover: true });
   s.addText([
@@ -816,7 +897,7 @@ if (D.aiAgent.showSlide) {
 // 13 · Q3 ROADMAP
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const r = D.roadmap;
   header(s, r.title || "Q3 Roadmap", "Product", 4);
   const legend = [[`${r.counts.done} Done`, GREEN], [`${r.counts.onTrack} On Track`, GOLD], [`${r.counts.notStarted} Not Started`, NA_GRAY], [`${r.counts.atRisk} At risk`, TERRA]];
@@ -848,7 +929,7 @@ if (D.aiAgent.showSlide) {
 // 14 · GTM READINESS
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const g = D.gtm;
   header(s, "GTM Readiness", "Product", 4);
   const RAG = { green: GREEN, amber: GOLD, red: TERRA, na: NA_GRAY };
@@ -880,7 +961,7 @@ if (D.aiAgent.showSlide) {
 // 15 · AI USAGE
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const ai = D.aiUsage, CM = ai.codeMatrix, BW = ai.byWeek, CO = ai.cowork;
   header(s, "AI Usage — Adoption & Activity", "IT", 4);
   kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
@@ -964,7 +1045,7 @@ if (D.aiAgent.showSlide) {
 // 16 · PROJECTS — PORTFOLIO STATUS
 // =============================================================================
 {
-  const s = pres.addSlide();
+  const s = addSlide();
   const p = D.projects;
   header(s, "Projects — Portfolio Status", null, 4);
   ["PROJECT", "STATUS", "CURRENT STATE", "ROADBLOCK"].forEach((h2, i) => {
@@ -988,5 +1069,9 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const outPath = path.join(__dirname, "output", outName);
+const ONLY_NAME = { 8: "PS - Closed Won Not Yet Live" };
+const outFile = ONLY
+  ? `H&L ${ONLY_NAME[ONLY] || "Slide " + ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
+  : outName;
+const outPath = path.join(__dirname, "output", outFile);
 pres.writeFile({ fileName: outPath }).then(() => console.log("written:", outPath));
