@@ -986,18 +986,19 @@ if (D.aiAgent.showSlide) {
   const nameX = CX + 0.2, nameW = 1.55, colX = [CX + 1.8, CX + 2.98, CX + 4.16, CX + 5.34], colW = 1.15, totX = CX + 6.55, totW = 1.4;
   CM.months.forEach((mo, i) => s.addText(mo, { x: colX[i], y: CY + 0.42, w: colW, h: 0.2, align: "center", fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0 }));
   s.addText("TOTAL", { x: totX, y: CY + 0.42, w: totW, h: 0.2, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0 });
+  const CMRP = Math.min(0.19, 1.92 / CM.rows.length);
   const maxC = Math.max(...CM.rows.flatMap((r) => r[1]));
   const tintC = (v) => { const f = v / maxC; return f > 0.7 ? "8FC3CC" : f > 0.45 ? "B5D9E0" : f > 0.2 ? "D4E9ED" : f > 0 ? "EDF5F7" : "FFFFFF"; };
   CM.rows.forEach((row, ri) => {
-    const y = CY + 0.66 + ri * 0.19;
-    s.addText(row[0], { x: nameX, y, w: nameW, h: 0.18, fontFace: FONT, fontSize: 7.2, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    const y = CY + 0.66 + ri * CMRP;
+    s.addText(row[0], { x: nameX, y, w: nameW, h: CMRP - 0.01, fontFace: FONT, fontSize: 7.2, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
     row[1].forEach((v, i) => {
-      if (v > 0) s.addShape("rect", { x: colX[i] + 0.03, y: y + 0.008, w: colW - 0.06, h: 0.165, fill: { color: tintC(v) }, line: { type: "none" } });
-      s.addText(v > 0 ? v.toLocaleString() : "—", { x: colX[i], y, w: colW, h: 0.18, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.8, color: v > 0 ? NAVY : FAINT, isTextBox: true, margin: 0 });
+      if (v > 0) s.addShape("rect", { x: colX[i] + 0.03, y: y + 0.008, w: colW - 0.06, h: CMRP - 0.025, fill: { color: tintC(v) }, line: { type: "none" } });
+      s.addText(v > 0 ? v.toLocaleString() : "—", { x: colX[i], y, w: colW, h: CMRP - 0.01, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.8, color: v > 0 ? NAVY : FAINT, isTextBox: true, margin: 0 });
     });
-    s.addText(row[1].reduce((a, b) => a + b, 0).toLocaleString(), { x: totX, y, w: totW, h: 0.18, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(row[1].reduce((a, b) => a + b, 0).toLocaleString(), { x: totX, y, w: totW, h: CMRP - 0.01, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
-  const adY = CY + 0.66 + CM.rows.length * 0.19 + 0.03;
+  const adY = CY + 0.66 + CM.rows.length * CMRP + 0.03;
   s.addShape("rect", { x: nameX, y: adY - 0.03, w: CW - 0.4, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
   s.addText("ALL DEVELOPERS", { x: nameX, y: adY, w: nameW, h: 0.22, fontFace: FONT, fontSize: 7.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
   CM.allDevelopers.forEach((v, i) => s.addText(v.toLocaleString(), { x: colX[i], y: adY, w: colW, h: 0.22, align: "center", fontFace: FONT, fontSize: 7.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" }));
