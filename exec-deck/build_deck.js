@@ -261,7 +261,7 @@ if (D.cutover.showSlide) {
   s.addText(`HARDWARE — ${QTR} · OKR2 ${fmtK(t.hardware.okr2)} · team ${fmtK(t.hardware.team)}`, { x: 7.03, y: 1.2, w: 5.6, h: 0.26, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText([{ text: fmtK(t.hardware.qtd), options: { fontSize: 24, bold: true, color: TERRA } }, { text: `  of ${fmtK(t.hardware.okr2)} target`, options: { fontSize: 9.5, color: MUTED } }],
     { x: 7.03, y: 1.46, w: 3.9, h: 0.42, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(`▲ +${fmtK(t.hardware.deltaWk)} this wk`, { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GREEN, isTextBox: true, margin: 0 });
+  s.addText(t.hardware.deltaWk == null ? "refresh pending" : `▲ +${fmtK(t.hardware.deltaWk)} this wk`, { x: 10.4, y: 1.5, w: 2.25, h: 0.34, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: t.hardware.deltaWk == null ? GOLD : GREEN, isTextBox: true, margin: 0 });
   progressBar(s, 7.03, 2.08, 4.6, pct(t.hardware.qtd, t.hardware.okr2), pace);
   s.addText([{ text: `${pct(t.hardware.qtd, t.hardware.okr2)}%`, options: { bold: true, color: TERRA, fontSize: 10 } }, { text: ` · pace ${pace}%`, options: { color: FAINT, fontSize: 8 } }],
     { x: 11.73, y: 1.97, w: 1.1, h: 0.3, align: "right", fontFace: FONT, isTextBox: true, margin: 0 });
@@ -312,7 +312,7 @@ if (D.cutover.showSlide) {
   s.addText(fmtK(t.hardware.team), { x: TX + 4.58, y: totY, w: 0.60, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(fmtK(t.hardware.qtd), { x: TX + 5.22, y: totY, w: 0.66, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`${pct(t.hardware.qtd, t.hardware.team)}%`, { x: TX + 5.94, y: totY, w: 1.02, h: 0.3, align: "center", fontFace: FONT, fontSize: 8.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText((t.hardware.deltaWk < 0 ? "\u2212" : "+") + fmtK(Math.abs(t.hardware.deltaWk)).slice(1), { x: TX + 7.02, y: totY, w: 1.08, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(t.hardware.deltaWk == null ? "\u2014" : (t.hardware.deltaWk < 0 ? "\u2212" : "+") + fmtK(Math.abs(t.hardware.deltaWk)).slice(1), { x: TX + 7.02, y: totY, w: 1.08, h: 0.3, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GREEN, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(`MRR = net new + expansion invoiced in ${QTR} (movement register, ${t.mrr.live ? "live" : "as at"} ${t.mrr.asAt}) · H&L Pay net new $` + t.hlPayNetNewMrr.toLocaleString() + "/mo is tracked separately and never sits inside core MRR", { x: TX + 0.22, y: totY + 0.32, w: TW - 0.44, h: 0.24, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0 });
 
   const DOTS = { terra: TERRA, gold: GOLD, teal: TEAL, green: GREEN, faint: FAINT };
@@ -351,7 +351,7 @@ if (D.cutover.showSlide) {
              { text: "converted at " + A.fx + " AUD→USD", options: { fontSize: 6.8, color: FAINT } }],
     { x: CX + 0.22, y: CY + 0.1, w: CW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
   const allV = A.stages.map((st) => st.aud), maxV = Math.max(...allV);
-  const bx = CX + 1.55, bw = 4.1, rowH2 = 0.38;
+  const bx = CX + 1.55, bw = 4.1, rowH2 = Math.min(0.38, 1.9 / A.stages.length);
   A.stages.forEach((st, i) => {
     const y = CY + 0.46 + i * rowH2;
     const col = st.placed ? GREEN : st.lost ? TERRA : TEAL;
@@ -361,13 +361,13 @@ if (D.cutover.showSlide) {
     s.addText(`${st.deals} ${st.deals === 1 ? "deal" : "deals"}`, { x: bx + bw + 1.1, y, w: 0.72, h: rowH2, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   });
   // divider between "not order placed" and "order placed"
-  const opY = CY + 0.46 + 3 * rowH2;
+  const opY = CY + 0.46 + A.stages.findIndex((st) => st.placed) * rowH2;
   s.addShape("rect", { x: CX + 0.28, y: opY - 0.025, w: CW - 0.56, h: 0.014, fill: { color: GREEN }, line: { type: "none" } });
   s.addText("▲  NOT ORDER PLACED", { x: CX + 3.9, y: opY - 0.2, w: 1.75, h: 0.17, align: "right", fontFace: FONT, fontSize: 6, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   s.addText("▼  ORDER PLACED", { x: CX + 3.9, y: opY + 0.03, w: 1.75, h: 0.17, align: "right", fontFace: FONT, fontSize: 6, bold: true, color: GREEN, isTextBox: true, margin: 0 });
 
   // ---- share bars: value and count -----------------------------------------
-  const sbY = CY + 0.46 + 5 * rowH2 + 0.16;
+  const sbY = CY + 0.46 + A.stages.length * rowH2 + 0.16;
   s.addText("ORDER PLACED VS NOT — SHARE", { x: CX + 0.28, y: sbY, w: 3.0, h: 0.2, fontFace: FONT, fontSize: 8, bold: true, color: TEAL, isTextBox: true, margin: 0 });
   const segs = [["Order placed", A.placedAud, A.placedDeals, GREEN], ["Still open", A.openAud, A.openDeals, TEAL], ["Closed lost", A.lostAud, A.lostDeals, TERRA]];
   const totV = A.placedAud + A.openAud + A.lostAud, totN = A.placedDeals + A.openDeals + A.lostDeals;
@@ -695,7 +695,7 @@ if (D.notYetLive) {
   const WX = 0.45, WY = 1.1, WW = 7.35, WH = 3.15;
   card(s, WX, WY, WW, WH);
   s.addText([{ text: "NEW MRR — WON VS INVOICED BY MONTH · 2026   ", options: { fontSize: 11.5, bold: true, color: TEAL } },
-             { text: "both series live", options: { fontSize: 6.8, color: GREEN } }],
+             { text: M.seriesNote || "both series live", options: { fontSize: 6.8, color: M.seriesNote ? GOLD : GREEN } }],
     { x: WX + 0.22, y: WY + 0.1, w: WW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
   s.addChart(pres.ChartType.bar, [
     { name: "Won (HubSpot)", labels: M.labels, values: M.won },
