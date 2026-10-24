@@ -72,7 +72,7 @@
  "execSummary": {
   "finance": "held at the 18 Oct Sysnet extract — Q4 hardware $99k = 14% of the $715k OKR2 against a 26% pace mark; this week's extract lands Monday",
   "sales": "Q4 new MRR invoiced $3.8k = 14% of OKR2 (register as at 18 Oct); HubSpot shows $6.4k of software MRR won in October to 24 Oct, $2.6k of it this week",
-  "ps": "billable utilisation 3.4% so far — 11.5h of 342h logged Mon–Fri; last week restated 13.0% → 16.8% (39.45h → 51.02h), so this is a floor",
+  "ps": "billable utilisation 3.7% so far — 11.5h of 311.6h (Argenis and Karim out Thu–Fri); last week restated 13.0% → 16.8% (39.45h → 51.02h), so this is a floor",
   "support": "inflow 358 vs resolved 555 to Sat — backlog 588 → 393, third straight fall; 54 of the closes were a single bulk close of September voice tickets",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now six weeks pending",
   "aiUsage": "held at the 19 Oct capture — 40 of 51 active weekly, 14 daily; October code output 329,436 lines to 19 Oct; refresh pending"
@@ -522,11 +522,11 @@
   "weekLabel": "WC 19 Oct 2026 (to Fri 23 Oct)",
   "weekHours": 38.0,
   "staffCount": 9,
-  "availableHours": 342,
+  "availableHours": 311.6,
   "billedHours": 11.5,
-  "utilPct": 3.4,
+  "utilPct": 3.7,
   "targetPct": 50,
-  "staffBasis": "Available staff = the 9 Professional Services people holding PS-pipeline tickets this week at 38h each — Isayah Kuhlmann is back and logging; leave for the week is not yet confirmed. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — excluded; none carried hours. Hours logged Mon–Fri only; the week closes Sunday.",
+  "staffBasis": "Available staff = the 9 Professional Services people holding PS-pipeline tickets this week at 38h each (7.6h a day), less Thursday and Friday leave for Argenis Rafael Guevara and Karim AlRifaii — 30.4h. Isayah Kuhlmann is back and logging. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — excluded; none carried hours. Hours logged Mon–Fri only; the week closes Sunday.",
   "itemsWithHours": 13,
   "itemsCreated": 88,
   "coveragePct": 15,
@@ -660,22 +660,24 @@
      "label": "19–25 Oct",
      "items": 13,
      "hours": 11.5,
-     "util": 3.4,
+     "util": 3.7,
      "firstHours": 11.5,
-     "firstUtil": 3.4,
+     "firstUtil": 3.7,
      "current": true
     }
    ],
-   "note": "Base is available staff × 38h: 7 for 28 Sep–4 Oct (Rhys and Rodney on leave), 9 for 5–11 Oct, 8 for 12–18 Oct (Isayah on leave) and 9 this week. PS-pipeline tickets by Sydney week, re-pulled 24 Oct.",
+   "note": "Base is available staff × 38h: 7 for 28 Sep–4 Oct (Rhys and Rodney on leave), 9 for 5–11 Oct, 8 for 12–18 Oct (Isayah on leave) and 9 this week less two days each for Argenis and Karim. PS-pipeline tickets by Sydney week, re-pulled 24 Oct.",
    "detail": "restated again",
    "lead": "Last week restated up 29% in six days.",
-   "text": "12–18 Oct went out at 39.45h (13.0%) and now reads 51.02h (16.8%); 5–11 Oct has grown again to 35.25h from the 21.25h first published. This week's 3.4% covers five working days logged so far and will restate upward — treat it as a floor."
+   "text": "12–18 Oct went out at 39.45h (13.0%) and now reads 51.02h (16.8%); 5–11 Oct has grown again to 35.25h from the 21.25h first published. This week's 3.7% covers five working days logged so far and will restate upward — treat it as a floor."
   },
   "restateNote": "partial week",
   "onLeave": [],
   "strippedPct": 2.2,
   "concLead": "Five of nine logged nothing yet.",
-  "concText": "Isayah Kuhlmann 4.00h, Joshua Casey and Rodney Nolan 3.50h each, Rhys Woolcock 0.50h; Gregory, Ryan, Isaac, Argenis and Karim have no time on this week's tickets yet."
+  "concText": "Isayah Kuhlmann 4.00h, Joshua Casey and Rodney Nolan 3.50h each, Rhys Woolcock 0.50h. Gregory, Ryan and Isaac have no time on this week's tickets yet; Argenis and Karim were out Thursday and Friday and have none from Monday to Wednesday either.",
+  "availableNote": "9 PS people × 38h, less Thu–Fri leave for Argenis Rafael Guevara and Karim AlRifaii (4 days × 7.6h)",
+  "availableCalc": "9 × 38h − 30.4h leave = 311.6h available"
  },
  "wonVsInvoiced": {
   "source": "HubSpot closed-won (live, 24 Oct, AVC excluded) + MRR register (19 Oct, refresh pending)",

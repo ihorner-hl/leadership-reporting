@@ -500,7 +500,7 @@ if (D.cutover.showSlide) {
   kpi(s, 0.45, 1.12, 3.98, 1.25, "BILLABLE UTILISATION", u.utilPct + "%",
       `${u.billedHours}h billed of ${u.availableHours}h available · target ${u.targetPct}% · ${u.restateNote}`, GOLD);
   kpi(s, 4.63, 1.12, 3.98, 1.25, "AVAILABLE HOURS — THIS WEEK", u.availableHours + "h",
-      (u.onLeave && u.onLeave.length ? `${u.staffCount} available × ${u.weekHours}h · ${u.onLeave.join(" and ")} on leave` : `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`), NAVY);
+      u.availableNote || (u.onLeave && u.onLeave.length ? `${u.staffCount} available × ${u.weekHours}h · ${u.onLeave.join(" and ")} on leave` : `${u.staffCount} people assigned to PS-pipeline tickets × ${u.weekHours}h standard week`), NAVY);
   kpi(s, 8.81, 1.12, 4.07, 1.25, "TIME-LOGGING COVERAGE", u.coveragePct + "%",
       `${u.itemsWithHours} of ${u.itemsCreated} PS items raised this week carry hours — utilisation reads low because logging is ramping, not because delivery stopped`, GOLD);
 
@@ -539,7 +539,7 @@ if (D.cutover.showSlide) {
     const ty = CY + 0.72 + u.byEmployee.length * ROWP + 0.02;
     s.addShape("rect", { x: CX + EX.name, y: ty, w: CW - 0.5, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
     s.addText("TOTAL", { x: CX + EX.name, y: ty + 0.03, w: 1.95, h: ROWP, fontFace: FONT, fontSize: 8.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(`${u.staffCount} PS people × ${u.weekHours}h = ${u.availableHours}h available`, { x: CX + EX.bar, y: ty + 0.03, w: BARW, h: ROWP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(u.availableCalc || `${u.staffCount} PS people × ${u.weekHours}h = ${u.availableHours}h available`, { x: CX + EX.bar, y: ty + 0.03, w: BARW, h: ROWP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(u.billedHours.toFixed(2) + "h", { x: CX + EX.hrs, y: ty + 0.03, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(u.utilPct.toFixed(1) + "%", { x: CX + EX.pct, y: ty + 0.03, w: 0.9, h: ROWP, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(u.staffBasis, { x: CX + 0.25, y: CY + CH - 0.36, w: CW - 0.5, h: 0.34, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
