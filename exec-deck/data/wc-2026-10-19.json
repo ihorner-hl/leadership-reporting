@@ -2354,7 +2354,7 @@
     "14.7 hrs against 46.8 hrs last week — but only email-answered tickets carry a response time (14% of new tickets), and ones still waiting aren't counted yet."
    ]
   ],
-  "footnote": "First response = time to first agent email reply; phone and AI-agent tickets have none.",
+  "footnote": "Voice : email = new tickets by Source, phone vs email. First response = time to first agent email reply; phone and AI-agent tickets have none.",
   "stages": [
    [
     "NEW",
@@ -2386,6 +2386,12 @@
     "tone": "good"
    },
    {
+    "label": "VOICE : EMAIL",
+    "value": "2.2 : 1",
+    "sub": "▼ from 3.2 : 1 last week",
+    "tone": "flat"
+   },
+   {
     "label": "MEDIAN TICKET AGE",
     "value": "31 Days",
     "sub": "▲ from 27 days last week",
@@ -2403,6 +2409,19 @@
     "sub": "▲ from 8.6 days last week",
     "tone": "bad"
    }
-  ]
+  ],
+  "voiceEmail": {
+   "week": {
+    "phone": 261,
+    "email": 120,
+    "other": 16
+   },
+   "lastWeek": {
+    "phone": 420,
+    "email": 131,
+    "other": 10
+   },
+   "basis": "new Support tickets by ticket Source (source_type); other = unassigned or internal"
+  }
  }
 }

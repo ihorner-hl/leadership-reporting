@@ -879,7 +879,7 @@ if (D.supportFlow) {
     s.addShape("rect", { x: x + 0.18, y: KY + 0.14, w: 0.32, h: 0.045, fill: { color: k.notSetUp ? NA_GRAY : SF_NEW }, line: { type: "none" } });
     s.addText(k.label, { x: x + 0.18, y: KY + 0.22, w: KW - 0.3, h: 0.24, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
     s.addText(k.value, { x: x + 0.16, y: KY + 0.46, w: KW - 0.3, h: 0.42, fontFace: FONT, fontSize: k.notSetUp ? 16 : 24, bold: true, color: k.notSetUp ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    const tone = { good: GREEN, bad: TERRA }[k.tone] || FAINT;
+    const tone = { good: GREEN, bad: TERRA, flat: MUTED }[k.tone] || FAINT;
     s.addText(k.sub, { x: x + 0.18, y: KY + 0.86, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 7.5, bold: !!k.tone, color: tone, isTextBox: true, margin: 0, valign: "middle" });
   });
 
