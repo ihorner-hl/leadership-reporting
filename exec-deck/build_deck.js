@@ -700,24 +700,26 @@ if (D.psEconomics) {
   const E = D.psEconomics;
   header(s, "PS Economics — The Hidden Work", "Professional Services & Finance", 2);
   const C_REV = "1B8DA6", C_COST = "E0A458", C_NET = "C2562A";
-  const PT_NAVY = "15233F", PT_BLUE = "2B4170";
   const k$ = (v) => (v == null ? "—" : v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1000) + "k");
 
-  // ---- KPI row ---------------------------------------------------------------
-  const KN = E.kpis.length, KG = 0.2, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.08, KH = 1.05;
+  // ---- KPI row: this week, change from last week underneath -----------------
+  const KN = E.kpis.length, KG = 0.15, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.08, KH = 1.0;
   E.kpis.forEach((k, i) => {
     const x = 0.45 + i * (KW + KG);
     card(s, x, KY, KW, KH);
-    s.addShape("rect", { x: x + 0.18, y: KY + 0.13, w: 0.32, h: 0.045, fill: { color: C_REV }, line: { type: "none" } });
-    s.addText(k.label, { x: x + 0.18, y: KY + 0.2, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
-    s.addText(k.value, { x: x + 0.16, y: KY + 0.42, w: KW - 0.3, h: 0.38, fontFace: FONT, fontSize: 22, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(k.sub, { x: x + 0.18, y: KY + 0.8, w: KW - 0.3, h: 0.2, fontFace: FONT, fontSize: 7.3, bold: !!k.tone, color: { good: GREEN, bad: TERRA, flat: MUTED }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addShape("rect", { x: x + 0.15, y: KY + 0.12, w: 0.3, h: 0.045, fill: { color: k.notSetUp ? NA_GRAY : C_REV }, line: { type: "none" } });
+    s.addText(k.label, { x: x + 0.15, y: KY + 0.18, w: KW - 0.25, h: 0.22, fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    const runs = [{ text: k.value, options: { fontSize: k.notSetUp ? 13 : 20, bold: true, color: k.notSetUp ? FAINT : NAVY } }];
+    if (k.side) runs.push({ text: "  " + k.side, options: { fontSize: 9, bold: true, color: MUTED } });
+    s.addText(runs, { x: x + 0.13, y: KY + 0.4, w: KW - 0.22, h: 0.36, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(k.sub, { x: x + 0.15, y: KY + 0.76, w: KW - 0.25, h: 0.18, fontFace: FONT, fontSize: 6.5, bold: !!k.tone, color: { good: GREEN, bad: TERRA, flat: MUTED }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
 
   // ---- left: PS P&L by month --------------------------------------------------
-  const CX = 0.45, CY = 2.28, CW = 5.6, CH = 3.0;
+  const CX = 0.45, CY = 2.2, CW = 5.6, CH = 2.45;
   card(s, CX, CY, CW, CH);
   cardTitle(s, CX, CY, "PS P&L BY MONTH — 2026", 5.2);
+  s.addText(`Jan–Sep: revenue ${k$(E.revenue.reduce((a, b) => a + b, 0))} · cost ${k$(E.cost.reduce((a, b) => a + b, 0))} · −$268k`, { x: CX + 2.6, y: CY + 0.12, w: CW - 2.8, h: 0.3, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   const net = E.revenue.map((r, i) => r - E.cost[i]);
   s.addChart([
     { type: pres.ChartType.bar, data: [
@@ -727,50 +729,60 @@ if (D.psEconomics) {
     { type: pres.ChartType.line, data: [{ name: "Contribution", labels: E.months, values: net }],
       options: { chartColors: [C_NET], lineSize: 2.25, lineDataSymbol: "circle", lineDataSymbolSize: 6 } },
   ], {
-    x: CX + 0.12, y: CY + 0.4, w: CW - 0.24, h: CH - 0.5,
+    x: CX + 0.12, y: CY + 0.38, w: CW - 0.24, h: CH - 0.46,
     valAxisMinVal: -60000, valAxisMaxVal: 80000, valAxisMajorUnit: 20000, valAxisLabelFormatCode: '$#,##0,"k"',
     valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valGridLine: { color: TRACK, size: 0.5 },
     catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT, catAxisLabelPos: "low", catGridLine: { style: "none" },
     showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
   });
 
-  // ---- left lower: where Q4 PS hours went ------------------------------------
-  const HY = CY + CH + 0.12, HH = 1.55;
-  card(s, CX, HY, CW, HH);
-  cardTitle(s, CX, HY, "Q4 PS HOURS AVAILABLE — AND HOW THEY WERE LOGGED", 5.2);
-  const H = E.hours, notLogged = H.available - H.chargeable - H.nonChargeable - H.unflagged;
-  const segs = [["Chargeable", H.chargeable, PT_NAVY], ["Non-chargeable", H.nonChargeable, PT_BLUE], ["Chargeable? left blank", H.unflagged, C_COST], ["Not logged", notLogged, NA_GRAY]];
-  let sx = CX + 0.22; const SW = CW - 0.44;
-  segs.forEach(([, v, c]) => { const w = (v / H.available) * SW; s.addShape("rect", { x: sx, y: HY + 0.48, w: Math.max(0.03, w - 0.02), h: 0.28, fill: { color: c }, line: { type: "none" } }); sx += w; });
-  segs.forEach(([lbl, v, c], i) => {
-    const x = CX + 0.22 + i * (SW / 4);
-    s.addShape("rect", { x, y: HY + 0.9, w: 0.1, h: 0.1, fill: { color: c }, line: { type: "none" } });
-    s.addText([{ text: lbl, options: { fontSize: 6.5, color: MUTED, breakLine: true } }, { text: `${v.toFixed(1)}h · ${Math.round((v / H.available) * 100)}%`, options: { fontSize: 8.5, bold: true, color: NAVY } }],
-      { x: x + 0.14, y: HY + 0.84, w: SW / 4 - 0.16, h: 0.5, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
-  });
-  s.addText(`Bar = the ${Math.round(H.available).toLocaleString()}h PS staff were available 1–25 Oct. "Left blank" = logged as billable but Is Chargeable not filled in (new this week). Not logged ≈ ${k$(notLogged * E.costPerHour)} of cost at ~$${E.costPerHour}/h.`, { x: CX + 0.22, y: HY + HH - 0.3, w: SW, h: 0.26, fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0 });
+  // ---- left lower: week on week, as the weeks stand today --------------------
+  {
+    const W = D.utilisation.weekOnWeek, WX = CX, WY = CY + CH + 0.12, WW = CW, WH = 7.02 - WY;
+    card(s, WX, WY, WW, WH);
+    s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
+      { x: WX + 0.22, y: WY + 0.08, w: WW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
+    const cols = [["WEEK", 0.22, 1.2, "left"], ["ITEMS", 1.45, 0.5, "right"], ["HOURS NOW", 2.0, 0.85, "right"], ["UTIL", 2.9, 0.55, "right"], ["AS FIRST REPORTED", 3.5, 1.9, "right"]];
+    cols.forEach(([t, x, w, al]) => s.addText(t, { x: WX + x, y: WY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+    const RW = Math.min(0.27, (WH - 1.0) / W.rows.length);
+    W.rows.forEach((r, i) => {
+      const y = WY + 0.6 + i * RW;
+      const restated = Math.abs(r.hours - r.firstHours) > 0.01;
+      s.addShape("rect", { x: WX + 0.22, y: y + RW - 0.01, w: WW - 0.44, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
+      s.addText(r.label + (r.current ? "  ●" : ""), { x: WX + 0.22, y, w: 1.2, h: RW, fontFace: FONT, fontSize: 8, bold: true, color: r.current ? TEAL : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText(String(r.items), { x: WX + 1.45, y, w: 0.5, h: RW, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText(r.hours.toFixed(2) + "h", { x: WX + 2.0, y, w: 0.85, h: RW, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText(r.util.toFixed(1) + "%", { x: WX + 2.9, y, w: 0.55, h: RW, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+      s.addText(restated ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ${r.hours > r.firstHours ? "▲ +" : "▼ −"}${Math.abs(r.hours - r.firstHours).toFixed(2)}h` : "first report",
+        { x: WX + 3.5, y, w: 1.9, h: RW, align: "right", fontFace: FONT, fontSize: restated ? 7 : 7.3, bold: restated, color: restated ? (r.hours >= r.firstHours ? TERRA : GOLD) : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    });
+    s.addText(W.note, { x: WX + 0.22, y: WY + WH - 0.36, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  }
 
-  // ---- right: partner commission vs PS hours ----------------------------------
-  const RX = 6.25, RY = CY, RW = 6.63, RH = 2.95;
-  card(s, RX, RY, RW, RH);
-  cardTitle(s, RX, RY, "PARTNER COMMISSION vs THE PS WORK BEHIND IT", 6.2);
-  const cx = [0.22, 2.75, 4.0, 5.2], cw = [2.5, 1.2, 1.15, 1.2];
-  ["PARTNER", "COMMISSION JAN–SEP", "PS HOURS Q4", "EST. PS COST"].forEach((t, i) => s.addText(t, { x: RX + cx[i], y: RY + 0.42, w: cw[i], h: 0.18, align: i ? "right" : "left", fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-  const RP = 0.17;
-  E.partners.forEach(([name, com, h], i) => {
-    const y = RY + 0.62 + i * RP;
-    if (i % 2 === 1) s.addShape("rect", { x: RX + 0.14, y, w: RW - 0.28, h: RP, fill: { color: BG }, line: { type: "none" } });
-    const muted = com === 0;
-    s.addText(name, { x: RX + cx[0], y, w: cw[0], h: RP, fontFace: FONT, fontSize: 7.5, bold: !muted, color: muted ? TERRA : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(com == null ? "separate" : com === 0 ? "$0" : k$(com), { x: RX + cx[1], y, w: cw[1], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: com == null ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(h == null ? "not seen" : h.toFixed(1) + "h", { x: RX + cx[2], y, w: cw[2], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, color: h == null ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(h == null ? "—" : "$" + Math.round(h * E.costPerHour).toLocaleString(), { x: RX + cx[3], y, w: cw[3], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, color: h == null ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  s.addText(E.partnerNote + ` Cost at ~$${E.costPerHour}/h: ${E.costPerHourNote}.`, { x: RX + 0.22, y: RY + RH - 0.36, w: RW - 0.44, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  // ---- right: two compact tables side by side --------------------------------
+  const RX = 6.25, RY = CY, TW = (6.63 - 0.12) / 2, TH = 2.85, RP = 0.165;
+  const table = (x, title, heads, xs, ws, rows, note) => {
+    card(s, x, RY, TW, TH);
+    s.addText(title, { x: x + 0.18, y: RY + 0.1, w: TW - 0.36, h: 0.28, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
+    heads.forEach((t, i) => s.addText(t, { x: x + xs[i], y: RY + 0.42, w: ws[i], h: 0.16, align: i ? "right" : "left", fontFace: FONT, fontSize: 5.6, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+    rows.forEach((cells, ri) => {
+      const y = RY + 0.6 + ri * RP;
+      if (ri % 2 === 1) s.addShape("rect", { x: x + 0.1, y, w: TW - 0.2, h: RP, fill: { color: BG }, line: { type: "none" } });
+      cells.forEach(([txt, col, bold], ci) => s.addText(txt, { x: x + xs[ci], y, w: ws[ci], h: RP, align: ci ? "right" : "left", fontFace: FONT, fontSize: 6.8, bold: !!bold, color: col || NAVY, isTextBox: true, margin: 0, valign: "middle" }));
+    });
+    s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  };
+  const cost = (h) => (h == null ? "—" : "$" + Math.round(h * E.costPerHour).toLocaleString());
+  table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "EST. COST"], [0.18, 1.3, 2.15, 2.6], [1.2, 0.8, 0.45, 0.55],
+    E.partners.map(([n, c, h]) => [[n.replace(" — no commission", ""), c === 0 ? TERRA : NAVY, true], [c == null ? "separate" : c === 0 ? "$0" : k$(c), c == null ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [cost(h), h == null ? FAINT : MUTED]]),
+    E.partnerNote);
+  table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHARGEABLE", "BLANK", "EST. COST"], [0.18, 1.25, 1.75, 2.3, 2.65], [1.1, 0.45, 0.55, 0.35, 0.5],
+    E.accounts.map(([n, h, y, b]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? GREEN : FAINT], [b ? b.toFixed(1) + "h" : "—", b ? GOLD : FAINT], [cost(h), MUTED]]),
+    E.accountNote);
 
   // ---- right lower: summary --------------------------------------------------
-  const AY = RY + RH + 0.12;
-  aiSummary(s, RX, AY, RW, HY + HH - AY, E.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, TEAL][k % 3] })));
+  const AY = RY + TH + 0.12;
+  aiSummary(s, RX, AY, 6.63, 7.02 - AY, E.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, TEAL][k % 3] })));
   sourcePill(s, E.source);
 }
 

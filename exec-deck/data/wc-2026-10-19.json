@@ -2509,28 +2509,43 @@
   "source": "PS P&L Jan–Sep 2026 (Finance) · Premium Partner Commissions 2026 · HubSpot PS tickets Q4 to 25 Oct",
   "kpis": [
    {
-    "label": "HOURS LOGGED · THIS WEEK",
-    "value": "11.5 Hrs",
-    "sub": "▼ from 51.0 hrs last week",
+    "label": "HOURS LOGGED",
+    "value": "11.5h",
+    "side": "of 311.6h",
+    "sub": "▼ from 51.0h last week",
     "tone": "bad"
    },
    {
-    "label": "BILLABLE UTILISATION",
+    "label": "UTILISATION",
     "value": "3.7%",
-    "sub": "▼ from 16.8% last week · target 50%",
+    "sub": "▼ from 16.8% last week",
     "tone": "bad"
    },
    {
-    "label": "CHARGEABLE HOURS",
-    "value": "3.5 Hrs",
-    "sub": "▼ from 12.5 hrs last week",
+    "label": "BILLABLE · CHARGEABLE",
+    "value": "3.5h",
+    "side": "30%",
+    "sub": "▼ from 12.5h (25%) last week",
     "tone": "bad"
    },
    {
-    "label": "NON-CHARGEABLE (HIDDEN)",
-    "value": "1.0 Hrs",
-    "sub": "— same as last week · ≈ $42 of cost",
+    "label": "BILLABLE · NON-CHARGEABLE",
+    "value": "1.0h",
+    "side": "9%",
+    "sub": "— from 1.0h (2%) last week",
     "tone": "flat"
+   },
+   {
+    "label": "UTILISED · NON-BILLABLE",
+    "value": "Not set up",
+    "sub": "no non-billable records yet",
+    "notSetUp": true
+   },
+   {
+    "label": "NON-UTILISED",
+    "value": "Not set up",
+    "sub": "admin, meetings, leave not logged",
+    "notSetUp": true
    }
   ],
   "months": [
@@ -2634,16 +2649,16 @@
   "partnerNote": "Q4 hours are matched on partner names in ticket subjects (estimate) — none carry a partner or non-chargeable reason yet. All are logged billable.",
   "bullets": [
    [
-    "PS is $268k short, but partners paid H&L $1.29M.",
-    "Part of PS's unrecovered cost is the integration work that keeps that commission flowing."
+    "PS is $268k short on its P&L, but partners paid H&L $1.29M.",
+    "Part of the shortfall is partner integration and key-account work we don't charge for — the billable, non-chargeable hours."
    ],
    [
-    "We can't price that work yet.",
-    "16.9h in Q4 can be tied to a partner, from ticket subjects only, and none carry a non-chargeable reason. This week's 11.5h will restate up as late logging lands."
+    "This week only 1.0h is flagged non-chargeable.",
+    "Is Chargeable went live this week: 7.0 of the 11.5h logged (61%) are still blank, so the hidden work is under-counted."
    ],
    [
-    "Fix: two fields on every hidden hour —",
-    "the non-chargeable reason (partner integration · legacy key account) and who it was for."
+    "To renegotiate, each non-chargeable hour needs a reason and an owner:",
+    "premium partner (which one) or key account (which one). Then the partner and account tables price themselves."
    ]
   ],
   "weekly": {
@@ -2661,6 +2676,63 @@
     "blank": 37.52,
     "available": 304
    }
-  }
+  },
+  "accounts": [
+   [
+    "AVC",
+    21.5,
+    18.0,
+    3.5
+   ],
+   [
+    "Solotel",
+    7.0,
+    2.5,
+    4.5
+   ],
+   [
+    "Trader House",
+    3.5,
+    0,
+    3.5
+   ],
+   [
+    "Locals Co",
+    3.5,
+    0,
+    3.5
+   ],
+   [
+    "HHG",
+    3.5,
+    1.0,
+    2.5
+   ],
+   [
+    "Lucas Collective",
+    3.0,
+    0,
+    3.0
+   ],
+   [
+    "Liquor Barons",
+    2.5,
+    2.5,
+    0
+   ],
+   [
+    "BRG",
+    2.07,
+    0,
+    2.07
+   ],
+   [
+    "Perks Hospitality",
+    2.0,
+    1.0,
+    1.0
+   ]
+  ],
+  "accountNote": "Q4 hours by ticket company or name (estimate). AVC's 18h is the 9.2 upgrades ticket, flagged chargeable — confirm it was invoiced. Rodney: 8.25h of his 13.75h sit on these accounts."
  }
 }
