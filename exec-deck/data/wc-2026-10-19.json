@@ -2197,5 +2197,91 @@
    ]
   ],
   "footnote": "Not yet billing = won with recurring revenue in 2026, no row on the register. AVC parked licences excluded. A live venue is billing."
+ },
+ "supportFlow": {
+  "source": "HubSpot Support pipeline only (live, read 25 Oct)",
+  "open": 389,
+  "openNote": "as at Sun 25 Oct · 588 a week ago",
+  "medianAgeDays": 31,
+  "medianAgeNote": "all open tickets · median created 24 Sep",
+  "frt": {
+   "value": "14.7 Hours",
+   "note": "median 12.1h · 55 of 396 new tickets have an email reply so far · last week 46.8h"
+  },
+  "ttc": {
+   "value": "14.0 Days",
+   "note": "median 2.1 days · all 597 closed this week · lifted by old tickets cleared"
+  },
+  "weeks": [
+   {
+    "label": "14 Sep",
+    "new": 492,
+    "closed": 607
+   },
+   {
+    "label": "21 Sep",
+    "new": 490,
+    "closed": 419
+   },
+   {
+    "label": "28 Sep",
+    "new": 450,
+    "closed": 431
+   },
+   {
+    "label": "5 Oct",
+    "new": 417,
+    "closed": 426
+   },
+   {
+    "label": "12 Oct",
+    "new": 561,
+    "closed": 608
+   },
+   {
+    "label": "19 Oct",
+    "new": 396,
+    "closed": 597
+   }
+  ],
+  "chartNote": "Support pipeline only · weeks run Mon–Sun, Sydney time · 19 Oct is read to Sunday evening · line = new − closed, right axis: below zero means the backlog shrank. Starts 14 Sep, the first full week after the migration week, whose 1,249 closes were cleanup.",
+  "bullets": [
+   [
+    "Closed has beaten new three weeks running.",
+    "597 closed against 396 new this week — net −201, the biggest fall since cutover, after −9 and −47. Open is 389, down from 588."
+   ],
+   [
+    "Some of that fall is cleanup.",
+    "54 old voice tickets were bulk-closed on Monday evening. Clearing old tickets is also why the average close is 14.0 days while the median is 2.1."
+   ],
+   [
+    "First response looks faster, on a thin base.",
+    "14.7h on average against 46.8h last week — but only tickets answered by email carry a response time, 14% of new tickets, and ones still waiting aren't counted yet."
+   ]
+  ],
+  "footnote": "Response time = HubSpot time to first agent email reply; phone and AI-agent tickets have none. Close time = created to closed.",
+  "stages": [
+   [
+    "NEW",
+    280,
+    false
+   ],
+   [
+    "IN PROGRESS",
+    60,
+    false
+   ],
+   [
+    "PENDING INTERNAL",
+    10,
+    true
+   ],
+   [
+    "PENDING EXTERNAL",
+    39,
+    true
+   ]
+  ],
+  "stagesNote": "Pending Internal and Pending External are inside the 389 — 49 tickets, 13% of it. New is 280, 72% of everything open."
  }
 }

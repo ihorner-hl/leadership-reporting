@@ -860,6 +860,71 @@ if (D.notYetLive) {
 
 
 // =============================================================================
+// 11b · SUPPORT FLOW — new vs closed with net movement (candidate replacement
+// for the backlog slide; emitted standalone with --only=support-flow)
+// =============================================================================
+if (D.supportFlow) {
+  const s = addSlide("support-flow", true);
+  const F = D.supportFlow;
+  header(s, "Backlog", "Support", 3);
+  kpi(s, 0.45, 1.12, 2.95, 1.25, "OPEN BACKLOG", String(F.open), F.openNote, TERRA);
+  kpi(s, 3.6, 1.12, 2.95, 1.25, "MEDIAN TICKET AGE", `${F.medianAgeDays} Days`, F.medianAgeNote, TERRA);
+  kpi(s, 6.75, 1.12, 2.95, 1.25, "AVG TIME TO FIRST RESPONSE", F.frt.value, F.frt.note, NAVY);
+  kpi(s, 9.9, 1.12, 2.98, 1.25, "AVG TIME TO CLOSE", F.ttc.value, F.ttc.note, NAVY);
+
+  const CX = 0.45, CY = 2.62, CW = 7.2, CH = 4.28;
+  card(s, CX, CY, CW, CH);
+  cardTitle(s, CX, CY, "NEW vs CLOSED — WEEKLY, WITH NET MOVEMENT", 6.6);
+  const labels = F.weeks.map((w) => w.label);
+  const net = F.weeks.map((w) => w.new - w.closed);
+  const netMax = Math.ceil(Math.max(...net.map(Math.abs)) / 50) * 50 + 50;
+  s.addChart([
+    { type: pres.ChartType.bar, data: [
+        { name: "New", labels, values: F.weeks.map((w) => w.new) },
+        { name: "Closed", labels, values: F.weeks.map((w) => w.closed) }],
+      options: { chartColors: [TEAL_LT, TEAL_DK], barGrouping: "clustered", barGapWidthPct: 55, barOverlapPct: -5 } },
+    { type: pres.ChartType.line, data: [
+        { name: "Net movement (new − closed)", labels, values: net }],
+      options: { chartColors: [TERRA], lineSize: 2.25, lineSmooth: false, lineDataSymbol: "circle", lineDataSymbolSize: 7, secondaryValAxis: true, secondaryCatAxis: true } },
+  ], {
+    x: CX + 0.15, y: CY + 0.45, w: CW - 0.3, h: CH - 0.95,
+    valAxes: [
+      { valAxisMinVal: 0, valAxisMaxVal: 800, valAxisMajorUnit: 200, valAxisLabelColor: FAINT, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT,
+        showValAxisTitle: true, valAxisTitle: "Tickets", valAxisTitleFontSize: 7, valAxisTitleColor: FAINT, valGridLine: { color: TRACK, size: 0.5 } },
+      { valAxisMinVal: -netMax, valAxisMaxVal: netMax, valAxisMajorUnit: netMax / 2, valAxisLabelColor: TERRA, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT,
+        showValAxisTitle: true, valAxisTitle: "Net movement", valAxisTitleFontSize: 7, valAxisTitleColor: TERRA, valGridLine: { style: "none" } },
+    ],
+    catAxes: [
+      { catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT, catGridLine: { style: "none" } },
+      { catAxisHidden: true },
+    ],
+    showValue: true, dataLabelFontSize: 6.5, dataLabelFontFace: FONT, dataLabelColor: MUTED,
+    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
+  });
+  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.46, w: CW - 0.44, h: 0.42, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  const SUMH = 3.05;
+  aiSummary(s, 7.85, CY, 5.03, SUMH, F.bullets.map(([lead, text], k) => ({ lead, text, dot: [GREEN, GOLD, TEAL][k % 3] })).concat([
+    { text: F.footnote, muted: true, dot: FAINT },
+  ]));
+  const SX = 7.85, SY = CY + SUMH + 0.13, SW = 5.03, SH = CY + CH - SY;
+  card(s, SX, SY, SW, SH);
+  s.addText([{ text: `WHERE THE ${F.open} OPEN SIT   `, options: { fontSize: 9.5, bold: true, color: TEAL } },
+             { text: "the two pending states are counted in", options: { fontSize: 6.3, color: FAINT } }],
+    { x: SX + 0.22, y: SY + 0.1, w: SW - 0.44, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  const pad = 0.22, gap = 0.07, tw = (SW - pad * 2 - gap * 3) / 4, ty = SY + 0.36, th = 0.46;
+  F.stages.forEach(([label, n, pend], i) => {
+    const x = SX + pad + i * (tw + gap);
+    s.addShape("rect", { x, y: ty, w: tw, h: th, fill: { color: pend ? "F7EEDF" : BG }, line: { type: "none" } });
+    if (pend) s.addShape("rect", { x, y: ty, w: 0.035, h: th, fill: { color: GOLD }, line: { type: "none" } });
+    s.addText(String(n), { x: x + 0.1, y: ty + 0.03, w: tw - 0.2, h: 0.24, align: "center", fontFace: FONT, fontSize: 14, bold: true, color: pend ? GOLD : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(label, { x: x + 0.03, y: ty + 0.27, w: tw - 0.06, h: 0.17, align: "center", fontFace: FONT, fontSize: label.length > 12 ? 5.4 : 6.2, bold: true, color: pend ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  s.addText(F.stagesNote, { x: SX + 0.22, y: ty + th + 0.05, w: SW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.4, color: MUTED, isTextBox: true, margin: 0, valign: "top" });
+  sourcePill(s, F.source);
+}
+
+// =============================================================================
 // 12 · AI SUPPORT AGENT (shown only when D.aiAgent.showSlide)
 // =============================================================================
 if (D.aiAgent.showSlide) {
@@ -1074,7 +1139,7 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "won-vs-invoiced": "Won vs Invoiced" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
 const outFile = ONLY
   ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;
