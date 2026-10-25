@@ -2509,15 +2509,16 @@
   "source": "PS P&L Jan–Sep 2026 (Finance) · Premium Partner Commissions 2026 · HubSpot PS tickets Q4 to 25 Oct",
   "kpis": [
    {
-    "label": "HOURS LOGGED",
+    "label": "TOTAL HOURS LOGGED",
     "value": "11.5h",
     "side": "of 311.6h",
     "sub": "▼ from 51.0h last week",
     "tone": "bad"
    },
    {
-    "label": "UTILISATION",
+    "label": "BILLABLE UTILISATION",
     "value": "3.7%",
+    "side": "target 50%",
     "sub": "▼ from 16.8% last week",
     "tone": "bad"
    },
@@ -2598,7 +2599,7 @@
    [
     "Tyro",
     266392,
-    1.0
+    null
    ],
    [
     "Me&U",
@@ -2608,7 +2609,7 @@
    [
     "7Rs (SevenRooms)",
     112220,
-    2.0
+    1.0
    ],
    [
     "Zeller",
@@ -2636,17 +2637,22 @@
     1.11
    ],
    [
-    "H&L Pay (ValPay share)",
+    "H&L Pay",
     null,
-    4.0
+    2.0
    ],
    [
-    "Uber Eats — no commission",
+    "NowBookIt",
+    0,
+    2.0
+   ],
+   [
+    "Uber Eats",
     0,
     6.32
    ]
   ],
-  "partnerNote": "Q4 hours are matched on partner names in ticket subjects (estimate) — none carry a partner or non-chargeable reason yet. All are logged billable.",
+  "partnerNote": "",
   "bullets": [
    [
     "PS is $268k short on its P&L, but partners paid H&L $1.29M.",
@@ -2733,6 +2739,38 @@
     1.0
    ]
   ],
-  "accountNote": "Q4 hours by ticket company or name (estimate). AVC's 18h is the 9.2 upgrades ticket, flagged chargeable — confirm it was invoiced. Rodney: 8.25h of his 13.75h sit on these accounts."
+  "accountNote": "",
+  "wow": {
+   "rows": [
+    {
+     "label": "5–11 Oct",
+     "billable": 35.25,
+     "yes": 19.0,
+     "no": 0.0,
+     "blank": 16.25,
+     "util": 10.3,
+     "first": 21.25
+    },
+    {
+     "label": "12–18 Oct",
+     "billable": 51.02,
+     "yes": 12.5,
+     "no": 1.0,
+     "blank": 37.52,
+     "util": 16.8,
+     "first": 39.45
+    },
+    {
+     "label": "19–25 Oct",
+     "billable": 11.5,
+     "yes": 3.5,
+     "no": 1.0,
+     "blank": 7.0,
+     "util": 3.7,
+     "first": 11.5,
+     "current": true
+    }
+   ]
+  }
  }
 }

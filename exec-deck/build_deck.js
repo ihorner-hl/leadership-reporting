@@ -716,10 +716,9 @@ if (D.psEconomics) {
   });
 
   // ---- left: PS P&L by month --------------------------------------------------
-  const CX = 0.45, CY = 2.2, CW = 5.6, CH = 2.45;
+  const CX = 0.45, CY = 2.2, CW = 5.6, CH = 3.15;
   card(s, CX, CY, CW, CH);
   cardTitle(s, CX, CY, "PS P&L BY MONTH — 2026", 5.2);
-  s.addText(`Jan–Sep: revenue ${k$(E.revenue.reduce((a, b) => a + b, 0))} · cost ${k$(E.cost.reduce((a, b) => a + b, 0))} · −$268k`, { x: CX + 2.6, y: CY + 0.12, w: CW - 2.8, h: 0.3, align: "right", fontFace: FONT, fontSize: 7, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
   const net = E.revenue.map((r, i) => r - E.cost[i]);
   s.addChart([
     { type: pres.ChartType.bar, data: [
@@ -736,27 +735,27 @@ if (D.psEconomics) {
     showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
   });
 
-  // ---- left lower: week on week, as the weeks stand today --------------------
+  // ---- left lower: week on week by the Is Chargeable split ------------------
   {
-    const W = D.utilisation.weekOnWeek, WX = CX, WY = CY + CH + 0.12, WW = CW, WH = 7.02 - WY;
+    const W = E.wow, WX = CX, WY = CY + CH + 0.12, WW = CW, WH = 7.02 - WY;
     card(s, WX, WY, WW, WH);
-    s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
-      { x: WX + 0.22, y: WY + 0.08, w: WW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-    const cols = [["WEEK", 0.22, 1.2, "left"], ["ITEMS", 1.45, 0.5, "right"], ["HOURS NOW", 2.0, 0.85, "right"], ["UTIL", 2.9, 0.55, "right"], ["AS FIRST REPORTED", 3.5, 1.9, "right"]];
-    cols.forEach(([t, x, w, al]) => s.addText(t, { x: WX + x, y: WY + 0.38, w, h: 0.18, align: al, fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
-    const RW = Math.min(0.27, (WH - 1.0) / W.rows.length);
+    s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 10, bold: true, color: TEAL } }, { text: "billable hours as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
+      { x: WX + 0.2, y: WY + 0.06, w: WW - 0.4, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
+    const cols = [["WEEK", 0.2, 0.85, "left"], ["BILLABLE", 1.05, 0.65, "right"], ["CHARGEABLE", 1.75, 0.75, "right"], ["NON-CHARG.", 2.55, 0.7, "right"], ["BLANK", 3.3, 0.5, "right"], ["UTIL", 3.85, 0.5, "right"], ["FIRST REPORTED", 4.4, 1.0, "right"]];
+    cols.forEach(([t, x, w, al]) => s.addText(t, { x: WX + x, y: WY + 0.32, w, h: 0.16, align: al, fontFace: FONT, fontSize: 5.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+    const RW = Math.min(0.26, (WH - 0.55) / W.rows.length);
     W.rows.forEach((r, i) => {
-      const y = WY + 0.6 + i * RW;
-      const restated = Math.abs(r.hours - r.firstHours) > 0.01;
-      s.addShape("rect", { x: WX + 0.22, y: y + RW - 0.01, w: WW - 0.44, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
-      s.addText(r.label + (r.current ? "  ●" : ""), { x: WX + 0.22, y, w: 1.2, h: RW, fontFace: FONT, fontSize: 8, bold: true, color: r.current ? TEAL : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-      s.addText(String(r.items), { x: WX + 1.45, y, w: 0.5, h: RW, align: "right", fontFace: FONT, fontSize: 8, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-      s.addText(r.hours.toFixed(2) + "h", { x: WX + 2.0, y, w: 0.85, h: RW, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
-      s.addText(r.util.toFixed(1) + "%", { x: WX + 2.9, y, w: 0.55, h: RW, align: "right", fontFace: FONT, fontSize: 8.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
-      s.addText(restated ? `${r.firstHours.toFixed(2)}h · ${r.firstUtil.toFixed(1)}%   ${r.hours > r.firstHours ? "▲ +" : "▼ −"}${Math.abs(r.hours - r.firstHours).toFixed(2)}h` : "first report",
-        { x: WX + 3.5, y, w: 1.9, h: RW, align: "right", fontFace: FONT, fontSize: restated ? 7 : 7.3, bold: restated, color: restated ? (r.hours >= r.firstHours ? TERRA : GOLD) : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+      const y = WY + 0.5 + i * RW, d = r.billable - r.first, restated = Math.abs(d) > 0.01;
+      if (i) s.addShape("rect", { x: WX + 0.2, y, w: WW - 0.4, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
+      const cell = (t, x, w, al, o = {}) => s.addText(t, Object.assign({ x: WX + x, y, w, h: RW, align: al, fontFace: FONT, fontSize: 7.8, color: NAVY, isTextBox: true, margin: 0, valign: "middle" }, o));
+      cell(r.label + (r.current ? " ●" : ""), 0.2, 0.85, "left", { bold: true, color: r.current ? TEAL : NAVY });
+      cell(r.billable.toFixed(1) + "h", 1.05, 0.65, "right", { bold: true, color: TEAL });
+      cell(r.yes ? r.yes.toFixed(1) + "h" : "—", 1.75, 0.75, "right", { color: r.yes ? NAVY : FAINT });
+      cell(r.no ? r.no.toFixed(1) + "h" : "—", 2.55, 0.7, "right", { color: r.no ? NAVY : FAINT });
+      cell(r.blank ? r.blank.toFixed(1) + "h" : "—", 3.3, 0.5, "right", { color: r.blank ? GOLD : FAINT });
+      cell(r.util.toFixed(1) + "%", 3.85, 0.5, "right", { bold: true, color: GOLD });
+      cell(restated ? `${r.first.toFixed(1)}h  ${d > 0 ? "▲ +" : "▼ −"}${Math.abs(d).toFixed(1)}h` : "first report", 4.4, 1.0, "right", { fontSize: 6.8, bold: restated, color: restated ? TERRA : FAINT });
     });
-    s.addText(W.note, { x: WX + 0.22, y: WY + WH - 0.36, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   }
 
   // ---- right: two compact tables side by side --------------------------------
@@ -770,7 +769,7 @@ if (D.psEconomics) {
       if (ri % 2 === 1) s.addShape("rect", { x: x + 0.1, y, w: TW - 0.2, h: RP, fill: { color: BG }, line: { type: "none" } });
       cells.forEach(([txt, col, bold], ci) => s.addText(txt, { x: x + xs[ci], y, w: ws[ci], h: RP, align: ci ? "right" : "left", fontFace: FONT, fontSize: 6.8, bold: !!bold, color: col || NAVY, isTextBox: true, margin: 0, valign: "middle" }));
     });
-    s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+    if (note) s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   };
   const cost = (h) => (h == null ? "—" : "$" + Math.round(h * E.costPerHour).toLocaleString());
   table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "EST. COST"], [0.18, 1.3, 2.15, 2.6], [1.2, 0.8, 0.45, 0.55],
