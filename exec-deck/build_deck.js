@@ -612,6 +612,86 @@ if (D.cutover.showSlide) {
 
 
 // =============================================================================
+// 8b · PS TIME — where every hour sits (candidate replacement for the
+// utilisation slide; emitted standalone with --only=ps-time)
+// Structure per the PS time session: all time → utilised / non-utilised →
+// billable / non-billable → chargeable / non-chargeable.
+// =============================================================================
+if (D.psTime) {
+  const s = addSlide("ps-time", true);
+  const P = D.psTime;
+  header(s, "Utilisation & Delivery Hours", "Professional Services", 2);
+  const PT_NAVY = "15233F", PT_BLUE = "2B4170", PT_GREY = "DCE3EC", PT_MINT = "D9F2EC", PT_CHIP = "17B3A0";
+  const hrs = (v) => (v == null ? "—" : (Math.round(v * 10) / 10).toFixed(1) + "h");
+
+  // ---- KPI row -------------------------------------------------------------
+  const KN = P.kpis.length, KG = 0.2, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.08, KH = 1.05;
+  P.kpis.forEach((k, i) => {
+    const x = 0.45 + i * (KW + KG);
+    card(s, x, KY, KW, KH);
+    s.addShape("rect", { x: x + 0.18, y: KY + 0.13, w: 0.32, h: 0.045, fill: { color: PT_CHIP }, line: { type: "none" } });
+    s.addText(k.label, { x: x + 0.18, y: KY + 0.2, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
+    s.addText(k.value, { x: x + 0.16, y: KY + 0.42, w: KW - 0.3, h: 0.38, fontFace: FONT, fontSize: 22, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(k.sub, { x: x + 0.18, y: KY + 0.8, w: KW - 0.3, h: 0.2, fontFace: FONT, fontSize: 7.3, bold: !!k.tone, color: { good: GREEN, bad: TERRA }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
+  });
+
+  // ---- the structure -------------------------------------------------------
+  const X0 = 0.45, W = 12.43, Y0 = 2.3, GAP = 0.1, BAR = 0.36;
+  const colW = (W - GAP * 3) / 4, colX = (i) => X0 + i * (colW + GAP);
+  const bar = (x, y, w, name, note, val) => {
+    s.addShape("roundRect", { x, y, w, h: BAR, rectRadius: 0.05, fill: { color: CARD }, line: { color: TRACK, width: 0.75 } });
+    s.addText([{ text: name + "   ", options: { bold: true, color: NAVY, fontSize: 10 } }, { text: note, options: { color: FAINT, fontSize: 7.5 } }],
+      { x: x + 0.14, y, w: w - 1.9, h: BAR, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(val, { x: x + w - 1.85, y, w: 1.72, h: BAR, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+  };
+  const pct = (v, of) => (of ? Math.round((v / of) * 1000) / 10 + "%" : "");
+  bar(X0, Y0, W, "All PS time", P.footnote, `${hrs(P.all.q)} of ${Math.round(P.availableQ).toLocaleString()}h available`);
+  const Y1 = Y0 + BAR + GAP;
+  bar(X0, Y1, colW * 3 + GAP * 2, "Utilised", "productive PS work", `${hrs(P.utilised.q)} · ${pct(P.utilised.q, P.availableQ)}`);
+  const Y2 = Y1 + BAR + GAP;
+  bar(X0, Y2, colW * 2 + GAP, "Billable", "for a client or partner", `${hrs(P.billable.q)} · ${pct(P.billable.q, P.availableQ)}`);
+
+  const leafY = Y2 + BAR + GAP, leafH = 1.95;
+  const leaf = (x, y, w, h, fill, chip, chipFill, chipText, name, desc, v, wk, dark) => {
+    s.addShape("roundRect", { x, y, w, h, rectRadius: 0.06, fill: { color: fill }, line: { type: "none" }, shadow: dark ? shadow() : undefined });
+    s.addShape("roundRect", { x: x + 0.14, y: y + 0.13, w: 1.0, h: 0.24, rectRadius: 0.12, fill: { color: chipFill }, line: { type: "none" } });
+    s.addText(chip, { x: x + 0.14, y: y + 0.13, w: 1.0, h: 0.24, align: "center", valign: "middle", fontFace: FONT, fontSize: 6.5, bold: true, charSpacing: 2, color: chipText, isTextBox: true, margin: 0 });
+    s.addText(name, { x: x + 0.14, y: y + 0.44, w: w - 0.28, h: 0.26, fontFace: FONT, fontSize: 11.5, bold: true, color: dark ? "FFFFFF" : NAVY, isTextBox: true, margin: 0 });
+    s.addText(desc, { x: x + 0.14, y: y + 0.7, w: w - 0.28, h: 0.2, fontFace: FONT, fontSize: 7, italic: true, color: dark ? "C9D3E2" : MUTED, isTextBox: true, margin: 0 });
+    s.addText(v, { x: x + 0.14, y: y + 0.88, w: w - 0.28, h: 0.36, fontFace: FONT, fontSize: v.length > 8 ? 12 : 20, bold: true, color: dark ? "FFFFFF" : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(wk, { x: x + 0.14, y: y + 1.2, w: w - 0.28, h: 0.2, fontFace: FONT, fontSize: 7, color: dark ? "C9D3E2" : FAINT, isTextBox: true, margin: 0, valign: "middle" });
+  };
+  const flagH = 0.42, chH = leafH - flagH - GAP;
+  leaf(colX(0), leafY, colW, chH, PT_NAVY, "REVENUE", PT_CHIP, "FFFFFF", "Chargeable", "Customer is invoiced", hrs(P.chargeable.q), `this week ${hrs(P.chargeable.wk)}`, true);
+  leaf(colX(1), leafY, colW, chH, PT_BLUE, "COST", GOLD, NAVY, "Non-chargeable", "Logged, not invoiced", hrs(P.nonChargeable.q), `this week ${hrs(P.nonChargeable.wk)}`, true);
+  // the billable hours with no chargeable flag yet, across both billable columns
+  {
+    const fx = colX(0), fy = leafY + chH + GAP, fw = colW * 2 + GAP;
+    s.addShape("roundRect", { x: fx, y: fy, w: fw, h: flagH, rectRadius: 0.05, fill: { color: "F7EEDF" }, line: { color: GOLD, width: 0.75, dashType: "dash" } });
+    s.addText([{ text: "Not yet flagged   ", options: { bold: true, color: NAVY, fontSize: 9.5 } },
+               { text: P.unflaggedNote || "billable, chargeable flag still blank", options: { color: MUTED, fontSize: 7.3 } }],
+      { x: fx + 0.14, y: fy, w: fw - 2.4, h: flagH, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(`${hrs(P.unflagged.q)} · ${P.unflagged.pct}% of billable`, { x: fx + fw - 2.35, y: fy, w: 2.22, h: flagH, align: "right", fontFace: FONT, fontSize: 9.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
+  }
+  // non-billable: spans the billable bar row down
+  {
+    const nx = colX(2), ny = Y2, nh = leafY + leafH - Y2;
+    s.addShape("roundRect", { x: nx, y: ny, w: colW, h: nh, rectRadius: 0.06, fill: { color: CARD }, line: { color: TRACK, width: 0.75 } });
+    leaf(nx, ny, colW, nh, CARD, "INVESTMENT", PT_MINT, "0E8A79", "Non-billable", "Approved, no single client", hrs(P.nonBillable.q), P.nonBillable.note, false);
+  }
+  // non-utilised: spans from the utilised row down
+  {
+    const ux = colX(3), uy = Y1, uh = leafY + leafH - Y1;
+    leaf(ux, uy, colW, uh, PT_GREY, "OVERHEAD", CARD, MUTED, "Non-utilised", "Not productive PS work", "Not logged yet", P.nonUtilised.note, false);
+  }
+
+  // ---- summary ---------------------------------------------------------------
+  const SY = leafY + leafH + 0.14;
+  aiSummary(s, 0.45, SY, 12.43, 7.04 - SY, P.bullets.map(([lead, text], k) => ({ lead, text, dot: [GOLD, TEAL, NAVY][k % 3] })));
+  sourcePill(s, P.source);
+}
+
+// =============================================================================
 // 9 · CLOSED WON — NOT YET LIVE (PS delivery backlog; also emitted standalone)
 // =============================================================================
 if (D.notYetLive) {
@@ -1154,7 +1234,7 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "ps-time": "PS Utilisation - Where Every Hour Sits", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
 const outFile = ONLY
   ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;

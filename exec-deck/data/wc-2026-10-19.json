@@ -2423,5 +2423,86 @@
    },
    "basis": "new Support tickets by ticket Source (source_type); other = unassigned or internal"
   }
+ },
+ "psTime": {
+  "source": "HubSpot PS-pipeline tickets (live, read 25 Oct)",
+  "period": "Q4 to date · 1–25 Oct",
+  "availableQ": 1064.0,
+  "availableWk": 311.6,
+  "kpis": [
+   {
+    "label": "UTILISATION",
+    "value": "10.8%",
+    "sub": "this week 3.7% · utilised ÷ available"
+   },
+   {
+    "label": "BILLABLE UTILISATION",
+    "value": "10.8%",
+    "sub": "target 50% · this week 3.7%",
+    "tone": "bad"
+   },
+   {
+    "label": "CHARGED RATE",
+    "value": "30%",
+    "sub": "chargeable ÷ billable · flag new this week",
+    "tone": "bad"
+   },
+   {
+    "label": "NOT CHARGED",
+    "value": "2.0 Hrs",
+    "sub": "non-chargeable · reason not captured yet"
+   }
+  ],
+  "all": {
+   "q": 115.1,
+   "wk": 11.5
+  },
+  "utilised": {
+   "q": 115.1,
+   "wk": 11.5
+  },
+  "billable": {
+   "q": 115.1,
+   "wk": 11.5
+  },
+  "chargeable": {
+   "q": 35.0,
+   "wk": 3.5
+  },
+  "nonChargeable": {
+   "q": 2.0,
+   "wk": 1.0
+  },
+  "unflagged": {
+   "q": 78.1,
+   "wk": 7.0,
+   "pct": 68
+  },
+  "nonBillable": {
+   "q": 0,
+   "wk": 0,
+   "note": "Non-billable records per person, per quarter not set up yet"
+  },
+  "nonUtilised": {
+   "q": null,
+   "wk": null,
+   "note": "Admin, meetings, own training and leave are not logged in HubSpot yet"
+  },
+  "bullets": [
+   [
+    "Is Chargeable went live this week, so most Q4 hours pre-date it.",
+    "35.0h chargeable, 2.0h non-chargeable; 78.1h (68%) not flagged. This week 4.5 of 11.5h are flagged, so the charged rate firms up as coverage builds."
+   ],
+   [
+    "Utilisation and billable utilisation read the same.",
+    "Nothing non-billable or non-utilised is logged yet, so all 115.1h is client work: 10.8% of 1,064h against the 50% target."
+   ],
+   [
+    "Still to set up:",
+    "non-billable records per person, a non-chargeable reason field, and leave logging."
+   ]
+  ],
+  "footnote": "every hour, logged in HubSpot · available = PS staff × 7.6h a day, less leave · hours by ticket create date",
+  "unflaggedNote": "pre-dates Is Chargeable, or not flagged yet"
  }
 }
