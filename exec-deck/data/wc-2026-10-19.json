@@ -2509,26 +2509,28 @@
   "source": "PS P&L Jan–Sep 2026 (Finance) · Premium Partner Commissions 2026 · HubSpot PS tickets Q4 to 25 Oct",
   "kpis": [
    {
-    "label": "PS REVENUE · JAN–SEP",
-    "value": "$293k",
-    "sub": "billed to customers"
-   },
-   {
-    "label": "PS COST · JAN–SEP",
-    "value": "$562k",
-    "sub": "$501k staff · $61k non-staff"
-   },
-   {
-    "label": "SHORTFALL",
-    "value": "−$268k",
-    "sub": "PS recovers 52% of its cost",
+    "label": "HOURS LOGGED · THIS WEEK",
+    "value": "11.5 Hrs",
+    "sub": "▼ from 51.0 hrs last week",
     "tone": "bad"
    },
    {
-    "label": "PARTNER COMMISSION · JAN–SEP",
-    "value": "$1.29M",
-    "sub": "paid to H&L by premium partners",
-    "tone": "good"
+    "label": "BILLABLE UTILISATION",
+    "value": "3.7%",
+    "sub": "▼ from 16.8% last week · target 50%",
+    "tone": "bad"
+   },
+   {
+    "label": "CHARGEABLE HOURS",
+    "value": "3.5 Hrs",
+    "sub": "▼ from 12.5 hrs last week",
+    "tone": "bad"
+   },
+   {
+    "label": "NON-CHARGEABLE (HIDDEN)",
+    "value": "1.0 Hrs",
+    "sub": "— same as last week · ≈ $42 of cost",
+    "tone": "flat"
    }
   ],
   "months": [
@@ -2637,12 +2639,28 @@
    ],
    [
     "We can't price that work yet.",
-    "16.9h in Q4 can be tied to a partner, from ticket subjects only, and none carry a non-chargeable reason. 6.3h went to Uber Eats, which pays no commission."
+    "16.9h in Q4 can be tied to a partner, from ticket subjects only, and none carry a non-chargeable reason. This week's 11.5h will restate up as late logging lands."
    ],
    [
     "Fix: two fields on every hidden hour —",
     "the non-chargeable reason (partner integration · legacy key account) and who it was for."
    ]
-  ]
+  ],
+  "weekly": {
+   "thisWeek": {
+    "logged": 11.5,
+    "chargeable": 3.5,
+    "nonChargeable": 1.0,
+    "blank": 7.0,
+    "available": 311.6
+   },
+   "lastWeek": {
+    "logged": 51.02,
+    "chargeable": 12.5,
+    "nonChargeable": 1.0,
+    "blank": 37.52,
+    "available": 304
+   }
+  }
  }
 }

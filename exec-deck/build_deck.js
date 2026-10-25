@@ -711,7 +711,7 @@ if (D.psEconomics) {
     s.addShape("rect", { x: x + 0.18, y: KY + 0.13, w: 0.32, h: 0.045, fill: { color: C_REV }, line: { type: "none" } });
     s.addText(k.label, { x: x + 0.18, y: KY + 0.2, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
     s.addText(k.value, { x: x + 0.16, y: KY + 0.42, w: KW - 0.3, h: 0.38, fontFace: FONT, fontSize: 22, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(k.sub, { x: x + 0.18, y: KY + 0.8, w: KW - 0.3, h: 0.2, fontFace: FONT, fontSize: 7.3, bold: !!k.tone, color: { good: GREEN, bad: TERRA }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(k.sub, { x: x + 0.18, y: KY + 0.8, w: KW - 0.3, h: 0.2, fontFace: FONT, fontSize: 7.3, bold: !!k.tone, color: { good: GREEN, bad: TERRA, flat: MUTED }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });
 
   // ---- left: PS P&L by month --------------------------------------------------
@@ -737,9 +737,9 @@ if (D.psEconomics) {
   // ---- left lower: where Q4 PS hours went ------------------------------------
   const HY = CY + CH + 0.12, HH = 1.55;
   card(s, CX, HY, CW, HH);
-  cardTitle(s, CX, HY, "WHERE Q4 PS CAPACITY WENT — 1–25 OCT", 5.2);
+  cardTitle(s, CX, HY, "Q4 PS HOURS AVAILABLE — AND HOW THEY WERE LOGGED", 5.2);
   const H = E.hours, notLogged = H.available - H.chargeable - H.nonChargeable - H.unflagged;
-  const segs = [["Chargeable", H.chargeable, PT_NAVY], ["Non-chargeable", H.nonChargeable, PT_BLUE], ["Billable, not flagged", H.unflagged, C_COST], ["Not logged", notLogged, NA_GRAY]];
+  const segs = [["Chargeable", H.chargeable, PT_NAVY], ["Non-chargeable", H.nonChargeable, PT_BLUE], ["Chargeable? left blank", H.unflagged, C_COST], ["Not logged", notLogged, NA_GRAY]];
   let sx = CX + 0.22; const SW = CW - 0.44;
   segs.forEach(([, v, c]) => { const w = (v / H.available) * SW; s.addShape("rect", { x: sx, y: HY + 0.48, w: Math.max(0.03, w - 0.02), h: 0.28, fill: { color: c }, line: { type: "none" } }); sx += w; });
   segs.forEach(([lbl, v, c], i) => {
@@ -748,7 +748,7 @@ if (D.psEconomics) {
     s.addText([{ text: lbl, options: { fontSize: 6.5, color: MUTED, breakLine: true } }, { text: `${v.toFixed(1)}h · ${Math.round((v / H.available) * 100)}%`, options: { fontSize: 8.5, bold: true, color: NAVY } }],
       { x: x + 0.14, y: HY + 0.84, w: SW / 4 - 0.16, h: 0.5, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
   });
-  s.addText(`of ${Math.round(H.available).toLocaleString()}h available · at ~$${E.costPerHour}/h, the unlogged hours alone are ≈ ${k$(notLogged * E.costPerHour)} of cost with no owner`, { x: CX + 0.22, y: HY + HH - 0.24, w: SW, h: 0.18, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0 });
+  s.addText(`Bar = the ${Math.round(H.available).toLocaleString()}h PS staff were available 1–25 Oct. "Left blank" = logged as billable but Is Chargeable not filled in (new this week). Not logged ≈ ${k$(notLogged * E.costPerHour)} of cost at ~$${E.costPerHour}/h.`, { x: CX + 0.22, y: HY + HH - 0.3, w: SW, h: 0.26, fontFace: FONT, fontSize: 6, color: FAINT, isTextBox: true, margin: 0 });
 
   // ---- right: partner commission vs PS hours ----------------------------------
   const RX = 6.25, RY = CY, RW = 6.63, RH = 2.95;
