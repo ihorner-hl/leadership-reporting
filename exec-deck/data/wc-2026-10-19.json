@@ -2244,7 +2244,7 @@
     "closed": 597
    }
   ],
-  "chartNote": "Support pipeline only · weeks run Mon–Sun, Sydney time · 19 Oct is read to Sunday evening · line = new − closed, right axis: below zero means the backlog shrank. Starts 14 Sep, the first full week after the migration week, whose 1,249 closes were cleanup.",
+  "chartNote": "Support pipeline · Mon–Sun weeks, Sydney time · net = new − closed, below zero = backlog shrank",
   "bullets": [
    [
     "Closed has beaten new three weeks running.",
@@ -2259,7 +2259,7 @@
     "14.7h on average against 46.8h last week — but only tickets answered by email carry a response time, 14% of new tickets, and ones still waiting aren't counted yet."
    ]
   ],
-  "footnote": "Response time = HubSpot time to first agent email reply; phone and AI-agent tickets have none. Close time = created to closed.",
+  "footnote": "First response = time to first agent email reply; phone and AI-agent tickets have none.",
   "stages": [
    [
     "NEW",
@@ -2282,6 +2282,30 @@
     true
    ]
   ],
-  "stagesNote": "Pending Internal and Pending External are inside the 389 — 49 tickets, 13% of it. New is 280, 72% of everything open."
+  "stagesNote": "Pending Internal and Pending External are inside the 389 — 49 tickets, 13% of it. New is 280, 72% of everything open.",
+  "kpis": [
+   {
+    "label": "OPEN BACKLOG",
+    "value": "389",
+    "sub": "▼ 199 vs last week",
+    "tone": "good"
+   },
+   {
+    "label": "MEDIAN TICKET AGE",
+    "value": "31 Days",
+    "sub": "open tickets"
+   },
+   {
+    "label": "AVG FIRST RESPONSE",
+    "value": "14.7 Hrs",
+    "sub": "▼ from 46.8 hrs last week",
+    "tone": "good"
+   },
+   {
+    "label": "AVG TIME TO CLOSE",
+    "value": "14.0 Days",
+    "sub": "597 closed this week"
+   }
+  ]
  }
 }

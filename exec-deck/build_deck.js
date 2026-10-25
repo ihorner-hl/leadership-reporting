@@ -866,61 +866,75 @@ if (D.notYetLive) {
 if (D.supportFlow) {
   const s = addSlide("support-flow", true);
   const F = D.supportFlow;
+  // chart palette, validated for colour-blind separation (dataviz validator)
+  const SF_NEW = "1B8DA6", SF_CLOSED = "E0A458", SF_NET = "C2562A";
+  const SF_STAGE = { "NEW": SF_NEW, "IN PROGRESS": "5B7C8A", "PENDING INTERNAL": SF_CLOSED, "PENDING EXTERNAL": SF_NET };
   header(s, "Backlog", "Support", 3);
-  kpi(s, 0.45, 1.12, 2.95, 1.25, "OPEN BACKLOG", String(F.open), F.openNote, TERRA);
-  kpi(s, 3.6, 1.12, 2.95, 1.25, "MEDIAN TICKET AGE", `${F.medianAgeDays} Days`, F.medianAgeNote, TERRA);
-  kpi(s, 6.75, 1.12, 2.95, 1.25, "AVG TIME TO FIRST RESPONSE", F.frt.value, F.frt.note, NAVY);
-  kpi(s, 9.9, 1.12, 2.98, 1.25, "AVG TIME TO CLOSE", F.ttc.value, F.ttc.note, NAVY);
 
-  const CX = 0.45, CY = 2.62, CW = 7.2, CH = 4.28;
+  // ---- KPI row: number first, one short line under it -----------------------
+  const KN = F.kpis.length, KG = 0.2, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.12, KH = 1.15;
+  F.kpis.forEach((k, i) => {
+    const x = 0.45 + i * (KW + KG);
+    card(s, x, KY, KW, KH);
+    s.addShape("rect", { x: x + 0.18, y: KY + 0.14, w: 0.32, h: 0.045, fill: { color: k.notSetUp ? NA_GRAY : SF_NEW }, line: { type: "none" } });
+    s.addText(k.label, { x: x + 0.18, y: KY + 0.22, w: KW - 0.3, h: 0.24, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
+    s.addText(k.value, { x: x + 0.16, y: KY + 0.46, w: KW - 0.3, h: 0.42, fontFace: FONT, fontSize: k.notSetUp ? 16 : 24, bold: true, color: k.notSetUp ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    const tone = { good: GREEN, bad: TERRA }[k.tone] || FAINT;
+    s.addText(k.sub, { x: x + 0.18, y: KY + 0.86, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 7.5, bold: !!k.tone, color: tone, isTextBox: true, margin: 0, valign: "middle" });
+  });
+
+  // ---- main chart: new vs closed bars, net movement line, one axis ---------
+  const CX = 0.45, CY = 2.45, CW = 7.2, CH = 4.5;
   card(s, CX, CY, CW, CH);
   cardTitle(s, CX, CY, "NEW vs CLOSED — WEEKLY, WITH NET MOVEMENT", 6.6);
   const labels = F.weeks.map((w) => w.label);
   const net = F.weeks.map((w) => w.new - w.closed);
-  const netMax = Math.ceil(Math.max(...net.map(Math.abs)) / 50) * 50 + 50;
+  const lo = Math.floor((Math.min(0, ...net) - 20) / 100) * 100;
   s.addChart([
     { type: pres.ChartType.bar, data: [
         { name: "New", labels, values: F.weeks.map((w) => w.new) },
         { name: "Closed", labels, values: F.weeks.map((w) => w.closed) }],
-      options: { chartColors: [TEAL_LT, TEAL_DK], barGrouping: "clustered", barGapWidthPct: 55, barOverlapPct: -5 } },
+      options: { chartColors: [SF_NEW, SF_CLOSED], barGrouping: "clustered", barGapWidthPct: 60, barOverlapPct: -8 } },
     { type: pres.ChartType.line, data: [
         { name: "Net movement (new − closed)", labels, values: net }],
-      options: { chartColors: [TERRA], lineSize: 2.25, lineSmooth: false, lineDataSymbol: "circle", lineDataSymbolSize: 7, secondaryValAxis: true, secondaryCatAxis: true } },
+      options: { chartColors: [SF_NET], lineSize: 2.5, lineSmooth: false, lineDataSymbol: "circle", lineDataSymbolSize: 8 } },
   ], {
-    x: CX + 0.15, y: CY + 0.45, w: CW - 0.3, h: CH - 0.95,
-    valAxes: [
-      { valAxisMinVal: 0, valAxisMaxVal: 800, valAxisMajorUnit: 200, valAxisLabelColor: FAINT, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT,
-        showValAxisTitle: true, valAxisTitle: "Tickets", valAxisTitleFontSize: 7, valAxisTitleColor: FAINT, valGridLine: { color: TRACK, size: 0.5 } },
-      { valAxisMinVal: -netMax, valAxisMaxVal: netMax, valAxisMajorUnit: netMax / 2, valAxisLabelColor: TERRA, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT,
-        showValAxisTitle: true, valAxisTitle: "Net movement", valAxisTitleFontSize: 7, valAxisTitleColor: TERRA, valGridLine: { style: "none" } },
-    ],
-    catAxes: [
-      { catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT, catGridLine: { style: "none" } },
-      { catAxisHidden: true },
-    ],
-    showValue: true, dataLabelFontSize: 6.5, dataLabelFontFace: FONT, dataLabelColor: MUTED,
-    showLegend: true, legendPos: "t", legendColor: MUTED, legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
+    x: CX + 0.15, y: CY + 0.42, w: CW - 0.3, h: CH - 0.8,
+    valAxisMinVal: lo, valAxisMaxVal: 800, valAxisMajorUnit: 100,
+    valAxisLabelColor: FAINT, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT, valGridLine: { color: TRACK, size: 0.5 },
+    catAxisLabelColor: NAVY, catAxisLabelFontSize: 8, catAxisLabelFontFace: FONT, catAxisLabelPos: "low", catGridLine: { style: "none" },
+    showValue: true, dataLabelFontSize: 7, dataLabelFontFace: FONT, dataLabelColor: "3A4B57",
+    showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 8, legendFontFace: FONT, showTitle: false,
   });
-  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.46, w: CW - 0.44, h: 0.42, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.34, w: CW - 0.44, h: 0.26, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  const SUMH = 3.05;
-  aiSummary(s, 7.85, CY, 5.03, SUMH, F.bullets.map(([lead, text], k) => ({ lead, text, dot: [GREEN, GOLD, TEAL][k % 3] })).concat([
+  // ---- right: where the open tickets sit, then the summary ------------------
+  const SX = 7.85, SW = 5.03, SY = CY, SH = 1.55;
+  card(s, SX, SY, SW, SH);
+  s.addText([{ text: `WHERE THE ${F.open} OPEN SIT`, options: { fontSize: 10, bold: true, color: TEAL } }],
+    { x: SX + 0.22, y: SY + 0.1, w: SW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
+  const tot = F.stages.reduce((a, st) => a + st[1], 0);
+  let bx = SX + 0.22;
+  const BW = SW - 0.44;
+  F.stages.forEach(([label, n]) => {
+    const w = (n / tot) * BW;
+    s.addShape("rect", { x: bx, y: SY + 0.42, w: Math.max(0.02, w - 0.02), h: 0.12, fill: { color: SF_STAGE[label] || MUTED }, line: { type: "none" } });
+    bx += w;
+  });
+  const pad = 0.22, gap = 0.08, tw = (SW - pad * 2 - gap * 3) / 4, ty = SY + 0.66, th = 0.74;
+  F.stages.forEach(([label, n], i) => {
+    const x = SX + pad + i * (tw + gap), col = SF_STAGE[label] || MUTED;
+    s.addShape("rect", { x, y: ty, w: tw, h: th, fill: { color: BG }, line: { type: "none" } });
+    s.addShape("rect", { x, y: ty, w: tw, h: 0.05, fill: { color: col }, line: { type: "none" } });
+    s.addText(String(n), { x, y: ty + 0.1, w: tw, h: 0.32, align: "center", fontFace: FONT, fontSize: 16, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText([{ text: label, options: { bold: true, color: MUTED, breakLine: true } }, { text: `${Math.round((n / tot) * 100)}%`, options: { color: FAINT } }],
+      { x: x + 0.03, y: ty + 0.42, w: tw - 0.06, h: 0.28, align: "center", fontFace: FONT, fontSize: 5.8, isTextBox: true, margin: 0, valign: "middle" });
+  });
+
+  const AY = SY + SH + 0.13;
+  aiSummary(s, SX, AY, SW, CY + CH - AY, F.bullets.map(([lead, text], k) => ({ lead, text, dot: [SF_NEW, SF_NET, NAVY][k % 3] })).concat([
     { text: F.footnote, muted: true, dot: FAINT },
   ]));
-  const SX = 7.85, SY = CY + SUMH + 0.13, SW = 5.03, SH = CY + CH - SY;
-  card(s, SX, SY, SW, SH);
-  s.addText([{ text: `WHERE THE ${F.open} OPEN SIT   `, options: { fontSize: 9.5, bold: true, color: TEAL } },
-             { text: "the two pending states are counted in", options: { fontSize: 6.3, color: FAINT } }],
-    { x: SX + 0.22, y: SY + 0.1, w: SW - 0.44, h: 0.22, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  const pad = 0.22, gap = 0.07, tw = (SW - pad * 2 - gap * 3) / 4, ty = SY + 0.36, th = 0.46;
-  F.stages.forEach(([label, n, pend], i) => {
-    const x = SX + pad + i * (tw + gap);
-    s.addShape("rect", { x, y: ty, w: tw, h: th, fill: { color: pend ? "F7EEDF" : BG }, line: { type: "none" } });
-    if (pend) s.addShape("rect", { x, y: ty, w: 0.035, h: th, fill: { color: GOLD }, line: { type: "none" } });
-    s.addText(String(n), { x: x + 0.1, y: ty + 0.03, w: tw - 0.2, h: 0.24, align: "center", fontFace: FONT, fontSize: 14, bold: true, color: pend ? GOLD : NAVY, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(label, { x: x + 0.03, y: ty + 0.27, w: tw - 0.06, h: 0.17, align: "center", fontFace: FONT, fontSize: label.length > 12 ? 5.4 : 6.2, bold: true, color: pend ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" });
-  });
-  s.addText(F.stagesNote, { x: SX + 0.22, y: ty + th + 0.05, w: SW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.4, color: MUTED, isTextBox: true, margin: 0, valign: "top" });
   sourcePill(s, F.source);
 }
 
