@@ -2638,7 +2638,7 @@
    ],
    [
     "H&L Pay",
-    null,
+    0,
     2.0
    ],
    [
@@ -2660,7 +2660,7 @@
    ],
    [
     "This week only 1.0h is flagged non-chargeable.",
-    "Is Chargeable went live this week: 7.0 of the 11.5h logged (61%) are still blank, so the hidden work is under-counted."
+    "Is Chargeable went live this week: 7.0 of the 11.5h logged (61%) have no flag yet, so the hidden work is under-counted."
    ],
    [
     "To renegotiate, each non-chargeable hour needs a reason and an owner:",
@@ -2771,6 +2771,7 @@
      "current": true
     }
    ]
-  }
+  },
+  "psRate": 150
  }
 }

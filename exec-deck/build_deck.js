@@ -741,7 +741,7 @@ if (D.psEconomics) {
     card(s, WX, WY, WW, WH);
     s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 10, bold: true, color: TEAL } }, { text: "billable hours as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
       { x: WX + 0.2, y: WY + 0.06, w: WW - 0.4, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
-    const cols = [["WEEK", 0.2, 0.85, "left"], ["BILLABLE", 1.05, 0.65, "right"], ["CHARGEABLE", 1.75, 0.75, "right"], ["NON-CHARG.", 2.55, 0.7, "right"], ["BLANK", 3.3, 0.5, "right"], ["UTIL", 3.85, 0.5, "right"], ["FIRST REPORTED", 4.4, 1.0, "right"]];
+    const cols = [["WEEK", 0.2, 0.85, "left"], ["BILLABLE", 1.05, 0.65, "right"], ["CHARGEABLE", 1.75, 0.75, "right"], ["NON-CHARG.", 2.55, 0.7, "right"], ["NO FLAG", 3.3, 0.5, "right"], ["UTIL", 3.85, 0.5, "right"], ["FIRST REPORTED", 4.4, 1.0, "right"]];
     cols.forEach(([t, x, w, al]) => s.addText(t, { x: WX + x, y: WY + 0.32, w, h: 0.16, align: al, fontFace: FONT, fontSize: 5.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
     const RW = Math.min(0.26, (WH - 0.55) / W.rows.length);
     W.rows.forEach((r, i) => {
@@ -771,12 +771,13 @@ if (D.psEconomics) {
     });
     if (note) s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   };
-  const cost = (h) => (h == null ? "—" : "$" + Math.round(h * E.costPerHour).toLocaleString());
-  table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "EST. COST"], [0.18, 1.3, 2.15, 2.6], [1.2, 0.8, 0.45, 0.55],
-    E.partners.map(([n, c, h]) => [[n.replace(" — no commission", ""), c === 0 ? TERRA : NAVY, true], [c == null ? "separate" : c === 0 ? "$0" : k$(c), c == null ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [cost(h), h == null ? FAINT : MUTED]]),
+  // unrecognised PS revenue = hours not flagged chargeable × the PS rate
+  const unrec = (h) => (h == null || h <= 0 ? "—" : "$" + Math.round(h * E.psRate).toLocaleString());
+  table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "UNREC. REV"], [0.18, 1.25, 2.05, 2.45], [1.1, 0.78, 0.4, 0.62],
+    E.partners.map(([n, c, h]) => [[n.replace(" — no commission", ""), c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [unrec(h), h == null ? FAINT : TERRA, !!h]]),
     E.partnerNote);
-  table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHARGEABLE", "BLANK", "EST. COST"], [0.18, 1.25, 1.75, 2.3, 2.65], [1.1, 0.45, 0.55, 0.35, 0.5],
-    E.accounts.map(([n, h, y, b]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? GREEN : FAINT], [b ? b.toFixed(1) + "h" : "—", b ? GOLD : FAINT], [cost(h), MUTED]]),
+  table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHARGED", "NO FLAG", "UNREC. REV"], [0.18, 1.15, 1.6, 2.1, 2.5], [1.0, 0.45, 0.5, 0.42, 0.58],
+    E.accounts.map(([n, h, y, b]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? GREEN : FAINT], [b ? b.toFixed(1) + "h" : "—", b ? GOLD : FAINT], [unrec(h - y), h - y > 0 ? TERRA : FAINT, h - y > 0]]),
     E.accountNote);
 
   // ---- right lower: summary --------------------------------------------------
