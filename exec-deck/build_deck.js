@@ -704,13 +704,20 @@ if (D.psEconomics) {
 
   // ---- KPI row: this week, change from last week underneath -----------------
   const KN = E.kpis.length, KG = 0.15, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.08, KH = 1.0;
+  // billable utilisation is the umbrella over the chargeable / non-chargeable
+  // boxes: a pale panel ties the three together, the children carry a lighter accent
+  const grp = E.kpis.map((k, i) => (k.group ? i : -1)).filter((i) => i >= 0);
+  if (grp.length) {
+    const gx = 0.45 + grp[0] * (KW + KG) - 0.05, gw = grp.length * KW + (grp.length - 1) * KG + 0.1;
+    s.addShape("roundRect", { x: gx, y: KY - 0.05, w: gw, h: KH + 0.1, rectRadius: 0.09, fill: { color: TEAL_PALE }, line: { color: TEAL_LT, width: 0.75 } });
+  }
   E.kpis.forEach((k, i) => {
     const x = 0.45 + i * (KW + KG);
     card(s, x, KY, KW, KH);
-    s.addShape("rect", { x: x + 0.15, y: KY + 0.12, w: 0.3, h: 0.045, fill: { color: k.notSetUp ? NA_GRAY : C_REV }, line: { type: "none" } });
+    s.addShape("rect", { x: x + 0.15, y: KY + 0.12, w: 0.3, h: 0.045, fill: { color: k.notSetUp ? NA_GRAY : k.group === "child" ? TEAL_LT : C_REV }, line: { type: "none" } });
     s.addText(k.label, { x: x + 0.15, y: KY + 0.18, w: KW - 0.25, h: 0.22, fontFace: FONT, fontSize: 7, bold: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     const runs = [{ text: k.value, options: { fontSize: k.notSetUp ? 13 : 20, bold: true, color: k.notSetUp ? FAINT : NAVY } }];
-    if (k.side) runs.push({ text: "  " + k.side, options: { fontSize: 9, bold: true, color: MUTED } });
+    if (k.side) runs.push({ text: "  " + k.side, options: { fontSize: k.side.length > 10 ? 7 : 9, bold: true, color: MUTED } });
     s.addText(runs, { x: x + 0.13, y: KY + 0.4, w: KW - 0.22, h: 0.36, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(k.sub, { x: x + 0.15, y: KY + 0.76, w: KW - 0.25, h: 0.18, fontFace: FONT, fontSize: 6.5, bold: !!k.tone, color: { good: GREEN, bad: TERRA, flat: MUTED }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
   });

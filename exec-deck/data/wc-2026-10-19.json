@@ -2520,21 +2520,24 @@
     "value": "3.7%",
     "side": "target 50%",
     "sub": "▼ from 16.8% last week",
-    "tone": "bad"
+    "tone": "bad",
+    "group": "parent"
    },
    {
     "label": "BILLABLE · CHARGEABLE",
     "value": "3.5h",
-    "side": "30%",
+    "side": "30% of billable",
     "sub": "▼ from 12.5h (25%) last week",
-    "tone": "bad"
+    "tone": "bad",
+    "group": "child"
    },
    {
     "label": "BILLABLE · NON-CHARGEABLE",
     "value": "1.0h",
-    "side": "9%",
+    "side": "9% of billable",
     "sub": "— from 1.0h (2%) last week",
-    "tone": "flat"
+    "tone": "flat",
+    "group": "child"
    },
    {
     "label": "UTILISED · NON-BILLABLE",
