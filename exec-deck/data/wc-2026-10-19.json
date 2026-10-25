@@ -2504,5 +2504,145 @@
   ],
   "footnote": "every hour, logged in HubSpot · available = PS staff × 7.6h a day, less leave · hours by ticket create date",
   "unflaggedNote": "pre-dates Is Chargeable, or not flagged yet"
+ },
+ "psEconomics": {
+  "source": "PS P&L Jan–Sep 2026 (Finance) · Premium Partner Commissions 2026 · HubSpot PS tickets Q4 to 25 Oct",
+  "kpis": [
+   {
+    "label": "PS REVENUE · JAN–SEP",
+    "value": "$293k",
+    "sub": "billed to customers"
+   },
+   {
+    "label": "PS COST · JAN–SEP",
+    "value": "$562k",
+    "sub": "$501k staff · $61k non-staff"
+   },
+   {
+    "label": "SHORTFALL",
+    "value": "−$268k",
+    "sub": "PS recovers 52% of its cost",
+    "tone": "bad"
+   },
+   {
+    "label": "PARTNER COMMISSION · JAN–SEP",
+    "value": "$1.29M",
+    "sub": "paid to H&L by premium partners",
+    "tone": "good"
+   }
+  ],
+  "months": [
+   "Jan",
+   "Feb",
+   "Mar",
+   "Apr",
+   "May",
+   "Jun",
+   "Jul",
+   "Aug",
+   "Sep"
+  ],
+  "revenue": [
+   24452,
+   27867,
+   30164,
+   23947,
+   32107,
+   32610,
+   35340,
+   66642,
+   20359
+  ],
+  "cost": [
+   56087,
+   63765,
+   75839,
+   69343,
+   60274,
+   60368,
+   60240,
+   50403,
+   65362
+  ],
+  "costPerHour": 42,
+  "costPerHourNote": "≈ $62.4k a month of PS cost ÷ ≈1,480 available hours (9 PS staff × 38h) — estimate",
+  "hours": {
+   "available": 1064.0,
+   "chargeable": 35.0,
+   "nonChargeable": 2.0,
+   "unflagged": 78.1
+  },
+  "partners": [
+   [
+    "Mr Yum",
+    487774,
+    null
+   ],
+   [
+    "Tyro",
+    266392,
+    1.0
+   ],
+   [
+    "Me&U",
+    125986,
+    null
+   ],
+   [
+    "7Rs (SevenRooms)",
+    112220,
+    2.0
+   ],
+   [
+    "Zeller",
+    79089,
+    1.0
+   ],
+   [
+    "Zen",
+    61484,
+    null
+   ],
+   [
+    "Chewzie",
+    44608,
+    null
+   ],
+   [
+    "HungryHungry",
+    16196,
+    1.5
+   ],
+   [
+    "EatClub",
+    2046,
+    1.11
+   ],
+   [
+    "H&L Pay (ValPay share)",
+    null,
+    4.0
+   ],
+   [
+    "Uber Eats — no commission",
+    0,
+    6.32
+   ]
+  ],
+  "partnerNote": "Q4 hours are matched on partner names in ticket subjects (estimate) — none carry a partner or non-chargeable reason yet. All are logged billable.",
+  "bullets": [
+   [
+    "PS is $268k short, but partners paid H&L $1.29M.",
+    "Part of PS's unrecovered cost is the integration work that keeps that commission flowing."
+   ],
+   [
+    "We can't price that work yet.",
+    "16.9h in Q4 can be tied to a partner, from ticket subjects only, and none carry a non-chargeable reason. 6.3h went to Uber Eats, which pays no commission."
+   ],
+   [
+    "Fix: two fields on every hidden hour —",
+    "the non-chargeable reason (partner integration · legacy key account) and who it was for."
+   ]
+  ]
  }
 }

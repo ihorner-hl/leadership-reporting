@@ -692,6 +692,89 @@ if (D.psTime) {
 }
 
 // =============================================================================
+// 8c · PS ECONOMICS — the P&L shortfall against partner commission and the
+// hidden (billable, non-chargeable) work behind it. Emitted with --only=ps-economics.
+// =============================================================================
+if (D.psEconomics) {
+  const s = addSlide("ps-economics", true);
+  const E = D.psEconomics;
+  header(s, "PS Economics — The Hidden Work", "Professional Services & Finance", 2);
+  const C_REV = "1B8DA6", C_COST = "E0A458", C_NET = "C2562A";
+  const PT_NAVY = "15233F", PT_BLUE = "2B4170";
+  const k$ = (v) => (v == null ? "—" : v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1000) + "k");
+
+  // ---- KPI row ---------------------------------------------------------------
+  const KN = E.kpis.length, KG = 0.2, KW = (12.43 - KG * (KN - 1)) / KN, KY = 1.08, KH = 1.05;
+  E.kpis.forEach((k, i) => {
+    const x = 0.45 + i * (KW + KG);
+    card(s, x, KY, KW, KH);
+    s.addShape("rect", { x: x + 0.18, y: KY + 0.13, w: 0.32, h: 0.045, fill: { color: C_REV }, line: { type: "none" } });
+    s.addText(k.label, { x: x + 0.18, y: KY + 0.2, w: KW - 0.3, h: 0.22, fontFace: FONT, fontSize: 8.5, bold: true, color: MUTED, isTextBox: true, margin: 0 });
+    s.addText(k.value, { x: x + 0.16, y: KY + 0.42, w: KW - 0.3, h: 0.38, fontFace: FONT, fontSize: 22, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(k.sub, { x: x + 0.18, y: KY + 0.8, w: KW - 0.3, h: 0.2, fontFace: FONT, fontSize: 7.3, bold: !!k.tone, color: { good: GREEN, bad: TERRA }[k.tone] || FAINT, isTextBox: true, margin: 0, valign: "middle" });
+  });
+
+  // ---- left: PS P&L by month --------------------------------------------------
+  const CX = 0.45, CY = 2.28, CW = 5.6, CH = 3.0;
+  card(s, CX, CY, CW, CH);
+  cardTitle(s, CX, CY, "PS P&L BY MONTH — 2026", 5.2);
+  const net = E.revenue.map((r, i) => r - E.cost[i]);
+  s.addChart([
+    { type: pres.ChartType.bar, data: [
+        { name: "Revenue", labels: E.months, values: E.revenue },
+        { name: "Cost", labels: E.months, values: E.cost }],
+      options: { chartColors: [C_REV, C_COST], barGrouping: "clustered", barGapWidthPct: 45 } },
+    { type: pres.ChartType.line, data: [{ name: "Contribution", labels: E.months, values: net }],
+      options: { chartColors: [C_NET], lineSize: 2.25, lineDataSymbol: "circle", lineDataSymbolSize: 6 } },
+  ], {
+    x: CX + 0.12, y: CY + 0.4, w: CW - 0.24, h: CH - 0.5,
+    valAxisMinVal: -60000, valAxisMaxVal: 80000, valAxisMajorUnit: 20000, valAxisLabelFormatCode: '$#,##0,"k"',
+    valAxisLabelColor: FAINT, valAxisLabelFontSize: 6.5, valAxisLabelFontFace: FONT, valGridLine: { color: TRACK, size: 0.5 },
+    catAxisLabelColor: NAVY, catAxisLabelFontSize: 7.5, catAxisLabelFontFace: FONT, catAxisLabelPos: "low", catGridLine: { style: "none" },
+    showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 7.5, legendFontFace: FONT, showTitle: false,
+  });
+
+  // ---- left lower: where Q4 PS hours went ------------------------------------
+  const HY = CY + CH + 0.12, HH = 1.55;
+  card(s, CX, HY, CW, HH);
+  cardTitle(s, CX, HY, "WHERE Q4 PS CAPACITY WENT — 1–25 OCT", 5.2);
+  const H = E.hours, notLogged = H.available - H.chargeable - H.nonChargeable - H.unflagged;
+  const segs = [["Chargeable", H.chargeable, PT_NAVY], ["Non-chargeable", H.nonChargeable, PT_BLUE], ["Billable, not flagged", H.unflagged, C_COST], ["Not logged", notLogged, NA_GRAY]];
+  let sx = CX + 0.22; const SW = CW - 0.44;
+  segs.forEach(([, v, c]) => { const w = (v / H.available) * SW; s.addShape("rect", { x: sx, y: HY + 0.48, w: Math.max(0.03, w - 0.02), h: 0.28, fill: { color: c }, line: { type: "none" } }); sx += w; });
+  segs.forEach(([lbl, v, c], i) => {
+    const x = CX + 0.22 + i * (SW / 4);
+    s.addShape("rect", { x, y: HY + 0.9, w: 0.1, h: 0.1, fill: { color: c }, line: { type: "none" } });
+    s.addText([{ text: lbl, options: { fontSize: 6.5, color: MUTED, breakLine: true } }, { text: `${v.toFixed(1)}h · ${Math.round((v / H.available) * 100)}%`, options: { fontSize: 8.5, bold: true, color: NAVY } }],
+      { x: x + 0.14, y: HY + 0.84, w: SW / 4 - 0.16, h: 0.5, fontFace: FONT, isTextBox: true, margin: 0, valign: "top" });
+  });
+  s.addText(`of ${Math.round(H.available).toLocaleString()}h available · at ~$${E.costPerHour}/h, the unlogged hours alone are ≈ ${k$(notLogged * E.costPerHour)} of cost with no owner`, { x: CX + 0.22, y: HY + HH - 0.24, w: SW, h: 0.18, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0 });
+
+  // ---- right: partner commission vs PS hours ----------------------------------
+  const RX = 6.25, RY = CY, RW = 6.63, RH = 2.95;
+  card(s, RX, RY, RW, RH);
+  cardTitle(s, RX, RY, "PARTNER COMMISSION vs THE PS WORK BEHIND IT", 6.2);
+  const cx = [0.22, 2.75, 4.0, 5.2], cw = [2.5, 1.2, 1.15, 1.2];
+  ["PARTNER", "COMMISSION JAN–SEP", "PS HOURS Q4", "EST. PS COST"].forEach((t, i) => s.addText(t, { x: RX + cx[i], y: RY + 0.42, w: cw[i], h: 0.18, align: i ? "right" : "left", fontFace: FONT, fontSize: 6.3, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
+  const RP = 0.17;
+  E.partners.forEach(([name, com, h], i) => {
+    const y = RY + 0.62 + i * RP;
+    if (i % 2 === 1) s.addShape("rect", { x: RX + 0.14, y, w: RW - 0.28, h: RP, fill: { color: BG }, line: { type: "none" } });
+    const muted = com === 0;
+    s.addText(name, { x: RX + cx[0], y, w: cw[0], h: RP, fontFace: FONT, fontSize: 7.5, bold: !muted, color: muted ? TERRA : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(com == null ? "separate" : com === 0 ? "$0" : k$(com), { x: RX + cx[1], y, w: cw[1], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: com == null ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(h == null ? "not seen" : h.toFixed(1) + "h", { x: RX + cx[2], y, w: cw[2], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, color: h == null ? FAINT : NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(h == null ? "—" : "$" + Math.round(h * E.costPerHour).toLocaleString(), { x: RX + cx[3], y, w: cw[3], h: RP, align: "right", fontFace: FONT, fontSize: 7.5, color: h == null ? FAINT : MUTED, isTextBox: true, margin: 0, valign: "middle" });
+  });
+  s.addText(E.partnerNote + ` Cost at ~$${E.costPerHour}/h: ${E.costPerHourNote}.`, { x: RX + 0.22, y: RY + RH - 0.36, w: RW - 0.44, h: 0.32, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+
+  // ---- right lower: summary --------------------------------------------------
+  const AY = RY + RH + 0.12;
+  aiSummary(s, RX, AY, RW, HY + HH - AY, E.bullets.map(([lead, text], k) => ({ lead, text, dot: [TERRA, GOLD, TEAL][k % 3] })));
+  sourcePill(s, E.source);
+}
+
+// =============================================================================
 // 9 · CLOSED WON — NOT YET LIVE (PS delivery backlog; also emitted standalone)
 // =============================================================================
 if (D.notYetLive) {
@@ -1234,7 +1317,7 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "ps-time": "PS Utilisation - Where Every Hour Sits", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "ps-time": "PS Utilisation - Where Every Hour Sits", "ps-economics": "PS Economics - The Hidden Work", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
 const outFile = ONLY
   ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;
