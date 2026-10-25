@@ -2214,6 +2214,101 @@
   },
   "weeks": [
    {
+    "label": "27 Apr",
+    "new": 329,
+    "closed": 281
+   },
+   {
+    "label": "4 May",
+    "new": 332,
+    "closed": 298
+   },
+   {
+    "label": "11 May",
+    "new": 391,
+    "closed": 319
+   },
+   {
+    "label": "18 May",
+    "new": 362,
+    "closed": 287
+   },
+   {
+    "label": "25 May",
+    "new": 322,
+    "closed": 406
+   },
+   {
+    "label": "1 Jun",
+    "new": 325,
+    "closed": 292
+   },
+   {
+    "label": "8 Jun",
+    "new": 355,
+    "closed": 371
+   },
+   {
+    "label": "15 Jun",
+    "new": 384,
+    "closed": 402
+   },
+   {
+    "label": "22 Jun",
+    "new": 324,
+    "closed": 266
+   },
+   {
+    "label": "29 Jun",
+    "new": 372,
+    "closed": 315
+   },
+   {
+    "label": "6 Jul",
+    "new": 331,
+    "closed": 487
+   },
+   {
+    "label": "13 Jul",
+    "new": 333,
+    "closed": 524
+   },
+   {
+    "label": "20 Jul",
+    "new": 306,
+    "closed": 329
+   },
+   {
+    "label": "27 Jul",
+    "new": 425,
+    "closed": 359
+   },
+   {
+    "label": "3 Aug",
+    "new": 432,
+    "closed": 292
+   },
+   {
+    "label": "10 Aug",
+    "new": 644,
+    "closed": 465
+   },
+   {
+    "label": "17 Aug",
+    "new": 466,
+    "closed": 454
+   },
+   {
+    "label": "24 Aug",
+    "new": 412,
+    "closed": 343
+   },
+   {
+    "label": "31 Aug",
+    "new": 451,
+    "closed": 347
+   },
+   {
     "label": "14 Sep",
     "new": 492,
     "closed": 607
@@ -2244,19 +2339,19 @@
     "closed": 597
    }
   ],
-  "chartNote": "Support pipeline · Mon–Sun weeks, Sydney time · net = new − closed, below zero = backlog shrank",
+  "chartNote": "Support pipeline · Mon–Sun weeks, Sydney time · before 8 Sep = history migrated from Creatio · 7 Sep migration week (1,249 cleanup closes) left out · net = new − closed, below zero = backlog shrank",
   "bullets": [
    [
     "Closed has beaten new three weeks running.",
-    "597 closed against 396 new this week — net −201, the biggest fall since cutover, after −9 and −47. Open is 389, down from 588."
+    "597 closed against 396 new this week — net −201, the biggest weekly fall in six months. Open is 389, down from 588."
    ],
    [
-    "Some of that fall is cleanup.",
-    "54 old voice tickets were bulk-closed on Monday evening. Clearing old tickets is also why the average close is 14.0 days while the median is 2.1."
+    "Clearing old tickets pushed the averages up.",
+    "54 old voice tickets were bulk-closed on Monday, so average time to close rose from 8.6 to 14.0 days. What's left open is older too: median age 27 → 31 days."
    ],
    [
     "First response looks faster, on a thin base.",
-    "14.7h on average against 46.8h last week — but only tickets answered by email carry a response time, 14% of new tickets, and ones still waiting aren't counted yet."
+    "14.7 hrs against 46.8 hrs last week — but only email-answered tickets carry a response time (14% of new tickets), and ones still waiting aren't counted yet."
    ]
   ],
   "footnote": "First response = time to first agent email reply; phone and AI-agent tickets have none.",
@@ -2287,13 +2382,14 @@
    {
     "label": "OPEN BACKLOG",
     "value": "389",
-    "sub": "▼ 199 vs last week",
+    "sub": "▼ from 588 last week",
     "tone": "good"
    },
    {
     "label": "MEDIAN TICKET AGE",
     "value": "31 Days",
-    "sub": "open tickets"
+    "sub": "▲ from 27 days last week",
+    "tone": "bad"
    },
    {
     "label": "AVG FIRST RESPONSE",
@@ -2304,7 +2400,8 @@
    {
     "label": "AVG TIME TO CLOSE",
     "value": "14.0 Days",
-    "sub": "597 closed this week"
+    "sub": "▲ from 8.6 days last week",
+    "tone": "bad"
    }
   ]
  }

@@ -894,19 +894,20 @@ if (D.supportFlow) {
     { type: pres.ChartType.bar, data: [
         { name: "New", labels, values: F.weeks.map((w) => w.new) },
         { name: "Closed", labels, values: F.weeks.map((w) => w.closed) }],
-      options: { chartColors: [SF_NEW, SF_CLOSED], barGrouping: "clustered", barGapWidthPct: 60, barOverlapPct: -8 } },
+      options: { chartColors: [SF_NEW, SF_CLOSED], barGrouping: "clustered", barGapWidthPct: labels.length > 12 ? 35 : 60, barOverlapPct: labels.length > 12 ? 0 : -8 } },
     { type: pres.ChartType.line, data: [
         { name: "Net movement (new − closed)", labels, values: net }],
-      options: { chartColors: [SF_NET], lineSize: 2.5, lineSmooth: false, lineDataSymbol: "circle", lineDataSymbolSize: 8 } },
+      options: { chartColors: [SF_NET], lineSize: 2.5, lineSmooth: false, lineDataSymbol: "circle", lineDataSymbolSize: labels.length > 12 ? 5 : 8 } },
   ], {
-    x: CX + 0.15, y: CY + 0.42, w: CW - 0.3, h: CH - 0.8,
+    x: CX + 0.15, y: CY + 0.42, w: CW - 0.3, h: CH - 0.82,
     valAxisMinVal: lo, valAxisMaxVal: 800, valAxisMajorUnit: 100,
     valAxisLabelColor: FAINT, valAxisLabelFontSize: 7, valAxisLabelFontFace: FONT, valGridLine: { color: TRACK, size: 0.5 },
     catAxisLabelColor: NAVY, catAxisLabelFontSize: 8, catAxisLabelFontFace: FONT, catAxisLabelPos: "low", catGridLine: { style: "none" },
-    showValue: true, dataLabelFontSize: 7, dataLabelFontFace: FONT, dataLabelColor: "3A4B57",
+    catAxisLabelFrequency: labels.length > 12 ? 2 : 1,
+    showValue: labels.length <= 12, dataLabelFontSize: 7, dataLabelFontFace: FONT, dataLabelColor: "3A4B57",
     showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 8, legendFontFace: FONT, showTitle: false,
   });
-  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.34, w: CW - 0.44, h: 0.26, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.36, w: CW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- right: where the open tickets sit, then the summary ------------------
   const SX = 7.85, SW = 5.03, SY = CY, SH = 1.55;
