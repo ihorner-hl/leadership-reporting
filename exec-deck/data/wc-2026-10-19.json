@@ -2786,17 +2786,6 @@
     }
    ]
   },
-  "psRate": 150,
-  "overrides": [
-   {
-    "ticket": "283985380831",
-    "subject": "UPGRADES - AVC 9.2 Upgrades",
-    "hours": 18.0,
-    "week": "5–11 Oct",
-    "hubspot": "Yes",
-    "treatedAs": "No",
-    "by": "Izaak Horner, 26 Oct"
-   }
-  ]
+  "psRate": 150
  }
 }
