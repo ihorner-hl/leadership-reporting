@@ -3,12 +3,12 @@
   "label": "Week commencing 19 October 2026",
   "wc": "2026-10-19",
   "range": "Mon 19 Oct – Sun 25 Oct 2026",
-  "generated": "24 Oct 2026 (first pass)",
+  "generated": "26 Oct 2026",
   "quarter": "Q4",
-  "quarterPacePct": 26,
-  "quarterPaceNote": "Q4 (Oct–Dec) · 24 of 92 days elapsed",
-  "monthPacePct": 77,
-  "notes": "First pass built Sat 24 Oct: HubSpot slides read live to 24 Oct; file-drop slides (Sysnet, MRR register, ValPay, GTM tracker, Claude Admin) held at their 18–19 Oct values until Monday's drops."
+  "quarterPacePct": 27,
+  "quarterPaceNote": "Q4 (Oct–Dec) · 25 of 92 days elapsed",
+  "monthPacePct": 81,
+  "notes": "Final build 26 Oct: HubSpot read to Sun 25 Oct; Sysnet extract 19–25 Oct and MRR register (26 Oct) folded in. GTM tracker and Claude Admin capture not refreshed — held at 19 Sep / 19 Oct."
  },
  "cutover": {
   "creatioLastExtract": "2026-09-04",
@@ -54,49 +54,49 @@
     "old": "Weekly file drop",
     "new": "Weekly file drop (unchanged)",
     "status": "AS BEFORE",
-    "note": "Not refreshed — this week's Sysnet extract and register land Monday. Figures held at 18 Oct."
+    "note": "Sysnet extract 19–25 Oct; register refreshed 26 Oct. Q4 figures capped at 25 Oct — 22 expansion rows ($2,159) are forward-dated to 1 Nov."
    },
    {
     "area": "Product / GTM / AI usage / ValPay",
     "old": "File drops",
     "new": "File drops (unchanged)",
     "status": "AS BEFORE",
-    "note": "Not refreshed — Claude Admin capture, ValPay workbook and GTM tracker held at their 19 Oct / 19 Sep values."
+    "note": "Identification register refreshed 26 Oct (unchanged). Claude Admin capture, ValPay referral export and GTM tracker not refreshed."
    }
   ],
   "deckSeq": "Q4 week 4",
-  "deckSeqNote": "Sixth week on HubSpot sources · first pass, file drops pending",
-  "coverChip": "FIRST PASS — HUBSPOT LIVE TO 24 OCT · FILE DROPS PENDING",
+  "deckSeqNote": "Sixth week on HubSpot sources",
+  "coverChip": "Q4 — TARGETS CARRIED FORWARD",
   "showSlide": false
  },
  "execSummary": {
-  "finance": "held at the 18 Oct Sysnet extract — Q4 hardware $99k = 14% of the $715k OKR2 against a 26% pace mark; this week's extract lands Monday",
-  "sales": "Q4 new MRR invoiced $3.8k = 14% of OKR2 (register as at 18 Oct); HubSpot shows $6.4k of software MRR won in October to 24 Oct, $2.6k of it this week",
-  "ps": "billable utilisation 3.7% so far — 11.5h of 311.6h (Argenis and Karim out Thu–Fri); last week restated 13.0% → 16.8% (39.45h → 51.02h), so this is a floor",
-  "support": "inflow 358 vs resolved 555 to Sat — backlog 588 → 393, third straight fall; 54 of the closes were a single bulk close of September voice tickets",
+  "finance": "Q4 hardware $111k = 16% of the $715k OKR2 against a 27% pace mark — $12.0k this week, Bradford $10.3k of it",
+  "sales": "Q4 new MRR $3.8k = 14% of OKR2 with nothing invoiced this week; three churned logos net the week −$1,148 and Q4 −$8.9k",
+  "ps": "billable utilisation 3.7% — 11.5h of 311.6h; 10.5h chargeable, 1.0h non-chargeable; Q4 hidden work 20h = $3,000 unrecognised PS revenue",
+  "support": "inflow 396 vs resolved 597 — backlog 588 → 389, third straight fall; 54 of the closes were one bulk close of September voice tickets",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now six weeks pending",
   "aiUsage": "held at the 19 Oct capture — 40 of 51 active weekly, 14 daily; October code output 329,436 lines to 19 Oct; refresh pending"
  },
  "targetVsInvoiced": {
-  "source": "Sysnet extract 12–18 Oct + MRR register (19 Oct) · held at 19 Oct, refresh pending",
-  "extractWeek": "12–18 Oct",
+  "source": "Sysnet extract 19–25 Oct + MRR movement register (live, 26 Oct)",
+  "extractWeek": "19–25 Oct",
   "mrr": {
    "okr2": 28000,
    "team": 30000,
    "qtd": 3817,
-   "asAt": "18 Oct",
-   "deltaWk": null,
-   "netDeltaWk": null,
-   "live": false,
-   "basis": "Net New Customers + Expansion, Date of Invoice on or before 18 Oct · ValPay shown separately",
-   "deltaNote": "$1,026 of new MRR invoiced against $1,172 of churn and $35 of contraction, so the week nets −$181. Two logos went: Solotel Sackville (divested, $785) and Zig Zag Lithgow (switched to a competitor, $387).",
+   "asAt": "25 Oct",
+   "deltaWk": 0,
+   "netDeltaWk": -1148,
+   "live": true,
+   "basis": "Net New Customers + Expansion, Date of Invoice on or before 25 Oct · ValPay shown separately",
+   "deltaNote": "No new MRR invoiced 19–25 Oct against $1,089 of churn and $59 of contraction, so the week nets −$1,148. Three logos went: At The Jetty Bribie ($345, closed), Riverview Smithtown ($412) and Tattersalls ($332).",
    "targetNote": "Q3 OKR2 and team targets carried forward — no Q4 target set"
   },
   "hardware": {
    "okr2": 715000,
    "team": 761000,
-   "qtd": 98973,
-   "deltaWk": null
+   "qtd": 111021,
+   "deltaWk": 12048
   },
   "members": [
    {
@@ -105,44 +105,44 @@
     "mrrQtd": 421,
     "hwTgt": 140000,
     "hwQtd": 5080,
-    "hwDelta": null,
-    "mrrDelta": null
+    "hwDelta": 0,
+    "mrrDelta": 0
    },
    {
     "name": "Brett Gorman",
     "mrrTgt": 5000,
     "mrrQtd": 658,
     "hwTgt": 143000,
-    "hwQtd": 16324,
-    "hwDelta": null,
-    "mrrDelta": null
+    "hwQtd": 16484,
+    "hwDelta": 160,
+    "mrrDelta": -1148
    },
    {
     "name": "Bradford Young",
     "mrrTgt": 5000,
     "mrrQtd": 177,
     "hwTgt": 163000,
-    "hwQtd": 7930,
-    "hwDelta": null,
-    "mrrDelta": null
+    "hwQtd": 18195,
+    "hwDelta": 10265,
+    "mrrDelta": 0
    },
    {
     "name": "Jasmine Hikuroa",
     "mrrTgt": 6000,
     "mrrQtd": 2168,
     "hwTgt": 214000,
-    "hwQtd": 32222,
-    "hwDelta": null,
-    "mrrDelta": null
+    "hwQtd": 33140,
+    "hwDelta": 918,
+    "mrrDelta": 0
    },
    {
     "name": "Phuong Ho",
     "mrrTgt": 2000,
     "mrrQtd": 98,
     "hwTgt": 55000,
-    "hwQtd": 37417,
-    "hwDelta": null,
-    "mrrDelta": null
+    "hwQtd": 38122,
+    "hwDelta": 705,
+    "mrrDelta": 0
    },
    {
     "name": "Mick Teasdale",
@@ -151,7 +151,7 @@
     "hwTgt": 46000,
     "hwQtd": null,
     "hwDelta": null,
-    "mrrDelta": null
+    "mrrDelta": 0
    },
    {
     "name": "Unassigned",
@@ -160,22 +160,22 @@
     "hwTgt": 0,
     "hwQtd": null,
     "hwDelta": null,
-    "mrrDelta": null
+    "mrrDelta": 0
    }
   ],
   "hlPayNetNewMrr": 0,
-  "extractTo": "18 Oct",
-  "hardwareNote": "Q4 to date is the two full Q4 extracts. The 28 Sep–4 Oct extract carried $102,373 of hardware but no dates, so its 1–4 Oct share still cannot be brought into Q4.",
+  "extractTo": "25 Oct",
+  "hardwareNote": "Q4 to date is the three full Q4 extracts. The 28 Sep–4 Oct extract carried $102,373 of hardware but no dates, so its 1–4 Oct share still cannot be brought into Q4.",
   "bullets": [
    [
-    "Held at 18 Oct — this week's Sysnet extract and register refresh land Monday.",
-    "Q4 hardware $98,973 (14% of the $715k OKR2) and new MRR $3,817 (14% of $28k) are last week's figures against this week's 26% pace mark, so the gap to pace reads wider than it will once the week is in.",
-    "gold"
+    "Hardware added $12,048 — Bradford $10,265 of it.",
+    "The Royal Hotel's server, screen and POS came to $8,500. Q4 to date is $111,021, 16% of the $715k OKR2 against a 27% pace mark.",
+    "green"
    ],
    [
-    "HubSpot shows the selling continued.",
-    "$2,552 of software MRR was won 19–24 Oct across 9 deals — the register will show how much of it invoiced.",
-    "teal"
+    "MRR went backwards again, by $1,148.",
+    "No new MRR was invoiced and three of Brett's accounts churned. Q4 stands at $3,817 — 14% of the $28k OKR2 — and 22 expansion rows worth $2,159 are already on the register, dated 1 Nov.",
+    "terra"
    ],
    [
     "Targets are still the Q3 numbers carried forward.",
@@ -230,7 +230,7 @@
   "trajectory": "Aug $10k → Sep $30k → Oct $60k → Nov $97k → Dec $137k"
  },
  "hlPay": {
-  "source": "H&L identification register + ValPay export (19 Oct) · held at 19 Oct, refresh pending",
+  "source": "Identification register (26 Oct) + ValPay export (19 Oct)",
   "referred": 34,
   "signedGmv": "$38M",
   "won": 14,
@@ -388,7 +388,7 @@
    }
   ],
   "qtrNote": "7 this qtr · 11 last",
-  "footnote": "6 deals untagged — referral figures are a floor. Referrer = Account Manager on the deal. The 19 Oct workbook is byte-identical to the 6 and 12 Oct drops: no new identifications, referrals or wins for a fifth week.",
+  "footnote": "6 deals untagged — referral figures are a floor. Referrer = Account Manager on the deal. The 26 Oct identification register is unchanged — 34 identified, 10 referred; won and GMV figures are held at the 19 Oct ValPay export.",
   "deptLine": "Sales"
  },
  "salesPipeline": {
@@ -680,7 +680,7 @@
   "availableCalc": "9 × 38h − 30.4h leave = 311.6h available"
  },
  "wonVsInvoiced": {
-  "source": "HubSpot closed-won (live, 24 Oct, AVC excluded) + MRR register (19 Oct, refresh pending)",
+  "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) + MRR movement register (live, 26 Oct)",
   "monthly": {
    "labels": [
     "Jan",
@@ -718,19 +718,18 @@
     6853,
     3817
    ],
-   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132",
-   "seriesNote": "won live to 24 Oct · invoiced held at 18 Oct"
+   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132"
   },
-  "awaitingArrK": 233,
-  "awaitingDeals": 18,
-  "wonDeals2026": 78,
-  "churnedArrK": 1278,
-  "logosLost": 271,
-  "churnedMrr": 53227,
+  "awaitingArrK": 241,
+  "awaitingDeals": 24,
+  "wonDeals2026": 86,
+  "churnedArrK": 1312,
+  "logosLost": 276,
+  "churnedMrr": 109302,
   "churnFrom": "2025→",
-  "churnNote": "MRR movement register, as at 18 Oct · HubSpot churn object stopped being maintained after February",
-  "netMrrQ3K": -7.7,
-  "netMrrNote": "Q4 to 18 Oct · new $3.8k − churn $9.4k − contraction $2.1k − credits $0",
+  "churnNote": "MRR movement register, 26 Oct · HubSpot churn object stopped being maintained after February",
+  "netMrrQ3K": -8.9,
+  "netMrrNote": "Q4 to 25 Oct · new $3.8k − churn $10.5k − contraction $2.2k − credits $0",
   "topNotInvoiced": [
    [
     "Oscars Hotels",
@@ -812,21 +811,21 @@
   },
   "bullets": [
    [
-    "October's wins have pulled clear of invoicing.",
-    "$6,441 won to 24 Oct — $2,552 of it this week across 9 deals, led by the Lucas Collective reports API ($793) and Pier Hotel Pt Lincoln ($648) — against $3,817 invoiced to 18 Oct. The register refresh lands Monday."
+    "October has won $6,441 and invoiced $3,817.",
+    "No new MRR was invoiced 19–25 Oct. 22 expansion rows worth $2,159 sit on the register dated 1 Nov — Lucas Collective's 13 sites, Warooka, Stokehouse, the Royal Hotel — so November opens with them."
    ],
    [
-    "September restated down $648 to $8,130.",
-    "Pier Hotel – Pt Lincoln's close date moved from 30 Sep to 22 Oct in HubSpot, so it now counts as an October win."
+    "Churn: three more logos, Q4 now −$8.9k net.",
+    "At The Jetty Bribie ($345), Riverview Smithtown ($412) and Tattersalls ($332). Re-read on 26 Oct, the register's churn since Jan 2025 is $1.31M across 276 logos."
    ],
    [
-    "Churn and the awaiting-invoice list are held at 18 Oct.",
-    "$1.28M of ARR across 271 logos since Jan 2025, Q4 net −$7.7k, and $233k of ARR won with no row on the register — all refresh with Monday's register."
+    "$241k of ARR is won with no row on the register.",
+    "24 of the 86 deals that carried software MRR in 2026 — six of this week's wins have no row yet. Oscars Group is $155k of it."
    ]
   ],
-  "churnedArrLabel": "$1.28M",
-  "contractionArrK": 251,
-  "contractionAccounts": 145,
+  "churnedArrLabel": "$1.31M",
+  "contractionArrK": 252,
+  "contractionAccounts": 149,
   "pendingIntegrationsMrr": 2339,
   "pendingIntegrationsN": 42
  },
@@ -2014,7 +2013,7 @@
   "caveats": "Two ROAM orders placed this week (Dave & Busters Perth, Prendiville Norfolk — A$124) · QR Ordering lines still all $0 · 28 ROAM lines (A$2,170) on no deal are excluded."
  },
  "notYetLive": {
-  "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) vs MRR movement register (live, 19 Oct) · as at 18 Oct · held at 19 Oct, refresh pending",
+  "source": "HubSpot closed-won deals vs MRR movement register · as at 18 Oct · not refreshed this week",
   "deals": 18,
   "wonDeals": 78,
   "mrr": 19450,
