@@ -492,7 +492,7 @@ if (D.cutover.showSlide) {
 // =============================================================================
 // 8 · UTILISATION & DELIVERY HOURS (billable utilisation + week-on-week restatement)
 // =============================================================================
-{
+if (!D.psEconomics) {
   const s = addSlide();
   const u = D.utilisation;
   header(s, "Utilisation & Delivery Hours", "Professional Services", 2, { cutover: true });
@@ -696,9 +696,9 @@ if (D.psTime) {
 // hidden (billable, non-chargeable) work behind it. Emitted with --only=ps-economics.
 // =============================================================================
 if (D.psEconomics) {
-  const s = addSlide("ps-economics", true);
+  const s = addSlide("ps-economics");
   const E = D.psEconomics;
-  header(s, "PS Economics — The Hidden Work", "Professional Services & Finance", 2);
+  header(s, E.title || "Utilisation & Delivery Hours", "Professional Services & Finance", 2);
   const C_REV = "1B8DA6", C_COST = "E0A458", C_NET = "C2562A";
   const k$ = (v) => (v == null ? "—" : v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1000) + "k");
 
@@ -936,7 +936,7 @@ if (D.notYetLive) {
 // =============================================================================
 // 11 · BACKLOG (Creatio frozen at cutover · HubSpot after)
 // =============================================================================
-{
+if (!D.supportFlow) {
   const s = addSlide();
   const b = D.backlog, AS = b.ageSeries;
   header(s, "Backlog", "Support", 3, { cutover: true });
@@ -1046,7 +1046,7 @@ if (D.notYetLive) {
 // for the backlog slide; emitted standalone with --only=support-flow)
 // =============================================================================
 if (D.supportFlow) {
-  const s = addSlide("support-flow", true);
+  const s = addSlide("support-flow");
   const F = D.supportFlow;
   // chart palette, validated for colour-blind separation (dataviz validator)
   const SF_NEW = "1B8DA6", SF_CLOSED = "E0A458", SF_NET = "C2562A";
@@ -1089,7 +1089,7 @@ if (D.supportFlow) {
     showValue: labels.length <= 12, dataLabelFontSize: 7, dataLabelFontFace: FONT, dataLabelColor: "3A4B57",
     showLegend: true, legendPos: "t", legendColor: "3A4B57", legendFontSize: 8, legendFontFace: FONT, showTitle: false,
   });
-  s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.36, w: CW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
+  if (F.chartNote) s.addText(F.chartNote, { x: CX + 0.22, y: CY + CH - 0.36, w: CW - 0.44, h: 0.3, fontFace: FONT, fontSize: 6.3, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   // ---- right: where the open tickets sit, then the summary ------------------
   const SX = 7.85, SW = 5.03, SY = CY, SH = 1.55;
@@ -1311,7 +1311,7 @@ if (D.aiAgent.showSlide) {
 // =============================================================================
 // 16 · PROJECTS — PORTFOLIO STATUS
 // =============================================================================
-{
+if (D.projects.showSlide !== false) {
   const s = addSlide();
   const p = D.projects;
   header(s, "Projects — Portfolio Status", null, 4);
@@ -1336,7 +1336,7 @@ if (D.aiAgent.showSlide) {
 // -----------------------------------------------------------------------------
 const wcDate = new Date(D.week.wc + "T00:00:00Z");
 const outName = `H&L Weekly Update - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`;
-const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "ps-time": "PS Utilisation - Where Every Hour Sits", "ps-economics": "PS Economics - The Hidden Work", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog - New vs Closed" };
+const ONLY_NAME = { "ps-not-yet-live": "PS - Closed Won Not Yet Live", "ps-time": "PS Utilisation - Where Every Hour Sits", "ps-economics": "PS Utilisation & Delivery Hours", "won-vs-invoiced": "Won vs Invoiced", "support-flow": "Support Backlog" };
 const outFile = ONLY
   ? `H&L ${ONLY_NAME[ONLY] || ONLY} - WC ${wcDate.getUTCDate()} ${["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][wcDate.getUTCMonth()]} ${wcDate.getUTCFullYear()}.pptx`
   : outName;
