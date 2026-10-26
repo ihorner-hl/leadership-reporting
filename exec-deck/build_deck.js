@@ -901,7 +901,10 @@ if (D.notYetLive) {
   card(s, TX, TY, TW, TH);
   s.addText([{ text: "TOP 10 NOT INVOICED   ", options: { fontSize: 11, bold: true, color: TEAL } }, { text: "ARR — sums to the awaiting figure", options: { fontSize: 6.5, color: FAINT } }],
     { x: TX + 0.22, y: TY + 0.09, w: TW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0 });
-  const cx2 = [0.48, 3.0, 3.95, 4.75, 5.3], cw2 = [2.5, 0.9, 0.75, 0.5, 0.42];
+  const hasStatus = w.topNotInvoiced.some(r => r[5]);
+  const cx2 = hasStatus ? [0.48, 2.0, 2.62, 3.25, 5.62] : [0.48, 3.0, 3.95, 4.75, 5.3];
+  const cw2 = hasStatus ? [1.5, 0.6, 0.6, 0.4, 0.2] : [2.5, 0.9, 0.75, 0.5, 0.42];
+  if (hasStatus) s.addText(w.statusHead || "STATUS", { x: TX + 3.78, y: TY + 0.36, w: 1.82, h: 0.18, fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 });
   ["CLIENT", "ARR", "MRR/mo", "WON", ""].forEach((h2, i) => s.addText(h2, { x: TX + cx2[i], y: TY + 0.36, w: cw2[i], h: 0.18, align: i === 0 ? "left" : "right", fontFace: FONT, fontSize: 7, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
   w.topNotInvoiced.forEach((r, i) => {
     const y = TY + 0.56 + i * 0.192;
@@ -910,6 +913,7 @@ if (D.notYetLive) {
     s.addText(r[1], { x: TX + cx2[1], y, w: cw2[1], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r[2], { x: TX + cx2[2], y, w: cw2[2], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
     s.addText(r[3], { x: TX + cx2[3], y, w: cw2[3], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    if (hasStatus) s.addText(r[5] || "—", { x: TX + 3.78, y, w: 1.82, h: 0.19, fontFace: FONT, fontSize: 6.8, color: r[5] ? NAVY : FAINT, isTextBox: true, margin: 0, valign: "middle", fit: "shrink" });
     s.addText(r[4] ? "" : "◆", { x: TX + cx2[4], y, w: cw2[4], h: 0.19, align: "right", fontFace: FONT, fontSize: 7.5, bold: true, color: GOLD, isTextBox: true, margin: 0, valign: "middle" });
   });
 

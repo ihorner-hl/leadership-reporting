@@ -736,73 +736,83 @@
     "$155k",
     "$12,880",
     "Mar",
-    0
+    0,
+    "Signed · 49 sites · live mid-Jan"
    ],
    [
     "Mt Henry Tavern",
     "$11k",
     "$905",
     "Oct",
-    1
+    1,
+    "Registration changeover"
    ],
    [
     "Caves House Hotel",
     "$8k",
     "$669",
     "Aug",
-    1
+    1,
+    "Done last qtr · to close out"
    ],
    [
     "Pier Hotel - Pt Lincoln",
     "$8k",
     "$648",
     "Oct",
-    1
+    1,
+    "Build late Nov · live ~23 Nov"
    ],
    [
     "The Iris Pavilion",
     "$7k",
     "$623",
     "Sep",
-    1
+    1,
+    "Venue still building · ~Dec"
    ],
    [
     "The Berrigan",
     "$6k",
     "$475",
     "Mar",
-    1
+    1,
+    ""
    ],
    [
     "Bar Carolina",
     "$6k",
     "$474",
     "Oct",
-    1
+    1,
+    ""
    ],
    [
     "Hotel Augusta",
     "$5k",
     "$410",
     "Jun",
-    1
+    1,
+    ""
    ],
    [
     "The Star Hotel (Milton)",
     "$5k",
     "$392",
     "Oct",
-    1
+    1,
+    ""
    ],
    [
     "Bar Orient",
     "$5k",
     "$377",
     "Sep",
-    1
+    1,
+    ""
    ]
   ],
-  "listNote": "◆ Oscars Group — signed, ~1.5x rollout, held by the old provider's contract terms. AVC new sites are excluded throughout — 17 deals worth $8,759 of 2026 software MRR, parked licences that are not counted in MRR or ARR. Eight more sit below the cut, worth $1.6k/mo.",
+  "listNote": "◆ Oscars Group — across the line per PS Weekly 26 Oct: 49 sites (the HubSpot deal reads 19), build Dec–Jan, go-live mid-January. AVC new sites are excluded throughout — 17 deals worth $8,759 of 2026 software MRR, parked licences that are not counted in MRR or ARR. Eight more sit below the cut, worth $1.6k/mo.",
   "hubspotMrr": {
    "q3Won": 12061,
    "weekWon": 3440,
@@ -820,14 +830,15 @@
    ],
    [
     "$241k of ARR is won with no row on the register.",
-    "24 of the 86 deals that carried software MRR in 2026 — six of this week's wins have no row yet. Oscars Group is $155k of it."
+    "24 of the 86 deals that carried software MRR in 2026. Oscars Group is $155k of it: 49 sites, build over Dec–Jan for a mid-January go-live. Pier Hotel follows Terminus Morgan (live 26 Oct) around 23 Nov; Iris Pavilion waits on its building."
    ]
   ],
   "churnedArrLabel": "$1.31M",
   "contractionArrK": 252,
   "contractionAccounts": 149,
   "pendingIntegrationsMrr": 2339,
-  "pendingIntegrationsN": 42
+  "pendingIntegrationsN": 42,
+  "statusHead": "PS STATUS · 26 OCT"
  },
  "backlog": {
   "source": "HubSpot (live) — cut over from Creatio",
