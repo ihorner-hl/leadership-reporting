@@ -72,8 +72,8 @@
  "execSummary": {
   "finance": "Q4 hardware $111k = 16% of the $715k OKR2 against a 27% pace mark — $12.0k this week, Bradford $10.3k of it",
   "sales": "Q4 new MRR $3.8k = 14% of OKR2 with nothing invoiced this week; three churned logos net the week −$1,148 and Q4 −$8.9k",
-  "ps": "billable utilisation 3.7% — 11.5h of 311.6h; 10.5h chargeable, 1.0h non-chargeable; Q4 hidden work 20h = $3,000 unrecognised PS revenue",
-  "support": "inflow 396 vs resolved 597 — backlog 588 → 389, third straight fall; 54 of the closes were one bulk close of September voice tickets",
+  "ps": "billable utilisation 4.7% — 13.5h of 288.8h; 10.5h chargeable, 3.0h non-chargeable; Q4 hidden work 22h = $3,300 unrecognised PS revenue",
+  "support": "inflow 395 vs resolved 595 — backlog 588 → 389, third straight fall; 54 of the closes were one bulk close of September voice tickets",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now six weeks pending",
   "aiUsage": "43 of 49 active weekly (▲7.5% WoW); October code output 1.23M lines to 26 Oct, 193 PRs in Code over 30 days; daily actives held at 19 Oct"
  },
@@ -522,11 +522,11 @@
   "weekLabel": "WC 19 Oct 2026 (to Fri 23 Oct)",
   "weekHours": 38.0,
   "staffCount": 9,
-  "availableHours": 311.6,
+  "availableHours": 288.8,
   "billedHours": 11.5,
-  "utilPct": 3.7,
+  "utilPct": 4.7,
   "targetPct": 50,
-  "staffBasis": "Available staff = the 9 Professional Services people holding PS-pipeline tickets this week at 38h each (7.6h a day), less Thursday and Friday leave for Argenis Rafael Guevara and Karim AlRifaii — 30.4h. Isayah Kuhlmann is back and logging. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — excluded; none carried hours. Hours logged Mon–Fri only; the week closes Sunday.",
+  "staffBasis": "Available staff = the 9 Professional Services people holding PS-pipeline tickets this week at 38h each (7.6h a day), less Thursday and Friday leave for Argenis Rafael Guevara and Karim AlRifaii and three sick days for Gregory St Clare-Hobbs — 53.2h. Isayah Kuhlmann is back and logging. Lopez, Hikuroa, Magabo, Ho, Fenwick and Hettiarachchy hold PS tickets but are not PS staff — excluded; none carried hours. Hours logged Mon–Fri only; the week closes Sunday.",
   "itemsWithHours": 13,
   "itemsCreated": 88,
   "coveragePct": 15,
@@ -651,25 +651,25 @@
     {
      "label": "12–18 Oct",
      "items": 36,
-     "hours": 51.02,
-     "util": 16.8,
+     "hours": 60.02,
+     "util": 19.7,
      "firstHours": 39.45,
      "firstUtil": 13.0
     },
     {
      "label": "19–25 Oct",
      "items": 13,
-     "hours": 11.5,
-     "util": 3.7,
+     "hours": 13.5,
+     "util": 4.7,
      "firstHours": 11.5,
-     "firstUtil": 3.7,
+     "firstUtil": 4.0,
      "current": true
     }
    ],
-   "note": "Base is available staff × 38h: 7 for 28 Sep–4 Oct (Rhys and Rodney on leave), 9 for 5–11 Oct, 8 for 12–18 Oct (Isayah on leave) and 9 this week less two days each for Argenis and Karim. PS-pipeline tickets by Sydney week, re-pulled 24 Oct.",
+   "note": "Base is available staff × 38h: 7 for 28 Sep–4 Oct (Rhys and Rodney on leave), 9 for 5–11 Oct, 8 for 12–18 Oct (Isayah on leave) and 9 this week less two days each for Argenis and Karim and three sick days for Greg. PS-pipeline tickets by Sydney week, re-pulled 24 Oct.",
    "detail": "restated again",
-   "lead": "Last week restated up 29% in six days.",
-   "text": "12–18 Oct went out at 39.45h (13.0%) and now reads 51.02h (16.8%); 5–11 Oct has grown again to 35.25h from the 21.25h first published. This week's 3.7% covers five working days logged so far and will restate upward — treat it as a floor."
+   "lead": "Last week restated up 52% in eight days.",
+   "text": "12–18 Oct went out at 39.45h (13.0%) and now reads 60.02h (19.7%); 5–11 Oct has grown to 35.25h from the 21.25h first published. This week's 4.7% (13.5h of 288.8h) will restate upward — treat it as a floor."
   },
   "restateNote": "partial week",
   "onLeave": [],
@@ -677,7 +677,7 @@
   "concLead": "Five of nine logged nothing yet.",
   "concText": "Isayah Kuhlmann 4.00h, Joshua Casey and Rodney Nolan 3.50h each, Rhys Woolcock 0.50h. Gregory, Ryan and Isaac have no time on this week's tickets yet; Argenis and Karim were out Thursday and Friday and have none from Monday to Wednesday either.",
   "availableNote": "9 PS people × 38h, less Thu–Fri leave for Argenis Rafael Guevara and Karim AlRifaii (4 days × 7.6h)",
-  "availableCalc": "9 × 38h − 30.4h leave = 311.6h available"
+  "availableCalc": "9 × 38h − 53.2h leave = 288.8h available"
  },
  "wonVsInvoiced": {
   "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) + MRR movement register (live, 26 Oct)",
@@ -1937,7 +1937,7 @@
   "showSlide": false
  },
  "aiProducts": {
-  "source": "HubSpot line items · products flagged ai_infused (live)",
+  "source": "HubSpot line items · products flagged ai_infused (live read 26 Oct)",
   "fx": 0.7122,
   "fxNote": "AUD→USD 0.7122 (mid-market close 20 Sep 2026) — rate five weeks stale; HubSpot holds no USD field",
   "scope": "all open deals + deals closed on/after 1 Jul 2026",
@@ -1945,7 +1945,7 @@
    {
     "name": "Discovery",
     "aud": 58,
-    "deals": 6,
+    "deals": 10,
     "placed": false
    },
    {
@@ -1956,8 +1956,8 @@
    },
    {
     "name": "Negotiation",
-    "aud": 1214,
-    "deals": 7,
+    "aud": 884,
+    "deals": 6,
     "placed": false
    },
    {
@@ -1968,42 +1968,42 @@
    },
    {
     "name": "Order Placed",
-    "aud": 775,
-    "deals": 11,
+    "aud": 837,
+    "deals": 12,
     "placed": true
    },
    {
     "name": "Closed Lost",
-    "aud": 506,
-    "deals": 7,
+    "aud": 836,
+    "deals": 8,
     "placed": false,
     "lost": true
    }
   ],
-  "openAud": 2922,
-  "openDeals": 32,
-  "placedAud": 775,
-  "placedDeals": 11,
-  "lostAud": 506,
-  "lostDeals": 7,
-  "convCount": 61,
-  "convValue": 60,
-  "roamAnnualAud": 20712,
+  "openAud": 2592,
+  "openDeals": 35,
+  "placedAud": 837,
+  "placedDeals": 12,
+  "lostAud": 836,
+  "lostDeals": 8,
+  "convCount": 60,
+  "convValue": 50,
+  "roamAnnualAud": 20340,
   "byProduct": [
    {
     "name": "H&L ROAM Monthly",
     "sku": "527",
-    "openAud": 1726,
-    "placedAud": 775,
-    "lostAud": 207,
+    "openAud": 1695,
+    "placedAud": 837,
+    "lostAud": 238,
     "note": "$29–31/unit/mo · all the order volume"
    },
    {
     "name": "Sentinel Reporting",
     "sku": "200031",
-    "openAud": 1196,
+    "openAud": 897,
     "placedAud": 0,
-    "lostAud": 299,
+    "lostAud": 598,
     "note": "$299/unit licence · still no orders"
    },
    {
@@ -2012,7 +2012,7 @@
     "openAud": 0,
     "placedAud": 0,
     "lostAud": 0,
-    "note": "9 lines on deals, every one priced $0"
+    "note": "14 lines on deals, every one priced $0"
    },
    {
     "name": "H&L ROAM Annual",
@@ -2023,7 +2023,7 @@
     "note": "flagged but no line items anywhere"
    }
   ],
-  "caveats": "Two ROAM orders placed this week (Dave & Busters Perth, Prendiville Norfolk — A$124) · QR Ordering lines still all $0 · 28 ROAM lines (A$2,170) on no deal are excluded."
+  "caveats": "26 Oct: Night Owl 393 Murray St placed (A$62), The Club Beaudesert lost (A$330), four $0 OrderNow demos opened · 28 ROAM lines (A$2,170) on no deal excluded."
  },
  "notYetLive": {
   "source": "HubSpot closed-won deals vs MRR movement register · as at 18 Oct · not refreshed this week",
@@ -2219,11 +2219,11 @@
   "medianAgeNote": "all open tickets · median created 24 Sep",
   "frt": {
    "value": "14.7 Hours",
-   "note": "median 12.1h · 55 of 396 new tickets have an email reply so far · last week 46.8h"
+   "note": "median 12.1h · 55 of 395 new tickets have an email reply so far · last week 46.8h"
   },
   "ttc": {
    "value": "14.0 Days",
-   "note": "median 2.1 days · all 597 closed this week · lifted by old tickets cleared"
+   "note": "median 2.1 days · all 595 closed this week · lifted by old tickets cleared"
   },
   "weeks": [
    {
@@ -2348,15 +2348,15 @@
    },
    {
     "label": "19 Oct",
-    "new": 396,
-    "closed": 597
+    "new": 395,
+    "closed": 595
    }
   ],
   "chartNote": "",
   "bullets": [
    [
     "Closed has beaten new three weeks running.",
-    "597 closed against 396 new this week — net −201, the biggest weekly fall in six months. Open is 389, down from 588."
+    "595 closed against 395 new this week — net −200, the biggest weekly fall in six months. Open is 389, down from 588."
    ],
    [
     "Clearing old tickets pushed the averages up.",
@@ -2441,7 +2441,7 @@
   "source": "HubSpot PS-pipeline tickets (live, read 25 Oct)",
   "period": "Q4 to date · 1–25 Oct",
   "availableQ": 1064.0,
-  "availableWk": 311.6,
+  "availableWk": 288.8,
   "kpis": [
    {
     "label": "UTILISATION",
@@ -2523,32 +2523,32 @@
   "kpis": [
    {
     "label": "TOTAL HOURS LOGGED",
-    "value": "11.5h",
-    "side": "of 311.6h",
-    "sub": "▼ from 51.0h last week",
+    "value": "13.5h",
+    "side": "of 288.8h",
+    "sub": "▼ from 60.0h last week",
     "tone": "bad"
    },
    {
     "label": "BILLABLE UTILISATION",
-    "value": "3.7%",
+    "value": "4.7%",
     "side": "target 50%",
-    "sub": "▼ from 16.8% last week",
+    "sub": "▼ from 19.7% last week",
     "tone": "bad",
     "group": "parent"
    },
    {
     "label": "BILLABLE · CHARGEABLE",
     "value": "10.5h",
-    "side": "91% of billable",
-    "sub": "▼ from 50.0h (98%) last week",
+    "side": "78% of billable",
+    "sub": "▼ from 59.0h (98%) last week",
     "tone": "bad",
     "group": "child"
    },
    {
     "label": "BILLABLE · NON-CHARGEABLE",
-    "value": "1.0h",
-    "side": "9% of billable",
-    "sub": "— from 1.0h (2%) last week",
+    "value": "3.0h",
+    "side": "22% of billable",
+    "sub": "▲ from 1.0h (2%) last week",
     "tone": "flat",
     "group": "child"
    },
@@ -2687,8 +2687,8 @@
     "Part of the shortfall is partner and key-account work we don't charge for — the billable, non-chargeable hours."
    ],
    [
-    "Q4's hidden work so far: 20h, $3,000 of unrecognised PS revenue.",
-    "AVC's 9.2 upgrades (18h, $2,700) and H&L Pay activations (2h, $300). "
+    "Q4's hidden work so far: 22h, $3,300 of unrecognised PS revenue.",
+    "AVC's 9.2 upgrades (18h, $2,700) and four H&L Pay activations (4h, $600) — two not yet tagged H&L Pay on Integration Level 3."
    ],
    [
     "To renegotiate, every non-chargeable hour needs its partner or account,",
@@ -2701,7 +2701,7 @@
     "chargeable": 3.5,
     "nonChargeable": 1.0,
     "blank": 7.0,
-    "available": 311.6
+    "available": 288.8
    },
    "lastWeek": {
     "logged": 51.02,
@@ -2717,6 +2717,12 @@
     21.5,
     3.5,
     18.0
+   ],
+   [
+    "Perks Hospitality",
+    10.0,
+    10.0,
+    0
    ],
    [
     "Solotel",
@@ -2759,12 +2765,6 @@
     2.07,
     2.07,
     0
-   ],
-   [
-    "Perks Hospitality",
-    2.0,
-    2.0,
-    0
    ]
   ],
   "accountNote": "",
@@ -2780,18 +2780,18 @@
     },
     {
      "label": "12–18 Oct",
-     "billable": 51.02,
-     "yes": 50.02,
+     "billable": 60.02,
+     "yes": 59.02,
      "no": 1.0,
-     "util": 16.8,
+     "util": 19.7,
      "first": 39.45
     },
     {
      "label": "19–25 Oct",
-     "billable": 11.5,
+     "billable": 13.5,
      "yes": 10.5,
-     "no": 1.0,
-     "util": 3.7,
+     "no": 3.0,
+     "util": 4.7,
      "first": 11.5,
      "current": true
     }
