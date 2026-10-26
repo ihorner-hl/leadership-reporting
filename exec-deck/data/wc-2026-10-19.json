@@ -2525,9 +2525,9 @@
    },
    {
     "label": "BILLABLE · CHARGEABLE",
-    "value": "3.5h",
-    "side": "30% of billable",
-    "sub": "▼ from 12.5h (25%) last week",
+    "value": "10.5h",
+    "side": "91% of billable",
+    "sub": "▼ from 50.0h (98%) last week",
     "tone": "bad",
     "group": "child"
    },
@@ -2597,77 +2597,89 @@
    [
     "Mr Yum",
     487774,
+    null,
     null
    ],
    [
     "Tyro",
     266392,
+    null,
     null
    ],
    [
     "Me&U",
     125986,
+    null,
     null
    ],
    [
     "7Rs (SevenRooms)",
     112220,
-    1.0
+    1.0,
+    0
    ],
    [
     "Zeller",
     79089,
-    1.0
+    1.0,
+    0
    ],
    [
     "Zen",
     61484,
+    null,
     null
    ],
    [
     "Chewzie",
     44608,
+    null,
     null
    ],
    [
     "HungryHungry",
     16196,
-    1.5
+    1.5,
+    0
    ],
    [
     "EatClub",
     2046,
-    1.11
+    1.11,
+    0
    ],
    [
     "H&L Pay",
     0,
+    2.0,
     2.0
    ],
    [
     "NowBookIt",
     0,
-    2.0
+    2.0,
+    0
    ],
    [
     "Uber Eats",
     0,
-    6.32
+    6.32,
+    0
    ]
   ],
   "partnerNote": "",
   "bullets": [
    [
     "PS is $268k short on its P&L, but partners paid H&L $1.29M.",
-    "Part of the shortfall is partner integration and key-account work we don't charge for — the billable, non-chargeable hours."
+    "Part of the shortfall is partner and key-account work we don't charge for — the billable, non-chargeable hours."
    ],
    [
-    "This week only 1.0h is flagged non-chargeable.",
-    "Is Chargeable went live this week: 7.0 of the 11.5h logged (61%) have no flag yet, so the hidden work is under-counted."
+    "Q4's hidden work so far: 20h, $3,000 of unrecognised PS revenue.",
+    "AVC's 9.2 upgrades (18h, $2,700) and H&L Pay activations (2h, $300). Hours with no Is Chargeable flag are counted as chargeable."
    ],
    [
-    "To renegotiate, each non-chargeable hour needs a reason and an owner:",
-    "premium partner (which one) or key account (which one). Then the partner and account tables price themselves."
+    "To renegotiate, every non-chargeable hour needs its partner or account,",
+    "so these tables total the revenue PS gives away against what each relationship pays."
    ]
   ],
   "weekly": {
@@ -2690,38 +2702,38 @@
    [
     "AVC",
     21.5,
-    18.0,
-    3.5
+    3.5,
+    18.0
    ],
    [
     "Solotel",
     7.0,
-    2.5,
-    4.5
+    7.0,
+    0
    ],
    [
     "Trader House",
     3.5,
-    0,
-    3.5
+    3.5,
+    0
    ],
    [
     "Locals Co",
     3.5,
-    0,
-    3.5
+    3.5,
+    0
    ],
    [
     "HHG",
     3.5,
-    1.0,
-    2.5
+    3.5,
+    0
    ],
    [
     "Lucas Collective",
     3.0,
-    0,
-    3.0
+    3.0,
+    0
    ],
    [
     "Liquor Barons",
@@ -2732,14 +2744,14 @@
    [
     "BRG",
     2.07,
-    0,
-    2.07
+    2.07,
+    0
    ],
    [
     "Perks Hospitality",
     2.0,
-    1.0,
-    1.0
+    2.0,
+    0
    ]
   ],
   "accountNote": "",
@@ -2748,33 +2760,41 @@
     {
      "label": "5–11 Oct",
      "billable": 35.25,
-     "yes": 19.0,
-     "no": 0.0,
-     "blank": 16.25,
+     "yes": 17.25,
+     "no": 18.0,
      "util": 10.3,
      "first": 21.25
     },
     {
      "label": "12–18 Oct",
      "billable": 51.02,
-     "yes": 12.5,
+     "yes": 50.02,
      "no": 1.0,
-     "blank": 37.52,
      "util": 16.8,
      "first": 39.45
     },
     {
      "label": "19–25 Oct",
      "billable": 11.5,
-     "yes": 3.5,
+     "yes": 10.5,
      "no": 1.0,
-     "blank": 7.0,
      "util": 3.7,
      "first": 11.5,
      "current": true
     }
    ]
   },
-  "psRate": 150
+  "psRate": 150,
+  "overrides": [
+   {
+    "ticket": "283985380831",
+    "subject": "UPGRADES - AVC 9.2 Upgrades",
+    "hours": 18.0,
+    "week": "5–11 Oct",
+    "hubspot": "Yes",
+    "treatedAs": "No",
+    "by": "Izaak Horner, 26 Oct"
+   }
+  ]
  }
 }

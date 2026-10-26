@@ -748,18 +748,17 @@ if (D.psEconomics) {
     card(s, WX, WY, WW, WH);
     s.addText([{ text: "WEEK ON WEEK  ", options: { fontSize: 10, bold: true, color: TEAL } }, { text: "billable hours as the weeks stand today", options: { fontSize: 6.5, color: FAINT } }],
       { x: WX + 0.2, y: WY + 0.06, w: WW - 0.4, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0 });
-    const cols = [["WEEK", 0.2, 0.85, "left"], ["BILLABLE", 1.05, 0.65, "right"], ["CHARGEABLE", 1.75, 0.75, "right"], ["NON-CHARG.", 2.55, 0.7, "right"], ["NO FLAG", 3.3, 0.5, "right"], ["UTIL", 3.85, 0.5, "right"], ["FIRST REPORTED", 4.4, 1.0, "right"]];
+    const cols = [["WEEK", 0.2, 0.9, "left"], ["BILLABLE", 1.15, 0.7, "right"], ["CHARGEABLE", 1.95, 0.8, "right"], ["NON-CHARGEABLE", 2.85, 0.95, "right"], ["UTIL", 3.85, 0.5, "right"], ["FIRST REPORTED", 4.4, 1.0, "right"]];
     cols.forEach(([t, x, w, al]) => s.addText(t, { x: WX + x, y: WY + 0.32, w, h: 0.16, align: al, fontFace: FONT, fontSize: 5.8, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
     const RW = Math.min(0.26, (WH - 0.55) / W.rows.length);
     W.rows.forEach((r, i) => {
       const y = WY + 0.5 + i * RW, d = r.billable - r.first, restated = Math.abs(d) > 0.01;
       if (i) s.addShape("rect", { x: WX + 0.2, y, w: WW - 0.4, h: 0.006, fill: { color: TRACK }, line: { type: "none" } });
       const cell = (t, x, w, al, o = {}) => s.addText(t, Object.assign({ x: WX + x, y, w, h: RW, align: al, fontFace: FONT, fontSize: 7.8, color: NAVY, isTextBox: true, margin: 0, valign: "middle" }, o));
-      cell(r.label + (r.current ? " ●" : ""), 0.2, 0.85, "left", { bold: true, color: r.current ? TEAL : NAVY });
-      cell(r.billable.toFixed(1) + "h", 1.05, 0.65, "right", { bold: true, color: TEAL });
-      cell(r.yes ? r.yes.toFixed(1) + "h" : "—", 1.75, 0.75, "right", { color: r.yes ? NAVY : FAINT });
-      cell(r.no ? r.no.toFixed(1) + "h" : "—", 2.55, 0.7, "right", { color: r.no ? NAVY : FAINT });
-      cell(r.blank ? r.blank.toFixed(1) + "h" : "—", 3.3, 0.5, "right", { color: r.blank ? GOLD : FAINT });
+      cell(r.label + (r.current ? " ●" : ""), 0.2, 0.9, "left", { bold: true, color: r.current ? TEAL : NAVY });
+      cell(r.billable.toFixed(1) + "h", 1.15, 0.7, "right", { bold: true, color: TEAL });
+      cell(r.yes ? r.yes.toFixed(1) + "h" : "—", 1.95, 0.8, "right", { color: r.yes ? NAVY : FAINT });
+      cell(r.no ? r.no.toFixed(1) + "h" : "—", 2.85, 0.95, "right", { bold: !!r.no, color: r.no ? TERRA : FAINT });
       cell(r.util.toFixed(1) + "%", 3.85, 0.5, "right", { bold: true, color: GOLD });
       cell(restated ? `${r.first.toFixed(1)}h  ${d > 0 ? "▲ +" : "▼ −"}${Math.abs(d).toFixed(1)}h` : "first report", 4.4, 1.0, "right", { fontSize: 6.8, bold: restated, color: restated ? TERRA : FAINT });
     });
@@ -778,13 +777,14 @@ if (D.psEconomics) {
     });
     if (note) s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   };
-  // unrecognised PS revenue = hours not flagged chargeable × the PS rate
+  // unrecognised PS revenue = non-chargeable hours (Is Chargeable = No) × the PS rate;
+  // hours with no flag count as chargeable, so they are recognised
   const unrec = (h) => (h == null || h <= 0 ? "—" : "$" + Math.round(h * E.psRate).toLocaleString());
   table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "UNREC. REV"], [0.18, 1.25, 2.05, 2.45], [1.1, 0.78, 0.4, 0.62],
-    E.partners.map(([n, c, h]) => [[n.replace(" — no commission", ""), c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [unrec(h), h == null ? FAINT : TERRA, !!h]]),
+    E.partners.map(([n, c, h, nc]) => [[n, c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [unrec(nc), nc ? TERRA : FAINT, !!nc]]),
     E.partnerNote);
-  table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHARGED", "NO FLAG", "UNREC. REV"], [0.18, 1.15, 1.6, 2.1, 2.5], [1.0, 0.45, 0.5, 0.42, 0.58],
-    E.accounts.map(([n, h, y, b]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? GREEN : FAINT], [b ? b.toFixed(1) + "h" : "—", b ? GOLD : FAINT], [unrec(h - y), h - y > 0 ? TERRA : FAINT, h - y > 0]]),
+  table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHG.", "NON-CHG.", "UNREC. REV"], [0.18, 1.15, 1.6, 2.1, 2.5], [1.0, 0.45, 0.5, 0.42, 0.58],
+    E.accounts.map(([n, h, y, nc]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? NAVY : FAINT], [nc ? nc.toFixed(1) + "h" : "—", nc ? TERRA : FAINT, !!nc], [unrec(nc), nc ? TERRA : FAINT, !!nc]]),
     E.accountNote);
 
   // ---- right lower: summary --------------------------------------------------
