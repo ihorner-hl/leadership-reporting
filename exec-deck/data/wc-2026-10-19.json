@@ -1528,23 +1528,15 @@
   "sepToDate": [
    [
     "Daniel Maddern",
-    486570
+    723999
    ],
    [
     "Nicolas Ibrahim",
     255985
    ],
    [
-    "danm (unconfirmed)",
-    151122
-   ],
-   [
     "Mostafa Essa",
     100487
-   ],
-   [
-    "dan@ (unconfirmed)",
-    86307
    ],
    [
     "David Corbett",
@@ -1696,7 +1688,7 @@
       0,
       0,
       0,
-      486570
+      723999
      ]
     ],
     [
@@ -1706,24 +1698,6 @@
       0,
       0,
       100487
-     ]
-    ],
-    [
-     "danm@ (unconfirmed)",
-     [
-      0,
-      0,
-      0,
-      151122
-     ]
-    ],
-    [
-     "dan@ (unconfirmed)",
-     [
-      0,
-      0,
-      0,
-      86307
      ]
     ],
     [
@@ -1805,7 +1779,7 @@
     277261,
     1234279
    ],
-   "note": "Sep is the 27 Sep capture (month incomplete); Oct is month-to-date at 26 Oct · Nicolas Ibrahim's and Daniel Maddern's two accounts are each combined; danm@ and dan@ shown separately until confirmed · Jul–Sep unavailable for new accounts, not zero"
+   "note": "Sep is the 27 Sep capture (month incomplete); Oct is month-to-date at 26 Oct · Nicolas Ibrahim's two accounts and Daniel Maddern's four accounts are each combined · Jul–Sep unavailable for new accounts, not zero"
   },
   "byWeek": {
    "labels": [
@@ -1846,7 +1820,7 @@
     "Aug",
     "Sep"
    ],
-   "note": "cell = one week · series ends w/c 06 Sep — later captures give month-to-date only · Nicolas Ibrahim and Daniel Maddern each have two accounts, combined here; Daniel Maddern is new to the capture, so Jul–Sep are unavailable for him, not zero"
+   "note": "cell = one week · series ends w/c 06 Sep — later captures give month-to-date only · Nicolas Ibrahim (two accounts) and Daniel Maddern (four accounts) are combined here; Daniel Maddern is new to the capture, so Jul–Sep are unavailable for him, not zero"
   },
   "cowork": {
    "perWkTotal": 1140,
@@ -1910,7 +1884,7 @@
   "locLabel": "LINES OF CODE — OCT MTD",
   "filesNote": "Files by category not in this capture — held at the 27 Sep split.",
   "summaryLead": "43 of 49 active weekly — up 7.5% on last week",
-  "summaryText": "October code output has reached 1,234,279 lines to 26 Oct, nearly four times last week's 329,436 capture. Daniel Maddern's two accounts are 486,570 of it and Nicolas Ibrahim's 255,985; two further 'dan' accounts (danm@ 151,122, dan@ 86,307) are shown separately until confirmed. Mostafa Essa enters at 100,487. 193 PRs in Code over 30 days, ▲60%; spend $657, ▼37%.",
+  "summaryText": "October code output has reached 1,234,279 lines to 26 Oct, nearly four times last week's 329,436 capture. Daniel Maddern's four accounts are 723,999 of it (59%) and Nicolas Ibrahim's two 255,985. Mostafa Essa enters at 100,487. 193 PRs in Code over 30 days, ▲60%; spend $657, ▼37%.",
   "activeSub": "weekly active (▲7.5% WoW) · 193 PRs in Code · $657 spend, 30d"
  },
  "projects": {
