@@ -1230,7 +1230,7 @@ if (D.aiAgent.showSlide) {
   const s = addSlide();
   const ai = D.aiUsage, CM = ai.codeMatrix, BW = ai.byWeek, CO = ai.cowork;
   header(s, "AI Usage — Adoption & Activity", "IT", 4);
-  kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
+  kpi(s, 0.45, 1.08, 2.95, 1.2, "ACTIVE MEMBERS", `${ai.activeWeekly} of ${ai.allMembers}`, ai.activeSub || `weekly active · ${ai.daily} daily · ${ai.monthly} monthly`, NAVY);
   kpi(s, 3.6, 1.08, 2.95, 1.2, ai.locLabel || "LINES OF CODE — LAST WEEK", ai.locLastWeek.toLocaleString() + (ai.locWoWPct == null ? "" : " ▲"),
       ai.locWoWPct == null ? `${ai.locWeekEnding} · ${ai.locNote}` : `+${ai.locWoWPct}% WoW · ${ai.locWeekEnding}`, TEAL, 24);
   {

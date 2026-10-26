@@ -61,7 +61,7 @@
     "old": "File drops",
     "new": "File drops (unchanged)",
     "status": "AS BEFORE",
-    "note": "Identification register refreshed 26 Oct (unchanged). Claude Admin capture, ValPay referral export and GTM tracker not refreshed."
+    "note": "Claude Admin capture refreshed 26 Oct (Teams, Glynn). Identification register refreshed 26 Oct (unchanged). ValPay referral export and GTM tracker not refreshed."
    }
   ],
   "deckSeq": "Q4 week 4",
@@ -75,7 +75,7 @@
   "ps": "billable utilisation 3.7% — 11.5h of 311.6h; 10.5h chargeable, 1.0h non-chargeable; Q4 hidden work 20h = $3,000 unrecognised PS revenue",
   "support": "inflow 396 vs resolved 597 — backlog 588 → 389, third straight fall; 54 of the closes were one bulk close of September voice tickets",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now six weeks pending",
-  "aiUsage": "held at the 19 Oct capture — 40 of 51 active weekly, 14 daily; October code output 329,436 lines to 19 Oct; refresh pending"
+  "aiUsage": "43 of 49 active weekly (▲7.5% WoW); October code output 1.23M lines to 26 Oct, 193 PRs in Code over 30 days; daily actives held at 19 Oct"
  },
  "targetVsInvoiced": {
   "source": "Sysnet extract 19–25 Oct + MRR movement register (live, 26 Oct)",
@@ -1499,14 +1499,14 @@
   }
  },
  "aiUsage": {
-  "source": "Claude Admin capture (30d to 19 Oct) · held at 19 Oct, refresh pending",
-  "activeWeekly": 40,
-  "allMembers": 51,
+  "source": "Claude Admin console, 30d to 26 Oct (shared by Glynn Johnson) · daily/monthly actives and stickiness held at 19 Oct",
+  "activeWeekly": 43,
+  "allMembers": 49,
   "daily": 14,
   "monthly": 45,
-  "locLastWeek": 329436,
+  "locLastWeek": 1234279,
   "locWoWPct": null,
-  "locWeekEnding": "1–18 Oct",
+  "locWeekEnding": "1–26 Oct",
   "stickiness": [
    [
     "Claude Code",
@@ -1527,47 +1527,47 @@
   ],
   "sepToDate": [
    [
-    "Nicolas Ibrahim",
-    170962
-   ],
-   [
     "Daniel Maddern",
-    43288
+    486570
    ],
    [
-    "Tony Ghoussein",
-    26261
+    "Nicolas Ibrahim",
+    255985
    ],
    [
-    "David Corbett",
-    21999
-   ],
-   [
-    "Rahul Kumar",
-    17140
+    "danm (unconfirmed)",
+    151122
    ],
    [
     "Mostafa Essa",
-    12003
+    100487
+   ],
+   [
+    "dan@ (unconfirmed)",
+    86307
+   ],
+   [
+    "David Corbett",
+    43988
+   ],
+   [
+    "Tony Ghoussein",
+    30083
+   ],
+   [
+    "Rahul Kumar",
+    17747
    ],
    [
     "Glynn Johnson",
-    7607
-   ],
-   [
-    "Chris Huang",
-    5907
+    12975
    ],
    [
     "Mohamed Ammar",
-    5548
-   ],
-   [
-    "Kumari Nidhi",
-    4324
+    8922
    ]
   ],
-  "sepTotal": 329436,
+  "sepTotal": 1234279,
   "coworkPerWk": [
    [
     "Bjorn Magabo",
@@ -1663,7 +1663,7 @@
    ],
    "note": "cell = one week (thousands of lines) · series ends at the last capture that carried a weekly breakdown (w/c 06 Sep)"
   },
-  "coworkNote": "Bjorn Magabo logged 3,288 Cowork sessions in 30 days against 3,426 messages — about one message each, so read it as very short repeated sessions. 26 of the 27 people listed logged at least one session.",
+  "coworkNote": "Bjorn Magabo logged 3,569 Cowork sessions in 30 days against 3,696 messages — still about one message per session.",
   "codeMatrix": {
    "months": [
     "Jul",
@@ -1687,7 +1687,7 @@
       15834,
       38142,
       99693,
-      170962
+      255985
      ]
     ],
     [
@@ -1696,7 +1696,34 @@
       0,
       0,
       0,
-      43288
+      486570
+     ]
+    ],
+    [
+     "Mostafa Essa",
+     [
+      0,
+      0,
+      0,
+      100487
+     ]
+    ],
+    [
+     "danm@ (unconfirmed)",
+     [
+      0,
+      0,
+      0,
+      151122
+     ]
+    ],
+    [
+     "dan@ (unconfirmed)",
+     [
+      0,
+      0,
+      0,
+      86307
      ]
     ],
     [
@@ -1714,7 +1741,7 @@
       18918,
       23650,
       24443,
-      2971
+      5382
      ]
     ],
     [
@@ -1723,7 +1750,7 @@
       27031,
       10145,
       30828,
-      21999
+      43988
      ]
     ],
     [
@@ -1732,7 +1759,7 @@
       19535,
       12856,
       17516,
-      5907
+      8154
      ]
     ],
     [
@@ -1741,7 +1768,7 @@
       0,
       42859,
       23286,
-      17140
+      17747
      ]
     ],
     [
@@ -1750,7 +1777,7 @@
       6582,
       23266,
       4322,
-      5548
+      8922
      ]
     ],
     [
@@ -1759,7 +1786,7 @@
       6208,
       10369,
       11891,
-      26261
+      30083
      ]
     ],
     [
@@ -1768,7 +1795,7 @@
       2970,
       7237,
       19289,
-      3890
+      6155
      ]
     ]
    ],
@@ -1776,9 +1803,9 @@
     228132,
     293419,
     277261,
-    329436
+    1234279
    ],
-   "note": "Sep is the 27 Sep capture (month incomplete); Oct is month-to-date at 19 Oct · Nicolas Ibrahim's and Daniel Maddern's two accounts are each combined · Daniel Maddern appears in the capture for the first time, so Jul–Sep are unavailable for him, not zero"
+   "note": "Sep is the 27 Sep capture (month incomplete); Oct is month-to-date at 26 Oct · Nicolas Ibrahim's and Daniel Maddern's two accounts are each combined; danm@ and dan@ shown separately until confirmed · Jul–Sep unavailable for new accounts, not zero"
   },
   "byWeek": {
    "labels": [
@@ -1822,68 +1849,69 @@
    "note": "cell = one week · series ends w/c 06 Sep — later captures give month-to-date only · Nicolas Ibrahim and Daniel Maddern each have two accounts, combined here; Daniel Maddern is new to the capture, so Jul–Sep are unavailable for him, not zero"
   },
   "cowork": {
-   "perWkTotal": 1070,
+   "perWkTotal": 1140,
    "baseline": 1012,
    "members": [
     [
      "Bjorn Magabo",
-     765,
-     69
+     830,
+     65
     ],
     [
      "Phuong Ho",
-     163,
-     -5
+     168,
+     5
     ],
     [
      "Dave Corbett",
      23,
-     2
+     0
     ],
     [
      "Bradford Young",
      22,
-     1
+     0
     ],
     [
      "Matt Freeman",
-     16,
-     1
+     18,
+     2
     ],
     [
      "Harjeet Sammi",
      13,
-     1
+     0
     ],
     [
      "Katherine Fenwick",
-     11,
-     -2
-    ],
-    [
-     "Glynn Johnson",
      10,
      -1
     ],
     [
-     "Rhys Woolcock",
-     7,
-     -1
+     "Youssef Medhat",
+     8,
+     null
     ],
     [
-     "Isayah Kuhlmann",
+     "Rhys Woolcock",
+     8,
+     1
+    ],
+    [
+     "Mostafa Essa",
      7,
-     -1
+     null
     ]
    ],
-   "note": "rate = 30-day sessions ÷ 4.3 · arrow = change vs the 12 Oct capture"
+   "note": "rate = 30-day sessions ÷ 4.3 · arrow = change vs the 19 Oct capture · 4.9K sessions in 30 days, ▲149%"
   },
-  "stickinessNote": "DAU/MAU — daily active share of each product's monthly actives · Claude.ai recovered 7% → 17%, Office Agents still nil",
-  "locNote": "October month-to-date at the 19 Oct capture, up from 111,689 a week ago; the admin capture gives month totals only, so there is no weekly split",
+  "stickinessNote": "DAU/MAU — held at the 19 Oct capture; this week's screenshots don't include it",
+  "locNote": "October to 26 Oct, up from 329,436 at the 19 Oct capture; month totals only",
   "locLabel": "LINES OF CODE — OCT MTD",
   "filesNote": "Files by category not in this capture — held at the 27 Sep split.",
-  "summaryLead": "40 of 51 active weekly, 14 daily — breadth and depth both back up",
-  "summaryText": "after last week's dip. Claude.ai stickiness recovered 7% → 17% DAU/MAU and Claude Code rose to 28%; Cowork eased 24% → 23% and Office Agents are still at nil. The code number is the headline: 329,436 lines in October to date against 111,689 a week ago, already above any full month this year. Nicolas Ibrahim is 170,962 of it — 52% — and Daniel Maddern enters at 43,288."
+  "summaryLead": "43 of 49 active weekly — up 7.5% on last week",
+  "summaryText": "October code output has reached 1,234,279 lines to 26 Oct, nearly four times last week's 329,436 capture. Daniel Maddern's two accounts are 486,570 of it and Nicolas Ibrahim's 255,985; two further 'dan' accounts (danm@ 151,122, dan@ 86,307) are shown separately until confirmed. Mostafa Essa enters at 100,487. 193 PRs in Code over 30 days, ▲60%; spend $657, ▼37%.",
+  "activeSub": "weekly active (▲7.5% WoW) · 193 PRs in Code · $657 spend, 30d"
  },
  "projects": {
   "asAt": "19 Oct 2026",
