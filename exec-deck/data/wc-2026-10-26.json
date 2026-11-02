@@ -8,7 +8,7 @@
   "quarterPacePct": 35,
   "quarterPaceNote": "Q4 (Oct–Dec) · 32 of 92 days elapsed",
   "monthPacePct": 100,
-  "notes": "Built 2 Nov: HubSpot read to Sun 1 Nov; MRR register (2 Nov) and H&L Pay register folded in. Sysnet weekly sales extract (hardware), ValPay export and GTM tracker not received — held. PS leave for the week not yet advised."
+  "notes": "Built 2 Nov (Sysnet 26–30 Oct folded in): HubSpot read to Sun 1 Nov; MRR register (2 Nov) and H&L Pay register folded in. ValPay export and GTM tracker not received — held. PS leave for the week not yet advised."
  },
  "cutover": {
   "creatioLastExtract": "2026-09-04",
@@ -70,7 +70,7 @@
   "showSlide": false
  },
  "execSummary": {
-  "finance": "Hardware held at $111k Q4 to date (16% of the $715k OKR2) — the 26 Oct–1 Nov Sysnet extract hasn't arrived",
+  "finance": "Q4 hardware $174k = 24% of the $715k OKR2 against a 35% pace mark — $62.5k this week, Brett $41.1k of it; a $229.5k AVC scanner invoice held pending Finance",
   "sales": "Q4 new MRR $8.0k = 29% of OKR2 against a 35% pace mark; the week nets +$3,112 after Mayfair and Italian Kitchen churned",
   "ps": "billable utilisation 8.5% — 29.0h of 342h (no leave advised); 26.3h chargeable, 2.8h non-chargeable; Q4 hidden work 30h = $4,540 unrecognised PS revenue",
   "support": "inflow 461 vs resolved 517 — backlog 389 → 335, fourth straight fall; median open age 31 → 19 days, first response 14.7 → 18.5 hrs",
@@ -78,8 +78,8 @@
   "aiUsage": "45 of 50 active weekly (▲4.7% WoW); October closed at 1.86M lines of code, 463 PRs in Code over 30 days (▲219%); daily actives held at 19 Oct"
  },
  "targetVsInvoiced": {
-  "source": "MRR movement register (2 Nov) · hardware held at the 19–25 Oct Sysnet extract — 26 Oct–1 Nov extract not yet received",
-  "extractWeek": "19–25 Oct",
+  "source": "Sysnet weekly sales 26–30 Oct + MRR movement register (2 Nov) · AVC scanner re-bill held pending Finance",
+  "extractWeek": "26–30 Oct",
   "mrr": {
    "okr2": 28000,
    "team": 30000,
@@ -95,8 +95,8 @@
   "hardware": {
    "okr2": 715000,
    "team": 761000,
-   "qtd": 111021,
-   "deltaWk": null
+   "qtd": 173566,
+   "deltaWk": 62545
   },
   "members": [
    {
@@ -104,8 +104,8 @@
     "mrrTgt": 5000,
     "mrrQtd": 1139,
     "hwTgt": 140000,
-    "hwQtd": 5080,
-    "hwDelta": null,
+    "hwQtd": 11395,
+    "hwDelta": 6315,
     "mrrDelta": 718
    },
    {
@@ -113,8 +113,8 @@
     "mrrTgt": 5000,
     "mrrQtd": 1984,
     "hwTgt": 143000,
-    "hwQtd": 16484,
-    "hwDelta": null,
+    "hwQtd": 57579,
+    "hwDelta": 41095,
     "mrrDelta": 169
    },
    {
@@ -122,8 +122,8 @@
     "mrrTgt": 5000,
     "mrrQtd": 1399,
     "hwTgt": 163000,
-    "hwQtd": 18195,
-    "hwDelta": null,
+    "hwQtd": 33330,
+    "hwDelta": 15135,
     "mrrDelta": 787
    },
    {
@@ -132,7 +132,7 @@
     "mrrQtd": 3241,
     "hwTgt": 214000,
     "hwQtd": 33140,
-    "hwDelta": null,
+    "hwDelta": 0,
     "mrrDelta": 1323
    },
    {
@@ -141,7 +141,7 @@
     "mrrQtd": 245,
     "hwTgt": 55000,
     "hwQtd": 38122,
-    "hwDelta": null,
+    "hwDelta": 0,
     "mrrDelta": 147
    },
    {
@@ -164,9 +164,14 @@
    }
   ],
   "hlPayNetNewMrr": 0,
-  "extractTo": "25 Oct",
-  "hardwareNote": "Hardware is held at the 19–25 Oct extract ($111,021 Q4 to date) until the 26 Oct–1 Nov Sysnet weekly sales file arrives.",
+  "extractTo": "30 Oct",
+  "hardwareNote": "Hardware = Rev Group 23 by account manager, gross of discounts. Held out this week: a $229,500 barcode-scanner invoice to AVC head office and $25,704 of scanner credits across 23 AVC venues — 1,500 scanners billed against 168 credited, so likely a keying error ($22,950). Confirm with Finance.",
   "bullets": [
+   [
+    "Hardware added $62,545 — Brett $41,095 of it.",
+    "The Glenrock Googong's fit-out came to $33,620, Terminus Morgan $13,410 and Star Hotel Milton $7,475. Q4 is $173,566 — 24% of the $715k OKR2 against a 35% pace mark. A $229,500 AVC scanner invoice is held out until Finance confirms it.",
+    "green"
+   ],
    [
     "MRR moved forward by $3,112 — the best week this quarter.",
     "$4,304 of new MRR landed: Terminus Morgan ($454) and The Glenrock Googong ($868) as new venues, and 27 expansion rows dated 1 Nov led by Lucas Collective's 11 sites ($671) and Mt Henry Tavern ($543). Q4 is $8,008 — 29% of the $28k OKR2 against a 35% pace mark.",
@@ -176,11 +181,6 @@
     "Churn took $1,161: Mayfair Hotel and Italian Kitchen.",
     "Mayfair ($765, Brett) went the same week an OrderNow deal for it was opened at $833/mo. Q4 churn is $10.4k against $8.0k of new MRR.",
     "terra"
-   ],
-   [
-    "Hardware is held this week.",
-    "The 26 Oct–1 Nov Sysnet extract hasn't arrived, so hardware stays at $111,021 (16% of the $715k OKR2). Targets are still the Q3 numbers carried forward.",
-    "faint"
    ]
   ]
  },
