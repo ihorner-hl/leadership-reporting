@@ -413,7 +413,7 @@ if (D.cutover.showSlide) {
     { x: PX + 2.05, y: CY + 2.44, w: PW - 2.3, h: 0.5, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
   s.addText(A.fxNote, { x: PX + 0.22, y: CY + 2.94, w: PW - 0.44, h: 0.3, fontFace: FONT, fontSize: 5.8, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
-  aiSummary(s, 0.45, 5.92, 12.43, 1.14, [
+  aiSummary(s, 0.45, 5.92, 12.43, 1.14, A.bullets ? A.bullets.map(([lead, text], k) => ({ lead, text, dot: [GREEN, TEAL, FAINT][k % 3], muted: k === 2 })) : [
     { lead: "Conversion is real but tiny.", text: `${A.placedDeals} orders placed since 1 Jul (${US(A.placedAud)}) against ${A.lostDeals} lost — ${A.convCount}% by count, ${A.convValue}% by value. All of it is ROAM; Sentinel has ${US(A.byProduct[1].openAud)} in play and no order yet.`, dot: GREEN },
     { lead: "The book is stuck mid-funnel:", text: `${US(A.stages[1].aud + A.stages[2].aud)} of the ${US(A.openAud)} open sits in Quote Sent and Negotiation across ${A.stages[1].deals + A.stages[2].deals} deals — the movement to chase is quote-to-order, not top-of-funnel.`, dot: TEAL },
     { text: A.caveats, muted: true, dot: FAINT },
@@ -805,8 +805,11 @@ if (D.notYetLive) {
       `of the ${N.wonDeals} deals won with recurring revenue in 2026`, TERRA);
   kpi(s, 3.7, 1.08, 3.05, 1.2, "ARR AT STAKE", `$${Math.round(N.arr / 1000)}k`,
       `$${Math.round(N.mrr).toLocaleString("en-AU")}/mo signed and not invoiced`, TERRA);
-  kpi(s, 6.95, 1.08, 3.05, 1.2, "OLDEST", `${N.oldestDays} Days`, N.oldestName, TERRA);
-  kpi(s, 10.2, 1.08, 2.68, 1.2, "MEDIAN AGE", `${N.medianDays} Days`, "since close", NAVY);
+  if (N.kpi3) kpi(s, 6.95, 1.08, 3.05, 1.2, N.kpi3[0], N.kpi3[1], N.kpi3[2], TERRA);
+  else kpi(s, 6.95, 1.08, 3.05, 1.2, "OLDEST", `${N.oldestDays} Days`, N.oldestName, TERRA);
+  if (N.kpi4) kpi(s, 10.2, 1.08, 2.68, 1.2, N.kpi4[0], N.kpi4[1], N.kpi4[2], GOLD);
+  else kpi(s, 10.2, 1.08, 2.68, 1.2, "MEDIAN AGE", `${N.medianDays} Days`, "since close", NAVY);
+  if (N.notes) s.addNotes(N.notes);
 
   // ---- the list --------------------------------------------------------------
   const LX = 0.45, LY = 2.42, LW = 7.3, LH = 4.48;
@@ -814,25 +817,32 @@ if (D.notYetLive) {
   s.addText([{ text: "WON WITH RECURRING REVENUE, NO INVOICE RAISED   ", options: { fontSize: 11, bold: true, color: TEAL } },
              { text: "matched on debtor ID and venue name", options: { fontSize: 6.5, color: FAINT } }],
     { x: LX + 0.22, y: LY + 0.12, w: LW - 0.44, h: 0.26, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
-  const cols = [["VENUE", 0.22, 3.0, "left"], ["ACCOUNT MANAGER", 3.24, 1.5, "left"], ["CLOSED", 4.78, 0.8, "left"],
-                ["DAYS", 5.6, 0.5, "right"], ["MRR/MO", 6.14, 0.84, "right"]];
+  const hasSt = N.rows.some((r) => r[5] !== undefined);
+  // with a status column: venue, AM, closed, days, MRR, then the PS status
+  const CP = hasSt ? { v: [0.22, 2.25], am: [2.5, 0.75], cl: [3.27, 0.5], dy: [3.77, 0.38], mr: [4.17, 0.68], st: [4.98, 2.15] }
+                   : { v: [0.22, 3.0], am: [3.24, 1.5], cl: [4.78, 0.8], dy: [5.6, 0.5], mr: [6.14, 0.84] };
+  const cols = [["VENUE", ...CP.v, "left"], [hasSt ? "AM" : "ACCOUNT MANAGER", ...CP.am, "left"], ["CLOSED", ...CP.cl, "left"],
+                ["DAYS", ...CP.dy, "right"], ["MRR/MO", ...CP.mr, "right"]];
+  if (hasSt) cols.push([N.statusHead || "STATUS", ...CP.st, "left"]);
   cols.forEach(([t2, dx, w, al]) => s.addText(t2, { x: LX + dx, y: LY + 0.44, w, h: 0.2, align: al, fontFace: FONT, fontSize: 6.8, bold: true, color: MUTED, isTextBox: true, margin: 0 }));
-  const RP = Math.min(0.178, (LH - 1.1) / N.rows.length);
+  const RP = Math.min(0.178, (LH - (N.restNote ? 1.3 : 1.1)) / N.rows.length);
   N.rows.forEach((r, i) => {
     const y = LY + 0.68 + i * RP;
     if (i % 2 === 1) s.addShape("rect", { x: LX + 0.14, y, w: LW - 0.28, h: RP, fill: { color: BG }, line: { type: "none" } });
     const old = r[3] > 90;
-    s.addText(r[0], { x: LX + 0.22, y, w: 3.0, h: RP, fontFace: FONT, fontSize: 7.2, bold: old, color: old ? NAVY : MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r[1], { x: LX + 3.24, y, w: 1.5, h: RP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(r[2], { x: LX + 4.78, y, w: 0.8, h: RP, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(String(r[3]), { x: LX + 5.6, y, w: 0.5, h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true,
+    s.addText(r[0], { x: LX + CP.v[0], y, w: CP.v[1], h: RP, fontFace: FONT, fontSize: 7.2, bold: old, color: old ? NAVY : MUTED, isTextBox: true, margin: 0, valign: "middle", fit: "shrink" });
+    s.addText(r[1], { x: LX + CP.am[0], y, w: CP.am[1], h: RP, fontFace: FONT, fontSize: 7, color: MUTED, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(r[2], { x: LX + CP.cl[0], y, w: CP.cl[1], h: RP, fontFace: FONT, fontSize: 7, color: FAINT, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(String(r[3]), { x: LX + CP.dy[0], y, w: CP.dy[1], h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true,
       color: r[3] > 180 ? TERRA : r[3] > 90 ? GOLD : MUTED, isTextBox: true, margin: 0, valign: "middle" });
-    s.addText(fmt$(r[4]), { x: LX + 6.14, y, w: 0.84, h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    s.addText(fmt$(r[4]), { x: LX + CP.mr[0], y, w: CP.mr[1], h: RP, align: "right", fontFace: FONT, fontSize: 7.2, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
+    if (hasSt) s.addText(r[5] || "—", { x: LX + CP.st[0], y, w: CP.st[1], h: RP, fontFace: FONT, fontSize: 6.6, color: r[5] ? NAVY : FAINT, isTextBox: true, margin: 0, valign: "middle", fit: "shrink" });
   });
-  const tY = LY + 0.68 + N.rows.length * RP + 0.04;
+  let tY = LY + 0.68 + N.rows.length * RP + 0.04;
+  if (N.restNote) { s.addText(N.restNote, { x: LX + 0.22, y: tY, w: LW - 0.44, h: 0.2, fontFace: FONT, fontSize: 6.8, italic: true, color: MUTED, isTextBox: true, margin: 0, valign: "middle" }); tY += 0.22; }
   s.addShape("rect", { x: LX + 0.22, y: tY, w: LW - 0.44, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
   s.addText("TOTAL", { x: LX + 0.22, y: tY + 0.04, w: 2.0, h: 0.24, fontFace: FONT, fontSize: 8, bold: true, color: NAVY, isTextBox: true, margin: 0, valign: "middle" });
-  s.addText(fmt$(N.mrr) + "/mo", { x: LX + 5.3, y: tY + 0.04, w: 1.68, h: 0.24, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
+  s.addText(fmt$(N.mrr) + "/mo", { x: LX + CP.mr[0] + CP.mr[1] - 1.68, y: tY + 0.04, w: 1.68, h: 0.24, align: "right", fontFace: FONT, fontSize: 8, bold: true, color: TERRA, isTextBox: true, margin: 0, valign: "middle" });
 
   // ---- ageing ---------------------------------------------------------------
   const RX = 7.95, RW = 4.93;
@@ -1098,7 +1108,8 @@ if (D.supportFlow) {
   // ---- right: where the open tickets sit, then the summary ------------------
   const SX = 7.85, SW = 5.03, SY = CY, SH = 1.55;
   card(s, SX, SY, SW, SH);
-  s.addText([{ text: `WHERE THE ${F.open} OPEN SIT`, options: { fontSize: 10, bold: true, color: TEAL } }],
+  s.addText([{ text: `WHERE THE ${F.stagesOpen ?? F.open} OPEN SIT`, options: { fontSize: 10, bold: true, color: TEAL } },
+             ...(F.stagesAsAt ? [{ text: `   ${F.stagesAsAt}`, options: { fontSize: 6.5, color: FAINT } }] : [])],
     { x: SX + 0.22, y: SY + 0.1, w: SW - 0.44, h: 0.24, fontFace: FONT, isTextBox: true, margin: 0, valign: "middle" });
   const tot = F.stages.reduce((a, st) => a + st[1], 0);
   let bx = SX + 0.22;
