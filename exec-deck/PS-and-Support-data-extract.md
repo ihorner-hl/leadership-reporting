@@ -15,7 +15,7 @@ Build: `cd exec-deck && node build_deck.js data/wc-2026-10-19.json`.
 - **Read-only** against HubSpot. Never write to records; field fixes go to the owners.
 - **Never fabricate.** Anything not yet measurable shows "Not set up", "held" or "as at <date>".
 - The Finance export is called **Sysnet**, never "Xero".
-- Weeks are **Sydney weeks, Sunday to Saturday** (set 9 Nov 2026; earlier decks used Monday–Sunday). "WC 1 Nov" = Sun 1 – Sat 7 Nov 2026. Backlog is measured at the end of Saturday.
+- Weeks are **Sydney weeks, Monday to Sunday** (confirmed 9 Nov 2026). "WC 2 Nov" = Mon 2 – Sun 8 Nov 2026. Backlog is measured at the end of Sunday.
 - Uploaded spreadsheets (P&L, commissions) are not committed. Only derived figures go into the data JSON.
 
 ## 1. HubSpot reference IDs
@@ -81,7 +81,7 @@ Excluded (not PS): Anton Lopez 366307925, Bjorn Magabo 366307949, and others.
 - **Aggregations are unreliable at day edges.** `query_crm_data` matches aggregation date filters by UTC day, not Sydney day.
   - Exact weekly counts: use `search_crm_objects` with epoch-millisecond `BETWEEN` filters and read `total`.
   - Alternatively, run a plain row `SELECT` with a timestamp literal (`'2026-10-19 00:00:00'`), which is read as Sydney time.
-- **`DATE_TRUNC(x,'WEEK')` buckets Monday–Sunday**, so for Sunday–Saturday weeks pull `DATE_TRUNC(x,'DAY')` (Sydney days) and sum them. Start the lower filter a week early, or the first bucket is cut short.
+- **`DATE_TRUNC(x,'WEEK')` matches Sydney weeks.** Start the lower filter a week early, or the first bucket is cut short.
 - **Large results get saved to a file.** Anything over about 40k characters lands in `tool-results/…txt`. Parse it with:
   ```python
   rows = [json.loads(r["content"])["properties"] for r in json.load(open(f))["results"]]
@@ -116,7 +116,7 @@ WHERE hs_pipeline IN ('2026136017','2026202606','2026349046','2026349047','20691
 LIMIT 500
 ```
 
-Keep only the 9 PS owner IDs. Assign each ticket to a week by `createdate` converted to Australia/Sydney, Sunday start.
+Keep only the 9 PS owner IDs. Assign each ticket to a week by `createdate` converted to Australia/Sydney, Monday start.
 For company and account grouping, run a second query:
 
 ```sql
