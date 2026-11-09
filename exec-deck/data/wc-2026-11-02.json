@@ -73,7 +73,7 @@
   "finance": "Q4 hardware $273k = 38% of the $715k OKR2 against a 42% pace mark — $99.8k this week, Jasmine $59.7k of it (AVC new sites); $229.5k AVC scanner invoice still held",
   "sales": "Q4 new MRR $8.3k (AVC excluded) = 30% of OKR2 against a 42% pace mark; the week nets +$1,148 with no churn — Gastevski and Bed Ford Arms went live",
   "ps": "billable utilisation 9.3% — 31.9h of 342h (no leave advised); 24.3h chargeable, 7.6h non-chargeable; last week restated to 12.2%; Q4 hidden work 69h = $10,364",
-  "support": "inflow 438 vs resolved 580 — backlog 335 → 206, fifth straight fall; first response 18.5 → 13.4 hrs; ~95% of calls answered (team-reported)",
+  "support": "inflow 438 vs resolved 580 — backlog 335 → 203, fifth straight fall; first response 18.5 → 13.4 hrs; ~95% of calls answered (team-reported)",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now eight weeks pending",
   "aiUsage": "45 of 49 active weekly (▲4.7% WoW); 752 PRs in Code over 30 days (▲309%); 428k lines accepted 1–8 Nov after October's 1.86M; daily actives held at 19 Oct"
  },
@@ -2255,8 +2255,8 @@
  },
  "supportFlow": {
   "source": "HubSpot Support pipeline only",
-  "open": 206,
-  "openNote": "as at Sun 8 Nov · 335 a week ago",
+  "open": 203,
+  "openNote": "as at end of Sun 8 Nov (stage history) · 335 a week ago",
   "medianAgeDays": 16,
   "medianAgeNote": "all open tickets · median created 23 Oct",
   "frt": {
@@ -2397,8 +2397,8 @@
   "chartNote": "",
   "bullets": [
    [
-    "Open tickets down to 206 — a third of where they were a month ago.",
-    "580 closed against 438 new, a fifth straight fall; 163 open on Monday. The team reports answering about 95% of calls, up from 50–60%, and the last September tickets clear today."
+    "Open tickets down to 203 — from 335 a week earlier.",
+    "580 closed against 438 new, a fifth straight fall. The team reports answering about 95% of calls, up from 50–60%, and the last September tickets clear today."
    ],
    [
     "Every response measure improved.",
@@ -2413,22 +2413,22 @@
   "stages": [
    [
     "NEW",
-    75,
+    112,
     false
    ],
    [
     "IN PROGRESS",
-    22,
+    28,
     false
    ],
    [
     "PENDING INTERNAL",
-    18,
+    24,
     true
    ],
    [
     "PENDING EXTERNAL",
-    48,
+    39,
     true
    ]
   ],
@@ -2436,7 +2436,7 @@
   "kpis": [
    {
     "label": "OPEN BACKLOG",
-    "value": "206",
+    "value": "203",
     "sub": "▼ from 335 last week",
     "tone": "good"
    },
@@ -2478,8 +2478,8 @@
    },
    "basis": "new Support tickets by ticket Source (source_type); other = unassigned or internal"
   },
-  "stagesOpen": 163,
-  "stagesAsAt": "MON 9 NOV · 206 AT SUN − 54 CLOSED MON + 11 NEW"
+  "stagesOpen": 203,
+  "stagesAsAt": "AS AT END OF SUN 8 NOV"
  },
  "psTime": {
   "source": "HubSpot PS-pipeline tickets (live, read 25 Oct)",

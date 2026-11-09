@@ -283,7 +283,7 @@ Each box shows this week against last week.
 **Open backlog**
 - Count where `hs_pipeline_stage != '3484913083'`, taken at the end of the week.
 - Live: `SELECT hs_pipeline_stage, COUNT(*) … GROUP BY hs_pipeline_stage`.
-- As at a past date: tickets created before it that are either still open or closed after it.
+- As at the end of the week (Sunday 23:59 Sydney), use **stage history**, not today's stage. Pull every Support ticket created before the cutoff that is either open now or has `closed_date` after it, with `hs_v2_date_entered_<stageId>` and `hs_v2_date_exited_<stageId>` for all five stages. A ticket's stage at the cutoff is the stage it had entered on or before the cutoff and not yet left. Tickets that were closed at the cutoff and reopened later drop out (WC 2 Nov: 206 candidates → 203 open).
 
 **Voice : Email**
 - New tickets in the week by `source_type`, PHONE ÷ EMAIL.
@@ -305,6 +305,7 @@ Each box shows this week against last week.
 ### "Where the open sit" box
 
 - Open tickets by stage (New / In Progress / Pending Internal / Pending External), with a composition bar.
+- **Must sum to the Open Backlog figure.** Take the split from the same stage-history read, as at the end of Sunday, never the live Monday count. (WC 2 Nov: New 112 · In Progress 28 · Pending Internal 24 · Pending External 39 = 203.)
 - It sits above the AI summary.
 
 ### WC 19 Oct figures as published
