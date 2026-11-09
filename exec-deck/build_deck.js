@@ -903,7 +903,7 @@ if (D.notYetLive) {
   s.addText(M.note, { x: WX + 0.22, y: WY + WH - 0.38, w: WW - 0.44, h: 0.32, fontFace: FONT, fontSize: 6.2, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
 
   const KX = 7.95, KW = 4.93;
-  kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, `${w.awaitingDeals} of the ${w.wonDeals2026} deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it`, GOLD, 20);
+  kpi(s, KX, 1.1, KW, 0.98, "AWAITING INVOICE — ARR", `$${w.awaitingArrK}k`, w.awaitingNote || `${w.awaitingDeals} of the ${w.wonDeals2026} deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it`, GOLD, 20);
   kpi(s, KX, 2.18, KW, 0.98, `CHURNED ARR · ${w.churnFrom}`, w.churnedArrLabel, `${w.logosLost} logos · ${w.churnNote}`, TERRA, 20);
   kpi(s, KX, 3.26, KW, 0.99, `NET MRR MOVEMENT · ${QTR}`, `${w.netMrrQ3K < 0 ? "-" : "+"}$${Math.abs(w.netMrrQ3K)}k`, w.netMrrNote, TERRA, 20);
 

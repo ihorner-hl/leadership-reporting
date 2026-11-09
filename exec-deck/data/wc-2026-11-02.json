@@ -692,8 +692,7 @@
     "Jul",
     "Aug",
     "Sep",
-    "Oct",
-    "Nov"
+    "Oct"
    ],
    "won": [
     4077,
@@ -705,8 +704,7 @@
     969,
     1935,
     8130,
-    9186,
-    1965
+    9186
    ],
    "invoiced": [
     2829,
@@ -718,15 +716,13 @@
     4860,
     3700,
     6853,
-    5059,
-    5090
+    5059
    ],
-   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132",
-   "seriesNote": "Nov is 1–8 Nov"
+   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132"
   },
-  "awaitingArrK": 494,
-  "awaitingDeals": 146,
-  "wonDeals2026": 279,
+  "awaitingArrK": 241,
+  "awaitingDeals": 24,
+  "wonDeals2026": 86,
   "churnedArrK": 1312,
   "logosLost": 278,
   "churnedMrr": 109521,
@@ -744,36 +740,12 @@
     "Signed · 49 sites · live mid-Jan"
    ],
    [
-    "Hotel Grand Chancellor - Adelaide",
-    "$95k",
-    "$7,900",
-    "Jun",
-    1,
-    ""
-   ],
-   [
-    "BRG - Club Hotel Roma",
-    "$10k",
-    "$857",
+    "Mt Henry Tavern",
+    "$11k",
+    "$905",
     "Oct",
     1,
-    "Won 30 Oct · new"
-   ],
-   [
-    "Terminus Hotel - Strathalbyn",
-    "$10k",
-    "$850",
-    "Apr",
-    1,
-    ""
-   ],
-   [
-    "Moon Dog Wild West Geelong",
-    "$9k",
-    "$714",
-    "Nov",
-    1,
-    "Won 6 Nov · new"
+    "Invoiced 1 Nov ($543)"
    ],
    [
     "Caves House Hotel",
@@ -781,10 +753,10 @@
     "$669",
     "Aug",
     1,
-    "PS: done last qtr · no invoice"
+    "PS: done last qtr · not on register"
    ],
    [
-    "Pier Hotel",
+    "Pier Hotel - Pt Lincoln",
     "$8k",
     "$648",
     "Oct",
@@ -800,23 +772,47 @@
     "Venue still building · ~Dec"
    ],
    [
-    "New Whyalla Hotel",
-    "$7k",
-    "$606",
-    "Apr",
+    "The Berrigan",
+    "$6k",
+    "$475",
+    "Mar",
     1,
     ""
    ],
    [
-    "Astor Hotel (SA)",
-    "$7k",
-    "$597",
-    "Nov",
+    "Bar Carolina",
+    "$6k",
+    "$474",
+    "Oct",
     1,
-    "CoO 3 Nov · invoice due"
+    "VM + DB up 9 Nov · build under way"
+   ],
+   [
+    "Hotel Augusta",
+    "$5k",
+    "$410",
+    "Jun",
+    1,
+    ""
+   ],
+   [
+    "The Star Hotel (Milton)",
+    "$5k",
+    "$392",
+    "Oct",
+    1,
+    ""
+   ],
+   [
+    "Bar Orient",
+    "$5k",
+    "$377",
+    "Sep",
+    1,
+    ""
    ]
   ],
-  "listNote": "◆ Oscars Group — 49 sites (the HubSpot deal reads 19), build Dec–Jan, go-live mid-January. Awaiting = every 2026 deal with recurring revenue and no Net New/Expansion row on the register, matched on debtor ID then venue name (AVC excluded). 39 of the 146 lack a Debtor ID.",
+  "listNote": "◆ Oscars Group — 49 sites (the HubSpot deal reads 19), build Dec–Jan, go-live mid-January. Awaiting figure and list held at the 26 Oct read. AVC new sites are excluded throughout.",
   "hubspotMrr": {
    "q3Won": 12061,
    "weekWon": 3440,
@@ -825,16 +821,16 @@
   },
   "bullets": [
    [
-    "November has started: $1,965 won, $5,090 invoiced to 8 Nov.",
-    "Six deals won this week — Moon Dog Wild West Geelong ($714), Astor Hotel change of ownership ($597), Pathways Killara Gardens ($333) and Longueville ($245). The 1 Nov expansion rows carry most of the invoiced figure."
+    "October closed: $9,186 won, $5,059 invoiced.",
+    "November to 8 Nov has won $1,965 across six deals — Moon Dog Wild West Geelong ($714), Astor Hotel change of ownership ($597), Pathways Killara Gardens ($333) and Longueville ($245) — and invoiced $5,090, most of it the 1 Nov expansion rows."
    ],
    [
-    "Go-lives: Gastevski and Bed Ford Arms are now billing.",
-    "Seven deals ($1.2k/mo) reached the register. PS: Rising Sun goes live Tue 10 Nov, Pathways Killara Gardens Mon 16 Nov and Pier Hotel Tue 17 Nov; Bar Carolina's VM and database went up today."
+    "No churn this week; Q4 now −$3.4k net.",
+    "New MRR $10.1k against churn $10.7k, contraction $2.3k and credits $0.5k. Gastevski Australind and Bed Ford Arms went live and are now billing."
    ],
    [
-    "$41.2k/mo of won revenue is still not billing.",
-    "146 deals, 75 of them over 90 days old. Oscars ($12,880) and Hotel Grand Chancellor Adelaide ($7,900) are half of it."
+    "Onboarding (PS, 9 Nov): three go-lives booked.",
+    "Rising Sun Tue 10 Nov, Pathways Killara Gardens Mon 16 Nov and Pier Hotel Tue 17 Nov. Bar Carolina's VM and database went up today; Oscars builds over Dec–Jan for mid-January."
    ]
   ],
   "churnedArrLabel": "$1.31M",
@@ -842,7 +838,8 @@
   "contractionAccounts": 151,
   "pendingIntegrationsMrr": 2339,
   "pendingIntegrationsN": 42,
-  "statusHead": "STATUS · PS 9 NOV"
+  "statusHead": "STATUS · PS 9 NOV",
+  "awaitingNote": "24 of the 86 deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it · held at the 26 Oct read"
  },
  "backlog": {
   "source": "HubSpot (live) — cut over from Creatio",
