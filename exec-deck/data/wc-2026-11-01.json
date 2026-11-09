@@ -1,14 +1,14 @@
 {
  "week": {
-  "label": "Week commencing 2 November 2026",
-  "wc": "2026-11-02",
-  "range": "Mon 2 Nov – Sun 8 Nov 2026",
+  "label": "Week commencing 1 November 2026",
+  "wc": "2026-11-01",
+  "range": "Sun 1 Nov – Sat 7 Nov 2026",
   "generated": "9 Nov 2026",
   "quarter": "Q4",
-  "quarterPacePct": 42,
-  "quarterPaceNote": "Q4 (Oct–Dec) · 39 of 92 days elapsed",
-  "monthPacePct": 27,
-  "notes": "Built 9 Nov: HubSpot read to Sun 8 Nov; Sysnet weekly sales 3–8 Nov, MRR register (9 Nov) and H&L Pay register folded in; PS Weekly and Support Weekly (9 Nov) notes. ValPay export and GTM tracker not received — held. PS leave for the week not yet advised."
+  "quarterPacePct": 41,
+  "quarterPaceNote": "Q4 (Oct–Dec) · 38 of 92 days elapsed",
+  "monthPacePct": 23,
+  "notes": "Weeks now run Sunday–Saturday (restated from Mon–Sun). Built 9 Nov: HubSpot read to Sat 7 Nov; Sysnet weekly sales 3–8 Nov, MRR register (9 Nov) and H&L Pay register; PS Weekly and Support Weekly (9 Nov) notes. ValPay export and GTM tracker held. PS leave not yet advised."
  },
  "cutover": {
   "creatioLastExtract": "2026-09-04",
@@ -70,26 +70,26 @@
   "showSlide": false
  },
  "execSummary": {
-  "finance": "Q4 hardware $273k = 38% of the $715k OKR2 against a 42% pace mark — $99.8k this week, Jasmine $59.7k of it (AVC new sites); $229.5k AVC scanner invoice still held",
-  "sales": "Q4 new MRR $8.3k (AVC excluded) = 30% of OKR2 against a 42% pace mark; the week nets +$1,148 with no churn — Gastevski and Bed Ford Arms went live",
-  "ps": "billable utilisation 9.3% — 31.9h of 342h (no leave advised); 24.3h chargeable, 7.6h non-chargeable; last week restated to 12.2%; Q4 hidden work 69h = $10,364",
-  "support": "inflow 438 vs resolved 580 — backlog 335 → 206, fifth straight fall; first response 18.5 → 13.4 hrs; ~95% of calls answered (team-reported)",
+  "finance": "Q4 hardware $273k = 38% of the $715k OKR2 against a 41% pace mark — $99.8k this week, Jasmine $59.7k of it (AVC new sites); $229.5k AVC scanner invoice still held",
+  "sales": "Q4 new MRR $8.3k (AVC excluded) = 30% of OKR2 against a 41% pace mark; the week (Sun–Sat) nets +$4,164 with no churn",
+  "ps": "billable utilisation 9.3% — 31.9h of 342h (no leave advised); 24.3h chargeable, 7.6h non-chargeable; last week restated to 12.5%; Q4 hidden work 69h = $10,364",
+  "support": "inflow 444 vs resolved 580 — backlog 344 → 207 (Sat to Sat); first response 13.8 hrs; ~95% of calls answered (team-reported)",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now eight weeks pending",
   "aiUsage": "45 of 49 active weekly (▲4.7% WoW); 752 PRs in Code over 30 days (▲309%); 428k lines accepted 1–8 Nov after October's 1.86M; daily actives held at 19 Oct"
  },
  "targetVsInvoiced": {
-  "source": "Sysnet weekly sales 3–8 Nov + MRR movement register (9 Nov) · AVC scanner re-bill still held pending Finance",
+  "source": "Sysnet weekly sales 3–8 Nov + MRR register (9 Nov) · weeks Sun–Sat · AVC re-bill held",
   "extractWeek": "3–8 Nov",
   "mrr": {
    "okr2": 28000,
    "team": 30000,
    "qtd": 8267,
-   "asAt": "8 Nov",
-   "deltaWk": 1236,
-   "netDeltaWk": 1148,
+   "asAt": "7 Nov",
+   "deltaWk": 4252,
+   "netDeltaWk": 4164,
    "live": true,
-   "basis": "Net New Customers + Expansion, Date of Invoice on or before 8 Nov · AVC sites excluded (licences sold outright, no MRR) · ValPay shown separately",
-   "deltaNote": "$1,236 of new MRR invoiced 2–8 Nov — Gastevski Australind ($524) and Bed Ford Arms ($495) went live — against $88 of contraction (Kost) and no churn, so the week nets +$1,148. AVC Stock Exchange and Hervey Bay rows are excluded.",
+   "basis": "Net New Customers + Expansion, Date of Invoice on or before 7 Nov · AVC sites excluded (licences sold outright, no MRR) · ValPay shown separately",
+   "deltaNote": "$4,252 of new MRR invoiced Sun 1–Sat 7 Nov — the 1 Nov expansion rows ($3,016) plus Gastevski Australind ($524) and Bed Ford Arms ($495) going live — against $88 of contraction and no churn, so the week nets +$4,164.",
    "targetNote": "Q3 OKR2 and team targets carried forward — no Q4 target set"
   },
   "hardware": {
@@ -106,7 +106,7 @@
     "hwTgt": 140000,
     "hwQtd": 38305,
     "hwDelta": 26910,
-    "mrrDelta": 1019
+    "mrrDelta": 1737
    },
    {
     "name": "Brett Gorman",
@@ -115,7 +115,7 @@
     "hwTgt": 143000,
     "hwQtd": 60369,
     "hwDelta": 2790,
-    "mrrDelta": 32
+    "mrrDelta": 98
    },
    {
     "name": "Bradford Young",
@@ -124,7 +124,7 @@
     "hwTgt": 163000,
     "hwQtd": 43700,
     "hwDelta": 10370,
-    "mrrDelta": 97
+    "mrrDelta": 826
    },
    {
     "name": "Jasmine Hikuroa",
@@ -133,7 +133,7 @@
     "hwTgt": 214000,
     "hwQtd": 92855,
     "hwDelta": 59715,
-    "mrrDelta": 0
+    "mrrDelta": 1356
    },
    {
     "name": "Phuong Ho",
@@ -142,7 +142,7 @@
     "hwTgt": 55000,
     "hwQtd": 38122,
     "hwDelta": 0,
-    "mrrDelta": 0
+    "mrrDelta": 147
    },
    {
     "name": "Mick Teasdale",
@@ -169,12 +169,12 @@
   "bullets": [
    [
     "Hardware added $99,785 — Jasmine $59,715 of it.",
-    "AVC's new Stock Exchange ($25,228), Hervey Bay ($21,676) and Hervey Bay Shop ($5,394) sites, Bedford Arms ($10,830) and Australind ($8,610). Q4 is $273,351 — 38% of the $715k OKR2 against a 42% pace mark, the closest it has been to pace this quarter.",
+    "AVC's new Stock Exchange ($25,228), Hervey Bay ($21,676) and Hervey Bay Shop ($5,394) sites, Bedford Arms ($10,830) and Australind ($8,610). Q4 is $273,351 — 38% of the $715k OKR2 against a 41% pace mark, the closest it has been to pace this quarter.",
     "green"
    ],
    [
-    "MRR up $1,148 net, with no churn this week.",
-    "$1,236 of new MRR: Gastevski Australind and Bed Ford Arms went live. AVC sites are now excluded — their licences are sold outright and carry no MRR in HubSpot — which takes $1,882 out of Q4. Q4 new MRR is $8,267 — 30% of the $28k OKR2 against a 42% pace mark.",
+    "MRR up $4,164 net, with no churn this week.",
+    "On the Sunday–Saturday week the 1 Nov expansion rows land here — Lucas Collective's 11 sites, Mt Henry and Warooka — alongside Gastevski Australind and Bed Ford Arms going live. AVC sites are excluded (licences sold outright, no MRR). Q4 new MRR is $8,267 — 30% of the $28k OKR2 against a 41% pace mark.",
     "green"
    ],
    [
@@ -729,7 +729,7 @@
   "churnFrom": "2025→",
   "churnNote": "MRR movement register, 9 Nov · AVC excluded · no new churn this week",
   "netMrrQ3K": -5.0,
-  "netMrrNote": "Q4 to 8 Nov, AVC excluded · new $8.3k − churn $10.4k − contraction $2.3k − credits $0.5k",
+  "netMrrNote": "Q4 to 7 Nov, AVC excluded · new $8.3k − churn $10.4k − contraction $2.3k − credits $0.5k",
   "topNotInvoiced": [
    [
     "Oscars Hotels",
@@ -822,7 +822,7 @@
   "bullets": [
    [
     "October closed: $9,186 won, $4,015 invoiced.",
-    "Both series now exclude AVC. November to 8 Nov has won $1,965 across six deals — Moon Dog Wild West Geelong ($714), Astor Hotel ($597), Pathways Killara Gardens ($333) and Longueville ($245) — and invoiced $4,252, most of it the 1 Nov expansion rows."
+    "Both series now exclude AVC. November to 7 Nov has won $1,965 across six deals — Moon Dog Wild West Geelong ($714), Astor Hotel ($597), Pathways Killara Gardens ($333) and Longueville ($245) — and invoiced $4,252, most of it the 1 Nov expansion rows."
    ],
    [
     "No churn this week; Q4 now −$5.0k net.",
@@ -2255,154 +2255,154 @@
  },
  "supportFlow": {
   "source": "HubSpot Support pipeline only",
-  "open": 206,
-  "openNote": "as at Sun 8 Nov · 335 a week ago",
-  "medianAgeDays": 16,
+  "open": 207,
+  "openNote": "as at Sat 7 Nov · 344 a week earlier",
+  "medianAgeDays": 15,
   "medianAgeNote": "all open tickets · median created 23 Oct",
   "frt": {
-   "value": "13.4 Hours",
-   "note": "median 2.2h · 74 of 438 new tickets have an email reply · last week 18.5h"
+   "value": "13.8 Hours",
+   "note": "median 2.3h · 77 of 444 new tickets have an email reply · last week now reads 58.2h as late replies landed"
   },
   "ttc": {
-   "value": "10.9 Days",
-   "note": "median 6.4 hours · all 580 closed · 81 August–September tickets cleared"
+   "value": "10.5 Days",
+   "note": "median 6.1 hours · all 580 closed · 81 August–September tickets cleared"
   },
   "weeks": [
    {
-    "label": "11 May",
-    "new": 391,
+    "label": "10 May",
+    "new": 384,
     "closed": 319
    },
    {
-    "label": "18 May",
-    "new": 362,
+    "label": "17 May",
+    "new": 361,
+    "closed": 301
+   },
+   {
+    "label": "24 May",
+    "new": 322,
+    "closed": 400
+   },
+   {
+    "label": "31 May",
+    "new": 328,
+    "closed": 289
+   },
+   {
+    "label": "7 Jun",
+    "new": 352,
+    "closed": 373
+   },
+   {
+    "label": "14 Jun",
+    "new": 383,
+    "closed": 389
+   },
+   {
+    "label": "21 Jun",
+    "new": 335,
     "closed": 287
    },
    {
-    "label": "25 May",
-    "new": 322,
-    "closed": 406
+    "label": "28 Jun",
+    "new": 367,
+    "closed": 305
    },
    {
-    "label": "1 Jun",
-    "new": 325,
-    "closed": 292
-   },
-   {
-    "label": "8 Jun",
-    "new": 355,
-    "closed": 371
-   },
-   {
-    "label": "15 Jun",
-    "new": 384,
-    "closed": 402
-   },
-   {
-    "label": "22 Jun",
-    "new": 324,
-    "closed": 266
-   },
-   {
-    "label": "29 Jun",
-    "new": 372,
-    "closed": 315
-   },
-   {
-    "label": "6 Jul",
+    "label": "5 Jul",
     "new": 331,
-    "closed": 487
+    "closed": 496
    },
    {
-    "label": "13 Jul",
-    "new": 333,
-    "closed": 524
+    "label": "12 Jul",
+    "new": 331,
+    "closed": 513
    },
    {
-    "label": "20 Jul",
-    "new": 306,
-    "closed": 329
+    "label": "19 Jul",
+    "new": 309,
+    "closed": 349
    },
    {
-    "label": "27 Jul",
-    "new": 425,
-    "closed": 359
+    "label": "26 Jul",
+    "new": 421,
+    "closed": 331
    },
    {
-    "label": "3 Aug",
-    "new": 432,
-    "closed": 292
+    "label": "2 Aug",
+    "new": 435,
+    "closed": 313
    },
    {
-    "label": "10 Aug",
-    "new": 644,
-    "closed": 465
-   },
-   {
-    "label": "17 Aug",
-    "new": 466,
-    "closed": 454
-   },
-   {
-    "label": "24 Aug",
-    "new": 412,
-    "closed": 343
-   },
-   {
-    "label": "31 Aug",
-    "new": 451,
-    "closed": 347
-   },
-   {
-    "label": "14 Sep",
-    "new": 492,
-    "closed": 607
-   },
-   {
-    "label": "21 Sep",
-    "new": 490,
-    "closed": 419
-   },
-   {
-    "label": "28 Sep",
-    "new": 450,
-    "closed": 431
-   },
-   {
-    "label": "5 Oct",
-    "new": 417,
+    "label": "9 Aug",
+    "new": 617,
     "closed": 426
    },
    {
-    "label": "12 Oct",
-    "new": 561,
-    "closed": 608
+    "label": "16 Aug",
+    "new": 491,
+    "closed": 482
    },
    {
-    "label": "19 Oct",
-    "new": 395,
-    "closed": 595
+    "label": "23 Aug",
+    "new": 411,
+    "closed": 339
    },
    {
-    "label": "26 Oct",
-    "new": 461,
-    "closed": 517
+    "label": "30 Aug",
+    "new": 457,
+    "closed": 378
    },
    {
-    "label": "2 Nov",
-    "new": 438,
+    "label": "13 Sep",
+    "new": 497,
+    "closed": 605
+   },
+   {
+    "label": "20 Sep",
+    "new": 488,
+    "closed": 418
+   },
+   {
+    "label": "27 Sep",
+    "new": 452,
+    "closed": 429
+   },
+   {
+    "label": "4 Oct",
+    "new": 417,
+    "closed": 421
+   },
+   {
+    "label": "11 Oct",
+    "new": 557,
+    "closed": 607
+   },
+   {
+    "label": "18 Oct",
+    "new": 400,
+    "closed": 592
+   },
+   {
+    "label": "25 Oct",
+    "new": 452,
+    "closed": 508
+   },
+   {
+    "label": "1 Nov",
+    "new": 444,
     "closed": 580
    }
   ],
   "chartNote": "",
   "bullets": [
    [
-    "Open tickets down to 206 — a third of where they were a month ago.",
-    "580 closed against 438 new, a fifth straight fall; 163 open on Monday. The team reports answering about 95% of calls, up from 50–60%, and the last September tickets clear today."
+    "Open tickets down to 207 — from 344 a week earlier.",
+    "580 closed against 444 new; another 60 closed Sunday–Monday, leaving 163 open. The team reports answering about 95% of calls, up from 50–60%, and the last September tickets clear today."
    ],
    [
-    "Every response measure improved.",
-    "First response 13.4 hrs (median 2.2h), down from 18.5; time to close 10.9 days on average but a 6.4-hour median, lifted by 81 August–September tickets cleared."
+    "Response times improved.",
+    "First response 13.8 hrs (median 2.3h); last week has risen to 58.2h on re-read as late email replies landed. Time to close 10.5 days on average, 6.1-hour median, lifted by 81 August–September tickets cleared."
    ],
    [
     "Tier 2 is now the pressure point.",
@@ -2436,8 +2436,8 @@
   "kpis": [
    {
     "label": "OPEN BACKLOG",
-    "value": "206",
-    "sub": "▼ from 335 last week",
+    "value": "207",
+    "sub": "▼ from 344 last week",
     "tone": "good"
    },
    {
@@ -2448,38 +2448,38 @@
    },
    {
     "label": "MEDIAN TICKET AGE",
-    "value": "16 Days",
-    "sub": "▼ from 19 days last week",
+    "value": "15 Days",
+    "sub": "▼ from 17 days last week",
     "tone": "good"
    },
    {
     "label": "AVG FIRST RESPONSE",
-    "value": "13.4 Hrs",
-    "sub": "▼ from 18.5 hrs last week",
+    "value": "13.8 Hrs",
+    "sub": "▼ from 58.2 hrs last week",
     "tone": "good"
    },
    {
     "label": "AVG TIME TO CLOSE",
-    "value": "10.9 Days",
-    "sub": "▼ from 11.4 days last week",
+    "value": "10.5 Days",
+    "sub": "▼ from 11.6 days last week",
     "tone": "good"
    }
   ],
   "voiceEmail": {
    "week": {
-    "phone": 302,
-    "email": 125,
+    "phone": 305,
+    "email": 127,
     "other": 12
    },
    "lastWeek": {
-    "phone": 311,
-    "email": 136,
+    "phone": 307,
+    "email": 131,
     "other": 14
    },
    "basis": "new Support tickets by ticket Source (source_type); other = unassigned or internal"
   },
   "stagesOpen": 163,
-  "stagesAsAt": "MON 9 NOV · 206 AT SUN − 54 CLOSED MON + 11 NEW"
+  "stagesAsAt": "LIVE MON 9 NOV · 207 SAT − 60 CLOSED + 16 NEW"
  },
  "psTime": {
   "source": "HubSpot PS-pipeline tickets (live, read 25 Oct)",
@@ -2569,14 +2569,14 @@
     "label": "TOTAL HOURS LOGGED",
     "value": "31.9h",
     "side": "of 342h",
-    "sub": "▼ from 41.8h last week",
+    "sub": "▼ from 42.8h last week",
     "tone": "bad"
    },
    {
     "label": "BILLABLE UTILISATION",
     "value": "9.3%",
     "side": "target 50%",
-    "sub": "▼ from 12.2% last week",
+    "sub": "▼ from 12.5% last week",
     "tone": "bad",
     "group": "parent"
    },
@@ -2584,7 +2584,7 @@
     "label": "BILLABLE · CHARGEABLE",
     "value": "24.3h",
     "side": "76% of billable",
-    "sub": "▼ from 29.5h (71%) last week",
+    "sub": "▼ from 29.5h (69%) last week",
     "tone": "flat",
     "group": "child"
    },
@@ -2592,7 +2592,7 @@
     "label": "BILLABLE · NON-CHARGEABLE",
     "value": "7.6h",
     "side": "24% of billable",
-    "sub": "▼ from 12.3h (29%) last week",
+    "sub": "▼ from 13.3h (31%) last week",
     "tone": "flat",
     "group": "child"
    },
@@ -2736,7 +2736,7 @@
    ],
    [
     "Logging still trails the work.",
-    "Last week restated from 29.0h to 41.8h. Investment and overhead buckets (travel included) roll out this week."
+    "Last week restated from 29.0h to 42.8h. Investment and overhead buckets (travel included) roll out this week."
    ]
   ],
   "weekly": {
@@ -2815,23 +2815,23 @@
   "wow": {
    "rows": [
     {
-     "label": "19–25 Oct",
-     "billable": 53.18,
+     "label": "18–24 Oct",
+     "billable": 52.18,
      "yes": 48.48,
-     "no": 4.7,
-     "util": 18.4,
+     "no": 3.7,
+     "util": 18.1,
      "first": 11.5
     },
     {
-     "label": "26 Oct–1 Nov",
-     "billable": 41.77,
+     "label": "25–31 Oct",
+     "billable": 42.77,
      "yes": 29.5,
-     "no": 12.27,
-     "util": 12.2,
+     "no": 13.27,
+     "util": 12.5,
      "first": 29.02
     },
     {
-     "label": "2–8 Nov",
+     "label": "1–7 Nov",
      "billable": 31.85,
      "yes": 24.25,
      "no": 7.6,
