@@ -71,7 +71,7 @@
  },
  "execSummary": {
   "finance": "Q4 hardware $273k = 38% of the $715k OKR2 against a 42% pace mark — $99.8k this week, Jasmine $59.7k of it (AVC new sites); $229.5k AVC scanner invoice still held",
-  "sales": "Q4 new MRR $10.1k = 36% of OKR2 against a 42% pace mark; the week nets +$1,986 with no churn — Gastevski and Bed Ford Arms went live",
+  "sales": "Q4 new MRR $8.3k (AVC excluded) = 30% of OKR2 against a 42% pace mark; the week nets +$1,148 with no churn — Gastevski and Bed Ford Arms went live",
   "ps": "billable utilisation 9.3% — 31.9h of 342h (no leave advised); 24.3h chargeable, 7.6h non-chargeable; last week restated to 12.2%; Q4 hidden work 53h = $7,955",
   "support": "inflow 438 vs resolved 580 — backlog 335 → 206, fifth straight fall; first response 18.5 → 13.4 hrs; ~95% of calls answered (team-reported)",
   "product": "Q3 roadmap as at 19 Sep: 10 done · 12 on track · 3 not started · 2 at risk — tracker refresh now eight weeks pending",
@@ -83,13 +83,13 @@
   "mrr": {
    "okr2": 28000,
    "team": 30000,
-   "qtd": 10149,
+   "qtd": 8267,
    "asAt": "8 Nov",
-   "deltaWk": 2074,
-   "netDeltaWk": 1986,
+   "deltaWk": 1236,
+   "netDeltaWk": 1148,
    "live": true,
-   "basis": "Net New Customers + Expansion, Date of Invoice on or before 8 Nov · ValPay shown separately",
-   "deltaNote": "$2,074 of new MRR invoiced 2–8 Nov — Gastevski Australind ($524) and Bed Ford Arms ($495) went live, plus AVC Stock Exchange and Hervey Bay — against $88 of contraction (Kost) and no churn, so the week nets +$1,986.",
+   "basis": "Net New Customers + Expansion, Date of Invoice on or before 8 Nov · AVC sites excluded (licences sold outright, no MRR) · ValPay shown separately",
+   "deltaNote": "$1,236 of new MRR invoiced 2–8 Nov — Gastevski Australind ($524) and Bed Ford Arms ($495) went live — against $88 of contraction (Kost) and no churn, so the week nets +$1,148. AVC Stock Exchange and Hervey Bay rows are excluded.",
    "targetNote": "Q3 OKR2 and team targets carried forward — no Q4 target set"
   },
   "hardware": {
@@ -129,11 +129,11 @@
    {
     "name": "Jasmine Hikuroa",
     "mrrTgt": 6000,
-    "mrrQtd": 4146,
+    "mrrQtd": 2264,
     "hwTgt": 214000,
     "hwQtd": 92855,
     "hwDelta": 59715,
-    "mrrDelta": 838
+    "mrrDelta": 0
    },
    {
     "name": "Phuong Ho",
@@ -173,8 +173,8 @@
     "green"
    ],
    [
-    "MRR up $1,986 net, with no churn this week.",
-    "$2,074 of new MRR: Gastevski Australind and Bed Ford Arms went live, and AVC's Stock Exchange and Hervey Bay sites started billing. Q4 new MRR is $10,149 — 36% of the $28k OKR2 against a 42% pace mark.",
+    "MRR up $1,148 net, with no churn this week.",
+    "$1,236 of new MRR: Gastevski Australind and Bed Ford Arms went live. AVC sites are now excluded — their licences are sold outright and carry no MRR in HubSpot — which takes $1,882 out of Q4. Q4 new MRR is $8,267 — 30% of the $28k OKR2 against a 42% pace mark.",
     "green"
    ],
    [
@@ -680,7 +680,7 @@
   "availableCalc": "9 × 38h = 342h available — no leave advised for the week"
  },
  "wonVsInvoiced": {
-  "source": "HubSpot closed-won deals (total_software_cost, AVC excluded) + MRR movement register (9 Nov)",
+  "source": "HubSpot closed-won deals (total_software_cost) + MRR movement register (9 Nov) · AVC excluded from both",
   "monthly": {
    "labels": [
     "Jan",
@@ -708,28 +708,28 @@
    ],
    "invoiced": [
     2829,
-    5205,
-    5883,
-    3463,
-    5482,
-    7087,
-    4860,
+    5163,
+    4465,
+    2421,
+    5232,
+    6211,
+    4536,
     3700,
-    6853,
-    5059
+    4971,
+    4015
    ],
-   "avcNote": "AVC parked licences removed: May $360, Jun $4,345, Aug $750, Sep $2,172, Oct $1,132"
+   "avcNote": "AVC removed from both series: won (parked licences) and invoiced (register rows, $8.5k across 2026)"
   },
   "awaitingArrK": 241,
   "awaitingDeals": 24,
   "wonDeals2026": 86,
   "churnedArrK": 1312,
-  "logosLost": 278,
-  "churnedMrr": 109521,
+  "logosLost": 274,
+  "churnedMrr": 106014,
   "churnFrom": "2025→",
-  "churnNote": "MRR movement register, 9 Nov · no new churn this week",
-  "netMrrQ3K": -3.4,
-  "netMrrNote": "Q4 to 8 Nov · new $10.1k − churn $10.7k − contraction $2.3k − credits $0.5k",
+  "churnNote": "MRR movement register, 9 Nov · AVC excluded · no new churn this week",
+  "netMrrQ3K": -5.0,
+  "netMrrNote": "Q4 to 8 Nov, AVC excluded · new $8.3k − churn $10.4k − contraction $2.3k − credits $0.5k",
   "topNotInvoiced": [
    [
     "Oscars Hotels",
@@ -821,19 +821,19 @@
   },
   "bullets": [
    [
-    "October closed: $9,186 won, $5,059 invoiced.",
-    "November to 8 Nov has won $1,965 across six deals — Moon Dog Wild West Geelong ($714), Astor Hotel change of ownership ($597), Pathways Killara Gardens ($333) and Longueville ($245) — and invoiced $5,090, most of it the 1 Nov expansion rows."
+    "October closed: $9,186 won, $4,015 invoiced.",
+    "Both series now exclude AVC. November to 8 Nov has won $1,965 across six deals — Moon Dog Wild West Geelong ($714), Astor Hotel ($597), Pathways Killara Gardens ($333) and Longueville ($245) — and invoiced $4,252, most of it the 1 Nov expansion rows."
    ],
    [
-    "No churn this week; Q4 now −$3.4k net.",
-    "New MRR $10.1k against churn $10.7k, contraction $2.3k and credits $0.5k. Gastevski Australind and Bed Ford Arms went live and are now billing."
+    "No churn this week; Q4 now −$5.0k net.",
+    "New MRR $8.3k against churn $10.4k, contraction $2.3k and credits $0.5k. Gastevski Australind and Bed Ford Arms went live and are now billing."
    ],
    [
     "Onboarding (PS, 9 Nov): three go-lives booked.",
     "Rising Sun Tue 10 Nov, Pathways Killara Gardens Mon 16 Nov and Pier Hotel Tue 17 Nov. Bar Carolina's VM and database went up today; Oscars builds over Dec–Jan for mid-January."
    ]
   ],
-  "churnedArrLabel": "$1.31M",
+  "churnedArrLabel": "$1.27M",
   "contractionArrK": 253,
   "contractionAccounts": 151,
   "pendingIntegrationsMrr": 2339,
