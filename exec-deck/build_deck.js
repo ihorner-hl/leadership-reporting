@@ -780,8 +780,9 @@ if (D.psEconomics) {
   // unrecognised PS revenue = non-chargeable hours (Is Chargeable = No) × the PS rate;
   // hours with no flag count as chargeable, so they are recognised
   const unrec = (h) => (h == null || h <= 0 ? "—" : "$" + Math.round(h * E.psRate).toLocaleString());
-  table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "NON-CHG.", "UNREC. REV"], [0.18, 0.88, 1.65, 2.1, 2.52], [0.95, 0.74, 0.42, 0.42, 0.56],
-    E.partners.map(([n, c, h, nc]) => [[n, c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [nc ? nc.toFixed(1) + "h" : "—", nc ? TERRA : FAINT, !!nc], [unrec(nc), nc ? TERRA : FAINT, !!nc]]),
+  table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "UNREC. REV"], [0.18, 1.0, 1.95, 2.45], [1.05, 0.85, 0.45, 0.62],
+    // partner work is never charged to the customer (rev-share), so every partner hour is unrecognised
+    E.partners.map(([n, c, h]) => [[n, c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [unrec(h == null ? h : Math.round(h * 10) / 10), h ? TERRA : FAINT, !!h]]),
     E.partnerNote);
   table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHG.", "NON-CHG.", "UNREC. REV"], [0.18, 1.15, 1.6, 2.1, 2.5], [1.0, 0.45, 0.5, 0.42, 0.58],
     E.accounts.map(([n, h, y, nc]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? NAVY : FAINT], [nc ? nc.toFixed(1) + "h" : "—", nc ? TERRA : FAINT, !!nc], [unrec(nc), nc ? TERRA : FAINT, !!nc]]),
