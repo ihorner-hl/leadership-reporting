@@ -720,8 +720,8 @@
    ],
    "avcNote": "AVC removed from both series: won (parked licences) and invoiced (register rows, $8.5k across 2026)"
   },
-  "awaitingArrK": 241,
-  "awaitingDeals": 24,
+  "awaitingArrK": 222,
+  "awaitingDeals": 22,
   "wonDeals2026": 86,
   "churnedArrK": 1312,
   "logosLost": 276,
@@ -738,22 +738,6 @@
     "Mar",
     0,
     "Signed · 49 sites · live mid-Jan"
-   ],
-   [
-    "Mt Henry Tavern",
-    "$11k",
-    "$905",
-    "Oct",
-    1,
-    "Invoiced 1 Nov ($543)"
-   ],
-   [
-    "Caves House Hotel",
-    "$8k",
-    "$669",
-    "Aug",
-    1,
-    "PS: done last qtr · not on register"
    ],
    [
     "Pier Hotel - Pt Lincoln",
@@ -810,9 +794,25 @@
     "Sep",
     1,
     ""
+   ],
+   [
+    "Midway Tavern (TAS)",
+    "$4k",
+    "$345",
+    "Jun",
+    1,
+    ""
+   ],
+   [
+    "Riverton Hotel",
+    "$4k",
+    "$315",
+    "Apr",
+    1,
+    ""
    ]
   ],
-  "listNote": "◆ Oscars Group — 49 sites (the HubSpot deal reads 19), build Dec–Jan, go-live mid-January. Awaiting figure and list held at the 26 Oct read. AVC new sites are excluded throughout.",
+  "listNote": "◆ Oscars Group — 49 sites (the HubSpot deal reads 19), build Dec–Jan, go-live mid-January. Awaiting figure and list held at the 26 Oct read; Mt Henry Tavern and Caves House Hotel done 16 Nov and removed, Midway Tavern and Riverton Hotel move into the top 10. AVC new sites are excluded throughout.",
   "hubspotMrr": {
    "q3Won": 12061,
    "weekWon": 3440,
@@ -838,8 +838,8 @@
   "contractionAccounts": 155,
   "pendingIntegrationsMrr": 2339,
   "pendingIntegrationsN": 42,
-  "statusHead": "STATUS · 15 NOV",
-  "awaitingNote": "24 of the 86 deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it · held at the 26 Oct read"
+  "statusHead": "STATUS · 16 NOV",
+  "awaitingNote": "22 of the 86 deals won with software MRR in 2026 have no row on the register · Oscars Group is $155k of it · 26 Oct read, less Mt Henry and Caves House (done 16 Nov)"
  },
  "backlog": {
   "source": "HubSpot (live) — cut over from Creatio",
