@@ -105,6 +105,11 @@ Add 604800000 for each following week.
 
 ## 3. PS slide — Utilisation & Delivery Hours
 
+> **FROZEN for weeks before Sun 15 Nov 2026.** The ticket-based method in this section produced every PS figure
+> up to and including the WC 9 Nov 2026 deck. Those decks and data files are locked (git tag `ps-util-frozen-2026-11-15`)
+> and must not be re-pulled or restated. From the week commencing **Sun 15 Nov 2026** onward, PS utilisation
+> comes from the weekly time records: see **section 3A**.
+
 ### Pull
 
 ```sql
@@ -259,6 +264,86 @@ WHERE hs_pipeline IN (…) AND createdate >= '2026-09-30' AND actual_hours > 0
 
 ---
 
+## 3A. PS utilisation from Sun 15 Nov 2026 — weekly time records (current method)
+
+Use this for every PS utilisation figure from the week commencing **Sunday 15 Nov 2026** onward. Earlier weeks keep
+their section 3 figures as published; never recompute them with this method, and never mix the two methods in one total.
+
+### Source
+- HubSpot custom object `p443197539_professional_services` (object type ID `2-218657847`, "Professional Service").
+- Filter **`time_record = true`**. That returns two record kinds:
+  - **Time anchor** (one per consultant, `week_commencing` blank, `anchor_active`, `contracted_hours_week`).
+  - **Weekly time record** (one per consultant per week, named "<Consultant> — week commencing YYYY-MM-DD").
+- Report from the **weekly records** only (`week_commencing` set). Anchors are capacity reference only.
+- Work orders are posted to the weekly record of the consultant in **Work performed by**, using the **Work Order Date**
+  (date worked), not the ticket owner or submission date. Entries can be back-dated up to 28 days, so a week keeps moving
+  until it is closed (`week_status`), and late entries can still amend a closed week (`amended_after_close`).
+
+### Pull
+```
+search_crm_objects  objectType = p443197539_professional_services
+  filter: time_record EQ true  AND  week_commencing EQ <Sunday, YYYY-MM-DD>
+  properties: consultant, week_commencing, week_ending, week_status, available_hours,
+    billable_chargeable_hours, billable_non_chargeable_hours, investment_hours, overhead_hours,
+    time_category_annual_leave_hours, time_category_sick_leave_hours, time_category_public_holiday_hours,
+    time_category_* (for the breakdown), entry_count, amended_after_close
+```
+Blank hour fields = 0.
+
+### Week
+- **Sunday to Saturday**, as the records define it (`week_commencing` is the Sunday, `week_ending` the Saturday).
+- First week under this method: **Sun 15 – Sat 21 Nov 2026**. It is shown in the deck dated WC 16 Nov.
+- Support and the rest of the deck stay Monday–Sunday. Label the PS slide with the record's own dates.
+
+### Roster and capacity (as at 18 Nov 2026)
+10 consultants have active anchors: Argenis Guevara, Greg St Clare-Hobbs, Harry Sammi, Isaac Mercado, Isayah Kuhlmann,
+Josh Casey, Karim AlRifaii (40h), Rhys Woolcock, Rodney Nolan, Ryan Neil Orande (40h). Everyone else is 38h.
+Base capacity is **384h** a week. Harry Sammi is new to the count; the old method used 9 × 38 = 342h.
+Always read the roster from the records each week rather than this list.
+
+### Definitions
+Compute every percentage from the raw hours. **Do not use the stamped percentage fields** (`utilisation_percent`,
+`billable_percentage`, `billable_chargeable_percentage`, etc.). As at 18 Nov they are inconsistent: `utilisation_percent` is
+described as investment ÷ available but actually holds (chargeable + non-chargeable + investment) ÷ available, and
+`billable_percentage` is populated on only one record and doesn't match its own formula.
+
+| Measure | Formula (team total = sum across weekly records) |
+|---|---|
+| Leave | annual leave + sick leave + public holiday hours |
+| Available hours | Σ `available_hours` − leave |
+| Billable · chargeable | Σ `billable_chargeable_hours` |
+| Billable · non-chargeable | Σ `billable_non_chargeable_hours` (the "hidden work") |
+| **Billable utilisation** (headline, target 50%) | (chargeable + non-chargeable) ÷ available |
+| Utilised · non-billable | Σ `investment_hours` (R&D, internal tooling, knowledge base, training prep, presales…) |
+| Non-utilised | Σ `overhead_hours` − leave (admin, meetings, training received…) |
+| Unlogged | available − (chargeable + non-chargeable + investment + non-utilised) |
+
+- The two boxes that showed "Not set up" now have data: Utilised · non-billable = investment, Non-utilised = overhead.
+- Leave now comes from HubSpot, so you no longer need to ask the user for leave each week. If a consultant's record shows no
+  leave but the user reports leave, flag it rather than overriding.
+- Check whether leave hours sit inside `overhead_hours`. If they do, subtract them as shown above. If they don't, don't
+  subtract them twice. Confirm on the first pull and record the answer here.
+- Per-consultant figures use the same formulas on that consultant's record.
+
+### What stays on the ticket method
+- The partner table, key accounts and partner unrecognised revenue (all partner hours × $150) still need ticket fields
+  (`integration_level_3`, company). Keep pulling PS tickets for those, using the ticket's work-order date in the same
+  Sunday–Saturday week.
+- Reconcile each week: ticket chargeable + non-chargeable hours should be roughly equal to the time-record totals. Report a
+  gap above 5% rather than forcing them to match.
+
+### Week-on-week and first reported
+- Week-on-week compares this record week with the previous record week, both as they read today.
+- Keep a "first reported" value for each record week, as in section 3. Back-dating means weeks restate upward.
+- The first comparison crosses the method change: show the WC 9 Nov week (ticket method) only as a labelled reference.
+  Don't present it as a like-for-like change.
+
+### First read (week of 15 Nov, pulled Wed 18 Nov, week open and incomplete)
+Chargeable 10.5h, non-chargeable 18.75h, investment 6.25h, overhead 14h across 10 consultants. Available is 384h, with no
+leave logged yet, which gives billable utilisation of 7.6% so far. Three consultants (Argenis, Greg, Ryan) had nothing logged by Wednesday.
+
+---
+
 ## 4. Support slide — Backlog
 
 **Scope:** the Support pipeline (`0`) only. PS pipelines are excluded.
@@ -337,7 +422,7 @@ Each box shows this week against last week.
 ## 5. Weekly refresh checklist
 
 1. Copy last week's JSON to `data/wc-YYYY-MM-DD.json` and set `generated` and the week labels.
-2. Ask the user for **PS leave and sick days** for the week, then recompute available hours.
+2. **PS utilisation (from WC 15 Nov 2026):** pull the weekly time records per section 3A. Leave comes from the records. For weeks before 15 Nov, nothing is re-pulled because they are frozen.
 3. **PS:**
    - Re-pull PS tickets from 1 Oct onward.
    - Recompute all three week-on-week rows.
