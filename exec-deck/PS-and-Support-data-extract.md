@@ -106,7 +106,7 @@ Add 604800000 for each following week.
 ## 3. PS slide — Utilisation & Delivery Hours
 
 > **FROZEN for weeks before Sun 15 Nov 2026.** The ticket-based method in this section produced every PS figure
-> up to and including the WC 9 Nov 2026 deck. Those decks and data files are locked (git tag `ps-util-frozen-2026-11-15`)
+> up to and including the WC 9 Nov 2026 deck. Those decks and data files are locked (as at commit `f80bffd`)
 > and must not be re-pulled or restated. From the week commencing **Sun 15 Nov 2026** onward, PS utilisation
 > comes from the weekly time records: see **section 3A**.
 
