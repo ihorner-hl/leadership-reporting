@@ -310,19 +310,18 @@ described as investment ÷ available but actually holds (chargeable + non-charge
 | Measure | Formula (team total = sum across weekly records) |
 |---|---|
 | Leave | annual leave + sick leave + public holiday hours |
-| Available hours | Σ `available_hours` − leave |
+| Available hours | Σ `available_hours` (already net of leave; don't subtract it again) |
 | Billable · chargeable | Σ `billable_chargeable_hours` |
 | Billable · non-chargeable | Σ `billable_non_chargeable_hours` (the "hidden work") |
 | **Billable utilisation** (headline, target 50%) | (chargeable + non-chargeable) ÷ available |
 | Utilised · non-billable | Σ `investment_hours` (R&D, internal tooling, knowledge base, training prep, presales…) |
-| Non-utilised | Σ `overhead_hours` − leave (admin, meetings, training received…) |
+| Non-utilised | Σ `overhead_hours` (admin, meetings, training received…; leave is not in it) |
 | Unlogged | available − (chargeable + non-chargeable + investment + non-utilised) |
 
 - The two boxes that showed "Not set up" now have data: Utilised · non-billable = investment, Non-utilised = overhead.
 - Leave now comes from HubSpot, so you no longer need to ask the user for leave each week. If a consultant's record shows no
   leave but the user reports leave, flag it rather than overriding.
-- Check whether leave hours sit inside `overhead_hours`. If they do, subtract them as shown above. If they don't, don't
-  subtract them twice. Confirm on the first pull and record the answer here.
+- **Confirmed 19 Nov:** leave reduces `available_hours` itself and is **not** inside `overhead_hours`. For example, Ryan logged 24h of public holiday, so his available hours dropped from 40 to 16, and his overhead stayed at 0.5h. Use both fields as they are.
 - Per-consultant figures use the same formulas on that consultant's record.
 
 ### What stays on the ticket method
