@@ -1065,7 +1065,7 @@ if (D.supportFlow) {
   const F = D.supportFlow;
   // chart palette, validated for colour-blind separation (dataviz validator)
   const SF_NEW = "1B8DA6", SF_CLOSED = "E0A458", SF_NET = "C2562A";
-  const SF_STAGE = { "NEW": SF_NEW, "IN PROGRESS": "5B7C8A", "PENDING INTERNAL": SF_CLOSED, "PENDING EXTERNAL": SF_NET };
+  const SF_STAGE = { "NEW": SF_NEW, "IN PROGRESS": "5B7C8A", "PENDING INTERNAL": SF_CLOSED, "PENDING EXTERNAL": SF_NET, "CUSTOMER REPLIED": GOLD };
   header(s, "Backlog", "Support", 3);
 
   // ---- KPI row: number first, one short line under it -----------------------
@@ -1120,7 +1120,7 @@ if (D.supportFlow) {
     s.addShape("rect", { x: bx, y: SY + 0.42, w: Math.max(0.02, w - 0.02), h: 0.12, fill: { color: SF_STAGE[label] || MUTED }, line: { type: "none" } });
     bx += w;
   });
-  const pad = 0.22, gap = 0.08, tw = (SW - pad * 2 - gap * 3) / 4, ty = SY + 0.66, th = 0.74;
+  const pad = 0.22, gap = 0.08, NS = Math.max(4, F.stages.length), tw = (SW - pad * 2 - gap * (NS - 1)) / NS, ty = SY + 0.66, th = 0.74;
   F.stages.forEach(([label, n], i) => {
     const x = SX + pad + i * (tw + gap), col = SF_STAGE[label] || MUTED;
     s.addShape("rect", { x, y: ty, w: tw, h: th, fill: { color: BG }, line: { type: "none" } });
