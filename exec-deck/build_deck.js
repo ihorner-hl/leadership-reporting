@@ -766,7 +766,7 @@ if (D.psEconomics) {
 
   // ---- right: two compact tables side by side --------------------------------
   const RX = 6.25, RY = CY, TW = (6.63 - 0.12) / 2, TH = 2.85, RP = 0.165;
-  const table = (x, title, heads, xs, ws, rows, note) => {
+  const table = (x, title, heads, xs, ws, rows, note, total) => {
     card(s, x, RY, TW, TH);
     s.addText(title, { x: x + 0.18, y: RY + 0.1, w: TW - 0.36, h: 0.28, fontFace: FONT, fontSize: 9.5, bold: true, color: TEAL, isTextBox: true, margin: 0, valign: "middle" });
     heads.forEach((t, i) => s.addText(t, { x: x + xs[i], y: RY + 0.42, w: ws[i], h: 0.16, align: i ? "right" : "left", fontFace: FONT, fontSize: 5.6, bold: true, color: FAINT, isTextBox: true, margin: 0 }));
@@ -775,6 +775,11 @@ if (D.psEconomics) {
       if (ri % 2 === 1) s.addShape("rect", { x: x + 0.1, y, w: TW - 0.2, h: RP, fill: { color: BG }, line: { type: "none" } });
       cells.forEach(([txt, col, bold], ci) => s.addText(txt, { x: x + xs[ci], y, w: ws[ci], h: RP, align: ci ? "right" : "left", fontFace: FONT, fontSize: 6.8, bold: !!bold, color: col || NAVY, isTextBox: true, margin: 0, valign: "middle" }));
     });
+    if (total) {
+      const y = RY + 0.6 + rows.length * RP + 0.03;
+      s.addShape("rect", { x: x + 0.1, y: y - 0.015, w: TW - 0.2, h: 0.012, fill: { color: NAVY }, line: { type: "none" } });
+      total.forEach(([txt, col], ci) => s.addText(txt, { x: x + xs[ci], y, w: ws[ci], h: RP, align: ci ? "right" : "left", fontFace: FONT, fontSize: 6.8, bold: true, color: col || NAVY, isTextBox: true, margin: 0, valign: "middle" }));
+    }
     if (note) s.addText(note, { x: x + 0.18, y: RY + TH - 0.42, w: TW - 0.36, h: 0.38, fontFace: FONT, fontSize: 5.4, color: FAINT, isTextBox: true, margin: 0, valign: "top" });
   };
   // unrecognised PS revenue = non-chargeable hours (Is Chargeable = No) × the PS rate;
@@ -783,10 +788,14 @@ if (D.psEconomics) {
   table(RX, "PARTNERS — COMMISSION vs PS WORK", ["PARTNER", "COMM. JAN–SEP", "HRS Q4", "UNREC. REV"], [0.18, 1.0, 1.95, 2.45], [1.05, 0.85, 0.45, 0.62],
     // partner work is never charged to the customer (rev-share), so every partner hour is unrecognised
     E.partners.map(([n, c, h]) => [[n, c === 0 ? TERRA : NAVY, true], [c === 0 ? "$0" : k$(c), c === 0 ? FAINT : NAVY, true], [h == null ? "—" : h.toFixed(1) + "h", h == null ? FAINT : NAVY], [unrec(h == null ? h : Math.round(h * 10) / 10), h ? TERRA : FAINT, !!h]]),
-    E.partnerNote);
+    E.partnerNote,
+    (() => { const c = E.partners.reduce((a, p) => a + (p[1] || 0), 0), h = E.partners.reduce((a, p) => a + (p[2] ? Math.round(p[2] * 10) / 10 : 0), 0);
+      return [["TOTAL"], [k$(c)], [h.toFixed(1) + "h"], ["$" + Math.round(h * E.psRate).toLocaleString(), TERRA]]; })());
   table(RX + TW + 0.12, "KEY ACCOUNTS — PS WORK BUILT IN", ["ACCOUNT", "HRS Q4", "CHG.", "NON-CHG.", "UNREC. REV"], [0.18, 1.15, 1.6, 2.1, 2.5], [1.0, 0.45, 0.5, 0.42, 0.58],
     E.accounts.map(([n, h, y, nc]) => [[n, NAVY, true], [h.toFixed(1) + "h", NAVY, true], [y ? y.toFixed(1) + "h" : "—", y ? NAVY : FAINT], [nc ? nc.toFixed(1) + "h" : "—", nc ? TERRA : FAINT, !!nc], [unrec(nc), nc ? TERRA : FAINT, !!nc]]),
-    E.accountNote);
+    E.accountNote,
+    (() => { const sum = (i) => E.accounts.reduce((a, r) => a + (r[i] || 0), 0), nc = sum(3);
+      return [["TOTAL"], [sum(1).toFixed(1) + "h"], [sum(2).toFixed(1) + "h"], [nc.toFixed(1) + "h", TERRA], [unrec(nc), TERRA]]; })());
 
   // ---- right lower: summary --------------------------------------------------
   const AY = RY + TH + 0.12;
